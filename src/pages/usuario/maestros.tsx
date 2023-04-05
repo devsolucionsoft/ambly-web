@@ -32,8 +32,8 @@ export default function Login() {
           <Typography text="Maestros" variant="H1" />
 
           <div className="my-courses-list">
-            {items.map((item) => (
-              <section className="teacher-item">
+            {items.map((item, index) => (
+              <section key={index} className="teacher-item">
                 <Image className="teacher-image" src={TutorImage} alt="" />
                 <Typography
                   className="teacher-title"

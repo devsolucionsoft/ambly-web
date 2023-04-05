@@ -46,8 +46,8 @@ export default function Login() {
             <HeaderSection title="Maestros" action={() => false} />
 
             <div className="teachers-list">
-              {items.map((item) => (
-                <section className="teacher-item">
+              {items.map((item, index) => (
+                <section key={index} className="teacher-item">
                   <Image className="teacher-image" src={TutorImage} alt="" />
                   <Typography
                     className="teacher-title"
@@ -62,8 +62,8 @@ export default function Login() {
           <div>
             <HeaderSection title="Categorías" />
             <div className="category-list">
-              {items.map((item) => (
-                <section className="category-item">
+              {items.map((item, index) => (
+                <section key={index} className="category-item">
                   <Image className="category-image" src={TemaImage} alt="" />
                 </section>
               ))}

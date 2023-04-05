@@ -27,8 +27,8 @@ export default function Login() {
           <Typography text="Trailers" variant="H1" />
 
           <div className="my-courses-list">
-            {items.map((item) => (
-              <div className="course-item">
+            {items.map((item, index) => (
+              <div key={index} className="course-item">
                 <SlidersTrailer>
                   <div className="video-contain">
                     <video
