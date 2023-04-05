@@ -51,10 +51,10 @@ const Sliders = (props: SlidersAttributes) => {
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
       >
-        {items.map((item) => {
+        {items.map((item, index) => {
           if (variant === "new") {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <SliderNew>
                   <Image className="image-course" src={ImageCourse} alt="" />
                   <div className="slider-content">
@@ -78,7 +78,7 @@ const Sliders = (props: SlidersAttributes) => {
           }
           if (variant === "popular") {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <SliderPopular>
                   <Image className="image-course" src={PopularCourse} alt="" />
                 </SliderPopular>
@@ -88,7 +88,7 @@ const Sliders = (props: SlidersAttributes) => {
 
           if (variant === "trailers") {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <SlidersTrailer>
                   <div className="video-contain">
                     <video
