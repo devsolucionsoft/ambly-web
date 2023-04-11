@@ -39,6 +39,7 @@ export const Main = styled.main`
           width: 100%;
           object-fit: cover;
           position: absolute;
+          transition: all 200ms;
         }
         .course-content {
           position: absolute;
@@ -51,7 +52,7 @@ export const Main = styled.main`
           align-items: flex-start;
           z-index: 2;
           .course-title {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             width: 80%;
             margin-bottom: 20px;
           }
@@ -59,6 +60,15 @@ export const Main = styled.main`
             padding: 10px 20px;
             border-radius: 30px;
             background-color: #00000061;
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        &:hover {
+          .image-name {
+            height: 102%;
+            width: 102%;
           }
         }
         .overlay {

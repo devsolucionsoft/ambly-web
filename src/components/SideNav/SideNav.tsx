@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from "react"
+import { HTMLAttributes, useState, MouseEvent } from "react"
 import Link from "next/link"
 // Styled components
 import { Main, FormPassword } from "./SideNav.styled"
@@ -30,6 +30,10 @@ const SideNav = (props: SideNavAttributes) => {
 
   const [showModal, setShowModal] = useState(false)
 
+  const handleChildClick = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
+  }
+
   return (
     <Main openNav={openNav} onClick={() => appDispatch(onSideNav(false))}>
       <Modal
@@ -42,8 +46,14 @@ const SideNav = (props: SideNavAttributes) => {
           <Button text="Enviar" bg color="redPrimary" />
         </FormPassword>
       </Modal>
-      <nav className="nav-content">
-        <button className="icon-close">
+      <nav className="nav-content" onClick={handleChildClick}>
+        <button
+          className="icon-close"
+          onClick={(e) => {
+            setShowModal(false)
+            handleChildClick(e)
+          }}
+        >
           <IoCloseSharp className="icon" />
         </button>
         <h4 className="menu-title">Menú</h4>

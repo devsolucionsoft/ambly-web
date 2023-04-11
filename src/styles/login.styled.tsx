@@ -17,6 +17,7 @@ export const Main = styled.main`
       width: 30%;
       margin-top: 3em;
       .forget-password {
+        font-size: 1rem;
         margin: 2em 0;
         p {
           text-align: center;
@@ -26,6 +27,7 @@ export const Main = styled.main`
       }
       .politis {
         width: 80%;
+        font-size: 1rem;
         margin-left: 10%;
         p {
           text-align: center;

@@ -7,6 +7,7 @@ export const Main = styled.div<{ openNav: boolean }>`
   height: 100%;
   background-color: #00000077;
   display: flex;
+  justify-content: flex-end;
   width: 0%;
   overflow: hidden;
 
@@ -27,7 +28,7 @@ export const Main = styled.div<{ openNav: boolean }>`
     .icon-close {
       position: absolute;
       top: 1em;
-      right: 1em;
+      left: 1em;
       cursor: pointer;
       background-color: transparent;
       border: none;
@@ -37,6 +38,7 @@ export const Main = styled.div<{ openNav: boolean }>`
       }
     }
     .menu-title {
+      text-align: center;
       font-size: 2rem;
       font-weight: 600;
       margin-bottom: 1em;
@@ -55,7 +57,7 @@ export const Main = styled.div<{ openNav: boolean }>`
         border-bottom: 1px solid #6565655a;
         cursor: pointer;
         .icon {
-          font-size: 1.5rem;
+          font-size: 1.3rem;
           margin-right: 1rem;
           color: white;
         }

@@ -30,8 +30,15 @@ export default function Login() {
       <Main>
         <SideNav />
         <Header />
-        <div className="content-page">
+        <div className="content-page-top">
           <Sliders variant="new" />
+        </div>
+        <div className="content-page">
+          <Typography
+            text={'"Explore your new skill today"'}
+            variant="H1"
+            style={{ textAlign: "center" }}
+          />
           <div>
             <HeaderSection title="Populares" action={() => false} />
             <Sliders variant="popular" />

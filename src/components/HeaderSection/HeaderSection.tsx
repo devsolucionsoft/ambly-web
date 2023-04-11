@@ -17,7 +17,7 @@ const Button = (props: ButtonAttributes) => {
   return (
     <Main>
       <div className="contain">
-        <Typography text={title} variant="H2" />
+        <Typography text={title} variant="H4" />
         <div>{action && <button className="action">Ver todos</button>}</div>
       </div>
     </Main>

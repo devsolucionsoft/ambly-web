@@ -4,10 +4,14 @@ export const Main = styled.main`
   background-color: ${(props) => props.theme.colors.black};
   color: ${(props) => props.theme.colors.ligth};
   padding: 0% 0;
+
+  .content-page-top {
+    padding: 5em 0% 6em 0%;
+  }
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 6em 10% 6em 10%;
+    padding: 2em 10% 6em 10%;
 
     .teachers-list {
       display: flex;
@@ -24,9 +28,9 @@ export const Main = styled.main`
           border-radius: 10%;
         }
         .teacher-title {
-          margin-top: 1.5rem;
-          font-size: 1.3rem;
-          text-align: center;
+          margin-top: 1rem;
+          font-size: 1.2rem;
+          text-align: left;
         }
       }
     }

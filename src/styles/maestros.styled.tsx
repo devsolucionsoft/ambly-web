@@ -26,8 +26,8 @@ export const Main = styled.main`
         }
         .teacher-title {
           margin-top: 1.5rem;
-          font-size: 1.3rem;
-          text-align: center;
+          font-size: 1.2rem;
+          text-align: left;
         }
       }
     }

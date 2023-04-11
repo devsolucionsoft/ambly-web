@@ -6,6 +6,8 @@ import Image from "next/image"
 import IconAmbly from "../assets/images/icon-ambly.png"
 // Components
 import { Button, Typography } from "../components"
+import { BsGooglePlay } from "react-icons/bs"
+import { SiAppstore } from "react-icons/si"
 
 export default function Home() {
   const router = useRouter()
@@ -20,21 +22,48 @@ export default function Home() {
       <Main>
         <div className="contain">
           <Image className="icon" src={IconAmbly} alt="" />
-          <Typography text="Crea una cuenta para continuar" variant="H1" />
+          <div className="init-session">
+            <Typography
+              text="Crea una cuenta para continuar"
+              variant="H6"
+              style={{ marginBottom: "1em" }}
+            />
 
-          <div>
-            <Button
-              text="Crear con correo electrónico"
-              bg
-              color="redPrimary"
-              onClick={() => router.push("registro")}
+            <div>
+              <Button
+                text="Crear con correo electrónico"
+                bg
+                color="redPrimary"
+                onClick={() => router.push("registro")}
+              />
+              <br />
+              <Button
+                text="Accede a tu cuenta"
+                style={{ textDecoration: "underline" }}
+                onClick={() => router.push("login")}
+              />
+            </div>
+          </div>
+
+          <div className="divider"></div>
+
+          <div className="shops-section">
+            <Typography
+              text="Descarga nuestra App:"
+              variant="P"
+              style={{ fontSize: "1.3rem" }}
             />
-            <br />
-            <Button
-              text="Accede a tu cuenta"
-              style={{ textDecoration: "underline" }}
-              onClick={() => router.push("login")}
-            />
+            <div className="shops">
+              <a href="#">
+                <BsGooglePlay className="icon" />
+                <p>Play Store</p>
+              </a>
+
+              <a href="#">
+                <SiAppstore className="icon" />
+                <p>App Store</p>
+              </a>
+            </div>
           </div>
         </div>
       </Main>

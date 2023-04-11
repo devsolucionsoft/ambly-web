@@ -12,7 +12,7 @@ export const Main = styled.div`
     .action {
       background-color: transparent;
       border: none;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       cursor: pointer;
       color: ${(props) => props.theme.colors.redPrimary};
     }

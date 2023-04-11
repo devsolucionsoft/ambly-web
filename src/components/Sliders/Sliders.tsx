@@ -36,9 +36,13 @@ const Sliders = (props: SlidersAttributes) => {
   let slidesPerView = 1
   const swiper = useSwiper()
 
-  if (variant === "popular" || variant === "trailers") {
+  if (variant === "popular") {
     slidesPerView = 3
   }
+  if (variant === "trailers") {
+    slidesPerView = 4
+  }
+
   return (
     <Main>
       <Swiper
@@ -46,7 +50,7 @@ const Sliders = (props: SlidersAttributes) => {
         modules={[Navigation, Pagination]}
         navigation
         pagination={{ clickable: true }}
-        spaceBetween={50}
+        spaceBetween={30}
         slidesPerView={slidesPerView}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
@@ -98,7 +102,7 @@ const Sliders = (props: SlidersAttributes) => {
                     <AiFillPlayCircle className="icon-play" size={80} />
                   </div>
                   <div className="slider-content">
-                    <h3>Nombre del curso</h3>
+                    <h3 className="trailer-title">Nombre del curso</h3>
                     <div className="autor">
                       <FaUserAlt className="icon" />
                       <span>Carlos Jaramillo</span>

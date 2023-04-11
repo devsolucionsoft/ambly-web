@@ -15,7 +15,7 @@ export default function Login() {
       </Head>
       <Main>
         <div className="contain">
-          <Typography text="Crea una cuenta" variant="H1" />
+          <Typography text="Crea una cuenta" variant="H2" />
           <form className="form-login" action="">
             <Input type="text" label="Nombre" />
             <Input type="text" label="E-mail" />
@@ -23,7 +23,7 @@ export default function Login() {
 
             <div className="politis">
               <p>
-                Al continuear acepto <span> términos y condiciones</span> y{" "}
+                Al continuar acepto <span> términos y condiciones</span> y{" "}
                 <span>políticas de privacidad</span>
               </p>
             </div>

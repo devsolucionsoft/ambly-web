@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import { ButtonProps } from "./Button"
 export const Main = styled.main<ButtonProps>`
-  padding: 0.7em 1.8em;
-  font-size: 1.2rem;
+  padding: 0.6em 1.7em;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   border-radius: 50px;
@@ -14,8 +14,8 @@ export const Main = styled.main<ButtonProps>`
 `
 
 export const MainSm = styled.main<ButtonProps>`
-  padding: 0.5em 2.5em;
-  font-size: 1.2rem;
+  padding: 0.4em 2.4em;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   border-radius: 10px;

@@ -16,16 +16,19 @@ export const Main = styled.div`
 
 export const SliderNew = styled.section`
   position: relative;
+  display: flex;
+  justify-content: center;
   .image-course {
     width: 100%;
-    height: 90vh;
+    height: 50vh;
     object-fit: cover;
+    object-position: top;
   }
   .slider-content {
     position: absolute;
     z-index: 2;
     bottom: 0;
-    width: 100%;
+    width: 80%;
     padding: 2em;
     display: flex;
     flex-direction: column;
@@ -84,8 +87,12 @@ export const SlidersTrailer = styled.section`
       right: 0;
     }
   }
+  .trailer-title {
+    font-size: 1.2rem;
+  }
   .autor {
     margin: 10px 0;
+    font-size: 0.8rem;
     .icon {
       margin-right: 10px;
     }

@@ -16,7 +16,7 @@ export const Main = styled.main`
       margin-top: 3em;
       .course-item {
         position: relative;
-        width: 48%;
+        width: 24%;
         height: auto;
         margin-bottom: 3em;
       }

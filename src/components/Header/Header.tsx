@@ -25,15 +25,30 @@ const Header = (props: HeaderAttributes) => {
     <Main>
       <div id="modal-root"></div>
       <div className="contain">
-        <div className="open-menu" onClick={() => appDispatch(onSideNav(true))}>
-          <HiMenu size={35} />
-        </div>
         <Link href="/usuario/inicio">
           <Image className="logo" src={IconAmbly} alt="" />
         </Link>
 
-        <div className="user">
-          <BiUserCircle size={50} />
+        <div className="links">
+          <div className="link-item">
+            <a href="#">Categorías</a>
+          </div>
+          <div className="link-item">
+            <a href="#">Mis cursos</a>
+          </div>
+          <div className="link-item">
+            <a href="#">Perfil</a>
+          </div>
+          <div className="link-item">
+            <a href="#">Mis cursos</a>
+          </div>
+          <div className="link-item">
+            <a href="#">Coche</a>
+          </div>
+        </div>
+
+        <div className="open-menu" onClick={() => appDispatch(onSideNav(true))}>
+          <HiMenu size={35} />
         </div>
       </div>
     </Main>

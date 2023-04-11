@@ -9,18 +9,35 @@ export const Main = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1em 5%;
+    padding: 0.5em 5%;
     background-color: #000000bd;
     width: 100%;
-
+    position: relative;
     .open-menu,
-    .user,
     .logo {
       cursor: pointer;
+      position: relative;
+      z-index: 2;
+    }
+
+    .links {
+      position: absolute;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      left: 0;
+      .link-item {
+        margin: 0 1.5rem;
+        a {
+          color: white;
+          font-size: 1.2rem;
+          text-decoration: none;
+        }
+      }
     }
 
     .logo {
-      width: 150px;
+      width: 8rem;
       height: auto;
     }
   }

@@ -38,7 +38,7 @@ export default function Login() {
                 <div className="course-content">
                   <Typography
                     text="Los pilares de la vida saludable"
-                    variant="H2"
+                    variant="H1"
                     className="course-title"
                   />
                   <div className="course-datails">
