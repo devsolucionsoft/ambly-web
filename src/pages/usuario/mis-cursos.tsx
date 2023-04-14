@@ -5,13 +5,7 @@ import ImageCourse from "../../assets/images/new-course.jpg"
 // Styled components
 import { Main } from "../../styles/mis-cursos.styled"
 // Components
-import {
-  Header,
-  Sliders,
-  HeaderSection,
-  Typography,
-  SideNav,
-} from "../../components"
+import { Header, Typography, SideNav } from "../../components"
 
 const items = [1, 2, 3, 4]
 

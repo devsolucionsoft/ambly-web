@@ -6,7 +6,7 @@ export const Main = styled.main`
   padding: 0% 0;
 
   .content-page-top {
-    padding: 5em 0% 6em 0%;
+    padding: 5em 0% 3em 0%;
   }
   .content-page {
     position: relative;

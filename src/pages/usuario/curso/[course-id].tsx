@@ -10,7 +10,7 @@ import maestra from "../../../assets/images/maestra.png"
 // Styled components
 import { Main } from "../../../styles/curso.styled"
 // Components
-import { Header, Typography, SideNav } from "../../../components"
+import { Header, Typography, SideNav, ModulesList } from "../../../components"
 import ImageName from "../../../assets/images/svg-ejem.png"
 import { FaUserAlt } from "react-icons/fa"
 
@@ -92,6 +92,12 @@ export default function Login() {
               text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
               variant="P"
             />
+
+            <div className="divider"></div>
+
+            <div className="ModulesList-contain">
+              <ModulesList />
+            </div>
           </div>
 
           <div className="teacher-section">

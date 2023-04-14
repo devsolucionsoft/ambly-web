@@ -65,6 +65,10 @@ export const Main = styled.main`
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 20%;
+        padding: 2em 0;
+        border: 2px solid #52525293;
+        border-radius: 20px;
         .icon {
           margin-bottom: 1em;
           width: auto;
@@ -85,6 +89,21 @@ export const Main = styled.main`
     .modulos-section {
       margin-top: 6em;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .divider {
+        width: 100px;
+        height: 10px;
+        border-radius: 10px;
+        margin: 2em 0;
+        background-color: ${(props) => props.theme.colors.redPrimary};
+      }
+
+      .ModulesList-contain {
+        padding: 0 10%;
+      }
     }
 
     .teacher-section {

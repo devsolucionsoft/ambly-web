@@ -6,6 +6,7 @@ import Sliders from "./Sliders"
 import HeaderSection from "./HeaderSection"
 import SideNav from "./SideNav"
 import Modal from "./Modal"
+import ModulesList from "./ModulesList"
 
 export {
   Button,
@@ -16,4 +17,5 @@ export {
   HeaderSection,
   SideNav,
   Modal,
+  ModulesList,
 }
