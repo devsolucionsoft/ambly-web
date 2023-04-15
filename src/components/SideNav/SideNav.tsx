@@ -42,7 +42,7 @@ const SideNav = (props: SideNavAttributes) => {
         title="Recuperar contraseña"
       >
         <FormPassword action="">
-          <Input type="mail" label="Email" />
+          <Input type="email" label="Email" name="email" />
           <Button text="Enviar" bg color="redPrimary" />
         </FormPassword>
       </Modal>
