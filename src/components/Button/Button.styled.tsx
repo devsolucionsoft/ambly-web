@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { ButtonProps } from "./Button"
-export const Main = styled.div<ButtonProps>`
+export const Main = styled.button<ButtonProps>`
   padding: 0.6em 1.7em;
   font-size: 1.1rem;
   font-weight: 600;
@@ -11,12 +11,12 @@ export const Main = styled.div<ButtonProps>`
   color: ${(props) => props.theme.colors.ligth};
   width: 100%;
   ${(props) =>
-    props.bg &&
-    props.color &&
-    `background-color: ${props.theme.colors[props.color]}`};
+    props.bg && props.color
+      ? `background-color: ${props.theme.colors[props.color]}`
+      : `background-color: transparent`}
 `
 
-export const MainSm = styled.div<ButtonProps>`
+export const MainSm = styled.button<ButtonProps>`
   padding: 0.4em 2.4em;
   font-size: 1rem;
   font-weight: 600;
@@ -24,7 +24,7 @@ export const MainSm = styled.div<ButtonProps>`
   border-radius: 10px;
   text-align: center;
   ${(props) =>
-    props.bg &&
-    props.color &&
-    `background-color: ${props.theme.colors[props.color]}`}; ;
+    props.bg && props.color
+      ? `background-color: ${props.theme.colors[props.color]}`
+      : `background-color: transparent`}; ;
 `
