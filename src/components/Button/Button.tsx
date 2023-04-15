@@ -9,18 +9,27 @@ export interface ButtonProps {
   bg?: boolean
   color?: paletteTypes
   variant?: "lg" | "sm"
+  disabled?: boolean
 }
 
 type ButtonAttributes = ButtonProps & HTMLAttributes<HTMLButtonElement>
 
 const Button = (props: ButtonAttributes) => {
-  const { text, variant } = props
+  const { text, variant, disabled } = props
 
   if (variant === "sm") {
-    return <MainSm {...props}>{text}</MainSm>
+    return (
+      <MainSm disabled={disabled} {...props}>
+        {text}
+      </MainSm>
+    )
   }
 
-  return <Main {...props}>{text}</Main>
+  return (
+    <Main disabled={disabled} {...props}>
+      {text}
+    </Main>
+  )
 }
 
 export default Button

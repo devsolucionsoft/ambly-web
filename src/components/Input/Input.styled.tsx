@@ -1,6 +1,7 @@
 import styled from "styled-components"
+import { InputProps } from "./Input"
 
-export const Main = styled.div`
+export const Main = styled.div<InputProps>`
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
@@ -16,6 +17,13 @@ export const Main = styled.div`
     padding: 0.7rem 1.3rem;
     border-radius: 0.5rem;
     color: ${(props) => props.theme.colors.ligth};
-    border: 1px solid ${(props) => props.theme.colors.ligth};
+    border: 1px solid
+      ${(props) =>
+        props.error ? props.theme.colors.redPrimary : props.theme.colors.ligth};
+  }
+
+  .label-error {
+    margin-top: 0.5rem;
+    color: ${(props) => props.theme.colors.redPrimary};
   }
 `

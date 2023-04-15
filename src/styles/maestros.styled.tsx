@@ -17,6 +17,7 @@ export const Main = styled.main`
       margin-top: 3em;
       .teacher-item {
         width: 250px;
+        margin-bottom: 2em;
         cursor: pointer;
         .teacher-image {
           width: 250px;

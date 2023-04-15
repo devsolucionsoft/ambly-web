@@ -1,6 +1,7 @@
 // React
 import { HTMLAttributes } from "react"
 import Image from "next/image"
+import MobileContent from "../MobileContent"
 // Styled components
 import { Main } from "./Header.styled"
 // Images
@@ -23,6 +24,7 @@ const Header = (props: HeaderAttributes) => {
 
   return (
     <Main>
+      <MobileContent />
       <div id="modal-root"></div>
       <div className="contain">
         <Link href="/usuario/inicio">

@@ -12,12 +12,25 @@ import {
   HeaderSection,
   Typography,
   SideNav,
+  Modal,
 } from "../../components"
 
 const items = [1, 2, 3, 4]
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false)
+  const [trailerPlay, setTrailerPlay] = useState({
+    title: "",
+    video: "",
+  })
+
+  const handleTrailerClick = (item: any) => {
+    setTrailerPlay({
+      title: item.title,
+      video: item.video,
+    })
+    setShowModal(true)
+  }
 
   return (
     <>
@@ -30,6 +43,20 @@ export default function Login() {
       <Main>
         <SideNav />
         <Header />
+        <Modal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          title={trailerPlay.title}
+        >
+          {showModal && (
+            <video
+              className="page-top-video"
+              controls
+              style={{ width: "100%" }}
+              src={trailerPlay.video}
+            ></video>
+          )}
+        </Modal>
         <div className="content-page-top">
           <Sliders variant="new" />
         </div>
@@ -46,7 +73,7 @@ export default function Login() {
 
           <div>
             <HeaderSection title="Trailers" action={() => false} />
-            <Sliders variant="trailers" />
+            <Sliders variant="trailers" onClick={handleTrailerClick} />
           </div>
 
           <div>

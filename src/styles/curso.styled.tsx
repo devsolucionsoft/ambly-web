@@ -66,9 +66,10 @@ export const Main = styled.main`
         flex-direction: column;
         align-items: center;
         width: 20%;
-        padding: 2em 0;
+        padding: 2em 1em;
         border: 2px solid #52525293;
         border-radius: 20px;
+        text-align: center;
         .icon {
           margin-bottom: 1em;
           width: auto;

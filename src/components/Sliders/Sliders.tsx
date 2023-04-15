@@ -25,6 +25,7 @@ import "swiper/css/pagination"
 
 interface SlidersProps {
   variant: "new" | "popular" | "trailers"
+  onClickSlider?: (item: any) => void
 }
 
 const items = [1, 2, 3, 4, 5]
@@ -32,7 +33,7 @@ const items = [1, 2, 3, 4, 5]
 type SlidersAttributes = SlidersProps & HTMLAttributes<HTMLDivElement>
 
 const Sliders = (props: SlidersAttributes) => {
-  const { variant } = props
+  const { variant, onClickSlider = () => false } = props
   let slidesPerView = 1
   const swiper = useSwiper()
 
@@ -93,13 +94,21 @@ const Sliders = (props: SlidersAttributes) => {
           if (variant === "trailers") {
             return (
               <SwiperSlide key={index}>
-                <SlidersTrailer>
+                <SlidersTrailer
+                  onClick={(ev) =>
+                    onClickSlider({
+                      title: "Titulo del video",
+                      video:
+                        "https://app-ambly.s3.amazonaws.com/static/uploads/57865ccfb2df78a10ec0-pexels-pressmaster-3209828-3840x2160-25fps.mp4",
+                    })
+                  }
+                >
                   <div className="video-contain">
                     <video
                       className="video"
                       src="https://joy1.videvo.net/videvo_files/video/free/video0455/large_watermarked/_import_609113a1be0e89.39394997_preview.mp4"
                     ></video>
-                    <AiFillPlayCircle className="icon-play" size={80} />
+                    <AiFillPlayCircle className="icon-play" />
                   </div>
                   <div className="slider-content">
                     <h3 className="trailer-title">Nombre del curso</h3>

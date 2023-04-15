@@ -1,10 +1,70 @@
+import { useRouter } from "next/router"
 import Head from "next/head"
+import { useState } from "react"
 // Styled components
 import { Main } from "../styles/login.styled"
 // Components
 import { Button, Typography, Input } from "../components"
+// Hooks
+import useValidateForm, {
+  InputValidationI,
+  IErrorInputs,
+} from "../hooks/useValidateForm"
+// Api
+import { AuthApi } from "../api"
+import { json } from "stream/consumers"
+
+const AuthApiModel = new AuthApi()
 
 export default function Login() {
+  const router = useRouter()
+
+  const defaultInputs = {
+    email: "",
+    password: "",
+  }
+  // States inputs
+  const [stateInputs, setStateInputs] = useState(defaultInputs)
+  // Use Hook Validation
+  const defaultValidation: InputValidationI = {
+    email: { required: "email" },
+    password: { required: "text" },
+  }
+  const { validationInputs, getValidation } = useValidateForm({
+    defaultInputs,
+    defaultValidation,
+  })
+  const [errorInputs, setErrorInputs] = useState<IErrorInputs>(validationInputs)
+  // Inputs keyup
+  const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setStateInputs({
+      ...stateInputs,
+      [event.target.name]: event.target.value,
+    })
+    setErrorInputs(validationInputs)
+  }
+
+  const handleLogin = async () => {
+    const { errors, validation } = getValidation(stateInputs)
+
+    if (validation) {
+      const response = await AuthApiModel.UserLogin(stateInputs)
+
+      switch (response.status) {
+        case 200:
+          console.log(response)
+          localStorage.setItem("user-auth", JSON.stringify(response.data))
+          router.push("/usuario/inicio")
+          break
+      }
+    } else {
+      setErrorInputs({
+        ...errorInputs,
+        ...errors,
+      })
+    }
+  }
+
   return (
     <>
       <Head>
@@ -16,20 +76,59 @@ export default function Login() {
       <Main>
         <div className="contain">
           <Typography text="Iniciar sesion" variant="H1" />
-          <form className="form-login" action="">
-            <Input type="text" label="E-mail" />
-            <Input type="password" label="Contraseña" />
+          <div className="form-login">
+            <Input
+              type="email"
+              label="E-mail"
+              name="email"
+              onChange={handleKeyUp}
+              error={errorInputs.email.error}
+              message={errorInputs.email.message}
+            />
+            <Input
+              type="password"
+              label="Contraseña"
+              name="password"
+              onChange={handleKeyUp}
+              error={errorInputs.password.error}
+              message={errorInputs.password.message}
+            />
 
             <div className="forget-password">
               <p>¿Olvidaste tu contraseña</p>
             </div>
 
             <div className="button-contain">
-              <Button text="INICIAR" bg color="redPrimary" />
+              <Button
+                text="INICIAR"
+                bg
+                color="redPrimary"
+                onClick={handleLogin}
+              />
             </div>
-          </form>
+          </div>
         </div>
       </Main>
     </>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  // if (localStorage.getItem("user-auth")) {
+  //   const stored = localStorage.getItem("user-auth")
+  //   const userAuth = stored ? JSON.parse(stored) : { token: null }
+
+  //   if (userAuth.token) {
+  //     return {
+  //       redirect: {
+  //         destination: "/usuario/inicio",
+  //         permanent: false,
+  //       },
+  //     }
+  //   }
+  // }
+
+  return {
+    props: {}, // Will be passed to the page component as props
+  }
 }

@@ -81,6 +81,7 @@ export const SlidersTrailer = styled.section`
     .icon-play {
       position: absolute;
       margin: auto;
+      font-size: 3rem;
       top: 0;
       bottom: 0;
       left: 0;

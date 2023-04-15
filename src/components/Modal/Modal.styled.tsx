@@ -26,7 +26,7 @@ export const StyledModalHeader = styled.div`
 export const StyledModal = styled.div`
   position: relative;
   background: ${(props) => props.theme.colors.dark};
-  width: 500px;
+  width: 50vw;
   border-radius: 15px;
   padding: 3em 2em 4em 2em;
 `

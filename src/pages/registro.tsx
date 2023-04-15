@@ -17,9 +17,9 @@ export default function Login() {
         <div className="contain">
           <Typography text="Crea una cuenta" variant="H2" />
           <form className="form-login" action="">
-            <Input type="text" label="Nombre" />
-            <Input type="text" label="E-mail" />
-            <Input type="password" label="Contraseña" />
+            <Input type="text" label="Nombre" name="name" />
+            <Input type="text" label="E-mail" name="mail" />
+            <Input type="password" label="Contraseña" name="password" />
 
             <div className="politis">
               <p>

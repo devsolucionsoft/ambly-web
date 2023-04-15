@@ -5,12 +5,13 @@ import { Main } from "../styles/index.styled"
 import Image from "next/image"
 import IconAmbly from "../assets/images/icon-ambly.png"
 // Components
-import { Button, Typography } from "../components"
+import { Button, Typography, MobileContent } from "../components"
 import { BsGooglePlay } from "react-icons/bs"
 import { SiAppstore } from "react-icons/si"
 
 export default function Home() {
   const router = useRouter()
+
   return (
     <>
       <Head>
@@ -20,6 +21,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
+        <MobileContent />
         <div className="contain">
           <Image className="icon" src={IconAmbly} alt="" />
           <div className="init-session">
@@ -28,21 +30,22 @@ export default function Home() {
               variant="H6"
               style={{ marginBottom: "1em" }}
             />
-
-            <div>
-              <Button
-                text="Crear con correo electrónico"
-                bg
-                color="redPrimary"
-                onClick={() => router.push("registro")}
-              />
-              <br />
-              <Button
-                text="Accede a tu cuenta"
-                style={{ textDecoration: "underline" }}
-                onClick={() => router.push("login")}
-              />
-            </div>
+            <br />
+            <br />
+            <br />
+            <Button
+              text="Crear con correo electrónico"
+              bg
+              color="redPrimary"
+              onClick={() => router.push("registro")}
+            />
+            <br />
+            <br />
+            <Button
+              text="Accede a tu cuenta"
+              style={{ textDecoration: "underline", textAlign: "center" }}
+              onClick={() => router.push("login")}
+            />
           </div>
 
           <div className="divider"></div>

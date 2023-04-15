@@ -20,6 +20,7 @@ export const Main = styled.main`
       justify-content: center;
       .teacher-item {
         width: 250px;
+        margin-bottom: 2em;
         cursor: pointer;
         .teacher-image {
           width: 250px;
@@ -42,6 +43,7 @@ export const Main = styled.main`
       justify-content: center;
       .category-item {
         width: 250px;
+        margin-bottom: 2em;
         cursor: pointer;
         .category-image {
           width: 250px;
