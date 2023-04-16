@@ -5,6 +5,7 @@ import { HTMLAttributes, useState } from "react"
 import { Main, ModuleItemMain } from "./ModulesList.styled"
 import { AiFillPlayCircle } from "react-icons/ai"
 import { BsFillPlayFill } from "react-icons/bs"
+import { useRouter } from "next/router"
 
 import { IoIosArrowForward } from "react-icons/io"
 import Typography from "../Typography"
@@ -16,6 +17,7 @@ type ModulesListAttributes = ModulesListProps & HTMLAttributes<HTMLElement>
 
 const ModuleItem = () => {
   const [openItem, setOpenItem] = useState(false)
+  const router = useRouter()
   return (
     <ModuleItemMain openItem={openItem} className="module-item">
       <div className="header-item" onClick={() => setOpenItem(!openItem)}>
@@ -35,7 +37,11 @@ const ModuleItem = () => {
         />
         <div className="list-videos">
           {[1, 2, 3, 4].map((video) => (
-            <div className="video-item" key={video}>
+            <div
+              className="video-item"
+              key={video}
+              onClick={() => router.push("/usuario/modulo/1")}
+            >
               <div className="video-image-contain">
                 <BsFillPlayFill className="icon-play" />
                 <Image className="video-image" src={ImageCourse} alt="" />

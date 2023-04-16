@@ -22,6 +22,8 @@ export const MainSm = styled.button<ButtonProps>`
   font-weight: 600;
   cursor: pointer;
   border-radius: 10px;
+  border: none;
+  color: ${(props) => props.theme.colors.ligth};
   text-align: center;
   ${(props) =>
     props.bg && props.color

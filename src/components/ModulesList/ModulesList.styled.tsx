@@ -71,6 +71,7 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
         width: 90%;
         margin-left: 5%;
         margin-bottom: 1.5em;
+        cursor: pointer;
         .video-image-contain {
           width: 20%;
           position: relative;

@@ -1,5 +1,6 @@
 import { HTMLAttributes } from "react"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import { Navigation, Pagination } from "swiper"
 // Components
 import { Button } from "../"
@@ -33,6 +34,7 @@ const items = [1, 2, 3, 4, 5]
 type SlidersAttributes = SlidersProps & HTMLAttributes<HTMLDivElement>
 
 const Sliders = (props: SlidersAttributes) => {
+  const router = useRouter()
   const { variant, onClickSlider = () => false } = props
   let slidesPerView = 1
   const swiper = useSwiper()
@@ -73,7 +75,7 @@ const Sliders = (props: SlidersAttributes) => {
                       bg
                       color="redPrimary"
                       variant="sm"
-                      onClick={() => swiper.slideNext()}
+                      onClick={() => router.push("/usuario/curso/1")}
                     />
                   </div>
                   <div className="overflow"></div>
