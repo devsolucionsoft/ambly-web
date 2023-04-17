@@ -12,6 +12,11 @@ import { BiUserCircle } from "react-icons/bi"
 import { useAppDispatch } from "../../store"
 import { onSideNav } from "../../store/SideNav/actions"
 import Link from "next/link"
+import { withIronSessionSsr } from "iron-session/next"
+import {
+  sessionOptions,
+  sessionVerificationNotCreated,
+} from "../../../lib/session"
 
 interface HeaderProps {}
 
@@ -25,7 +30,6 @@ const Header = (props: HeaderAttributes) => {
   return (
     <Main>
       <MobileContent />
-      <div id="modal-root"></div>
       <div className="contain">
         <Link href="/usuario/inicio">
           <Image className="logo" src={IconAmbly} alt="" />
@@ -58,3 +62,8 @@ const Header = (props: HeaderAttributes) => {
 }
 
 export default Header
+
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationNotCreated,
+  sessionOptions
+)

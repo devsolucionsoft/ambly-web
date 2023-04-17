@@ -1,10 +1,87 @@
 import Head from "next/head"
+import { useState } from "react"
+import { useRouter } from "next/router"
+
 // Styled components
 import { Main } from "../styles/login.styled"
 // Components
 import { Button, Typography, Input } from "../components"
+import { withIronSessionSsr } from "iron-session/next"
+import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
+// Api
+import { AuthApi } from "./api/"
+// Hooks
+import useValidateForm, {
+  InputValidationI,
+  IErrorInputs,
+} from "../hooks/useValidateForm"
+
+import Swal from "sweetalert2"
 
 export default function Login() {
+  const router = useRouter()
+  const AuthApiModel = new AuthApi()
+
+  const defaultInputs = {
+    email: "",
+    password: "",
+    username: "",
+  }
+  // States inputs
+  const [stateInputs, setStateInputs] = useState(defaultInputs)
+  // Use Hook Validation
+  const defaultValidation: InputValidationI = {
+    email: { required: "email" },
+    password: { required: "text" },
+    username: { required: "text" },
+  }
+  const { validationInputs, getValidation } = useValidateForm({
+    defaultInputs,
+    defaultValidation,
+  })
+  const [errorInputs, setErrorInputs] = useState<IErrorInputs>(validationInputs)
+  // Inputs keyup
+  const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setStateInputs({
+      ...stateInputs,
+      [event.target.name]: event.target.value,
+    })
+    setErrorInputs(validationInputs)
+  }
+
+  const handleRegistry = async () => {
+    const { errors, validation } = getValidation(stateInputs)
+
+    if (validation) {
+      const repsonse = await AuthApiModel.UserRegister(stateInputs)
+      switch (repsonse.status) {
+        case 200:
+          Swal.fire({
+            title: "Registro exitoso.",
+            text: "Ya puedes iniciar sessionapp",
+            icon: "success",
+            confirmButtonText: "Ir Login",
+          }).then(() => {
+            router.replace("/login")
+          })
+          break
+        default:
+          Swal.fire({
+            title: "No se ha podido realizar el regístro.",
+            text: "Comprueba tu email e intentalo mas tarde",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          })
+          break
+      }
+    } else {
+      setErrorInputs({
+        ...errorInputs,
+        ...errors,
+      })
+    }
+  }
+
   return (
     <>
       <Head>
@@ -16,10 +93,31 @@ export default function Login() {
       <Main>
         <div className="contain">
           <Typography text="Crea una cuenta" variant="H2" />
-          <form className="form-login" action="">
-            <Input type="text" label="Nombre" name="name" />
-            <Input type="text" label="E-mail" name="mail" />
-            <Input type="password" label="Contraseña" name="password" />
+          <div className="form-login">
+            <Input
+              type="text"
+              label="Nombre"
+              name="name"
+              onChange={handleKeyUp}
+              error={errorInputs.username.error}
+              message={errorInputs.username.message}
+            />
+            <Input
+              type="text"
+              label="E-mail"
+              name="mail"
+              onChange={handleKeyUp}
+              error={errorInputs.email.error}
+              message={errorInputs.email.message}
+            />
+            <Input
+              type="password"
+              label="Contraseña"
+              name="password"
+              onChange={handleKeyUp}
+              error={errorInputs.password.error}
+              message={errorInputs.password.message}
+            />
 
             <div className="politis">
               <p>
@@ -29,11 +127,21 @@ export default function Login() {
             </div>
 
             <div className="button-contain">
-              <Button text="INICIAR" bg color="redPrimary" />
+              <Button
+                text="INICIAR"
+                bg
+                color="redPrimary"
+                onClick={handleRegistry}
+              />
             </div>
-          </form>
+          </div>
         </div>
       </Main>
     </>
   )
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationCreated,
+  sessionOptions
+)

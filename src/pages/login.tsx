@@ -4,20 +4,20 @@ import { useState } from "react"
 // Styled components
 import { Main } from "../styles/login.styled"
 // Components
-import { Button, Typography, Input } from "../components"
+import { Button, Typography, Input, ForgotPassword } from "../components"
 // Hooks
 import useValidateForm, {
   InputValidationI,
   IErrorInputs,
 } from "../hooks/useValidateForm"
-// Api
-import { AuthApi } from "../api"
-import { json } from "stream/consumers"
-
-const AuthApiModel = new AuthApi()
+import axios from "axios"
+import { withIronSessionSsr } from "iron-session/next"
+import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
+import Swal from "sweetalert2"
 
 export default function Login() {
   const router = useRouter()
+  const [showModal, setShowModal] = useState(false)
 
   const defaultInputs = {
     email: "",
@@ -48,14 +48,16 @@ export default function Login() {
     const { errors, validation } = getValidation(stateInputs)
 
     if (validation) {
-      const response = await AuthApiModel.UserLogin(stateInputs)
-
-      switch (response.status) {
-        case 200:
-          console.log(response)
-          localStorage.setItem("user-auth", JSON.stringify(response.data))
-          router.push("/usuario/inicio")
-          break
+      try {
+        await axios.post(`/api/login`, stateInputs)
+        router.replace("/usuario/inicio")
+      } catch (error: any) {
+        console.log(error.response)
+        Swal.fire({
+          title: "Valida tu usuario y contraseña",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        })
       }
     } else {
       setErrorInputs({
@@ -74,6 +76,10 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
+        <ForgotPassword
+          showModal={showModal}
+          closeModal={() => setShowModal(false)}
+        />
         <div className="contain">
           <Typography text="Iniciar sesion" variant="H1" />
           <div className="form-login">
@@ -95,7 +101,7 @@ export default function Login() {
             />
 
             <div className="forget-password">
-              <p>¿Olvidaste tu contraseña</p>
+              <p onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña</p>
             </div>
 
             <div className="button-contain">
@@ -113,22 +119,7 @@ export default function Login() {
   )
 }
 
-export async function getServerSideProps(context: any) {
-  // if (localStorage.getItem("user-auth")) {
-  //   const stored = localStorage.getItem("user-auth")
-  //   const userAuth = stored ? JSON.parse(stored) : { token: null }
-
-  //   if (userAuth.token) {
-  //     return {
-  //       redirect: {
-  //         destination: "/usuario/inicio",
-  //         permanent: false,
-  //       },
-  //     }
-  //   }
-  // }
-
-  return {
-    props: {}, // Will be passed to the page component as props
-  }
-}
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationCreated,
+  sessionOptions
+)

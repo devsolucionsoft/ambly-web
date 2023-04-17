@@ -1,7 +1,7 @@
 import { HTMLAttributes, useState, MouseEvent } from "react"
 import Link from "next/link"
 // Styled components
-import { Main, FormPassword } from "./SideNav.styled"
+import { Main } from "./SideNav.styled"
 import { AiFillPlayCircle, AiFillBook } from "react-icons/ai"
 import { MdOutlineSecurity, MdLocalPolice } from "react-icons/md"
 import { BiHelpCircle } from "react-icons/bi"
@@ -13,16 +13,16 @@ import { useAppSelector } from "../../store"
 // Redux
 import { useAppDispatch } from "../../store"
 import { onSideNav } from "../../store/SideNav/actions"
-// Component
-import Modal from "../Modal"
-import Input from "../Input"
-import Button from "../Button"
+import axios from "axios"
+import { useRouter } from "next/router"
+import ForgotPassword from "../ForgotPassword"
 
 interface SideNavProps {}
 
 type SideNavAttributes = SideNavProps & HTMLAttributes<HTMLDivElement>
 
 const SideNav = (props: SideNavAttributes) => {
+  const router = useRouter()
   const {} = props
 
   const openNav = useAppSelector((store) => store.SideNav)
@@ -34,18 +34,19 @@ const SideNav = (props: SideNavAttributes) => {
     e.stopPropagation()
   }
 
+  const handleLogout = async () => {
+    try {
+      await axios.post(`/api/logout`, {})
+      router.replace("/")
+    } catch (error: any) {}
+  }
+
   return (
     <Main openNav={openNav} onClick={() => appDispatch(onSideNav(false))}>
-      <Modal
-        onClose={() => setShowModal(false)}
-        show={showModal}
-        title="Recuperar contraseña"
-      >
-        <FormPassword action="">
-          <Input type="email" label="Email" name="email" />
-          <Button text="Enviar" bg color="redPrimary" />
-        </FormPassword>
-      </Modal>
+      <ForgotPassword
+        showModal={showModal}
+        closeModal={() => setShowModal(false)}
+      />
       <nav className="nav-content" onClick={handleChildClick}>
         <button
           className="icon-close"
@@ -108,10 +109,10 @@ const SideNav = (props: SideNavAttributes) => {
             </Link>
           </li>
           <li>
-            <Link href="/" className="nav-item">
+            <div className="nav-item" onClick={handleLogout}>
               <IoExitOutline className="icon" />
               Cerrar sesión
-            </Link>
+            </div>
           </li>
         </ul>
       </nav>

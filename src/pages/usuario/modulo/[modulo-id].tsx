@@ -13,6 +13,11 @@ import {
   TbPlayerSkipBackFilled,
   TbPlayerSkipForwardFilled,
 } from "react-icons/tb"
+import { withIronSessionSsr } from "iron-session/next"
+import {
+  sessionOptions,
+  sessionVerificationNotCreated,
+} from "../../../../lib/session"
 
 const items = [1, 2, 3, 4]
 
@@ -113,3 +118,8 @@ export default function Modulo() {
     </>
   )
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationNotCreated,
+  sessionOptions
+)

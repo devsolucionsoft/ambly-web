@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const StyledModalBody = styled.div`
   padding-top: 10px;
+  color: ${(props) => props.theme.colors.ligth};
 `
 
 export const StyledModalHeader = styled.div`
@@ -37,6 +38,7 @@ export const StyledModalOverlay = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  z-index: 20;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -45,4 +47,5 @@ export const StyledModalOverlay = styled.div`
 export const StyledModalTitle = styled.h2`
   text-align: center;
   margin-bottom: 1em;
+  color: ${(props) => props.theme.colors.ligth};
 `

@@ -6,6 +6,11 @@ import ImageCourse from "../../assets/images/new-course.jpg"
 import { Main } from "../../styles/mis-cursos.styled"
 // Components
 import { Header, Typography, SideNav } from "../../components"
+import { withIronSessionSsr } from "iron-session/next"
+import {
+  sessionOptions,
+  sessionVerificationNotCreated,
+} from "../../../lib/session"
 
 const items = [1, 2, 3, 4]
 
@@ -48,3 +53,8 @@ export default function Login() {
     </>
   )
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationNotCreated,
+  sessionOptions
+)

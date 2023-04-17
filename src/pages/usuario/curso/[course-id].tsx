@@ -13,6 +13,11 @@ import { Main } from "../../../styles/curso.styled"
 import { Header, Typography, SideNav, ModulesList } from "../../../components"
 import ImageName from "../../../assets/images/svg-ejem.png"
 import { FaUserAlt } from "react-icons/fa"
+import { withIronSessionSsr } from "iron-session/next"
+import {
+  sessionOptions,
+  sessionVerificationNotCreated,
+} from "../../../../lib/session"
 
 const items = [1, 2, 3, 4]
 
@@ -129,3 +134,8 @@ export default function Login() {
     </>
   )
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationNotCreated,
+  sessionOptions
+)

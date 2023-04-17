@@ -8,6 +8,7 @@ import SideNav from "./SideNav"
 import Modal from "./Modal"
 import ModulesList from "./ModulesList"
 import MobileContent from "./MobileContent"
+import ForgotPassword from "./ForgotPassword"
 
 export {
   Button,
@@ -20,4 +21,5 @@ export {
   Modal,
   ModulesList,
   MobileContent,
+  ForgotPassword,
 }

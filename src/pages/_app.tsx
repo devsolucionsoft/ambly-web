@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
+        <div id="modal-root"></div>
       </ThemeProvider>
     </Provider>
   )

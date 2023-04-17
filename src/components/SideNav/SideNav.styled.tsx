@@ -17,13 +17,12 @@ export const Main = styled.div<{ openNav: boolean }>`
     background-color: ${(props) => props.theme.colors.dark};
     color: white;
     height: 100%;
-    padding: 2em 4em 2em 3em;
     position: relative;
     overflow: hidden;
     max-width: 0px;
     padding: 2em 0em 2em 0em;
 
-    ${(props) => props.openNav && `max-width: 20vw; padding: 2em 4em 2em 3em;`}
+    ${(props) => props.openNav && `max-width: 400px; padding: 2em 4em 2em 3em;`}
 
     .icon-close {
       position: absolute;
@@ -64,11 +63,4 @@ export const Main = styled.div<{ openNav: boolean }>`
       }
     }
   }
-`
-
-export const FormPassword = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
 `

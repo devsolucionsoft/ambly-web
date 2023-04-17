@@ -8,6 +8,8 @@ import IconAmbly from "../assets/images/icon-ambly.png"
 import { Button, Typography, MobileContent } from "../components"
 import { BsGooglePlay } from "react-icons/bs"
 import { SiAppstore } from "react-icons/si"
+import { withIronSessionSsr } from "iron-session/next"
+import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
 
 export default function Home() {
   const router = useRouter()
@@ -73,3 +75,8 @@ export default function Home() {
     </>
   )
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationCreated,
+  sessionOptions
+)
