@@ -22,6 +22,7 @@ export const Main = styled.main`
         overflow: hidden;
         margin-bottom: 3em;
         cursor: pointer;
+
         .overlay {
           position: absolute;
           height: 100%;
@@ -62,6 +63,22 @@ export const Main = styled.main`
             background-color: #00000061;
             p {
               font-size: 0.9rem;
+            }
+          }
+        }
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 100%;
+          height: 25vh;
+          .course-content {
+            padding: 2em;
+            .course-title {
+              font-size: 1.3rem;
+            }
+            .course-datails {
+              padding: 8px 15px;
+              p {
+                font-size: 0.7rem;
+              }
             }
           }
         }

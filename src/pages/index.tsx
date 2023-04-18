@@ -23,7 +23,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <MobileContent />
         <div className="contain">
           <Image className="icon" src={IconAmbly} alt="" />
           <div className="init-session">

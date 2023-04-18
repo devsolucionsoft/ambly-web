@@ -19,6 +19,10 @@ export const Main = styled.main`
         width: 24%;
         height: auto;
         margin-bottom: 3em;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 47%;
+          font-size: 0.8rem;
+        }
       }
     }
   }

@@ -30,6 +30,9 @@ export const StyledModal = styled.div`
   width: 50vw;
   border-radius: 15px;
   padding: 3em 2em 4em 2em;
+  @media (max-width: ${(props) => props.theme.sizes.md}) {
+    width: 80vw;
+  }
 `
 export const StyledModalOverlay = styled.div`
   position: fixed;

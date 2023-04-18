@@ -12,6 +12,18 @@ export const Main = styled.div`
       background-color: white;
     }
   }
+
+  @media screen and (min-width: 640px) {
+    .swiper-container {
+      width: 640px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .swiper-container {
+      width: 768px;
+    }
+  }
 `
 
 export const SliderNew = styled.section`
@@ -42,6 +54,13 @@ export const SliderNew = styled.section`
       margin: 1em 0;
       .icon {
         margin-right: 10px;
+      }
+    }
+
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      .image-name {
+        width: 80%;
+        height: auto;
       }
     }
   }

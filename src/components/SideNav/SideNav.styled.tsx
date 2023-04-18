@@ -23,6 +23,10 @@ export const Main = styled.div<{ openNav: boolean }>`
     padding: 2em 0em 2em 0em;
 
     ${(props) => props.openNav && `max-width: 400px; padding: 2em 4em 2em 3em;`}
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      ${(props) =>
+        props.openNav && `max-width: 280px; padding: 2em 3em 2em 2em;`}
+    }
 
     .icon-close {
       position: absolute;

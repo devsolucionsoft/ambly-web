@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import TutorImage from "../../assets/images/data/tutor.jpeg"
@@ -19,10 +19,26 @@ import {
   sessionOptions,
   sessionVerificationNotCreated,
 } from "../../../lib/session"
+import { UserApi, CourseApi, InstructorApi, TrailersApi } from "../api"
+// Store
+import { useAppSelector, useAppDispatch } from "../../store"
+import { loadCourses } from "../../store/User/actions"
+import { onLoader } from "../../store/Loader/actions"
+import { closeSession } from "../../store/Auth/actions"
 
 const items = [1, 2, 3, 4]
 
-export default function Login() {
+const UserpiModel = new UserApi()
+const CourseApiModel = new CourseApi()
+const InstructorApiModel = new InstructorApi()
+const TrailersApiModel = new TrailersApi()
+
+export default function Login(props: any) {
+  const dispatch = useAppDispatch()
+
+  const [coursesList, setCourseslist] = useState([])
+  const [intructorList, setIntructorList] = useState([])
+  const [trailersList, setTrailerList] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [trailerPlay, setTrailerPlay] = useState({
     title: "",
@@ -37,6 +53,31 @@ export default function Login() {
     setShowModal(true)
   }
 
+  useEffect(() => {
+    dispatch(onLoader(true))
+    ;(async () => {
+      if (props.user.id) {
+        const response = await UserpiModel.GetMyCourses(props.user.id)
+        response.status === 200 && dispatch(loadCourses(response.data.courses))
+      }
+    })()
+    ;(async () => {
+      const response = await CourseApiModel.GetCourses()
+      response.status === 200 && setCourseslist(response.data)
+    })()
+    ;(async () => {
+      const response = await InstructorApiModel.GetInstructors()
+      response.status === 200 && setIntructorList(response.data)
+    })()
+    ;(async () => {
+      const response = await TrailersApiModel.GetTrailers()
+      response.status === 200 && setTrailerList(response.data)
+    })()
+    setTimeout(() => {
+      dispatch(onLoader(false))
+    }, 800)
+  }, [props.user.id, dispatch])
+
   return (
     <>
       <Head>
@@ -46,8 +87,6 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <SideNav />
-        <Header />
         <Modal
           show={showModal}
           onClose={() => setShowModal(false)}
@@ -62,6 +101,8 @@ export default function Login() {
             ></video>
           )}
         </Modal>
+        <SideNav />
+        <Header />
         <div className="content-page-top">
           <Sliders variant="new" />
         </div>

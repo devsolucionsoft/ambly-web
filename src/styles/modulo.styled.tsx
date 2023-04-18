@@ -6,6 +6,9 @@ export const Main = styled.main`
 
   .page-content {
     padding: 5em 10% 8em 10%;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      padding: 5em 5% 8em 5%;
+    }
 
     .action-buttons {
       display: flex;
@@ -22,6 +25,9 @@ export const Main = styled.main`
         border-radius: 10px;
         color: ${(props) => props.theme.colors.ligth};
         background-color: ${(props) => props.theme.colors.redPrimary};
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          padding: 0.6em 1em;
+        }
       }
     }
 
@@ -38,6 +44,23 @@ export const Main = styled.main`
         flex-direction: column;
         justify-content: space-between;
       }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        flex-direction: column;
+        .page-top-video {
+          width: 100%;
+        }
+        .page-top-content {
+          width: 100%;
+          margin-top: 2em;
+          h2 {
+            font-size: 1.8rem;
+          }
+          p {
+            margin: 1em 0 3em 0;
+            font-size: 0.8rem;
+          }
+        }
+      }
     }
     .page-module-content {
       display: flex;
@@ -48,7 +71,11 @@ export const Main = styled.main`
         margin-top: 2em;
       }
 
-      .list-videos {
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        flex-direction: column;
+      }
+
+      .list-videos-module {
         .video-item {
           display: flex;
           margin-bottom: 1.5em;
@@ -86,10 +113,16 @@ export const Main = styled.main`
 
       .moduleslist-contain {
         width: 48%;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 100%;
+        }
       }
 
       .fileslist-contain {
         width: 40%;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 100%;
+        }
         .list-files {
           display: flex;
           flex-direction: column;

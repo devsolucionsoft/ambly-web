@@ -29,7 +29,6 @@ const Header = (props: HeaderAttributes) => {
 
   return (
     <Main>
-      <MobileContent />
       <div className="contain">
         <Link href="/usuario/inicio">
           <Image className="logo" src={IconAmbly} alt="" />
@@ -37,19 +36,16 @@ const Header = (props: HeaderAttributes) => {
 
         <div className="links">
           <div className="link-item">
-            <a href="#">Categorías</a>
+            <Link href="/usuario/inicio">Categorías</Link>
           </div>
           <div className="link-item">
-            <a href="#">Mis cursos</a>
+            <Link href="/usuario/mis-cursos">Mis cursos</Link>
           </div>
           <div className="link-item">
-            <a href="#">Perfil</a>
+            <Link href="/usuario/perfil">Perfil</Link>
           </div>
           <div className="link-item">
-            <a href="#">Mis cursos</a>
-          </div>
-          <div className="link-item">
-            <a href="#">Coche</a>
+            <Link href="/usuario/carrito">Carrito</Link>
           </div>
         </div>
 

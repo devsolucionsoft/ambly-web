@@ -26,6 +26,9 @@ export const Main = styled.header`
       width: 100%;
       justify-content: center;
       left: 0;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        display: none;
+      }
       .link-item {
         margin: 0 1.5rem;
         a {

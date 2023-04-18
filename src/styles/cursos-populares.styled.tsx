@@ -61,6 +61,23 @@ export const Main = styled.main`
             }
           }
         }
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 47.5%;
+          height: 28vh;
+          .course-content {
+            .image-name {
+              width: 90%;
+              height: auto;
+            }
+            .autor {
+              margin-top: 1em;
+              font-size: 0.7rem;
+              .icon {
+                margin-right: 5px;
+              }
+            }
+          }
+        }
         .overlay {
         }
       }

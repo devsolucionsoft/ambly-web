@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react"
+import { HTMLAttributes, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { Navigation, Pagination } from "swiper"
@@ -23,6 +23,7 @@ import { AiFillPlayCircle } from "react-icons/ai"
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
+import { log } from "console"
 
 interface SlidersProps {
   variant: "new" | "popular" | "trailers"
@@ -36,15 +37,27 @@ type SlidersAttributes = SlidersProps & HTMLAttributes<HTMLDivElement>
 const Sliders = (props: SlidersAttributes) => {
   const router = useRouter()
   const { variant, onClickSlider = () => false } = props
-  let slidesPerView = 1
   const swiper = useSwiper()
 
-  if (variant === "popular") {
-    slidesPerView = 3
-  }
-  if (variant === "trailers") {
-    slidesPerView = 4
-  }
+  const [slidesPerView, setSlidesPerView] = useState(1)
+  useEffect(() => {
+    console.log(window.innerWidth)
+
+    if (variant === "popular") {
+      setSlidesPerView(3)
+    }
+    if (variant === "trailers") {
+      setSlidesPerView(4)
+    }
+    if (variant !== "new") {
+      if (window.innerWidth < 992) {
+        setSlidesPerView(2.4)
+      }
+      if (window.innerWidth < 768) {
+        setSlidesPerView(1.4)
+      }
+    }
+  }, [variant])
 
   return (
     <Main>
@@ -54,9 +67,9 @@ const Sliders = (props: SlidersAttributes) => {
         navigation
         pagination={{ clickable: true }}
         spaceBetween={30}
-        slidesPerView={slidesPerView}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
+        slidesPerView={slidesPerView}
       >
         {items.map((item, index) => {
           if (variant === "new") {

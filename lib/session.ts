@@ -23,7 +23,9 @@ export async function sessionVerificationNotCreated({ req }: any) {
   }
 
   return {
-    props: {},
+    props: {
+      user: user,
+    },
   }
 }
 

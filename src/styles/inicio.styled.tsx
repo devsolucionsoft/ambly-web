@@ -18,6 +18,7 @@ export const Main = styled.main`
       flex-wrap: wrap;
       gap: 5%;
       justify-content: center;
+
       .teacher-item {
         width: 250px;
         margin-bottom: 2em;
@@ -26,12 +27,34 @@ export const Main = styled.main`
           width: 250px;
           height: 250px;
           object-fit: cover;
-          border-radius: 10%;
+          border-radius: 10px;
         }
         .teacher-title {
           margin-top: 1rem;
           font-size: 1.2rem;
           text-align: left;
+        }
+      }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        justify-content: space-between;
+        gap: auto;
+        .teacher-item {
+          width: 150px;
+          .teacher-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+          }
+          .teacher-title {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            line-height: 110%;
+          }
+        }
+      }
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        .teacher-item {
+          width: 45%;
         }
       }
     }
@@ -50,6 +73,15 @@ export const Main = styled.main`
           height: 250px;
           object-fit: cover;
           border-radius: 100%;
+        }
+      }
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        .category-item {
+          width: 45%;
+          .category-image {
+            width: 100%;
+            height: auto;
+          }
         }
       }
     }

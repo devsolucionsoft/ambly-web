@@ -3,6 +3,10 @@ import styled from "styled-components"
 export const Main = styled.div`
   display: flex;
   justify-content: center;
+
+  @media (max-width: ${(props) => props.theme.sizes.md}) {
+    width: 100%;
+  }
   .modules-list {
     width: 100%;
     display: flex;
@@ -10,6 +14,9 @@ export const Main = styled.div`
     align-items: center;
     border-radius: 20px;
     overflow: hidden;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      width: 90vw;
+    }
     .module-item {
       border-bottom: 2px solid #ffffff;
       &:last-child {
@@ -22,6 +29,9 @@ export const Main = styled.div`
 export const ModuleItemMain = styled.div<{ openItem: boolean }>`
   padding: 1em 2em;
   background-color: ${(props) => props.theme.colors.graySecondary};
+  @media (max-width: ${(props) => props.theme.sizes.md}) {
+    padding: 1em 1em;
+  }
   .header-item {
     display: flex;
     align-items: center;
@@ -33,6 +43,9 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
     .flex {
       display: flex;
       align-content: center;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        width: 100%;
+      }
     }
     .icon {
       font-size: 4rem;
@@ -42,12 +55,26 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
       margin-left: 3em;
       transition: 200ms;
       transform: rotate(${(props) => (props.openItem ? `90deg` : `00deg`)});
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        margin-left: 1em;
+      }
     }
     .header-content {
       margin-left: 2em;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        width: 100%;
+        margin-left: 1em;
+        text-align: left;
+        h6 {
+          font-size: 1.2rem;
+        }
+        p {
+          font-size: 0.8rem;
+        }
+      }
     }
   }
   .content {
@@ -65,16 +92,20 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
       p {
         color: ${(props) => props.theme.colors.grayText};
       }
-
       .video-item {
         display: flex;
         width: 90%;
         margin-left: 5%;
         margin-bottom: 1.5em;
         cursor: pointer;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          margin-bottom: 1.5em;
+        }
         .video-image-contain {
           width: 20%;
           position: relative;
+          display: flex;
+          align-items: center;
           .icon-play {
             position: absolute;
             top: 0;
@@ -84,6 +115,9 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
             margin: auto;
             font-size: 3rem;
             color: ${(props) => props.theme.colors.yellowPrimary};
+            @media (max-width: ${(props) => props.theme.sizes.md}) {
+              font-size: 2rem;
+            }
           }
           .video-image {
             width: 100%;
@@ -96,6 +130,15 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
           flex-direction: column;
           align-items: flex-start;
           margin-left: 2em;
+          @media (max-width: ${(props) => props.theme.sizes.md}) {
+            margin-left: 1rem;
+            h6 {
+              font-size: 1rem;
+            }
+            p {
+              font-size: 0.8rem;
+            }
+          }
         }
       }
     }

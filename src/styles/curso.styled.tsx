@@ -11,6 +11,10 @@ export const Main = styled.main`
       height: 80vh;
       object-fit: cover;
       object-position: top;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        height: 30vh;
+        margin-top: 5em;
+      }
     }
     .overlay {
       position: absolute;
@@ -29,6 +33,9 @@ export const Main = styled.main`
       bottom: 0;
       padding-left: 10%;
       margin-bottom: 3em;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        margin-bottom: 1em;
+      }
       .image-name {
         width: 25vw;
         height: auto;
@@ -70,6 +77,7 @@ export const Main = styled.main`
         border: 2px solid #52525293;
         border-radius: 20px;
         text-align: center;
+
         .icon {
           margin-bottom: 1em;
           width: auto;
@@ -83,6 +91,23 @@ export const Main = styled.main`
           margin-top: 0.5rem;
           font-size: 1.1rem;
           color: ${(props) => props.theme.colors.redPrimary};
+        }
+      }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        flex-wrap: wrap;
+        .caracteristics-item {
+          width: 45%;
+          padding: 1em 1em;
+          margin-bottom: 1em;
+          p {
+            font-size: 1rem;
+          }
+          span {
+            font-size: 0.8rem;
+          }
+          .icon {
+            height: 60px;
+          }
         }
       }
     }
@@ -119,10 +144,18 @@ export const Main = styled.main`
         width: 230px;
         height: 230px;
         border-radius: 100%;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 40vw;
+          height: 40vw;
+        }
       }
 
       .image-teacher {
         margin: 3em 0;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 100%;
+          height: auto;
+        }
       }
     }
   }

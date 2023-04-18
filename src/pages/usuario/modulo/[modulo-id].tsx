@@ -93,7 +93,7 @@ export default function Modulo() {
                 variant="H4"
                 className="title"
               />
-              <div className="list-videos">
+              <div className="list-videos-module">
                 <div className="video-item">
                   <div className="video-image-contain">
                     <BsFillPlayFill className="icon-play" />

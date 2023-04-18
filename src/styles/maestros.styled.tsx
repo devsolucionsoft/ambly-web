@@ -30,6 +30,17 @@ export const Main = styled.main`
           font-size: 1.2rem;
           text-align: left;
         }
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 46%;
+          .teacher-image {
+            width: 100%;
+            height: 38vw;
+          }
+          .teacher-title {
+            font-size: 1.1rem;
+            line-height: 110%;
+          }
+        }
       }
     }
   }
