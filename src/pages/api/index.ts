@@ -212,8 +212,6 @@ export class TrailersApi {
 
 export class PayuApi {
   async GeneratePayment(data: any) {
-    console.log(data)
-
     try {
       return await axios.post(`${url}/payu/payu`, data)
     } catch (error: any) {

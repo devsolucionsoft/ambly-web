@@ -80,14 +80,43 @@ export const SliderNew = styled.section`
 `
 
 export const SliderPopular = styled.section`
+  height: 28vw;
+  cursor: pointer;
+  position: relative;
   .image-course {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     border-radius: 25px;
+  }
+  .image-name {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    bottom: 5%;
+    height: auto;
+    z-index: 2;
+  }
+  .overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #00000058;
   }
 `
 
 export const SlidersTrailer = styled.section`
+  position: relative;
+  .click {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 2;
+    cursor: pointer;
+  }
   .video-contain {
     position: relative;
     width: 100%;

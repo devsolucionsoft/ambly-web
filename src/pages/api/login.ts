@@ -10,8 +10,6 @@ export default withIronSessionApiRoute(loginRoute, sessionOptions)
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   const data = await req.body
   const response = await AuthApiModel.UserLogin(data)
-  console.log("withIronSessionApiRoute", response.status)
-
   if (response.status == 200) {
     const user = response.data
     req.session.user = user

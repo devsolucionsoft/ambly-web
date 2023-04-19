@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useRef, useState } from "react"
+import { HTMLAttributes, useEffect, useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { Navigation, Pagination } from "swiper"
@@ -13,9 +13,6 @@ import {
 } from "./Sliders.styled"
 // Import Swiper React components
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
-import ImageCourse from "../../assets/images/new-course.jpg"
-import PopularCourse from "../../assets/images/popular.jpg"
-import ImageName from "../../assets/images/svg-ejem.png"
 import { FaUserAlt } from "react-icons/fa"
 import { AiFillPlayCircle } from "react-icons/ai"
 
@@ -28,21 +25,22 @@ import { log } from "console"
 interface SlidersProps {
   variant: "new" | "popular" | "trailers"
   onClickSlider?: (item: any) => void
+  items?: any
 }
-
-const items = [1, 2, 3, 4, 5]
 
 type SlidersAttributes = SlidersProps & HTMLAttributes<HTMLDivElement>
 
 const Sliders = (props: SlidersAttributes) => {
   const router = useRouter()
-  const { variant, onClickSlider = () => false } = props
+  const {
+    variant,
+    onClickSlider = () => false,
+    items = [1, 2, 3, 4, 5],
+  } = props
   const swiper = useSwiper()
 
   const [slidesPerView, setSlidesPerView] = useState(1)
   useEffect(() => {
-    console.log(window.innerWidth)
-
     if (variant === "popular") {
       setSlidesPerView(3)
     }
@@ -58,6 +56,7 @@ const Sliders = (props: SlidersAttributes) => {
       }
     }
   }, [variant])
+  variant === "popular" && console.log(items)
 
   return (
     <Main>
@@ -67,21 +66,31 @@ const Sliders = (props: SlidersAttributes) => {
         navigation
         pagination={{ clickable: true }}
         spaceBetween={30}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
         slidesPerView={slidesPerView}
       >
-        {items.map((item, index) => {
+        {items.map((item: any, index: number) => {
           if (variant === "new") {
             return (
               <SwiperSlide key={index}>
                 <SliderNew>
-                  <Image className="image-course" src={ImageCourse} alt="" />
+                  <Image
+                    className="image-course"
+                    src={item.image_course}
+                    alt=""
+                    height={100}
+                    width={100}
+                  />
                   <div className="slider-content">
-                    <Image className="image-name" src={ImageName} alt="" />
+                    <Image
+                      className="image-name"
+                      src={item.image_name}
+                      height={100}
+                      width={100}
+                      alt=""
+                    />
                     <div className="autor">
                       <FaUserAlt className="icon" />
-                      <span>Carlos Jaramillo</span>
+                      <span>{item.instructor.name_instructor} </span>
                     </div>
                     <Button
                       text="Acceder"
@@ -100,7 +109,21 @@ const Sliders = (props: SlidersAttributes) => {
             return (
               <SwiperSlide key={index}>
                 <SliderPopular>
-                  <Image className="image-course" src={PopularCourse} alt="" />
+                  <Image
+                    className="image-course"
+                    src={item.instructor.image_instructor}
+                    alt=""
+                    height={100}
+                    width={100}
+                  />
+                  <Image
+                    className="image-name"
+                    src={item.image_name}
+                    alt=""
+                    height={100}
+                    width={100}
+                  />
+                  <div className="overlay"></div>
                 </SliderPopular>
               </SwiperSlide>
             )
@@ -109,27 +132,31 @@ const Sliders = (props: SlidersAttributes) => {
           if (variant === "trailers") {
             return (
               <SwiperSlide key={index}>
-                <SlidersTrailer
-                  onClick={(ev) =>
-                    onClickSlider({
-                      title: "Titulo del video",
-                      video:
-                        "https://app-ambly.s3.amazonaws.com/static/uploads/57865ccfb2df78a10ec0-pexels-pressmaster-3209828-3840x2160-25fps.mp4",
-                    })
-                  }
-                >
+                <SlidersTrailer>
+                  <div
+                    className="click"
+                    onClick={(ev) => {
+                      console.log("cc")
+
+                      onClickSlider({
+                        title: "Titulo del video",
+                        video: item.video,
+                      })
+                    }}
+                  ></div>
                   <div className="video-contain">
                     <video
                       className="video"
-                      src="https://joy1.videvo.net/videvo_files/video/free/video0455/large_watermarked/_import_609113a1be0e89.39394997_preview.mp4"
+                      style={{ userSelect: "none" }}
+                      src={item.video}
                     ></video>
                     <AiFillPlayCircle className="icon-play" />
                   </div>
                   <div className="slider-content">
-                    <h3 className="trailer-title">Nombre del curso</h3>
+                    <h3 className="trailer-title">{item.course_name}</h3>
                     <div className="autor">
                       <FaUserAlt className="icon" />
-                      <span>Carlos Jaramillo</span>
+                      <span>{item.instructor}</span>
                     </div>
                   </div>
                 </SlidersTrailer>

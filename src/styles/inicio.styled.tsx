@@ -23,6 +23,8 @@ export const Main = styled.main`
         width: 250px;
         margin-bottom: 2em;
         cursor: pointer;
+        text-decoration: none;
+        color: ${(props) => props.theme.colors.ligth};
         .teacher-image {
           width: 250px;
           height: 250px;
@@ -32,7 +34,7 @@ export const Main = styled.main`
         .teacher-title {
           margin-top: 1rem;
           font-size: 1.2rem;
-          text-align: left;
+          text-align: center;
         }
       }
       @media (max-width: ${(props) => props.theme.sizes.md}) {

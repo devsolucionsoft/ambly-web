@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import Head from "next/head"
 import Image from "next/image"
-import TutorImage from "../../assets/images/data/tutor.jpeg"
-import TemaImage from "../../assets/images/tema.png"
+import Link from "next/link"
+
 // Styled components
 import { Main } from "../../styles/inicio.styled"
 // Components
@@ -21,14 +21,13 @@ import {
 } from "../../../lib/session"
 import { UserApi, CourseApi, InstructorApi, TrailersApi } from "../api"
 // Store
-import { useAppSelector, useAppDispatch } from "../../store"
+import { useAppDispatch } from "../../store"
 import { loadCourses } from "../../store/User/actions"
 import { onLoader } from "../../store/Loader/actions"
-import { closeSession } from "../../store/Auth/actions"
 
 const items = [1, 2, 3, 4]
 
-const UserpiModel = new UserApi()
+const UserApiModel = new UserApi()
 const CourseApiModel = new CourseApi()
 const InstructorApiModel = new InstructorApi()
 const TrailersApiModel = new TrailersApi()
@@ -39,6 +38,7 @@ export default function Login(props: any) {
   const [coursesList, setCourseslist] = useState([])
   const [intructorList, setIntructorList] = useState([])
   const [trailersList, setTrailerList] = useState([])
+  const [topics, setTopics] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [trailerPlay, setTrailerPlay] = useState({
     title: "",
@@ -46,6 +46,8 @@ export default function Login(props: any) {
   })
 
   const handleTrailerClick = (item: any) => {
+    console.log("clcik")
+
     setTrailerPlay({
       title: item.title,
       video: item.video,
@@ -57,7 +59,7 @@ export default function Login(props: any) {
     dispatch(onLoader(true))
     ;(async () => {
       if (props.user.id) {
-        const response = await UserpiModel.GetMyCourses(props.user.id)
+        const response = await UserApiModel.GetMyCourses(props.user.id)
         response.status === 200 && dispatch(loadCourses(response.data.courses))
       }
     })()
@@ -73,10 +75,16 @@ export default function Login(props: any) {
       const response = await TrailersApiModel.GetTrailers()
       response.status === 200 && setTrailerList(response.data)
     })()
+    ;(async () => {
+      const response = await UserApiModel.GetCategories()
+      response.status === 200 && setTopics(response.data)
+    })()
     setTimeout(() => {
       dispatch(onLoader(false))
     }, 800)
   }, [props.user.id, dispatch])
+
+  console.log(topics)
 
   return (
     <>
@@ -104,7 +112,7 @@ export default function Login(props: any) {
         <SideNav />
         <Header />
         <div className="content-page-top">
-          <Sliders variant="new" />
+          <Sliders variant="new" items={coursesList} />
         </div>
         <div className="content-page">
           <Typography
@@ -114,27 +122,41 @@ export default function Login(props: any) {
           />
           <div>
             <HeaderSection title="Populares" action={() => false} />
-            <Sliders variant="popular" />
+            <Sliders variant="popular" items={coursesList} />
           </div>
 
           <div>
             <HeaderSection title="Trailers" action={() => false} />
-            <Sliders variant="trailers" onClick={handleTrailerClick} />
+            <Sliders
+              variant="trailers"
+              onClickSlider={(data) => handleTrailerClick(data)}
+              items={trailersList}
+            />
           </div>
 
           <div>
             <HeaderSection title="Maestros" action={() => false} />
 
             <div className="teachers-list">
-              {items.map((item, index) => (
-                <section key={index} className="teacher-item">
-                  <Image className="teacher-image" src={TutorImage} alt="" />
+              {intructorList.map((item: any, index) => (
+                <Link
+                  href={`/usuario/maestro/${item.id}`}
+                  key={index}
+                  className="teacher-item"
+                >
+                  <Image
+                    className="teacher-image"
+                    src={item.image_secondary}
+                    alt=""
+                    height={100}
+                    width={100}
+                  />
                   <Typography
                     className="teacher-title"
-                    text="Nombre del maestro"
+                    text={item.name_instructor}
                     variant="H4"
                   />
-                </section>
+                </Link>
               ))}
             </div>
           </div>
@@ -142,9 +164,15 @@ export default function Login(props: any) {
           <div>
             <HeaderSection title="Categorías" />
             <div className="category-list">
-              {items.map((item, index) => (
+              {topics.map((item: any, index) => (
                 <section key={index} className="category-item">
-                  <Image className="category-image" src={TemaImage} alt="" />
+                  <Image
+                    className="category-image"
+                    src={item.image}
+                    alt=""
+                    height={100}
+                    width={100}
+                  />
                 </section>
               ))}
             </div>

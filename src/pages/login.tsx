@@ -52,7 +52,6 @@ export default function Login() {
         await axios.post(`/api/login`, stateInputs)
         router.replace("/usuario/inicio")
       } catch (error: any) {
-        console.log(error.response)
         Swal.fire({
           title: "Valida tu usuario y contraseña",
           icon: "error",

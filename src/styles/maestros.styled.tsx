@@ -45,3 +45,54 @@ export const Main = styled.main`
     }
   }
 `
+export const MainDetail = styled.main`
+  background-color: ${(props) => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.ligth};
+  padding: 0% 0%;
+  min-height: 100vh;
+  .content-page {
+    position: relative;
+    z-index: 1;
+    padding: 5em 10% 6em 10%;
+    .teacher-image {
+      position: relative;
+      .image {
+        height: 70vh;
+        width: 100%;
+        object-fit: cover;
+      }
+      .overlay {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 90%;
+        background: rgb(0, 0, 0);
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 1) 22%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+    }
+    .teacher-content {
+      position: relative;
+      z-index: 2;
+      margin-top: -20em;
+      padding: 0 2em;
+      .avatar-image {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 100%;
+        margin-bottom: 1em;
+      }
+      h1 {
+        margin-bottom: 1em;
+      }
+      p {
+        margin-bottom: 1em;
+      }
+    }
+  }
+`
