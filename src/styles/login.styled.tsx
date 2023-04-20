@@ -16,6 +16,9 @@ export const Main = styled.main`
     .form-login {
       width: 30%;
       margin-top: 3em;
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        width: 80%;
+      }
       .forget-password {
         font-size: 1rem;
         margin: 2em 0;

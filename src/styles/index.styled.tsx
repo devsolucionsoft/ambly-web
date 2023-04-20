@@ -5,6 +5,8 @@ export const Main = styled.main`
   background-color: ${(props) => props.theme.colors.black};
   color: ${(props) => props.theme.colors.ligth};
   padding: 5% 0;
+  @media (max-width: ${(props) => props.theme.sizes.sm}) {
+  }
   .contain {
     height: 100%;
     width: 100%;
@@ -12,6 +14,10 @@ export const Main = styled.main`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: ${(props) => props.theme.sizes.sm}) {
+      justify-content: space-evenly;
+    }
 
     .icon {
       width: auto;
@@ -22,6 +28,9 @@ export const Main = styled.main`
       height: 1px;
       width: 400px;
       background-color: #ffffff74;
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        width: 80%;
+      }
     }
 
     .init-session {
@@ -35,8 +44,11 @@ export const Main = styled.main`
 
       .shops {
         display: flex;
-        gap: 6em;
         margin-top: 3em;
+
+        @media (max-width: ${(props) => props.theme.sizes.sm}) {
+          gap: 1em;
+        }
 
         a {
           display: flex;
