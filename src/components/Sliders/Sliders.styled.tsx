@@ -83,6 +83,9 @@ export const SliderPopular = styled.section`
   height: 28vw;
   cursor: pointer;
   position: relative;
+  @media (max-width: ${(props) => props.theme.sizes.sm}) {
+    height: 30vh;
+  }
   .image-course {
     width: 100%;
     height: 100%;
