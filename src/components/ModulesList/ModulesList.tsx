@@ -11,43 +11,51 @@ import { IoIosArrowForward } from "react-icons/io"
 import Typography from "../Typography"
 import ImageCourse from "../../assets/images/new-course.jpg"
 
-interface ModulesListProps {}
+interface ModulesListProps {
+  items: Array<any>
+}
 
 type ModulesListAttributes = ModulesListProps & HTMLAttributes<HTMLElement>
 
-const ModuleItem = () => {
+const ModuleItem = ({ module }: { module: any }) => {
   const [openItem, setOpenItem] = useState(false)
   const router = useRouter()
   return (
     <ModuleItemMain openItem={openItem} className="module-item">
       <div className="header-item" onClick={() => setOpenItem(!openItem)}>
         <div className="flex">
-          <AiFillPlayCircle className="icon" />
+          <div className="icon-container">
+            <AiFillPlayCircle className="icon" />
+          </div>
           <div className="header-content">
-            <Typography text="titulo del modulo" variant="H6" />
-            <Typography text="3:00:00 minutos" variant="P" />
+            <Typography
+              text={module.name_module}
+              variant="H6"
+              style={{ textAlign: "left" }}
+            />
+            <Typography text={module.time_module} variant="P" />
           </div>
         </div>
         <IoIosArrowForward className="arrow" />
       </div>
       <div className="content">
-        <Typography
-          text="Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-          variant="P"
-        />
+        <Typography text={module.description} variant="P" />
         <div className="list-videos">
-          {[1, 2, 3, 4].map((video) => (
+          {module.videos.map((video: any, index: number) => (
             <div
               className="video-item"
-              key={video}
-              onClick={() => router.push("/usuario/modulo/1")}
+              key={index}
+              onClick={() =>
+                router.push(`/usuario/modulo/${module.id}?video=${video.id}`)
+              }
             >
               <div className="video-image-contain">
                 <BsFillPlayFill className="icon-play" />
-                <Image className="video-image" src={ImageCourse} alt="" />
+
+                <video className="video-image" src={video.video}></video>
               </div>
               <div className="video-content">
-                <Typography text="titulo del modulo" variant="H6" />
+                <Typography text={video.name_video} variant="H6" />
                 <Typography text="3:00:00 minutos" variant="P" />
               </div>
             </div>
@@ -59,12 +67,13 @@ const ModuleItem = () => {
 }
 
 const ModulesList = (props: ModulesListAttributes) => {
-  const {} = props
+  const { items } = props
   return (
     <Main>
       <div className="modules-list">
-        <ModuleItem />
-        <ModuleItem />
+        {items.map((item, index) => (
+          <ModuleItem key={index} module={item} />
+        ))}
       </div>
     </Main>
   )

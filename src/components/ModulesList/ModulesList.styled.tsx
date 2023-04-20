@@ -43,12 +43,17 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
     .flex {
       display: flex;
       align-content: center;
+      justify-content: flex-start;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         width: 100%;
       }
-    }
-    .icon {
-      font-size: 4rem;
+      .icon-container {
+        display: flex;
+        align-items: center;
+        .icon {
+          font-size: 3rem;
+        }
+      }
     }
     .arrow {
       font-size: 2.5rem;

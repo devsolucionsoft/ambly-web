@@ -1,0 +1,296 @@
+import Head from "next/head"
+import { useRouter } from "next/router"
+import Image from "next/image"
+import { useState, useEffect } from "react"
+// Assests
+import ImageCourse from "../../..//assets/images/new-course.jpg"
+// Styled components
+import { Main } from "../../../styles/modulo.styled"
+// Components
+import { Header, Typography, SideNav, ModulesList } from "../../../components"
+import { MdPictureAsPdf } from "react-icons/md"
+import { HiDownload } from "react-icons/hi"
+import { BsFillPlayFill } from "react-icons/bs"
+import {
+  TbPlayerSkipBackFilled,
+  TbPlayerSkipForwardFilled,
+} from "react-icons/tb"
+import { withIronSessionSsr } from "iron-session/next"
+import {
+  sessionOptions,
+  sessionVerificationNotCreated,
+} from "../../../../lib/session"
+
+// Store
+import { useAppSelector, useAppDispatch } from "../../../store"
+import { onLoader } from "../../../store/Loader/actions"
+// API
+import { UserApi } from "../../api"
+// Store
+import { selectCourse } from "../../../store/User/actions"
+
+const items = [1, 2, 3, 4]
+
+const FileItem = () => {
+  return (
+    <div className="file-item">
+      <div className="item-info">
+        <MdPictureAsPdf className="icon" />
+        <div className="item-content">
+          <Typography text="Guia de clase" variant="H6" />
+        </div>
+      </div>
+      <div className="action">
+        <HiDownload className="action-icon" />
+      </div>
+    </div>
+  )
+}
+
+export default function Modulo() {
+  const router = useRouter()
+  const { id_modulo, video }: any = router.query
+  console.log(id_modulo, video)
+
+  // Store
+  const courseInfo = useAppSelector((store) => store.User.selectCourse)
+  const dispatch = useAppDispatch()
+  const userApiModel = new UserApi()
+
+  const [currentModule, setCurrentModule] = useState(0)
+  const [currentVideo, setCurrentVideo] = useState(0)
+  const [currentVideoTime, setCurrentVideoTime] = useState(0)
+
+  const [disableNext, setDisableNext] = useState(false)
+  const [disablePrev, setDisablePrev] = useState(false)
+
+  // Efecto para consutar a la api los modulos del curso selccionado segun los parametros recibidos
+  useEffect(() => {
+    dispatch(onLoader(true))
+    ;(async () => {
+      dispatch(onLoader(false))
+    })()
+  }, [router.query, dispatch])
+
+  // Efecto para actualizar el state con los parametros recividos
+  useEffect(() => {
+    setCurrentModule(id_modulo)
+    setCurrentVideo(id_modulo)
+  }, [id_modulo])
+
+  console.log(courseInfo.modules[currentModule])
+
+  // Efecto para desactivar los botones prev/next cuando lleguen al primer y ultimo video
+  useEffect(() => {
+    dispatch(onLoader(true))
+    if (
+      courseInfo.modules.length > 0 &&
+      courseInfo.modules[currentModule]?.videos.length > 0
+    ) {
+      const idVideo = courseInfo.modules[currentModule]?.videos[currentVideo].id
+      // Buscar progreso de video seleccionado dentro de las lista de save
+      const saved = courseInfo.modules[currentModule]?.save.find(
+        (item: any) => item.videos.id === idVideo
+      )
+      // En caso de que encuentre un progreso edita el tiempo de vista cuando se cambia el video
+      saved ? setCurrentVideoTime(saved.time_seen) : setCurrentVideoTime(0)
+
+      // Condicion para habilitar y desahabilitar el boton de next
+      if (
+        currentVideo === courseInfo.modules[currentModule]?.videos.length - 1 &&
+        currentModule === courseInfo.modules.length - 1
+      ) {
+        setDisableNext(true)
+      } else {
+        setDisableNext(false)
+      }
+      // Condicion para habilitar y desahabilitar el boton de prev
+      if (currentVideo === 0 && currentModule === 0) {
+        setDisablePrev(true)
+      } else {
+        setDisablePrev(false)
+      }
+    }
+    setTimeout(() => {
+      dispatch(onLoader(false))
+    }, 1000)
+  }, [currentModule, currentVideo, courseInfo, dispatch])
+
+  // Animacion de cambio de modulo
+  const setModule = (module: number) => {
+    setTimeout(() => {
+      setCurrentModule(module)
+    }, 1000)
+    setTimeout(() => {
+      dispatch(onLoader(false))
+    }, 1000)
+  }
+
+  // Cambiar video actual
+  const setVideo = async (video: number) => {
+    // Activar loader
+    dispatch(onLoader(true))
+    if (courseInfo.modules.length > 0) {
+      const response = await userApiModel.GetCourse(courseInfo.id)
+      if (response.status === 200) {
+        dispatch(selectCourse(response.data))
+      }
+      // Video proximo
+      if (video > currentVideo) {
+        // Comprobar si el video es el ultimo del modulo.
+        if (video === courseInfo.modules[currentModule]?.videos.length) {
+          // En caso de que sí se pasa al siguiente modulo en el video 0
+          setCurrentVideo(0)
+          setModule(currentModule + 1)
+        } else {
+          // En caso de que no se pasa el siguiente video del modulo
+          setTimeout(() => {
+            setCurrentVideo(video)
+          }, 1000)
+        }
+      }
+    }
+    // Video previo
+    if (video < currentVideo) {
+      // Comprobar si el video es el primero del modulo.
+      if (video < 0) {
+        // En caso de que sí se pasa al modulo anterior en su ultimo video
+        setCurrentVideo(0)
+        setModule(currentModule - 1)
+      } else {
+        // En caso de que no se pasa el video anterior del modulo
+        setTimeout(() => {
+          setCurrentVideo(video)
+        }, 1000)
+      }
+    }
+  }
+
+  const handleNavigateVideo = (module: number, video: number) => {
+    setVideo(0)
+    setModule(module)
+    setVideo(video)
+  }
+
+  return (
+    <>
+      <Head>
+        <title>Create Next App</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Main>
+        <SideNav />
+        <Header />
+        {courseInfo.modules &&
+        courseInfo.modules.length > 0 &&
+        courseInfo.modules[currentModule].videos.length > 0 ? (
+          <div className="page-content">
+            <div className="page-top">
+              <video
+                className="page-top-video"
+                controls
+                src={
+                  courseInfo.modules[currentModule]?.videos[currentVideo]
+                    .video ?? ""
+                }
+              ></video>
+              <div className="page-top-content">
+                <div>
+                  <Typography
+                    text={
+                      courseInfo.modules[currentModule]?.videos[currentVideo]
+                        .name_video
+                    }
+                    variant="H2"
+                  />
+                  <Typography
+                    text={
+                      courseInfo.modules[currentModule]?.videos[currentVideo]
+                        .description_video
+                    }
+                    variant="P"
+                  />
+                </div>
+                <div className="action-buttons">
+                  <button
+                    className="action-button"
+                    disabled={disablePrev}
+                    onClick={() => setVideo(currentVideo - 1)}
+                  >
+                    <TbPlayerSkipBackFilled className="icon" />
+                    Anterior
+                  </button>
+                  <button
+                    className="action-button"
+                    disabled={disableNext}
+                    onClick={() => setVideo(currentVideo + 1)}
+                  >
+                    Siguiente
+                    <TbPlayerSkipForwardFilled className="icon" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="page-module-content">
+              <div className="fileslist-contain">
+                <Typography text="Modulos" variant="H4" className="title" />
+
+                <div className="list-files">
+                  {items.map((item) => (
+                    <FileItem key={item} />
+                  ))}
+                </div>
+              </div>
+              <div className="moduleslist-contain">
+                <Typography
+                  text="Video del modulo"
+                  variant="H4"
+                  className="title"
+                />
+                <div className="list-videos-module">
+                  {courseInfo.modules[currentModule]?.videos.map(
+                    (item: any, index: number) => (
+                      <div
+                        className="video-item"
+                        key={index}
+                        onClick={() => setVideo(index)}
+                      >
+                        <div className="video-image-contain">
+                          <BsFillPlayFill className="icon-play" />
+                          <Image
+                            className="video-image"
+                            src={ImageCourse}
+                            alt=""
+                          />
+                        </div>
+                        <div className="video-content">
+                          <Typography text={item.name_video} variant="H6" />
+                          <Typography text={item.duration} variant="P" />
+                        </div>
+                      </div>
+                    )
+                  )}
+                </div>
+                <Typography
+                  text="Todos los modulos"
+                  variant="H4"
+                  className="title"
+                />
+                <ModulesList items={courseInfo.modules} />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>Este curso no tiene videos disponibles</div>
+        )}
+      </Main>
+    </>
+  )
+}
+
+export const getServerSideProps = withIronSessionSsr(
+  sessionVerificationNotCreated,
+  sessionOptions
+)

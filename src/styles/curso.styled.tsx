@@ -144,6 +144,7 @@ export const Main = styled.main`
         width: 230px;
         height: 230px;
         border-radius: 100%;
+        object-fit: cover;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           width: 40vw;
           height: 40vw;
@@ -152,6 +153,8 @@ export const Main = styled.main`
 
       .image-teacher {
         margin: 3em 0;
+        width: 70%;
+        height: auto;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           width: 100%;
           height: auto;

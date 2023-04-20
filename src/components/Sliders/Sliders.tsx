@@ -97,7 +97,7 @@ const Sliders = (props: SlidersAttributes) => {
                       bg
                       color="redPrimary"
                       variant="sm"
-                      onClick={() => router.push("/usuario/curso/1")}
+                      onClick={() => router.push(`/usuario/curso/${item.id}`)}
                     />
                   </div>
                   <div className="overflow"></div>

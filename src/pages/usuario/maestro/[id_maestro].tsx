@@ -2,8 +2,6 @@ import Head from "next/head"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
-// Assests
-import TutorImage from "../../../assets/images/data/tutor.jpeg"
 // Styled components
 import { MainDetail } from "../../../styles/maestros.styled"
 // Components
