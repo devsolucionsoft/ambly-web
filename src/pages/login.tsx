@@ -71,6 +71,7 @@ export default function Login() {
         })
       }
     } else {
+      setLoading(false)
       setErrorInputs({
         ...errorInputs,
         ...errors,

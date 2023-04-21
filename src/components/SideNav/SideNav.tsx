@@ -102,18 +102,22 @@ const SideNav = (props: SideNavAttributes) => {
                   Ayuda y soporte
                 </Link>
               </li>
-              <li>
-                <Link href="/" className="nav-item">
-                  <TfiWorld className="icon" />
-                  Terminos y condiciones
-                </Link>
-              </li>
-              <li>
-                <Link href="/" className="nav-item">
-                  <MdLocalPolice className="icon" />
-                  Políticas de privacidad
-                </Link>
-              </li>
+            </Fragment>
+          )}
+          <li>
+            <Link href="/politicas" className="nav-item">
+              <TfiWorld className="icon" />
+              Terminos y condiciones
+            </Link>
+          </li>
+          <li>
+            <Link href="/politicas" className="nav-item">
+              <MdLocalPolice className="icon" />
+              Políticas de privacidad
+            </Link>
+          </li>
+          {!minimal && (
+            <Fragment>
               <li>
                 <div className="nav-item" onClick={handleLogout}>
                   <IoExitOutline className="icon" />
