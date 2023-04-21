@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState, MouseEvent } from "react"
+import { HTMLAttributes, useState, MouseEvent, Fragment } from "react"
 import Link from "next/link"
 // Styled components
 import { Main } from "./SideNav.styled"
@@ -17,13 +17,15 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import ForgotPassword from "../ForgotPassword"
 
-interface SideNavProps {}
+interface SideNavProps {
+  minimal?: boolean
+}
 
 type SideNavAttributes = SideNavProps & HTMLAttributes<HTMLDivElement>
 
 const SideNav = (props: SideNavAttributes) => {
   const router = useRouter()
-  const {} = props
+  const { minimal } = props
 
   const openNav = useAppSelector((store) => store.SideNav)
   const appDispatch = useAppDispatch()
@@ -60,12 +62,14 @@ const SideNav = (props: SideNavAttributes) => {
         <h4 className="menu-title">Menú</h4>
 
         <ul className="nav-links">
-          <li>
-            <Link href="/usuario/mis-cursos" className="nav-item">
-              <AiFillPlayCircle className="icon" />
-              Mis cursos
-            </Link>
-          </li>
+          {!minimal && (
+            <li>
+              <Link href="/usuario/mis-cursos" className="nav-item">
+                <AiFillPlayCircle className="icon" />
+                Mis cursos
+              </Link>
+            </li>
+          )}
           <li>
             <Link href="/usuario/cursos-populares" className="nav-item">
               <AiFillBook className="icon" />
@@ -84,36 +88,40 @@ const SideNav = (props: SideNavAttributes) => {
               Maestros
             </Link>
           </li>
-          <li>
-            <div onClick={() => setShowModal(true)} className="nav-item">
-              <MdOutlineSecurity className="icon" />
-              Cambiar contraseña
-            </div>
-          </li>
-          <li>
-            <Link href="/" className="nav-item">
-              <BiHelpCircle className="icon" />
-              Ayuda y soporte
-            </Link>
-          </li>
-          <li>
-            <Link href="/" className="nav-item">
-              <TfiWorld className="icon" />
-              Terminos y condiciones
-            </Link>
-          </li>
-          <li>
-            <Link href="/" className="nav-item">
-              <MdLocalPolice className="icon" />
-              Políticas de privacidad
-            </Link>
-          </li>
-          <li>
-            <div className="nav-item" onClick={handleLogout}>
-              <IoExitOutline className="icon" />
-              Cerrar sesión
-            </div>
-          </li>
+          {!minimal && (
+            <Fragment>
+              <li>
+                <div onClick={() => setShowModal(true)} className="nav-item">
+                  <MdOutlineSecurity className="icon" />
+                  Cambiar contraseña
+                </div>
+              </li>
+              <li>
+                <Link href="/" className="nav-item">
+                  <BiHelpCircle className="icon" />
+                  Ayuda y soporte
+                </Link>
+              </li>
+              <li>
+                <Link href="/" className="nav-item">
+                  <TfiWorld className="icon" />
+                  Terminos y condiciones
+                </Link>
+              </li>
+              <li>
+                <Link href="/" className="nav-item">
+                  <MdLocalPolice className="icon" />
+                  Políticas de privacidad
+                </Link>
+              </li>
+              <li>
+                <div className="nav-item" onClick={handleLogout}>
+                  <IoExitOutline className="icon" />
+                  Cerrar sesión
+                </div>
+              </li>
+            </Fragment>
+          )}
         </ul>
       </nav>
       <div className="overflow"></div>

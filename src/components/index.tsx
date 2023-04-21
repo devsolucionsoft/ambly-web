@@ -9,6 +9,7 @@ import Modal from "./Modal"
 import ModulesList from "./ModulesList"
 import MobileContent from "./MobileContent"
 import ForgotPassword from "./ForgotPassword"
+import Loader from "./Loader"
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   ModulesList,
   MobileContent,
   ForgotPassword,
+  Loader,
 }

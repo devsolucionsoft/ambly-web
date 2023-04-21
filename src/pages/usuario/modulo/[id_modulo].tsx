@@ -31,19 +31,21 @@ import { selectCourse } from "../../../store/User/actions"
 
 const items = [1, 2, 3, 4]
 
-const FileItem = () => {
+const FileItem = ({ item }: { item: any }) => {
+  console.log(item)
+
   return (
-    <div className="file-item">
+    <a className="file-item" href={item.link_file}>
       <div className="item-info">
         <MdPictureAsPdf className="icon" />
         <div className="item-content">
-          <Typography text="Guia de clase" variant="H6" />
+          <Typography text={item.name_file} variant="H6" />
         </div>
       </div>
       <div className="action">
         <HiDownload className="action-icon" />
       </div>
-    </div>
+    </a>
   )
 }
 
@@ -57,8 +59,8 @@ export default function Modulo() {
   const dispatch = useAppDispatch()
   const userApiModel = new UserApi()
 
-  const [currentModule, setCurrentModule] = useState(0)
-  const [currentVideo, setCurrentVideo] = useState(0)
+  const [currentModule, setCurrentModule] = useState(parseInt(id_modulo))
+  const [currentVideo, setCurrentVideo] = useState(parseInt(video))
   const [currentVideoTime, setCurrentVideoTime] = useState(0)
 
   const [disableNext, setDisableNext] = useState(false)
@@ -74,16 +76,15 @@ export default function Modulo() {
 
   // Efecto para actualizar el state con los parametros recividos
   useEffect(() => {
-    setCurrentModule(id_modulo)
-    setCurrentVideo(id_modulo)
-  }, [id_modulo])
-
-  console.log(courseInfo.modules[currentModule])
+    //setCurrentModule(parseInt(id_modulo))
+    //setCurrentVideo(parseInt(video))
+  }, [id_modulo, video])
 
   // Efecto para desactivar los botones prev/next cuando lleguen al primer y ultimo video
   useEffect(() => {
     dispatch(onLoader(true))
     if (
+      courseInfo.module &&
       courseInfo.modules.length > 0 &&
       courseInfo.modules[currentModule]?.videos.length > 0
     ) {
@@ -105,11 +106,11 @@ export default function Modulo() {
         setDisableNext(false)
       }
       // Condicion para habilitar y desahabilitar el boton de prev
-      if (currentVideo === 0 && currentModule === 0) {
-        setDisablePrev(true)
-      } else {
-        setDisablePrev(false)
-      }
+    }
+    if (currentVideo === 0 && currentModule === 0) {
+      setDisablePrev(true)
+    } else {
+      setDisablePrev(false)
     }
     setTimeout(() => {
       dispatch(onLoader(false))
@@ -171,6 +172,8 @@ export default function Modulo() {
     setModule(module)
     setVideo(video)
   }
+
+  console.log(currentVideo)
 
   return (
     <>
@@ -238,8 +241,8 @@ export default function Modulo() {
                 <Typography text="Modulos" variant="H4" className="title" />
 
                 <div className="list-files">
-                  {items.map((item) => (
-                    <FileItem key={item} />
+                  {courseInfo.modules[currentModule]?.file.map((item: any) => (
+                    <FileItem key={item} item={item} />
                   ))}
                 </div>
               </div>
@@ -283,7 +286,13 @@ export default function Modulo() {
             </div>
           </div>
         ) : (
-          <div>Este curso no tiene videos disponibles</div>
+          <div style={{ textAlign: "center", paddingTop: "10em" }}>
+            <Typography
+              text="Este modulo no tiene videos disponibles"
+              variant="H4"
+              className="title"
+            />
+          </div>
         )}
       </Main>
     </>

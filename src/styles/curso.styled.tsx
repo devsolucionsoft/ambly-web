@@ -3,6 +3,7 @@ import styled from "styled-components"
 export const Main = styled.main`
   color: ${(props) => props.theme.colors.ligth};
   padding: 0% 0;
+  position: relative;
 
   .top {
     position: relative;
@@ -61,8 +62,24 @@ export const Main = styled.main`
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      margin: 2em 0 4em 0;
+      margin: 2em 3% 2em 3%;
       gap: 2em;
+      button {
+        width: auto;
+        margin-left: 3em;
+        font-size: 1.5rem;
+      }
+    }
+
+    .button-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2em;
+      pa button {
+        width: auto;
+        margin-left: 3em;
+      }
     }
 
     .caracteristics {

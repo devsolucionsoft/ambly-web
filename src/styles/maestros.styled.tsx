@@ -13,14 +13,19 @@ export const Main = styled.main`
     .my-courses-list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       margin-top: 3em;
+      gap: 10%;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        gap: 7%;
+      }
       .teacher-item {
-        width: 250px;
+        width: 25%;
         margin-bottom: 2em;
         cursor: pointer;
+        text-decoration: none;
+        color: ${(props) => props.theme.colors.ligth};
         .teacher-image {
-          width: 250px;
+          width: 100%;
           height: 250px;
           object-fit: cover;
           border-radius: 10%;

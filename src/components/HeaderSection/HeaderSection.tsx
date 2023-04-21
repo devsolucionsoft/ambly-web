@@ -18,7 +18,13 @@ const Button = (props: ButtonAttributes) => {
     <Main>
       <div className="contain">
         <Typography text={title} variant="H4" />
-        <div>{action && <button className="action">Ver todos</button>}</div>
+        <div>
+          {action && (
+            <button className="action" onClick={action}>
+              Ver todos
+            </button>
+          )}
+        </div>
       </div>
     </Main>
   )

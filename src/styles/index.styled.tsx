@@ -44,6 +44,7 @@ export const Main = styled.main`
 
       .shops {
         display: flex;
+        gap: 6em;
         margin-top: 3em;
 
         @media (max-width: ${(props) => props.theme.sizes.sm}) {
@@ -55,7 +56,7 @@ export const Main = styled.main`
           flex-direction: column;
           align-items: center;
           text-decoration: none;
-          font-size: 1.3rem;
+          font-size: 1rem;
           color: #ffffff;
           font-weight: 600;
           border: 1px solid #ffffff;
@@ -63,7 +64,7 @@ export const Main = styled.main`
           border-radius: 1em;
           .icon {
             margin-bottom: 0.5rem;
-            font-size: 3rem;
+            font-size: 2.8rem;
           }
         }
       }

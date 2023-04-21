@@ -3,22 +3,26 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useEffect, useState, Fragment } from "react"
 // Assests
-import ImageCourse from "../../../assets/images/new-course.jpg"
 import Detail1 from "../../../assets/images/icon-detail-1.png"
 import Detail2 from "../../../assets/images/icon-detail-2.png"
 import Detail3 from "../../../assets/images/icon-detail-3.png"
 import Detail4 from "../../../assets/images/icon-detail-4.png"
-import maestra from "../../../assets/images/maestra.png"
 // Styled components
 import { Main } from "../../../styles/curso.styled"
 // Components
-import { Header, Typography, SideNav, ModulesList } from "../../../components"
-import ImageName from "../../../assets/images/svg-ejem.png"
+import {
+  Header,
+  Typography,
+  SideNav,
+  ModulesList,
+  Button,
+  Loader,
+} from "../../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
 } from "../../../../lib/session"
 // Store
 import { useAppSelector, useAppDispatch } from "../../../store"
@@ -27,9 +31,7 @@ import { onLoader } from "../../../store/Loader/actions"
 // API
 import { UserApi } from "../../api"
 
-const items = [1, 2, 3, 4]
-
-export default function CourseDetail() {
+export default function CourseDetail(props: any) {
   const router = useRouter()
   const { course_id }: any = router.query
 
@@ -64,11 +66,11 @@ export default function CourseDetail() {
         dispatch(selectCourse(response.data))
         Array.isArray(response.data?.modules) &&
           setCourseModules(response.data?.modules)
-        setTimeout(() => {
-          dispatch(onLoader(false))
-          setLoad(true)
-        }, 300)
       }
+      setTimeout(() => {
+        dispatch(onLoader(false))
+        setLoad(true)
+      }, 300)
     })()
 
     if (!includeMyCourse && myCourses.length > 0) {
@@ -145,7 +147,17 @@ export default function CourseDetail() {
     setDesctActive(courseInfo?.description)
   }
 
-  console.log(courseInfo)
+  const handleActionButton = () => {
+    if (props.user) {
+      includeMyCourse
+        ? router.push(
+            `/usuario/modulo/${savedItem.module}?video=${savedItem.video}`
+          )
+        : router.push("/usuario/carrito")
+    } else {
+      router.push("/login")
+    }
+  }
 
   return (
     <>
@@ -156,8 +168,10 @@ export default function CourseDetail() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <SideNav />
-        <Header />
+        <Loader loading={!load} />
+        <SideNav minimal={!props.user} />
+        <Header minimal={!props.user} />
+
         {courseInfo && load && (
           <Fragment>
             <div className="top">
@@ -192,19 +206,31 @@ export default function CourseDetail() {
               />
 
               <br />
-
               <div className="price">
-                <Typography
-                  className="description"
-                  text="Precio:"
-                  variant="H6"
-                />
-                <Typography
-                  className="description"
-                  text={courseInfo?.price_course}
-                  variant="H2"
+                {!includeMyCourse && (
+                  <Fragment>
+                    <Typography
+                      className="description"
+                      text="Precio:"
+                      variant="H6"
+                    />
+                    <Typography
+                      className="description"
+                      text={`$${new Intl.NumberFormat("es-MX").format(
+                        courseInfo?.price_course
+                      )}`}
+                      variant="H2"
+                    />
+                  </Fragment>
+                )}
+                <Button
+                  text={includeMyCourse ? "Continuar curso" : "Comprar curso"}
+                  bg
+                  color="redPrimary"
+                  onClick={() => handleActionButton()}
                 />
               </div>
+              <div className="button-action"></div>
 
               <div className="caracteristics">
                 <div className="caracteristics-item">
@@ -289,6 +315,6 @@ export default function CourseDetail() {
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

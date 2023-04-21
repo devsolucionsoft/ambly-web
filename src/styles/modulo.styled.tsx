@@ -28,6 +28,9 @@ export const Main = styled.main`
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           padding: 0.6em 1em;
         }
+        &:disabled {
+          opacity: 0.5;
+        }
       }
     }
 
@@ -82,6 +85,7 @@ export const Main = styled.main`
           padding: 1em;
           border-radius: 15px;
           background-color: ${(props) => props.theme.colors.dark};
+          cursor: pointer;
 
           .video-image-contain {
             width: 20%;
@@ -135,6 +139,8 @@ export const Main = styled.main`
             background-color: ${(props) => props.theme.colors.graySecondary};
             padding: 1em;
             border-radius: 15px;
+            text-decoration: none;
+            color: ${(props) => props.theme.colors.ligth};
 
             .item-info {
               display: flex;

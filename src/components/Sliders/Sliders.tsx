@@ -56,7 +56,6 @@ const Sliders = (props: SlidersAttributes) => {
       }
     }
   }, [variant])
-  variant === "popular" && console.log(items)
 
   return (
     <Main>

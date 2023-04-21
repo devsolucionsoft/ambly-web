@@ -1,4 +1,5 @@
 import Head from "next/head"
+import { useState, useEffect } from "react"
 // Assests
 import { AiFillPlayCircle } from "react-icons/ai"
 import { FaUserAlt } from "react-icons/fa"
@@ -6,16 +7,42 @@ import { FaUserAlt } from "react-icons/fa"
 import { Main } from "../../styles/trailers.styled"
 import { SlidersTrailer } from "../../components/Sliders/Sliders.styled"
 // Components
-import { Header, Typography, SideNav } from "../../components"
+import { Header, Typography, SideNav, Modal } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   sessionVerificationNotCreated,
 } from "../../../lib/session"
 
+import { TrailersApi } from "../api"
+const TrailersApiModel = new TrailersApi()
+
 const items = [1, 2, 3, 4]
 
 export default function Login() {
+  const [trailersList, setTrailerList] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [trailerPlay, setTrailerPlay] = useState({
+    title: "",
+    video: "",
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await TrailersApiModel.GetTrailers()
+      response.status === 200 && setTrailerList(response.data)
+      console.log(response.data)
+    })()
+  }, [])
+
+  const handleTrailerClick = (item: any) => {
+    setTrailerPlay({
+      title: item.title,
+      video: item.video,
+    })
+    setShowModal(true)
+  }
+
   return (
     <>
       <Head>
@@ -27,26 +54,41 @@ export default function Login() {
       <Main>
         <SideNav />
         <Header />
+        <Modal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          title={trailerPlay.title}
+        >
+          {showModal && (
+            <video
+              className="page-top-video"
+              controls
+              style={{ width: "100%" }}
+              src={trailerPlay.video}
+            ></video>
+          )}
+        </Modal>
 
         <div className="content-page">
           <Typography text="Trailers" variant="H1" />
 
           <div className="my-courses-list">
-            {items.map((item, index) => (
-              <div key={index} className="course-item">
+            {trailersList.map((item: any, index) => (
+              <div
+                key={index}
+                className="course-item"
+                onClick={(data) => handleTrailerClick(item)}
+              >
                 <SlidersTrailer>
                   <div className="video-contain">
-                    <video
-                      className="video"
-                      src="https://joy1.videvo.net/videvo_files/video/free/video0455/large_watermarked/_import_609113a1be0e89.39394997_preview.mp4"
-                    ></video>
+                    <video className="video" src={item.video}></video>
                     <AiFillPlayCircle className="icon-play" size={80} />
                   </div>
                   <div className="slider-content">
-                    <h3>Nombre del curso</h3>
+                    <h3>{item.course_name}</h3>
                     <div className="autor">
                       <FaUserAlt className="icon" />
-                      <span>Carlos Jaramillo</span>
+                      <span>{item.instructor}</span>
                     </div>
                   </div>
                 </SlidersTrailer>

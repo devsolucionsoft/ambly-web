@@ -10,6 +10,24 @@ export const sessionOptions: IronSessionOptions = {
   },
 }
 
+export async function getSessionVerificationNotCreated({ req }: any) {
+  const user = req.session.user
+
+  if (user) {
+    return {
+      props: {
+        user: user,
+      },
+    }
+  }
+
+  return {
+    props: {
+      user: false,
+    },
+  }
+}
+
 export async function sessionVerificationNotCreated({ req }: any) {
   const user = req.session.user
 

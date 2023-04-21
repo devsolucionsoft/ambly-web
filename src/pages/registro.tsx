@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 // Styled components
 import { Main } from "../styles/login.styled"
 // Components
-import { Button, Typography, Input } from "../components"
+import { Button, Typography, Input, Loader } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
 // Api
@@ -20,6 +20,9 @@ import Swal from "sweetalert2"
 
 export default function Login() {
   const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
+
   const AuthApiModel = new AuthApi()
 
   const defaultInputs = {
@@ -53,6 +56,7 @@ export default function Login() {
     const { errors, validation } = getValidation(stateInputs)
 
     if (validation) {
+      setLoading(true)
       const repsonse = await AuthApiModel.UserRegister(stateInputs)
       switch (repsonse.status) {
         case 200:
@@ -74,6 +78,7 @@ export default function Login() {
           })
           break
       }
+      setLoading(false)
     } else {
       setErrorInputs({
         ...errorInputs,
@@ -91,6 +96,7 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
+        <Loader loading={loading} />
         <div className="contain">
           <Typography text="Crea una cuenta" variant="H2" />
           <div className="form-login">

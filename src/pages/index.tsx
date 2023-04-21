@@ -5,7 +5,7 @@ import { Main } from "../styles/index.styled"
 import Image from "next/image"
 import IconAmbly from "../assets/images/icon-ambly.png"
 // Components
-import { Button, Typography, MobileContent } from "../components"
+import { Button, Typography } from "../components"
 import { BsGooglePlay } from "react-icons/bs"
 import { SiAppstore } from "react-icons/si"
 import { withIronSessionSsr } from "iron-session/next"
@@ -50,12 +50,22 @@ export default function Home() {
           </div>
 
           <div className="divider"></div>
+          <div>
+            <Button
+              text="Explora nuestros cursos"
+              bg
+              color="ligth"
+              style={{ color: "#000000" }}
+              onClick={() => router.push("/usuario/inicio")}
+            />
+          </div>
+          <div className="divider"></div>
 
           <div className="shops-section">
             <Typography
               text="Descarga nuestra App:"
               variant="P"
-              style={{ fontSize: "1.3rem" }}
+              style={{ fontSize: "1.1rem" }}
             />
             <div className="shops">
               <a href="#">

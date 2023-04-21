@@ -1,5 +1,7 @@
 import Head from "next/head"
 import Image from "next/image"
+import Link from "next/link"
+import { useState, useEffect } from "react"
 // Assests
 import TutorImage from "../../assets/images/data/tutor.jpeg"
 // Styled components
@@ -11,15 +13,32 @@ import {
   HeaderSection,
   Typography,
   SideNav,
+  Loader,
 } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   sessionVerificationNotCreated,
 } from "../../../lib/session"
+import { InstructorApi } from "../../pages/api"
 const items = [1, 2, 3, 4]
 
+const InstructorApiModel = new InstructorApi()
 export default function Login() {
+  const [intructorList, setIntructorList] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    ;(async () => {
+      setLoading(true)
+      const response = await InstructorApiModel.GetInstructors()
+      response.status === 200 && setIntructorList(response.data)
+      console.log(response.data)
+
+      setLoading(false)
+    })()
+  }, [])
+
   return (
     <>
       <Head>
@@ -31,20 +50,31 @@ export default function Login() {
       <Main>
         <SideNav />
         <Header />
+        <Loader loading={loading} />
 
         <div className="content-page">
           <Typography text="Maestros" variant="H1" />
 
           <div className="my-courses-list">
-            {items.map((item, index) => (
-              <section key={index} className="teacher-item">
-                <Image className="teacher-image" src={TutorImage} alt="" />
+            {intructorList.map((item: any, index) => (
+              <Link
+                href={`/usuario/maestro/${item.id}`}
+                key={index}
+                className="teacher-item"
+              >
+                <Image
+                  className="teacher-image"
+                  src={item.image_instructor}
+                  height={100}
+                  width={100}
+                  alt=""
+                />
                 <Typography
                   className="teacher-title"
-                  text="Nombre del maestro"
+                  text={item.name_instructor}
                   variant="H4"
                 />
-              </section>
+              </Link>
             ))}
           </div>
         </div>

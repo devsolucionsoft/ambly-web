@@ -1,5 +1,6 @@
 import Head from "next/head"
 import Image from "next/image"
+import { useState, useEffect } from "react"
 // Assests
 import ImageCourse from "../../assets/images/new-course.jpg"
 // Styled components
@@ -11,10 +12,35 @@ import {
   sessionOptions,
   sessionVerificationNotCreated,
 } from "../../../lib/session"
+// Store
+import { useAppSelector, useAppDispatch } from "../../store"
+// API LOCAL
+import { UserApi } from "../api"
+import { loadCourses } from "../../store/User/actions"
 
 const items = [1, 2, 3, 4]
 
-export default function Login() {
+export default function Login(props: any) {
+  const dispatch = useAppDispatch()
+
+  const [coursesList, setCourseslist] = useState([])
+  const myCourses = useAppSelector((store) => store.User.myCourses)
+  const userAuth = useAppSelector((store) => store.Auth)
+
+  useEffect(() => {
+    const UserpiModel = new UserApi()
+    ;(async () => {
+      if (props.user.id) {
+        const response = await UserpiModel.GetMyCourses(props.user.id)
+        if (response.status === 200) {
+          console.log(response.data.courses)
+          dispatch(loadCourses(response.data.courses))
+          setCourseslist(response.data.courses)
+        }
+      }
+    })()
+  }, [dispatch, props.user])
+
   return (
     <>
       <Head>
@@ -31,17 +57,33 @@ export default function Login() {
           <Typography text="Mis Cursos" variant="H1" />
 
           <div className="my-courses-list">
-            {items.map((item, index) => (
+            {coursesList.length === 0 && (
+              <Typography
+                text="Aun no tienes cursos..."
+                variant="H2"
+                style={{ textAlign: "center" }}
+              />
+            )}
+
+            {coursesList.map((item: any, index) => (
               <section key={index} className="course-item">
-                <Image className="image-name" src={ImageCourse} alt="" />
+                <Image
+                  className="image-name"
+                  src={item.image_course}
+                  height={100}
+                  width={100}
+                  alt=""
+                />
                 <div className="course-content">
                   <Typography
-                    text="Los pilares de la vida saludable"
+                    text={item.name_course}
                     variant="H1"
                     className="course-title"
                   />
                   <div className="course-datails">
-                    <p>9 modulos - 4 horas</p>
+                    <p>
+                      {item.num_modulos} Módulo - {item.time_course} horas
+                    </p>
                   </div>
                 </div>
                 <div className="overlay"></div>

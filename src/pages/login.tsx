@@ -4,7 +4,13 @@ import { useState } from "react"
 // Styled components
 import { Main } from "../styles/login.styled"
 // Components
-import { Button, Typography, Input, ForgotPassword } from "../components"
+import {
+  Button,
+  Typography,
+  Input,
+  ForgotPassword,
+  Loader,
+} from "../components"
 // Hooks
 import useValidateForm, {
   InputValidationI,
@@ -17,6 +23,9 @@ import Swal from "sweetalert2"
 
 export default function Login() {
   const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
+
   const [showModal, setShowModal] = useState(false)
 
   const defaultInputs = {
@@ -48,10 +57,13 @@ export default function Login() {
     const { errors, validation } = getValidation(stateInputs)
 
     if (validation) {
+      setLoading(true)
       try {
         await axios.post(`/api/login`, stateInputs)
         router.replace("/usuario/inicio")
       } catch (error: any) {
+        setLoading(false)
+
         Swal.fire({
           title: "Valida tu usuario y contraseña",
           icon: "error",
@@ -75,6 +87,7 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
+        <Loader loading={loading} />
         <ForgotPassword
           showModal={showModal}
           closeModal={() => setShowModal(false)}

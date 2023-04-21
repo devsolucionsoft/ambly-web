@@ -13,18 +13,18 @@ import {
   Typography,
   SideNav,
   Modal,
+  Loader,
 } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
 } from "../../../lib/session"
 import { UserApi, CourseApi, InstructorApi, TrailersApi } from "../api"
 // Store
 import { useAppDispatch } from "../../store"
 import { loadCourses } from "../../store/User/actions"
-import { onLoader } from "../../store/Loader/actions"
-
+import { useRouter } from "next/router"
 const items = [1, 2, 3, 4]
 
 const UserApiModel = new UserApi()
@@ -34,6 +34,9 @@ const TrailersApiModel = new TrailersApi()
 
 export default function Login(props: any) {
   const dispatch = useAppDispatch()
+  const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
 
   const [coursesList, setCourseslist] = useState([])
   const [intructorList, setIntructorList] = useState([])
@@ -46,8 +49,6 @@ export default function Login(props: any) {
   })
 
   const handleTrailerClick = (item: any) => {
-    console.log("clcik")
-
     setTrailerPlay({
       title: item.title,
       video: item.video,
@@ -56,9 +57,9 @@ export default function Login(props: any) {
   }
 
   useEffect(() => {
-    dispatch(onLoader(true))
+    setLoading(true)
     ;(async () => {
-      if (props.user.id) {
+      if (props.user && props.user.id) {
         const response = await UserApiModel.GetMyCourses(props.user.id)
         response.status === 200 && dispatch(loadCourses(response.data.courses))
       }
@@ -80,9 +81,9 @@ export default function Login(props: any) {
       response.status === 200 && setTopics(response.data)
     })()
     setTimeout(() => {
-      dispatch(onLoader(false))
-    }, 800)
-  }, [props.user.id, dispatch])
+      setLoading(false)
+    }, 1000)
+  }, [props.user, dispatch])
 
   console.log(topics)
 
@@ -95,6 +96,7 @@ export default function Login(props: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
+        <Loader loading={loading} />
         <Modal
           show={showModal}
           onClose={() => setShowModal(false)}
@@ -109,8 +111,8 @@ export default function Login(props: any) {
             ></video>
           )}
         </Modal>
-        <SideNav />
-        <Header />
+        <SideNav minimal={!props.user} />
+        <Header minimal={!props.user} />
         <div className="content-page-top">
           <Sliders variant="new" items={coursesList} />
         </div>
@@ -121,12 +123,18 @@ export default function Login(props: any) {
             style={{ textAlign: "center" }}
           />
           <div>
-            <HeaderSection title="Populares" action={() => false} />
+            <HeaderSection
+              title="Populares"
+              action={() => router.push(`/usuario/cursos/todos`)}
+            />
             <Sliders variant="popular" items={coursesList} />
           </div>
 
           <div>
-            <HeaderSection title="Trailers" action={() => false} />
+            <HeaderSection
+              title="Trailers"
+              action={() => router.push(`/usuario/trailers`)}
+            />
             <Sliders
               variant="trailers"
               onClickSlider={(data) => handleTrailerClick(data)}
@@ -135,7 +143,10 @@ export default function Login(props: any) {
           </div>
 
           <div>
-            <HeaderSection title="Maestros" action={() => false} />
+            <HeaderSection
+              title="Maestros"
+              action={() => router.push(`/usuario/maestros`)}
+            />
 
             <div className="teachers-list">
               {intructorList.map((item: any, index) => (
@@ -165,7 +176,11 @@ export default function Login(props: any) {
             <HeaderSection title="Categorías" />
             <div className="category-list">
               {topics.map((item: any, index) => (
-                <section key={index} className="category-item">
+                <Link
+                  href={`/usuario/cursos/todos`}
+                  key={index}
+                  className="category-item"
+                >
                   <Image
                     className="category-image"
                     src={item.image}
@@ -173,7 +188,7 @@ export default function Login(props: any) {
                     height={100}
                     width={100}
                   />
-                </section>
+                </Link>
               ))}
             </div>
           </div>
@@ -184,6 +199,6 @@ export default function Login(props: any) {
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

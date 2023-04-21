@@ -18,12 +18,14 @@ import {
   sessionVerificationNotCreated,
 } from "../../../lib/session"
 
-interface HeaderProps {}
+interface HeaderProps {
+  minimal?: boolean
+}
 
 type HeaderAttributes = HeaderProps & HTMLAttributes<HTMLDivElement>
 
 const Header = (props: HeaderAttributes) => {
-  const {} = props
+  const { minimal } = props
 
   const appDispatch = useAppDispatch()
 
@@ -34,21 +36,23 @@ const Header = (props: HeaderAttributes) => {
           <Image className="logo" src={IconAmbly} alt="" />
         </Link>
 
-        <div className="links">
-          <div className="link-item">
-            <Link href="/usuario/inicio">Categorías</Link>
-          </div>
-          <div className="link-item">
-            <Link href="/usuario/mis-cursos">Mis cursos</Link>
-          </div>
-          <div className="link-item">
-            <Link href="/usuario/perfil">Perfil</Link>
-          </div>
-          <div className="link-item">
-            <Link href="/usuario/carrito">Carrito</Link>
-          </div>
-        </div>
+        {!minimal && (
+          <div className="links">
+            <div className="link-item">
+              <Link href="/usuario/inicio">Categorías</Link>
+            </div>
+            <div className="link-item">
+              <Link href="/usuario/mis-cursos">Mis cursos</Link>
+            </div>
 
+            <div className="link-item">
+              <Link href="/usuario/perfil">Perfil</Link>
+            </div>
+            <div className="link-item">
+              <Link href="/usuario/carrito">Carrito</Link>
+            </div>
+          </div>
+        )}
         <div className="open-menu" onClick={() => appDispatch(onSideNav(true))}>
           <HiMenu size={35} />
         </div>

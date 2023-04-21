@@ -17,7 +17,13 @@ interface ModulesListProps {
 
 type ModulesListAttributes = ModulesListProps & HTMLAttributes<HTMLElement>
 
-const ModuleItem = ({ module }: { module: any }) => {
+const ModuleItem = ({
+  module,
+  indexModule,
+}: {
+  module: any
+  indexModule: number
+}) => {
   const [openItem, setOpenItem] = useState(false)
   const router = useRouter()
   return (
@@ -46,7 +52,7 @@ const ModuleItem = ({ module }: { module: any }) => {
               className="video-item"
               key={index}
               onClick={() =>
-                router.push(`/usuario/modulo/${module.id}?video=${video.id}`)
+                router.push(`/usuario/modulo/${indexModule}?video=${index}`)
               }
             >
               <div className="video-image-contain">
@@ -72,7 +78,7 @@ const ModulesList = (props: ModulesListAttributes) => {
     <Main>
       <div className="modules-list">
         {items.map((item, index) => (
-          <ModuleItem key={index} module={item} />
+          <ModuleItem key={index} module={item} indexModule={index} />
         ))}
       </div>
     </Main>
