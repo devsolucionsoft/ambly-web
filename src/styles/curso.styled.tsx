@@ -69,6 +69,17 @@ export const Main = styled.main`
         margin-left: 3em;
         font-size: 1.5rem;
       }
+
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        flex-direction: column;
+        align-items: center;
+        gap: 0em;
+
+        button {
+          margin-left: 0em;
+          margin-top: 2em;
+        }
+      }
     }
 
     .button-action {
