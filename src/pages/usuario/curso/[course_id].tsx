@@ -48,6 +48,7 @@ export default function CourseDetail(props: any) {
   }, [course_id])
 
   const [load, setLoad] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const [courseModules, setCourseModules] = useState<any>([])
   const [savedItem, setSavedItem] = useState({
@@ -60,7 +61,7 @@ export default function CourseDetail(props: any) {
   useEffect(() => {
     const userApiModel = new UserApi()
     setLoad(false)
-    dispatch(onLoader(true))
+    setLoading(true)
 
     const stored = localStorage.getItem("cart_products")
 
@@ -81,7 +82,7 @@ export default function CourseDetail(props: any) {
           setCourseModules(response.data?.modules)
       }
       setTimeout(() => {
-        dispatch(onLoader(false))
+        setLoading(false)
         setLoad(true)
       }, 300)
     })()
@@ -162,6 +163,7 @@ export default function CourseDetail(props: any) {
 
   const addCart = () => {
     const stored = localStorage.getItem("cart_products")
+    setLoading(true)
 
     if (stored) {
       const cart_products: Array<any> = JSON.parse(stored)
@@ -170,6 +172,11 @@ export default function CourseDetail(props: any) {
     } else {
       localStorage.setItem("cart_products", JSON.stringify([courseInfo.id]))
     }
+
+    setTimeout(() => {
+      setIncludeCart(true)
+      setLoading(false)
+    }, 300)
   }
 
   const handleActionButton = () => {
@@ -193,7 +200,7 @@ export default function CourseDetail(props: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <Loader loading={!load} />
+        <Loader loading={loading} />
         <SideNav minimal={!props.user} />
         <Header minimal={!props.user} />
 

@@ -30,11 +30,11 @@ export default function Carrito(props: any) {
   const router = useRouter()
   const [courses, setCourses] = useState([])
   const [loading, setLoading] = useState(false)
+  let total = 0
 
-  useEffect(() => {}, [])
-
-  useEffect(() => {
+  const getItems = () => {
     const stored = localStorage.getItem("cart_products")
+    total = 0
 
     if (stored) {
       const cart_products: Array<any> = JSON.parse(stored)
@@ -48,9 +48,17 @@ export default function Carrito(props: any) {
         setLoading(false)
       })()
     }
+  }
+
+  useEffect(() => {
+    getItems()
   }, [])
 
-  console.log(courses)
+  const deleteItem = (id: number) => {
+    const filterdata = courses.filter((item: any) => item.id !== id)
+    localStorage.setItem("cart_products", JSON.stringify(filterdata))
+    getItems()
+  }
 
   return (
     <>
@@ -73,44 +81,50 @@ export default function Carrito(props: any) {
           />
 
           <div className="items-carrito">
-            <div className="item-carrito">
-              {courses.map((item: any, index: number) => (
-                <div className="flex" key={index}>
-                  <Image
-                    className="image"
-                    src={item.image_course}
-                    height={100}
-                    width={100}
-                    alt=""
-                  />
+            {courses.map((item: any, index: number) => {
+              total += item.price_course
+              return (
+                <div className="item-carrito" key={index}>
+                  <div className="flex">
+                    <Image
+                      className="image"
+                      src={item.image_course}
+                      height={100}
+                      width={100}
+                      alt=""
+                    />
 
-                  <div className="content">
-                    <Typography text={item.name_course} variant="H3" />
+                    <div className="content">
+                      <Typography text={item.name_course} variant="H3" />
 
-                    <div className="autor">
-                      <FaUserAlt className="icon" />
+                      <div className="autor">
+                        <FaUserAlt className="icon" />
+                        <Typography
+                          text={item.instructor.name_instructor}
+                          variant="H4"
+                        />
+                      </div>
                       <Typography
-                        text={item.instructor.name_instructor}
-                        variant="H4"
+                        text={new Intl.NumberFormat("es-MX").format(
+                          item.price_course
+                        )}
+                        variant="H5"
                       />
                     </div>
-                    <Typography
-                      text={new Intl.NumberFormat("es-MX").format(
-                        item.price_course
-                      )}
-                      variant="H5"
-                    />
+                  </div>
+
+                  <div className="delete" onClick={() => deleteItem(item.id)}>
+                    <MdDelete className="icon" />
                   </div>
                 </div>
-              ))}
-
-              <div className="delete">
-                <MdDelete className="icon" />
-              </div>
-            </div>
+              )
+            })}
           </div>
           <div className="total">
-            <Typography text="Total: $30.000" variant="H2" />
+            <Typography
+              text={`Total: $${new Intl.NumberFormat("es-MX").format(total)}`}
+              variant="H2"
+            />
           </div>
           {props.user ? (
             <Fragment>
