@@ -24,8 +24,6 @@ export default function Login() {
       setLoading(true)
       const response = await InstructorApiModel.GetInstructors()
       response.status === 200 && setIntructorList(response.data)
-      console.log(response.data)
-
       setLoading(false)
     })()
   }, [])

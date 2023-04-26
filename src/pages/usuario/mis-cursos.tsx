@@ -31,7 +31,6 @@ export default function Login(props: any) {
       if (props.user.id) {
         const response = await UserpiModel.GetMyCourses(props.user.id)
         if (response.status === 200) {
-          console.log(response.data.courses)
           dispatch(loadCourses(response.data.courses))
           setCourseslist(response.data.courses)
         }
@@ -90,7 +89,6 @@ export default function Login(props: any) {
           </div>
         </div>
         <Footer />
-
       </Main>
     </>
   )

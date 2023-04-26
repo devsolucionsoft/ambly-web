@@ -142,8 +142,6 @@ const Sliders = (props: SlidersAttributes) => {
                   <div
                     className="click"
                     onClick={(ev) => {
-                      console.log("cc")
-
                       onClickSlider({
                         title: "Titulo del video",
                         video: item.video,

@@ -86,8 +86,6 @@ export default function Login(props: any) {
     }, 1000)
   }, [props.user, dispatch])
 
-  console.log(topics)
-
   return (
     <>
       <Head>

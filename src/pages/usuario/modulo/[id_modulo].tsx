@@ -39,8 +39,6 @@ import { selectCourse } from "../../../store/User/actions"
 const items = [1, 2, 3, 4]
 
 const FileItem = ({ item }: { item: any }) => {
-  console.log(item)
-
   return (
     <a className="file-item" href={item.link_file}>
       <div className="item-info">

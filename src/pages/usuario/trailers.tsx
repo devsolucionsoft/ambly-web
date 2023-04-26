@@ -31,7 +31,6 @@ export default function Login() {
     ;(async () => {
       const response = await TrailersApiModel.GetTrailers()
       response.status === 200 && setTrailerList(response.data)
-      console.log(response.data)
     })()
   }, [])
 
@@ -97,7 +96,6 @@ export default function Login() {
           </div>
         </div>
         <Footer />
-
       </Main>
     </>
   )
