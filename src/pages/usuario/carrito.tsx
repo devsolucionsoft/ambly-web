@@ -51,7 +51,20 @@ export default function Carrito(props: any) {
   }
 
   useEffect(() => {
-    getItems()
+    const stored = localStorage.getItem("cart_products")
+
+    if (stored) {
+      const cart_products: Array<any> = JSON.parse(stored)
+      ;(async () => {
+        setLoading(true)
+        const response = await CourseApiModel.GetCourses()
+        const filterdata = response.data.filter((item: any) =>
+          cart_products.includes(item.id)
+        )
+        response.status === 200 && setCourses(filterdata)
+        setLoading(false)
+      })()
+    }
   }, [])
 
   const deleteItem = (id: number) => {
