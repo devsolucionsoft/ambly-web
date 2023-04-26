@@ -11,7 +11,7 @@ import { Header, Typography, SideNav, Modal, Footer } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
 } from "../../../lib/session"
 
 import { TrailersApi } from "../api"
@@ -19,7 +19,7 @@ const TrailersApiModel = new TrailersApi()
 
 const items = [1, 2, 3, 4]
 
-export default function Login() {
+export default function Login(props: any) {
   const [trailersList, setTrailerList] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [trailerPlay, setTrailerPlay] = useState({
@@ -51,8 +51,8 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <SideNav />
-        <Header />
+        <SideNav minimal={!props.user} />
+        <Header minimal={!props.user} />
         <Modal
           show={showModal}
           onClose={() => setShowModal(false)}
@@ -102,6 +102,6 @@ export default function Login() {
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

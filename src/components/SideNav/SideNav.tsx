@@ -31,7 +31,7 @@ const SideNav = (props: SideNavAttributes) => {
   const [showModal, setShowModal] = useState(false)
 
   const handleChildClick = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
+    //e.stopPropagation()
   }
 
   const handleLogout = async () => {
@@ -69,7 +69,7 @@ const SideNav = (props: SideNavAttributes) => {
             </li>
           )}
           <li>
-            <Link href="/usuario/cursos-populares" className="nav-item">
+            <Link href="usuario/cursos/todos" className="nav-item">
               <AiFillBook className="icon" />
               Cursos populares
             </Link>

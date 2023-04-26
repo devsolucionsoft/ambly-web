@@ -9,13 +9,13 @@ import { Header, Typography, SideNav, Loader, Footer } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
 } from "../../../lib/session"
 import { InstructorApi } from "../../pages/api"
 const items = [1, 2, 3, 4]
 
 const InstructorApiModel = new InstructorApi()
-export default function Login() {
+export default function Login(props: any) {
   const [intructorList, setIntructorList] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -37,8 +37,8 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <SideNav />
-        <Header />
+        <SideNav minimal={!props.user} />
+        <Header minimal={!props.user} />
         <Loader loading={loading} />
 
         <div className="content-page">
@@ -74,6 +74,6 @@ export default function Login() {
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

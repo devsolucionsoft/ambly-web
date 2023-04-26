@@ -16,7 +16,7 @@ import { UserApi } from "../api"
 const items = [1, 2, 3, 4]
 const UserApiModel = new UserApi()
 
-export default function Login() {
+export default function Login(props: any) {
   const [topics, setTopics] = useState([])
   useEffect(() => {
     ;(async () => {
@@ -34,8 +34,8 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <SideNav />
-        <Header />
+        <SideNav minimal={!props.user} />
+        <Header minimal={!props.user} />
 
         <div className="content-page">
           <Typography text="Categorías" variant="H1" />
@@ -57,7 +57,6 @@ export default function Login() {
           </div>
         </div>
         <Footer />
-
       </Main>
     </>
   )
