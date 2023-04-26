@@ -36,6 +36,9 @@ export const Main = styled.header`
           font-size: 1.2rem;
           text-decoration: none;
         }
+        .icon {
+          font-size: 1.5rem;
+        }
       }
     }
 

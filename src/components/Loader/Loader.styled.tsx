@@ -13,7 +13,7 @@ export const Main = styled.div`
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: #0000008f;
+  background-color: #000000ab;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -7,7 +7,7 @@ import { FaUserAlt } from "react-icons/fa"
 import { Main } from "../../styles/trailers.styled"
 import { SlidersTrailer } from "../../components/Sliders/Sliders.styled"
 // Components
-import { Header, Typography, SideNav, Modal } from "../../components"
+import { Header, Typography, SideNav, Modal, Footer } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -96,6 +96,8 @@ export default function Login() {
             ))}
           </div>
         </div>
+        <Footer />
+
       </Main>
     </>
   )

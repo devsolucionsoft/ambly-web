@@ -7,7 +7,14 @@ import ImageCourse from "../../..//assets/images/new-course.jpg"
 // Styled components
 import { Main } from "../../../styles/modulo.styled"
 // Components
-import { Header, Typography, SideNav, ModulesList } from "../../../components"
+import {
+  Header,
+  Typography,
+  SideNav,
+  ModulesList,
+  Loader,
+  Footer,
+} from "../../../components"
 import { MdPictureAsPdf } from "react-icons/md"
 import { HiDownload } from "react-icons/hi"
 import { BsFillPlayFill } from "react-icons/bs"
@@ -52,7 +59,6 @@ const FileItem = ({ item }: { item: any }) => {
 export default function Modulo() {
   const router = useRouter()
   const { id_modulo, video }: any = router.query
-  console.log(id_modulo, video)
 
   // Store
   const courseInfo = useAppSelector((store) => store.User.selectCourse)
@@ -65,12 +71,13 @@ export default function Modulo() {
 
   const [disableNext, setDisableNext] = useState(false)
   const [disablePrev, setDisablePrev] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   // Efecto para consutar a la api los modulos del curso selccionado segun los parametros recibidos
   useEffect(() => {
-    dispatch(onLoader(true))
+    setLoading(true)
     ;(async () => {
-      dispatch(onLoader(false))
+      setLoading(false)
     })()
   }, [router.query, dispatch])
 
@@ -82,7 +89,7 @@ export default function Modulo() {
 
   // Efecto para desactivar los botones prev/next cuando lleguen al primer y ultimo video
   useEffect(() => {
-    dispatch(onLoader(true))
+    setLoading(true)
     if (
       courseInfo.module &&
       courseInfo.modules.length > 0 &&
@@ -113,7 +120,7 @@ export default function Modulo() {
       setDisablePrev(false)
     }
     setTimeout(() => {
-      dispatch(onLoader(false))
+      setLoading(false)
     }, 1000)
   }, [currentModule, currentVideo, courseInfo, dispatch])
 
@@ -123,14 +130,14 @@ export default function Modulo() {
       setCurrentModule(module)
     }, 1000)
     setTimeout(() => {
-      dispatch(onLoader(false))
+      setLoading(false)
     }, 1000)
   }
 
   // Cambiar video actual
   const setVideo = async (video: number) => {
     // Activar loader
-    dispatch(onLoader(true))
+    setLoading(true)
     if (courseInfo.modules.length > 0) {
       const response = await userApiModel.GetCourse(courseInfo.id)
       if (response.status === 200) {
@@ -173,8 +180,6 @@ export default function Modulo() {
     setVideo(video)
   }
 
-  console.log(currentVideo)
-
   return (
     <>
       <Head>
@@ -186,6 +191,8 @@ export default function Modulo() {
       <Main>
         <SideNav />
         <Header />
+        <Loader loading={loading} />
+
         {courseInfo.modules &&
         courseInfo.modules.length > 0 &&
         courseInfo.modules[currentModule].videos.length > 0 ? (
@@ -238,7 +245,11 @@ export default function Modulo() {
             </div>
             <div className="page-module-content">
               <div className="fileslist-contain">
-                <Typography text="Modulos" variant="H4" className="title" />
+                <Typography
+                  text="Material Descargable"
+                  variant="H4"
+                  className="title"
+                />
 
                 <div className="list-files">
                   {courseInfo.modules[currentModule]?.file.map((item: any) => (
@@ -248,7 +259,7 @@ export default function Modulo() {
               </div>
               <div className="moduleslist-contain">
                 <Typography
-                  text="Video del modulo"
+                  text="Videos del modulo"
                   variant="H4"
                   className="title"
                 />
@@ -256,7 +267,9 @@ export default function Modulo() {
                   {courseInfo.modules[currentModule]?.videos.map(
                     (item: any, index: number) => (
                       <div
-                        className="video-item"
+                        className={`video-item ${
+                          currentVideo == index && `video-item-active`
+                        }`}
                         key={index}
                         onClick={() => setVideo(index)}
                       >
@@ -281,7 +294,11 @@ export default function Modulo() {
                   variant="H4"
                   className="title"
                 />
-                <ModulesList items={courseInfo.modules} />
+                <ModulesList
+                  items={courseInfo.modules}
+                  currentModule={currentModule}
+                  currentVideo={currentVideo}
+                />
               </div>
             </div>
           </div>
@@ -294,6 +311,7 @@ export default function Modulo() {
             />
           </div>
         )}
+        <Footer />
       </Main>
     </>
   )

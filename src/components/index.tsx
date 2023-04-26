@@ -10,6 +10,7 @@ import ModulesList from "./ModulesList"
 import MobileContent from "./MobileContent"
 import ForgotPassword from "./ForgotPassword"
 import Loader from "./Loader"
+import Footer from "./Footer"
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   MobileContent,
   ForgotPassword,
   Loader,
+  Footer,
 }

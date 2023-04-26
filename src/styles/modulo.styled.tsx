@@ -79,6 +79,9 @@ export const Main = styled.main`
       }
 
       .list-videos-module {
+        .video-item-active {
+          border: 1px solid ${(props) => props.theme.colors.redPrimary};
+        }
         .video-item {
           display: flex;
           margin-bottom: 1.5em;
@@ -111,6 +114,7 @@ export const Main = styled.main`
             flex-direction: column;
             align-items: flex-start;
             margin-left: 2em;
+            color: ${(props) => props.theme.colors.ligth};
           }
         }
       }

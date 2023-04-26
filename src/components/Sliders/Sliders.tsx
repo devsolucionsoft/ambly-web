@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { Navigation, Pagination } from "swiper"
 // Components
-import { Button } from "../"
+import { Button, Typography } from "../"
 // Styled components
 import {
   Main,
@@ -20,7 +20,6 @@ import { AiFillPlayCircle } from "react-icons/ai"
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
-import { log } from "console"
 
 interface SlidersProps {
   variant: "new" | "popular" | "trailers"
@@ -80,24 +79,32 @@ const Sliders = (props: SlidersAttributes) => {
                     width={100}
                   />
                   <div className="slider-content">
-                    <Image
-                      className="image-name"
-                      src={item.image_name}
-                      height={100}
-                      width={100}
-                      alt=""
-                    />
-                    <div className="autor">
-                      <FaUserAlt className="icon" />
-                      <span>{item.instructor.name_instructor} </span>
+                    <div className="content-1">
+                      <Image
+                        className="image-name"
+                        src={item.image_name}
+                        height={100}
+                        width={100}
+                        alt=""
+                      />
+                      <div className="autor">
+                        <FaUserAlt className="icon" />
+                        <span>{item.instructor.name_instructor} </span>
+                      </div>
+                      <Button
+                        text="Acceder"
+                        bg
+                        color="redPrimary"
+                        variant="sm"
+                        onClick={() => router.push(`/usuario/curso/${item.id}`)}
+                      />
                     </div>
-                    <Button
-                      text="Acceder"
-                      bg
-                      color="redPrimary"
-                      variant="sm"
-                      onClick={() => router.push(`/usuario/curso/${item.id}`)}
-                    />
+                    <div className="content-2">
+                      <Typography
+                        variant="H6"
+                        text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                      />
+                    </div>
                   </div>
                   <div className="overflow"></div>
                 </SliderNew>

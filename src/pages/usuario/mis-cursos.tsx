@@ -1,12 +1,10 @@
 import Head from "next/head"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-// Assests
-import ImageCourse from "../../assets/images/new-course.jpg"
 // Styled components
 import { Main } from "../../styles/mis-cursos.styled"
 // Components
-import { Header, Typography, SideNav } from "../../components"
+import { Header, Typography, SideNav, Footer } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -91,6 +89,8 @@ export default function Login(props: any) {
             ))}
           </div>
         </div>
+        <Footer />
+
       </Main>
     </>
   )

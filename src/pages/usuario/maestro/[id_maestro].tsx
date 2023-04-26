@@ -5,13 +5,7 @@ import { useState, useEffect } from "react"
 // Styled components
 import { MainDetail } from "../../../styles/maestros.styled"
 // Components
-import {
-  Header,
-  Sliders,
-  HeaderSection,
-  Typography,
-  SideNav,
-} from "../../../components"
+import { Header, Typography, SideNav, Footer } from "../../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -82,6 +76,7 @@ export default function Login() {
             />
           </div>
         </div>
+        <Footer />
       </MainDetail>
     </>
   )

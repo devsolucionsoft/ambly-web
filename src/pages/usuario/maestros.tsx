@@ -2,19 +2,10 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
-// Assests
-import TutorImage from "../../assets/images/data/tutor.jpeg"
 // Styled components
 import { Main } from "../../styles/maestros.styled"
 // Components
-import {
-  Header,
-  Sliders,
-  HeaderSection,
-  Typography,
-  SideNav,
-  Loader,
-} from "../../components"
+import { Header, Typography, SideNav, Loader, Footer } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -78,6 +69,7 @@ export default function Login() {
             ))}
           </div>
         </div>
+        <Footer />
       </Main>
     </>
   )

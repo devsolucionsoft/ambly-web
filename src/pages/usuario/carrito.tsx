@@ -1,22 +1,57 @@
 import Head from "next/head"
 import Image from "next/image"
+import { useState, useEffect, Fragment } from "react"
+import { useRouter } from "next/router"
 // Assests
-import { AiFillPlayCircle } from "react-icons/ai"
 import { FaUserAlt } from "react-icons/fa"
-import ImageCourse from "../../assets/images/new-course.jpg"
 // Styled components
 import { Main } from "../../styles/carrito.styled"
-import { SlidersTrailer } from "../../components/Sliders/Sliders.styled"
 // Components
-import { Header, Typography, SideNav, Input, Button } from "../../components"
+import {
+  Header,
+  Typography,
+  SideNav,
+  Input,
+  Button,
+  Footer,
+  Loader,
+} from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
 } from "../../../lib/session"
 import { MdDelete } from "react-icons/md"
+// API
+import { CourseApi } from "../api"
+const CourseApiModel = new CourseApi()
 
-export default function Carrito() {
+export default function Carrito(props: any) {
+  const router = useRouter()
+  const [courses, setCourses] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {}, [])
+
+  useEffect(() => {
+    const stored = localStorage.getItem("cart_products")
+
+    if (stored) {
+      const cart_products: Array<any> = JSON.parse(stored)
+      ;(async () => {
+        setLoading(true)
+        const response = await CourseApiModel.GetCourses()
+        const filterdata = response.data.filter((item: any) =>
+          cart_products.includes(item.id)
+        )
+        response.status === 200 && setCourses(filterdata)
+        setLoading(false)
+      })()
+    }
+  }, [])
+
+  console.log(courses)
+
   return (
     <>
       <Head>
@@ -26,30 +61,48 @@ export default function Carrito() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <SideNav />
-        <Header />
+        <SideNav minimal={!props.user} />
+        <Header minimal={!props.user} />
+        <Loader loading={loading} />
 
         <div className="content-page">
-          <Typography text="Carrito" variant="H1" />
+          <Typography
+            text="Carrito"
+            variant="H1"
+            style={{ textAlign: "left", width: "100%" }}
+          />
 
           <div className="items-carrito">
             <div className="item-carrito">
-              <div className="flex">
-                <Image className="image" src={ImageCourse} alt="" />
-
-                <div className="content">
-                  <Typography
-                    text="Los pilares de la vida saludable"
-                    variant="H3"
+              {courses.map((item: any, index: number) => (
+                <div className="flex" key={index}>
+                  <Image
+                    className="image"
+                    src={item.image_course}
+                    height={100}
+                    width={100}
+                    alt=""
                   />
 
-                  <div className="autor">
-                    <FaUserAlt className="icon" />
-                    <Typography text="Carlos jaramillo" variant="H4" />
+                  <div className="content">
+                    <Typography text={item.name_course} variant="H3" />
+
+                    <div className="autor">
+                      <FaUserAlt className="icon" />
+                      <Typography
+                        text={item.instructor.name_instructor}
+                        variant="H4"
+                      />
+                    </div>
+                    <Typography
+                      text={new Intl.NumberFormat("es-MX").format(
+                        item.price_course
+                      )}
+                      variant="H5"
+                    />
                   </div>
-                  <Typography text="$30.000" variant="H5" />
                 </div>
-              </div>
+              ))}
 
               <div className="delete">
                 <MdDelete className="icon" />
@@ -59,30 +112,52 @@ export default function Carrito() {
           <div className="total">
             <Typography text="Total: $30.000" variant="H2" />
           </div>
-          <div className="divider"></div>
-          <div className="form">
-            <div>
-              <Typography text="Datos de pago" variant="H4" />
-              <br />
-              <Input type="email" label="Nomber" name="nomber" />
-              <Input type="email" label="Email" name="email" />
-              <Input type="email" label="Telefono" name="phone" />
+          {props.user ? (
+            <Fragment>
+              <div className="divider"></div>
+              <div className="form">
+                <div>
+                  <Typography text="Datos de pago" variant="H4" />
+                  <br />
+                  <Input type="email" label="Nomber" name="nomber" />
+                  <Input type="email" label="Email" name="email" />
+                  <Input type="email" label="Telefono" name="phone" />
+                </div>
+                <div>
+                  <Typography text="Datos de tarjeta" variant="H4" />
+                  <br />
+                  <Input type="email" label="Numero de tarjeta" name="nomber" />
+                  <Input type="email" label="CV" name="nomber" />
+                </div>
+              </div>
+              <Button text="Aceptar" bg color="redPrimary" />
+            </Fragment>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                padding: "auto",
+                marginTop: "5em",
+              }}
+            >
+              <Button
+                text="Inicia sesion para realizar la compra"
+                bg
+                color="redPrimary"
+                onClick={() => router.push("/inicio")}
+              />
             </div>
-            <div>
-              <Typography text="Datos de tarjeta" variant="H4" />
-              <br />
-              <Input type="email" label="Numero de tarjeta" name="nomber" />
-              <Input type="email" label="CV" name="nomber" />
-            </div>
-          </div>
-          <Button text="Aceptar" bg color="redPrimary" />
+          )}
         </div>
+        <Footer />
       </Main>
     </>
   )
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

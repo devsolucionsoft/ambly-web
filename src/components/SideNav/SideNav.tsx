@@ -4,8 +4,6 @@ import Link from "next/link"
 import { Main } from "./SideNav.styled"
 import { AiFillPlayCircle, AiFillBook } from "react-icons/ai"
 import { MdOutlineSecurity, MdLocalPolice } from "react-icons/md"
-import { BiHelpCircle } from "react-icons/bi"
-import { TfiWorld } from "react-icons/tfi"
 import { IoExitOutline, IoCloseSharp } from "react-icons/io5"
 import { BsCameraVideoFill, BsFillPeopleFill } from "react-icons/bs"
 // Redux
@@ -39,7 +37,7 @@ const SideNav = (props: SideNavAttributes) => {
   const handleLogout = async () => {
     try {
       await axios.post(`/api/logout`, {})
-      router.replace("/")
+      router.replace("/inicio")
     } catch (error: any) {}
   }
 
@@ -59,7 +57,7 @@ const SideNav = (props: SideNavAttributes) => {
         >
           <IoCloseSharp className="icon" />
         </button>
-        <h4 className="menu-title">Menú</h4>
+        {/* <h4 className="menu-title">Menú</h4> */}
 
         <ul className="nav-links">
           {!minimal && (
@@ -89,42 +87,21 @@ const SideNav = (props: SideNavAttributes) => {
             </Link>
           </li>
           {!minimal && (
-            <Fragment>
-              <li>
-                <div onClick={() => setShowModal(true)} className="nav-item">
-                  <MdOutlineSecurity className="icon" />
-                  Cambiar contraseña
-                </div>
-              </li>
-              <li>
-                <Link href="/" className="nav-item">
-                  <BiHelpCircle className="icon" />
-                  Ayuda y soporte
-                </Link>
-              </li>
-            </Fragment>
+            <li>
+              <div onClick={() => setShowModal(true)} className="nav-item">
+                <MdOutlineSecurity className="icon" />
+                Cambiar contraseña
+              </div>
+            </li>
           )}
-          <li>
-            <Link href="/politicas" className="nav-item">
-              <TfiWorld className="icon" />
-              Terminos y condiciones
-            </Link>
-          </li>
-          <li>
-            <Link href="/politicas" className="nav-item">
-              <MdLocalPolice className="icon" />
-              Políticas de privacidad
-            </Link>
-          </li>
+
           {!minimal && (
-            <Fragment>
-              <li>
-                <div className="nav-item" onClick={handleLogout}>
-                  <IoExitOutline className="icon" />
-                  Cerrar sesión
-                </div>
-              </li>
-            </Fragment>
+            <li>
+              <div className="nav-item" onClick={handleLogout}>
+                <IoExitOutline className="icon" />
+                Cerrar sesión
+              </div>
+            </li>
           )}
         </ul>
       </nav>

@@ -17,6 +17,7 @@ import {
   ModulesList,
   Button,
   Loader,
+  Footer,
 } from "../../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
@@ -39,6 +40,7 @@ export default function CourseDetail(props: any) {
   const courseInfo = useAppSelector((store) => store.User.selectCourse)
   const myCourses = useAppSelector((store) => store.User.myCourses)
   const [includeMyCourse, setIncludeMyCourse] = useState(false)
+  const [includeCart, setIncludeCart] = useState(false)
   const auth = useAppSelector((store) => store.Auth)
 
   useEffect(() => {
@@ -59,6 +61,17 @@ export default function CourseDetail(props: any) {
     const userApiModel = new UserApi()
     setLoad(false)
     dispatch(onLoader(true))
+
+    const stored = localStorage.getItem("cart_products")
+
+    if (stored) {
+      const cart_products: Array<any> = JSON.parse(stored)
+
+      if (cart_products.includes(parseInt(course_id))) {
+        setIncludeCart(true)
+      }
+    }
+
     ;(async () => {
       const response = await userApiModel.GetCourse(course_id)
 
@@ -147,15 +160,27 @@ export default function CourseDetail(props: any) {
     setDesctActive(courseInfo?.description)
   }
 
+  const addCart = () => {
+    const stored = localStorage.getItem("cart_products")
+
+    if (stored) {
+      const cart_products: Array<any> = JSON.parse(stored)
+      cart_products.push(courseInfo.id)
+      localStorage.setItem("cart_products", JSON.stringify(cart_products))
+    } else {
+      localStorage.setItem("cart_products", JSON.stringify([courseInfo.id]))
+    }
+  }
+
   const handleActionButton = () => {
     if (props.user) {
       includeMyCourse
         ? router.push(
             `/usuario/modulo/${savedItem.module}?video=${savedItem.video}`
           )
-        : router.push("/usuario/carrito")
+        : addCart()
     } else {
-      router.push("/login")
+      addCart()
     }
   }
 
@@ -223,12 +248,23 @@ export default function CourseDetail(props: any) {
                     />
                   </Fragment>
                 )}
-                <Button
-                  text={includeMyCourse ? "Continuar curso" : "Comprar curso"}
-                  bg
-                  color="redPrimary"
-                  onClick={() => handleActionButton()}
-                />
+                {!includeCart ? (
+                  <Button
+                    text={
+                      includeMyCourse ? "Continuar curso" : "Agregar al carrito"
+                    }
+                    bg
+                    color="redPrimary"
+                    onClick={() => handleActionButton()}
+                  />
+                ) : (
+                  <Button
+                    text={"Ir a carrito"}
+                    bg
+                    color="redPrimary"
+                    onClick={() => router.push("/usuario/carrito")}
+                  />
+                )}
               </div>
               <div className="button-action"></div>
 
@@ -309,6 +345,7 @@ export default function CourseDetail(props: any) {
             </div>
           </Fragment>
         )}
+        <Footer />
       </Main>
     </>
   )

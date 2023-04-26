@@ -13,6 +13,8 @@ import ImageCourse from "../../assets/images/new-course.jpg"
 
 interface ModulesListProps {
   items: Array<any>
+  currentModule?: number
+  currentVideo?: number
 }
 
 type ModulesListAttributes = ModulesListProps & HTMLAttributes<HTMLElement>
@@ -20,14 +22,22 @@ type ModulesListAttributes = ModulesListProps & HTMLAttributes<HTMLElement>
 const ModuleItem = ({
   module,
   indexModule,
+  active,
+  currentVideo,
 }: {
   module: any
   indexModule: number
+  active?: boolean
+  currentVideo?: number
 }) => {
   const [openItem, setOpenItem] = useState(false)
   const router = useRouter()
+
   return (
-    <ModuleItemMain openItem={openItem} className="module-item">
+    <ModuleItemMain
+      openItem={openItem}
+      className={`module-item ${active && `module-item-active`}`}
+    >
       <div className="header-item" onClick={() => setOpenItem(!openItem)}>
         <div className="flex">
           <div className="icon-container">
@@ -49,7 +59,9 @@ const ModuleItem = ({
         <div className="list-videos">
           {module.videos.map((video: any, index: number) => (
             <div
-              className="video-item"
+              className={`video-item ${
+                currentVideo == index && `video-item-active`
+              }`}
               key={index}
               onClick={() =>
                 router.push(`/usuario/modulo/${indexModule}?video=${index}`)
@@ -73,12 +85,17 @@ const ModuleItem = ({
 }
 
 const ModulesList = (props: ModulesListAttributes) => {
-  const { items } = props
+  const { items, currentModule } = props
   return (
     <Main>
       <div className="modules-list">
         {items.map((item, index) => (
-          <ModuleItem key={index} module={item} indexModule={index} />
+          <ModuleItem
+            key={index}
+            module={item}
+            indexModule={index}
+            active={currentModule === index}
+          />
         ))}
       </div>
     </Main>

@@ -5,8 +5,13 @@ import { useRouter } from "next/router"
 // Styled components
 import { Main } from "../../../styles/cursos-populares.styled"
 // Components
-import { Header, Typography, SideNav, Loader } from "../../../components"
-import ImageName from "../../assets/images/svg-ejem.png"
+import {
+  Header,
+  Typography,
+  SideNav,
+  Loader,
+  Footer,
+} from "../../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
 import {
@@ -78,6 +83,7 @@ export default function Login(props: any) {
             ))}
           </div>
         </div>
+        <Footer />
       </Main>
     </>
   )

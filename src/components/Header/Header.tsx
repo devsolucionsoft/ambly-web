@@ -1,5 +1,5 @@
 // React
-import { HTMLAttributes } from "react"
+import { HTMLAttributes, Fragment } from "react"
 import Image from "next/image"
 import MobileContent from "../MobileContent"
 // Styled components
@@ -7,12 +7,15 @@ import { Main } from "./Header.styled"
 // Images
 import IconAmbly from "../../assets/images/icon-ambly.png"
 import { HiMenu } from "react-icons/hi"
-import { BiUserCircle } from "react-icons/bi"
+import { AiOutlineShoppingCart } from "react-icons/ai"
+import { BiUser } from "react-icons/bi"
+
 // Redux
 import { useAppDispatch } from "../../store"
 import { onSideNav } from "../../store/SideNav/actions"
 import Link from "next/link"
 import { withIronSessionSsr } from "iron-session/next"
+
 import {
   sessionOptions,
   sessionVerificationNotCreated,
@@ -32,27 +35,38 @@ const Header = (props: HeaderAttributes) => {
   return (
     <Main>
       <div className="contain">
-        <Link href="/usuario/inicio">
+        <Link href="/">
           <Image className="logo" src={IconAmbly} alt="" />
         </Link>
 
-        {!minimal && (
-          <div className="links">
+        <div className="links">
+          {minimal && (
             <div className="link-item">
-              <Link href="/usuario/inicio">Categorías</Link>
+              <Link href="/inicio">Iniciar sesion</Link>
             </div>
-            <div className="link-item">
-              <Link href="/usuario/mis-cursos">Mis cursos</Link>
-            </div>
-
-            <div className="link-item">
-              <Link href="/usuario/perfil">Perfil</Link>
-            </div>
-            <div className="link-item">
-              <Link href="/usuario/carrito">Carrito</Link>
-            </div>
+          )}
+          <div className="link-item">
+            <Link href="/usuario/categorias">Categorías</Link>
           </div>
-        )}
+          {!minimal && (
+            <Fragment>
+              <div className="link-item">
+                <Link href="/usuario/mis-cursos">Mis cursos</Link>
+              </div>
+
+              <div className="link-item">
+                <Link href="/usuario/perfil">
+                  <BiUser className="icon" />
+                </Link>
+              </div>
+            </Fragment>
+          )}
+          <div className="link-item">
+            <Link href="/usuario/carrito">
+              <AiOutlineShoppingCart className="icon" />
+            </Link>
+          </div>
+        </div>
         <div className="open-menu" onClick={() => appDispatch(onSideNav(true))}>
           <HiMenu size={35} />
         </div>

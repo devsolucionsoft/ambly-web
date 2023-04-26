@@ -8,6 +8,9 @@ export const Main = styled.main`
     position: relative;
     z-index: 1;
     padding: 10em 15% 6em 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       padding: 10em 10% 6em 10%;
@@ -85,6 +88,7 @@ export const Main = styled.main`
       }
     }
     .total {
+      width: 100%;
       margin-top: 3em;
       text-align: right;
     }

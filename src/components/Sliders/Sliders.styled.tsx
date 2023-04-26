@@ -43,24 +43,60 @@ export const SliderNew = styled.section`
     width: 80%;
     padding: 2em;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    .image-name {
-      width: 20%;
-      height: auto;
+    align-items: center;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      flex-direction: column-reverse;
     }
+    .content-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 45%;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        width: 100%;
+      }
+      .image-name {
+        width: 50%;
+        height: auto;
+      }
 
-    .autor {
-      margin: 1em 0;
-      .icon {
-        margin-right: 10px;
+      .autor {
+        margin: 1em 0;
+        .icon {
+          margin-right: 10px;
+        }
+      }
+
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        .image-name {
+          width: 60%;
+          height: auto;
+        }
+
+        .autor {
+          margin: 1em 0;
+          font-size: 0.8rem;
+          .icon {
+            margin-right: 10px;
+          }
+        }
       }
     }
 
-    @media (max-width: ${(props) => props.theme.sizes.md}) {
-      .image-name {
-        width: 80%;
-        height: auto;
+    .content-2 {
+      width: 45%;
+      text-align: right;
+      h6 {
+        font-weight: 300;
+      }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 2em;
+        h6 {
+          font-size: 0.9rem;
+          line-height: 110%;
+        }
       }
     }
   }

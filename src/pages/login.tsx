@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import Head from "next/head"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 // Styled components
 import { Main } from "../styles/login.styled"
 // Components
@@ -60,7 +60,7 @@ export default function Login() {
       setLoading(true)
       try {
         await axios.post(`/api/login`, stateInputs)
-        router.replace("/usuario/inicio")
+        router.replace("/")
       } catch (error: any) {
         setLoading(false)
 

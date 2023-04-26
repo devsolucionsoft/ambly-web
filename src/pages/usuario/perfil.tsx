@@ -1,12 +1,15 @@
 import Head from "next/head"
-// Assests
-import { AiFillPlayCircle } from "react-icons/ai"
-import { FaUserAlt } from "react-icons/fa"
 // Styled components
 import { Main } from "../../styles/perfil.styled"
-import { SlidersTrailer } from "../../components/Sliders/Sliders.styled"
 // Components
-import { Header, Typography, SideNav, Input, Button } from "../../components"
+import {
+  Header,
+  Typography,
+  SideNav,
+  Input,
+  Button,
+  Footer,
+} from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -40,6 +43,7 @@ export default function Perfil() {
           <br />
           <Button text="Aceptar" bg color="redPrimary" />
         </div>
+        <Footer />
       </Main>
     </>
   )

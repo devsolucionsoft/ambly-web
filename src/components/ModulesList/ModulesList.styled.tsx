@@ -32,6 +32,11 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
   @media (max-width: ${(props) => props.theme.sizes.md}) {
     padding: 1em 1em;
   }
+  &.module-item-active {
+    border-radius: 20px 20px 0 0;
+    border: 2px solid ${(props) => props.theme.colors.redPrimary};
+    border-bottom: 2px solid ${(props) => props.theme.colors.redPrimary} !important;
+  }
   .header-item {
     display: flex;
     align-items: center;
@@ -96,6 +101,9 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
       border-radius: 20px;
       p {
         color: ${(props) => props.theme.colors.grayText};
+      }
+      .video-item-active {
+        border: 1px solid ${(props) => props.theme.colors.redPrimary};
       }
       .video-item {
         display: flex;
