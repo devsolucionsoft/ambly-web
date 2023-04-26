@@ -34,7 +34,7 @@ export async function sessionVerificationNotCreated({ req }: any) {
   if (!user) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/inicio",
         permanent: false,
       },
     }
@@ -53,7 +53,7 @@ export async function sessionVerificationCreated({ req }: any) {
   if (user && user.token) {
     return {
       redirect: {
-        destination: "/usuario/inicio",
+        destination: "/",
         permanent: false,
       },
     }
