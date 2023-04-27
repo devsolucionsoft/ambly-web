@@ -27,10 +27,9 @@ import {
   sessionOptions,
   sessionVerificationNotCreated,
 } from "../../../../lib/session"
-
+import ReactPlayer from "react-player"
 // Store
 import { useAppSelector, useAppDispatch } from "../../../store"
-import { onLoader } from "../../../store/Loader/actions"
 // API
 import { UserApi } from "../../api"
 // Store
@@ -196,14 +195,22 @@ export default function Modulo() {
         courseInfo.modules[currentModule].videos.length > 0 ? (
           <div className="page-content">
             <div className="page-top">
-              <video
+              {/* <video
                 className="page-top-video"
                 controls
                 src={
                   courseInfo.modules[currentModule]?.videos[currentVideo]
                     .video ?? ""
                 }
-              ></video>
+              ></video> */}
+              <ReactPlayer
+                className="page-top-video"
+                controls
+                url={
+                  courseInfo.modules[currentModule]?.videos[currentVideo]
+                    .video ?? ""
+                }
+              />
               <div className="page-top-content">
                 <div>
                   <Typography

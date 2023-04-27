@@ -82,14 +82,14 @@ const Sliders = (props: SlidersAttributes) => {
                     <div className="content-1">
                       <Image
                         className="image-name"
-                        src={item.image_name}
+                        src={item?.image_name}
                         height={100}
                         width={100}
                         alt=""
                       />
                       <div className="autor">
                         <FaUserAlt className="icon" />
-                        <span>{item.instructor.name_instructor} </span>
+                        <span>{item?.instructor?.name_instructor} </span>
                       </div>
                       <Button
                         text="Acceder"
@@ -117,7 +117,7 @@ const Sliders = (props: SlidersAttributes) => {
                 <SliderPopular>
                   <Image
                     className="image-course"
-                    src={item.instructor.image_instructor}
+                    src={item?.instructor?.image_instructor}
                     alt=""
                     height={100}
                     width={100}
