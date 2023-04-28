@@ -14,18 +14,29 @@ export const Main = styled.div<{ openNav: boolean }>`
   ${(props) => props.openNav && `width: 100%;`}
 
   .nav-content {
-    background-color: ${(props) => props.theme.colors.dark};
+    background-color: #131313;
     color: white;
     height: 100%;
     position: relative;
     overflow: hidden;
     max-width: 0px;
     padding: 2em 0em 2em 0em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    ${(props) => props.openNav && `max-width: 400px; padding: 2em 4em 2em 3em;`}
+    ${(props) => props.openNav && `max-width: 400px; padding: 2em 6em 1em 1em;`}
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       ${(props) =>
         props.openNav && `max-width: 280px; padding: 2em 3em 2em 2em;`}
+    }
+
+    .logo {
+      width: 5rem;
+      height: auto;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        width: 4rem;
+      }
     }
 
     .icon-close {
@@ -36,7 +47,7 @@ export const Main = styled.div<{ openNav: boolean }>`
       background-color: transparent;
       border: none;
       .icon {
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: white !important;
       }
     }
@@ -49,6 +60,7 @@ export const Main = styled.div<{ openNav: boolean }>`
     .nav-links {
       list-style-type: none;
       margin-top: 2em;
+      margin-left: 0em;
       .nav-item {
         display: flex;
         align-items: center;
@@ -57,12 +69,15 @@ export const Main = styled.div<{ openNav: boolean }>`
         text-decoration: none;
         margin-bottom: 0.8rem;
         padding-bottom: 0.8rem;
-        border-bottom: 1px solid #6565655a;
+        //border-bottom: 1px solid #6565655a;
         cursor: pointer;
         .icon {
           font-size: 1.3rem;
           margin-right: 1rem;
           color: white;
+        }
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          font-size: 0.8rem;
         }
       }
     }

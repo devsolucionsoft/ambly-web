@@ -63,12 +63,15 @@ const Header = (props: HeaderAttributes) => {
           )}
           <div className="link-item">
             <Link href="/usuario/carrito">
-              <AiOutlineShoppingCart className="icon" />
+              <AiOutlineShoppingCart
+                className="icon"
+                style={{ marginTop: "2px" }}
+              />
             </Link>
           </div>
         </div>
         <div className="open-menu" onClick={() => appDispatch(onSideNav(true))}>
-          <HiMenu size={35} />
+          <HiMenu className="icon" />
         </div>
       </div>
     </Main>

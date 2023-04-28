@@ -55,7 +55,11 @@ const ModuleItem = ({
         <IoIosArrowForward className="arrow" />
       </div>
       <div className="content">
-        <Typography text={module.description} variant="P" />
+        <Typography
+          text={module.description}
+          className="video-desription"
+          variant="P"
+        />
         <div className="list-videos">
           {module.videos.map((video: any, index: number) => (
             <div

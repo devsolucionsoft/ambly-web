@@ -9,7 +9,7 @@ import { Header, Typography, SideNav, Footer } from "../../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
 } from "../../../../lib/session"
 import { InstructorApi } from "../../api"
 
@@ -45,17 +45,17 @@ export default function Login() {
         <SideNav />
         <Header />
 
+        <div className="teacher-image">
+          <Image
+            className="image"
+            src={instructorInfo?.image_secondary}
+            alt=""
+            height={100}
+            width={100}
+          />
+          <div className="overlay"></div>
+        </div>
         <div className="content-page">
-          <div className="teacher-image">
-            <Image
-              className="image"
-              src={instructorInfo?.image_secondary}
-              alt=""
-              height={100}
-              width={100}
-            />
-            <div className="overlay"></div>
-          </div>
           <div className="teacher-content">
             <Image
               className="avatar-image"
@@ -82,6 +82,6 @@ export default function Login() {
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

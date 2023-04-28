@@ -240,26 +240,27 @@ export default function CourseDetail(props: any) {
               <br />
               <div className="price">
                 {!includeMyCourse && (
-                  <Fragment>
+                  <div className="text-price">
                     <Typography
-                      className="description"
+                      className="price-text"
                       text="Precio:"
                       variant="H6"
                     />
                     <Typography
-                      className="description"
+                      className="price-text"
                       text={`$${new Intl.NumberFormat("es-MX").format(
                         courseInfo?.price_course
                       )}`}
                       variant="H2"
                     />
-                  </Fragment>
+                  </div>
                 )}
                 {!includeCart ? (
                   <Button
                     text={
                       includeMyCourse ? "Continuar curso" : "Agregar al carrito"
                     }
+                    variant="sm"
                     bg
                     color="redPrimary"
                     onClick={() => handleActionButton()}
@@ -300,12 +301,12 @@ export default function CourseDetail(props: any) {
 
               <div className="modulos-section">
                 <Typography
-                  className="description"
+                  className="modulos-title"
                   text="Cononce todos los módulos"
                   variant="H4"
                 />
                 <Typography
-                  className="description"
+                  className="modulos-subtitle"
                   text="Aprende en línea una nueva habilidad y logra tus objetivos."
                   variant="P"
                 />
@@ -320,7 +321,7 @@ export default function CourseDetail(props: any) {
 
               <div className="teacher-section">
                 <Typography
-                  className="description"
+                  className="modulos-title"
                   text="Cononce a tu maestro"
                   variant="H4"
                 />

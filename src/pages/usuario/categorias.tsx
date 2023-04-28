@@ -9,7 +9,7 @@ import { Header, Typography, SideNav, Footer } from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
 } from "../../../lib/session"
 import { UserApi } from "../api"
 
@@ -41,7 +41,6 @@ export default function Login(props: any) {
           <Typography text="Categorías" variant="H1" />
           <br />
           <br />
-          <br />
           <div className="category-list">
             {topics.map((item: any, index) => (
               <section key={index} className="category-item">
@@ -63,6 +62,6 @@ export default function Login(props: any) {
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

@@ -8,7 +8,14 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 10em 10% 6em 10%;
+    padding: 6em 15% 6em 15%;
+
+    h1 {
+      font-size: 2.5vw;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        font-size: 1.5rem;
+      }
+    }
 
     .category-list {
       display: flex;
@@ -16,22 +23,25 @@ export const Main = styled.main`
       gap: 5%;
       justify-content: center;
       .category-item {
-        width: 250px;
+        width: 20%;
         margin-bottom: 2em;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .category-image {
-          width: 250px;
-          height: 250px;
+          width: 13vw;
+          height: 13vw;
           object-fit: cover;
           border-radius: 100%;
         }
       }
       @media (max-width: ${(props) => props.theme.sizes.sm}) {
         .category-item {
-          width: 45%;
+          width: 44%;
           .category-image {
-            width: 100%;
-            height: auto;
+            width: 30vw;
+            height: 30vw;
           }
         }
       }

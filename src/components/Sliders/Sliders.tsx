@@ -11,6 +11,7 @@ import {
   SliderPopular,
   SlidersTrailer,
 } from "./Sliders.styled"
+import Pintura from "../../assets/images/lago.jpg"
 // Import Swiper React components
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
 import { FaUserAlt } from "react-icons/fa"
@@ -41,7 +42,7 @@ const Sliders = (props: SlidersAttributes) => {
   const [slidesPerView, setSlidesPerView] = useState(1)
   useEffect(() => {
     if (variant === "popular") {
-      setSlidesPerView(3)
+      setSlidesPerView(4)
     }
     if (variant === "trailers") {
       setSlidesPerView(4)
@@ -56,14 +57,16 @@ const Sliders = (props: SlidersAttributes) => {
     }
   }, [variant])
 
+  console.log(items)
+
   return (
     <Main>
       <Swiper
         style={{ paddingBottom: "3em" }}
-        modules={[Navigation, Pagination]}
-        navigation
+        modules={variant === "new" ? [] : [Navigation, Pagination]}
+        navigation={variant !== "new"}
         pagination={{ clickable: true }}
-        spaceBetween={30}
+        spaceBetween={40}
         slidesPerView={slidesPerView}
       >
         {items.map((item: any, index: number) => {
@@ -73,13 +76,13 @@ const Sliders = (props: SlidersAttributes) => {
                 <SliderNew>
                   <Image
                     className="image-course"
-                    src={item.image_course}
+                    src={Pintura}
                     alt=""
                     height={100}
                     width={100}
                   />
                   <div className="slider-content">
-                    <div className="content-1">
+                    {/* <div className="content-1">
                       <Image
                         className="image-name"
                         src={item?.image_name}
@@ -102,11 +105,11 @@ const Sliders = (props: SlidersAttributes) => {
                     <div className="content-2">
                       <Typography
                         variant="H6"
-                        text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                        text={`${item?.description.substr(0, 180)}...`}
                       />
-                    </div>
+                    </div> */}
                   </div>
-                  <div className="overflow"></div>
+                  {/* <div className="overflow"></div> */}
                 </SliderNew>
               </SwiperSlide>
             )
@@ -114,7 +117,9 @@ const Sliders = (props: SlidersAttributes) => {
           if (variant === "popular") {
             return (
               <SwiperSlide key={index}>
-                <SliderPopular>
+                <SliderPopular
+                  onClick={() => router.push(`/usuario/curso/${item.id}`)}
+                >
                   <Image
                     className="image-course"
                     src={item?.instructor?.image_instructor}
@@ -124,7 +129,7 @@ const Sliders = (props: SlidersAttributes) => {
                   />
                   <Image
                     className="image-name"
-                    src={item.image_name}
+                    src={item?.image_name}
                     alt=""
                     height={100}
                     width={100}
@@ -144,7 +149,7 @@ const Sliders = (props: SlidersAttributes) => {
                     onClick={(ev) => {
                       onClickSlider({
                         title: "Titulo del video",
-                        video: item.video,
+                        video: item?.video,
                       })
                     }}
                   ></div>
@@ -152,15 +157,17 @@ const Sliders = (props: SlidersAttributes) => {
                     <video
                       className="video"
                       style={{ userSelect: "none" }}
-                      src={item.video}
+                      src={
+                        "https://joy1.videvo.net/videvo_files/video/free/video0455/large_watermarked/_import_609113a1be0e89.39394997_preview.mp4"
+                      }
                     ></video>
                     <AiFillPlayCircle className="icon-play" />
                   </div>
                   <div className="slider-content">
-                    <h3 className="trailer-title">{item.course_name}</h3>
+                    <h3 className="trailer-title">{item?.course_name}</h3>
                     <div className="autor">
                       <FaUserAlt className="icon" />
-                      <span>{item.instructor}</span>
+                      <span>{item?.instructor}</span>
                     </div>
                   </div>
                 </SlidersTrailer>

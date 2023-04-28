@@ -25,6 +25,7 @@ import {
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
+  getSessionVerificationNotCreated,
   sessionVerificationNotCreated,
 } from "../../../../lib/session"
 import ReactPlayer from "react-player"
@@ -195,22 +196,22 @@ export default function Modulo() {
         courseInfo.modules[currentModule].videos.length > 0 ? (
           <div className="page-content">
             <div className="page-top">
-              {/* <video
+              <video
                 className="page-top-video"
                 controls
                 src={
                   courseInfo.modules[currentModule]?.videos[currentVideo]
                     .video ?? ""
                 }
-              ></video> */}
-              <ReactPlayer
+              ></video>
+              {/* <ReactPlayer
                 className="page-top-video"
                 controls
                 url={
                   courseInfo.modules[currentModule]?.videos[currentVideo]
                     .video ?? ""
                 }
-              />
+              /> */}
               <div className="page-top-content">
                 <div>
                   <Typography
@@ -249,19 +250,6 @@ export default function Modulo() {
               </div>
             </div>
             <div className="page-module-content">
-              <div className="fileslist-contain">
-                <Typography
-                  text="Material Descargable"
-                  variant="H4"
-                  className="title"
-                />
-
-                <div className="list-files">
-                  {courseInfo.modules[currentModule]?.file.map((item: any) => (
-                    <FileItem key={item} item={item} />
-                  ))}
-                </div>
-              </div>
               <div className="moduleslist-contain">
                 <Typography
                   text="Videos del modulo"
@@ -305,6 +293,19 @@ export default function Modulo() {
                   currentVideo={currentVideo}
                 />
               </div>
+              <div className="fileslist-contain">
+                <Typography
+                  text="Material Descargable"
+                  variant="H4"
+                  className="title"
+                />
+
+                <div className="list-files">
+                  {courseInfo.modules[currentModule]?.file.map((item: any) => (
+                    <FileItem key={item} item={item} />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ) : (
@@ -323,6 +324,7 @@ export default function Modulo() {
 }
 
 export const getServerSideProps = withIronSessionSsr(
-  sessionVerificationNotCreated,
+  //sessionVerificationNotCreated,
+  getSessionVerificationNotCreated,
   sessionOptions
 )

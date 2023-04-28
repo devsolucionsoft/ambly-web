@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
-
 // Styled components
 import { Main } from "../styles/inicio.styled"
 // Components
@@ -118,7 +117,9 @@ export default function Login(props: any) {
         </div>
         <div className="content-page">
           <Typography
-            text={'"Explore your new skill today"'}
+            text={
+              '"Explore your new skill today explore your new skill today explore your new skill today"'
+            }
             variant="H1"
             style={{ textAlign: "center" }}
           />
@@ -127,7 +128,15 @@ export default function Login(props: any) {
               title="Populares"
               action={() => router.push(`/usuario/cursos/todos`)}
             />
-            <Sliders variant="popular" items={coursesList} />
+            <Sliders
+              variant="popular"
+              items={[
+                coursesList[0],
+                coursesList[1],
+                coursesList[0],
+                coursesList[1],
+              ]}
+            />
           </div>
 
           <div>
@@ -138,7 +147,12 @@ export default function Login(props: any) {
             <Sliders
               variant="trailers"
               onClickSlider={(data) => handleTrailerClick(data)}
-              items={trailersList}
+              items={[
+                trailersList[0],
+                trailersList[0],
+                trailersList[0],
+                trailersList[0],
+              ]}
             />
           </div>
 
@@ -149,26 +163,28 @@ export default function Login(props: any) {
             />
 
             <div className="teachers-list">
-              {intructorList.map((item: any, index) => (
-                <Link
-                  href={`/usuario/maestro/${item.id}`}
-                  key={index}
-                  className="teacher-item"
-                >
-                  <Image
-                    className="teacher-image"
-                    src={item.image_secondary}
-                    alt=""
-                    height={100}
-                    width={100}
-                  />
-                  <Typography
-                    className="teacher-title"
-                    text={item.name_instructor}
-                    variant="H4"
-                  />
-                </Link>
-              ))}
+              {intructorList
+                .concat([intructorList[0], intructorList[1], intructorList[2]])
+                .map((item: any, index) => (
+                  <Link
+                    href={`/usuario/maestro/${item?.id}`}
+                    key={index}
+                    className="teacher-item"
+                  >
+                    <Image
+                      className="teacher-image"
+                      src={item?.image_secondary}
+                      alt=""
+                      height={100}
+                      width={100}
+                    />
+                    <Typography
+                      className="teacher-title"
+                      text={item?.name_instructor}
+                      variant="H4"
+                    />
+                  </Link>
+                ))}
             </div>
           </div>
 

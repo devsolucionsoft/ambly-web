@@ -1,9 +1,11 @@
 import { HTMLAttributes, useState, MouseEvent, Fragment } from "react"
 import Link from "next/link"
+import Image from "next/image"
+import IconAmbly from "../../assets/images/icon-ambly.png"
 // Styled components
 import { Main } from "./SideNav.styled"
 import { AiFillPlayCircle, AiFillBook } from "react-icons/ai"
-import { MdOutlineSecurity, MdLocalPolice } from "react-icons/md"
+import { MdOutlineSecurity } from "react-icons/md"
 import { IoExitOutline, IoCloseSharp } from "react-icons/io5"
 import { BsCameraVideoFill, BsFillPeopleFill } from "react-icons/bs"
 // Redux
@@ -104,6 +106,7 @@ const SideNav = (props: SideNavAttributes) => {
             </li>
           )}
         </ul>
+        <Image className="logo" src={IconAmbly} alt="" />
       </nav>
       <div className="overflow"></div>
     </Main>

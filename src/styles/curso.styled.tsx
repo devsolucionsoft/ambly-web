@@ -14,7 +14,7 @@ export const Main = styled.main`
       object-position: top;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         height: 30vh;
-        margin-top: 5em;
+        margin-top: 45px;
       }
     }
     .overlay {
@@ -32,17 +32,25 @@ export const Main = styled.main`
     .top-content {
       position: absolute;
       bottom: 0;
-      padding-left: 10%;
+      padding-left: 15%;
       margin-bottom: 3em;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         margin-bottom: 1em;
+        padding-left: 8%;
       }
       .image-name {
-        width: 25vw;
+        width: 18vw;
         height: auto;
         margin-bottom: 1rem;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          width: 30vw;
+        }
       }
       .autor {
+        font-size: 1vw;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          font-size: 0.7rem;
+        }
         .icon {
           margin-right: 1rem;
         }
@@ -53,9 +61,17 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 4em 10% 6em 10%;
+    padding: 4em 15% 6em 15%;
+
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      padding: 2em 8% 6em 8%;
+    }
 
     .description {
+      font-size: 1vw;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        font-size: 0.6rem;
+      }
     }
 
     .price {
@@ -64,10 +80,26 @@ export const Main = styled.main`
       justify-content: flex-end;
       margin: 2em 3% 2em 3%;
       gap: 2em;
+
+      .text-price {
+        display: flex;
+        h6 {
+          margin-right: 1rem;
+        }
+      }
+
+      .price-text {
+        font-size: 2vw;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          font-size: 1.5rem;
+        }
+      }
+
       button {
         width: auto;
         margin-left: 3em;
-        font-size: 1.5rem;
+        padding: 0.6em 1.7em;
+        font-size: 1.1rem;
       }
 
       @media (max-width: ${(props) => props.theme.sizes.md}) {
@@ -78,6 +110,9 @@ export const Main = styled.main`
         button {
           margin-left: 0em;
           margin-top: 2em;
+          @media (max-width: ${(props) => props.theme.sizes.md}) {
+            margin-top: 1em;
+          }
         }
       }
     }
@@ -87,7 +122,7 @@ export const Main = styled.main`
       flex-direction: column;
       align-items: center;
       margin-bottom: 2em;
-      pa button {
+      utton {
         width: auto;
         margin-left: 3em;
       }
@@ -100,8 +135,8 @@ export const Main = styled.main`
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 20%;
-        padding: 2em 1em;
+        width: 18%;
+        padding: 1.5em 1em;
         border: 2px solid #52525293;
         border-radius: 20px;
         text-align: center;
@@ -109,15 +144,15 @@ export const Main = styled.main`
         .icon {
           margin-bottom: 1em;
           width: auto;
-          height: 100px;
+          height: 55px;
         }
         p {
-          font-size: 1.2rem;
+          font-size: 1vw;
           font-weight: 500;
         }
         span {
           margin-top: 0.5rem;
-          font-size: 1.1rem;
+          font-size: 0.9vw;
           color: ${(props) => props.theme.colors.redPrimary};
         }
       }
@@ -140,12 +175,29 @@ export const Main = styled.main`
       }
     }
 
+    .modulos-title {
+      font-size: 1.8vw;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        font-size: 1.1rem;
+      }
+    }
     .modulos-section {
-      margin-top: 6em;
+      margin-top: 8em;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        margin-top: 3em;
+      }
+
+      .modulos-subtitle {
+        font-size: 1vw;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          font-size: 0.7rem;
+        }
+      }
 
       .divider {
         width: 100px;
@@ -156,35 +208,43 @@ export const Main = styled.main`
       }
 
       .ModulesList-contain {
-        padding: 0 10%;
+        padding: 0 5%;
       }
     }
 
     .teacher-section {
       margin-top: 6em;
+      padding: 0 5%;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        margin-top: 4em;
+      }
 
       .avatar {
-        margin: 2em 0;
-        width: 230px;
-        height: 230px;
+        margin: 1.5em 0;
+        margin-bottom: 2.5em;
+        width: 180px;
+        height: 180px;
         border-radius: 100%;
         object-fit: cover;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 40vw;
-          height: 40vw;
+          width: 25vw;
+          height: 25vw;
+          margin: 1em 0;
         }
       }
 
       .image-teacher {
-        margin: 3em 0;
+        margin: 4em 0;
         width: 70%;
         height: auto;
+        border-radius: 20px;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 100%;
+          width: 90%;
+          margin: 2em 0;
           height: auto;
         }
       }

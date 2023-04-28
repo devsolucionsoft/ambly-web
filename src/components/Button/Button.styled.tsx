@@ -17,8 +17,8 @@ export const Main = styled.button<ButtonProps>`
 `
 
 export const MainSm = styled.button<ButtonProps>`
-  padding: 0.4em 2.4em;
-  font-size: 1rem;
+  padding: 0.4vw 2.4vw;
+  font-size: 0.8vw;
   font-weight: 600;
   cursor: pointer;
   border-radius: 10px;
@@ -28,5 +28,5 @@ export const MainSm = styled.button<ButtonProps>`
   ${(props) =>
     props.bg && props.color
       ? `background-color: ${props.theme.colors[props.color]}`
-      : `background-color: transparent`}; ;
+      : `background-color: transparent`};
 `

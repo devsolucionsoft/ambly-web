@@ -8,42 +8,56 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 10em 10% 6em 10%;
+    padding: 6em 15% 6em 15%;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      padding: 6em 8% 6em 8%;
+    }
+
+    h1 {
+      font-size: 2.5vw;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        font-size: 1.5rem;
+      }
+    }
 
     .my-courses-list {
       display: flex;
       flex-wrap: wrap;
       margin-top: 3em;
-      gap: 10%;
+      gap: 9%;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        gap: 7%;
+        gap: 15%;
       }
       .teacher-item {
-        width: 25%;
+        width: 18%;
         margin-bottom: 2em;
         cursor: pointer;
         text-decoration: none;
         color: ${(props) => props.theme.colors.ligth};
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .teacher-image {
-          width: 100%;
-          height: 250px;
+          width: 13vw;
+          height: 13vw;
           object-fit: cover;
           border-radius: 10%;
         }
         .teacher-title {
-          margin-top: 1.5rem;
-          font-size: 1.2rem;
+          margin-top: 1.2rem;
+          font-size: 1.2vw;
           text-align: left;
         }
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 46%;
+          width: 42%;
           .teacher-image {
-            width: 100%;
-            height: 38vw;
+            width: 32vw;
+            height: 32vw;
           }
           .teacher-title {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             line-height: 110%;
+            text-align: center;
           }
         }
       }
@@ -55,30 +69,36 @@ export const MainDetail = styled.main`
   color: ${(props) => props.theme.colors.ligth};
   padding: 0% 0%;
   min-height: 100vh;
+  .teacher-image {
+    position: relative;
+    .image {
+      height: 70vh;
+      width: 100%;
+      object-fit: cover;
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        height: 40vh;
+      }
+    }
+    .overlay {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 90%;
+      background: rgb(0, 0, 0);
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 1) 22%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+  }
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 5em 10% 6em 10%;
-    .teacher-image {
-      position: relative;
-      .image {
-        height: 70vh;
-        width: 100%;
-        object-fit: cover;
-      }
-      .overlay {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 90%;
-        background: rgb(0, 0, 0);
-        background: linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 1) 22%,
-          rgba(255, 255, 255, 0) 100%
-        );
-      }
+    padding: 5em 15% 6em 15%;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      padding: 6em 8% 0em 8%;
     }
     .teacher-content {
       position: relative;
@@ -86,17 +106,34 @@ export const MainDetail = styled.main`
       margin-top: -20em;
       padding: 0 2em;
       .avatar-image {
-        width: 200px;
-        height: 200px;
+        width: 13vw;
+        height: 13vw;
         object-fit: cover;
         border-radius: 100%;
         margin-bottom: 1em;
       }
       h1 {
+        font-size: 2vw;
         margin-bottom: 1em;
       }
       p {
+        font-size: 0.9vw;
         margin-bottom: 1em;
+      }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        padding: 0 0em;
+        padding-bottom: 4em;
+        .avatar-image {
+          width: 25vw;
+          height: 25vw;
+        }
+        h1 {
+          font-size: 1.4rem;
+          margin-bottom: 1em;
+        }
+        p {
+          font-size: 0.6rem;
+        }
       }
     }
   }

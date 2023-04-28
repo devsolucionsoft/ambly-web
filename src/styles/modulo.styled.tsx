@@ -5,21 +5,21 @@ export const Main = styled.main`
   padding: 0% 0;
 
   .page-content {
-    padding: 5em 10% 8em 10%;
+    padding: 67px 15% 8em 15%;
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      padding: 5em 5% 8em 5%;
+      padding: 45px 8% 5em 8%;
     }
 
     .action-buttons {
       display: flex;
       justify-content: space-between;
       .action-button {
-        padding: 1em 1.5em;
+        padding: 0.6vw 1.2vw;
         border: none;
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 1rem;
+        font-size: 1vw;
         font-weight: bold;
         cursor: pointer;
         border-radius: 10px;
@@ -27,6 +27,7 @@ export const Main = styled.main`
         background-color: ${(props) => props.theme.colors.redPrimary};
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           padding: 0.6em 1em;
+          font-size: 1rem;
         }
         &:disabled {
           opacity: 0.5;
@@ -38,14 +39,20 @@ export const Main = styled.main`
       display: flex;
       justify-content: space-between;
       .page-top-video {
-        width: 60%;
+        width: 50%;
         border-radius: 15px;
       }
       .page-top-content {
-        width: 35%;
+        width: 40%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        h2 {
+          font-size: 2vw;
+        }
+        p {
+          font-size: 1vw;
+        }
       }
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         flex-direction: column;
@@ -56,11 +63,11 @@ export const Main = styled.main`
           width: 100%;
           margin-top: 2em;
           h2 {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
           }
           p {
             margin: 1em 0 3em 0;
-            font-size: 0.8rem;
+            font-size: 0.6rem;
           }
         }
       }
@@ -70,12 +77,16 @@ export const Main = styled.main`
       justify-content: space-between;
       margin-top: 1em;
       .title {
+        font-size: 1.5vw;
         margin-bottom: 0.8em;
         margin-top: 2em;
       }
 
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         flex-direction: column;
+        .title {
+          font-size: 1.1rem;
+        }
       }
 
       .list-videos-module {
@@ -90,9 +101,16 @@ export const Main = styled.main`
           background-color: ${(props) => props.theme.colors.dark};
           cursor: pointer;
 
+          @media (max-width: ${(props) => props.theme.sizes.md}) {
+            padding: 0.5em;
+          }
+
           .video-image-contain {
-            width: 20%;
+            width: 15%;
             position: relative;
+            @media (max-width: ${(props) => props.theme.sizes.md}) {
+              width: 25%;
+            }
             .icon-play {
               position: absolute;
               top: 0;
@@ -115,12 +133,21 @@ export const Main = styled.main`
             align-items: flex-start;
             margin-left: 2em;
             color: ${(props) => props.theme.colors.ligth};
+            @media (max-width: ${(props) => props.theme.sizes.md}) {
+              margin-left: 1.5em;
+            }
+            h6 {
+              font-size: 1.1vw;
+              @media (max-width: ${(props) => props.theme.sizes.md}) {
+                font-size: 1rem;
+              }
+            }
           }
         }
       }
 
       .moduleslist-contain {
-        width: 48%;
+        width: 50%;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           width: 100%;
         }
@@ -145,25 +172,45 @@ export const Main = styled.main`
             border-radius: 15px;
             text-decoration: none;
             color: ${(props) => props.theme.colors.ligth};
-
+            h6 {
+              font-size: 1.2vw;
+            }
             .item-info {
               display: flex;
               align-items: center;
               .icon {
-                font-size: 3rem;
+                font-size: 2.5vw;
                 margin-right: 0.5em;
               }
             }
             .action {
               background-color: ${(props) => props.theme.colors.redPrimary};
               border-radius: 100%;
-              height: 2.5rem;
-              width: 2.5rem;
+              height: 2.5vw;
+              width: 2.5vw;
               display: flex;
               align-items: center;
               justify-content: center;
               .action-icon {
-                font-size: 2rem;
+                font-size: 1.6vw;
+              }
+            }
+            @media (max-width: ${(props) => props.theme.sizes.md}) {
+              h6 {
+                font-size: 1rem;
+              }
+              .item-info {
+                .icon {
+                  font-size: 2rem;
+                  margin-right: 0.5em;
+                }
+              }
+              .action {
+                height: 2rem;
+                width: 2rem;
+                .action-icon {
+                  font-size: 1.3rem;
+                }
               }
             }
           }

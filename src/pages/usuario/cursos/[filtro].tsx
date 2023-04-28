@@ -60,7 +60,7 @@ export default function Login(props: any) {
               <section key={index} className="course-item">
                 <Image
                   className="image-course"
-                  src={item.image_course}
+                  src={item?.image_course}
                   height={100}
                   width={100}
                   alt=""
@@ -68,14 +68,14 @@ export default function Login(props: any) {
                 <div className="course-content">
                   <Image
                     className="image-name"
-                    src={item.image_name}
+                    src={item?.image_name}
                     height={100}
                     width={100}
                     alt=""
                   />
                   <div className="autor">
                     <FaUserAlt className="icon" />
-                    <span>{item.instructor.name_instructor}</span>
+                    <span>{item?.instructor?.name_instructor}</span>
                   </div>
                 </div>
                 <div className="overlay"></div>

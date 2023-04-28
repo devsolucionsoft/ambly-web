@@ -116,11 +116,11 @@ export const SliderNew = styled.section`
 `
 
 export const SliderPopular = styled.section`
-  height: 28vw;
+  height: 19vw;
   cursor: pointer;
   position: relative;
   @media (max-width: ${(props) => props.theme.sizes.sm}) {
-    height: 30vh;
+    height: 23vh;
   }
   .image-course {
     width: 100%;
@@ -130,7 +130,7 @@ export const SliderPopular = styled.section`
   }
   .image-name {
     position: absolute;
-    width: 80%;
+    width: 70%;
     left: 10%;
     bottom: 5%;
     height: auto;
@@ -176,13 +176,20 @@ export const SlidersTrailer = styled.section`
     }
   }
   .trailer-title {
-    font-size: 1.2rem;
+    font-size: 1vw;
+    margin-top: 0.5em;
+    @media (max-width: ${(props) => props.theme.sizes.sm}) {
+      font-size: 0.8rem;
+    }
   }
   .autor {
-    margin: 10px 0;
-    font-size: 0.8rem;
+    margin: 8px 0;
+    font-size: 0.8vw;
+    @media (max-width: ${(props) => props.theme.sizes.sm}) {
+      font-size: 0.6rem;
+    }
     .icon {
-      margin-right: 10px;
+      margin-right: 0.6rem;
     }
   }
 `
