@@ -25,7 +25,7 @@ import { UserApi, CourseApi, InstructorApi, TrailersApi } from "./api"
 import { useAppDispatch } from "../store"
 import { loadCourses } from "../store/User/actions"
 import { useRouter } from "next/router"
-const items = [1, 2, 3, 4]
+import { courses, trailers, intructors, categories } from "../json/data"
 
 const UserApiModel = new UserApi()
 const CourseApiModel = new CourseApi()
@@ -38,10 +38,10 @@ export default function Login(props: any) {
 
   const [loading, setLoading] = useState(false)
 
-  const [coursesList, setCourseslist] = useState([])
-  const [intructorList, setIntructorList] = useState([])
-  const [trailersList, setTrailerList] = useState([])
-  const [topics, setTopics] = useState([])
+  const [coursesList, setCourseslist] = useState(courses)
+  const [intructorList, setIntructorList] = useState(intructors)
+  const [trailersList, setTrailerList] = useState(trailers)
+  const [topics, setTopics] = useState(categories)
   const [showModal, setShowModal] = useState(false)
   const [trailerPlay, setTrailerPlay] = useState({
     title: "",
@@ -66,19 +66,19 @@ export default function Login(props: any) {
     })()
     ;(async () => {
       const response = await CourseApiModel.GetCourses()
-      response.status === 200 && setCourseslist(response.data)
+      //response.status === 200 && setCourseslist(response.data)
     })()
     ;(async () => {
       const response = await InstructorApiModel.GetInstructors()
-      response.status === 200 && setIntructorList(response.data)
+      //response.status === 200 && setIntructorList(response.data)
     })()
     ;(async () => {
       const response = await TrailersApiModel.GetTrailers()
-      response.status === 200 && setTrailerList(response.data)
+      //response.status === 200 && setTrailerList(response.data)
     })()
     ;(async () => {
       const response = await UserApiModel.GetCategories()
-      response.status === 200 && setTopics(response.data)
+      //response.status === 200 && setTopics(response.data)
     })()
     setTimeout(() => {
       setLoading(false)
@@ -128,15 +128,7 @@ export default function Login(props: any) {
               title="Populares"
               action={() => router.push(`/usuario/cursos/todos`)}
             />
-            <Sliders
-              variant="popular"
-              items={[
-                coursesList[0],
-                coursesList[1],
-                coursesList[0],
-                coursesList[1],
-              ]}
-            />
+            <Sliders variant="popular" items={coursesList} />
           </div>
 
           <div>
@@ -163,35 +155,33 @@ export default function Login(props: any) {
             />
 
             <div className="teachers-list">
-              {intructorList
-                .concat([intructorList[0], intructorList[1], intructorList[2]])
-                .map((item: any, index) => (
-                  <Link
-                    href={`/usuario/maestro/${item?.id}`}
-                    key={index}
-                    className="teacher-item"
-                  >
-                    <Image
-                      className="teacher-image"
-                      src={item?.image_secondary}
-                      alt=""
-                      height={100}
-                      width={100}
-                    />
-                    <Typography
-                      className="teacher-title"
-                      text={item?.name_instructor}
-                      variant="H4"
-                    />
-                  </Link>
-                ))}
+              {intructorList.map((item: any, index: number) => (
+                <Link
+                  href={`/usuario/maestro/${item?.id}`}
+                  key={index}
+                  className="teacher-item"
+                >
+                  <Image
+                    className="teacher-image"
+                    src={item?.image_secondary}
+                    alt=""
+                    height={100}
+                    width={100}
+                  />
+                  <Typography
+                    className="teacher-title"
+                    text={item?.name_instructor}
+                    variant="H4"
+                  />
+                </Link>
+              ))}
             </div>
           </div>
 
           <div>
             <HeaderSection title="Categorías" />
             <div className="category-list">
-              {topics.map((item: any, index) => (
+              {topics.map((item: any, index: number) => (
                 <Link
                   href={`/usuario/cursos/todos`}
                   key={index}

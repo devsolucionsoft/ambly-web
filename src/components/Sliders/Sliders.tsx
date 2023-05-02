@@ -57,8 +57,6 @@ const Sliders = (props: SlidersAttributes) => {
     }
   }, [variant])
 
-  console.log(items)
-
   return (
     <Main>
       <Swiper
