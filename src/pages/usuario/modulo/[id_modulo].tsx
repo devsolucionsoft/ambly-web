@@ -138,10 +138,10 @@ export default function Modulo() {
     // Activar loader
     setLoading(true)
     if (courseInfo.modules.length > 0) {
-      const response = await userApiModel.GetCourse(courseInfo.id)
-      if (response.status === 200) {
-        dispatch(selectCourse(response.data))
-      }
+      // const response = await userApiModel.GetCourse(courseInfo.id)
+      // if (response.status === 200) {
+      //   dispatch(selectCourse(response.data))
+      // }
       // Video proximo
       if (video > currentVideo) {
         // Comprobar si el video es el ultimo del modulo.
