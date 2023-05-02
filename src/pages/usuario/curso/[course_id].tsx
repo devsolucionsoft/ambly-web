@@ -76,14 +76,14 @@ export default function CourseDetail(props: any) {
     }
 
     ;(async () => {
-      const response = await userApiModel.GetCourse(course_id)
+      //const response = await userApiModel.GetCourse(course_id)
 
-      if (response.status === 200) {
-        //dispatch(selectCourse(response.data))
-        // Array.isArray(response.data?.modules) &&
-        //   setCourseModules(response.data?.modules)
-        //setCourseModules(courseInfo.modules)
-      }
+      //if (response.status === 200) {
+      //dispatch(selectCourse(response.data))
+      // Array.isArray(response.data?.modules) &&
+      //   setCourseModules(response.data?.modules)
+      //setCourseModules(courseInfo.modules)
+      //}
       setCourseModules(courseInfo.modules)
       setTimeout(() => {
         setLoading(false)
