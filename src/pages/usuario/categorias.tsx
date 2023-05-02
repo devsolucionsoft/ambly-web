@@ -1,6 +1,7 @@
 import Head from "next/head"
 import Image from "next/image"
 import { useState, useEffect } from "react"
+import Link from "next/link"
 // Assests
 // Styled components
 import { Main } from "../../styles/categorias.styled"
@@ -43,7 +44,11 @@ export default function Login(props: any) {
           <br />
           <div className="category-list">
             {topics.map((item: any, index: number) => (
-              <section key={index} className="category-item">
+              <Link
+                href={`/usuario/cursos/todos`}
+                key={index}
+                className="category-item"
+              >
                 <Image
                   className="category-image"
                   src={item.image}
@@ -51,7 +56,7 @@ export default function Login(props: any) {
                   height={100}
                   width={100}
                 />
-              </section>
+              </Link>
             ))}
           </div>
         </div>
