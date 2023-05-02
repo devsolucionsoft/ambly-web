@@ -6,7 +6,9 @@ import IconAmbly from "../../assets/images/icon-ambly.png"
 import { Main } from "./SideNav.styled"
 import { AiFillPlayCircle, AiFillBook } from "react-icons/ai"
 import { MdOutlineSecurity } from "react-icons/md"
-import { FaUserAlt, BiCategoryAlt } from "react-icons/all"
+import { FaUser } from "react-icons/fa"
+import { BiCategory } from "react-icons/bi"
+
 import { IoExitOutline, IoCloseSharp } from "react-icons/io5"
 import { BsCameraVideoFill, BsFillPeopleFill } from "react-icons/bs"
 import { AiOutlineShoppingCart } from "react-icons/ai"
@@ -75,13 +77,13 @@ const SideNav = (props: SideNavAttributes) => {
           )}
           <li className="responsive-header">
             <Link href="/usuario/maestros" className="nav-item">
-              <FaUserAlt className="icon" />
+              <FaUser className="icon" />
               Iniciar sesion
             </Link>
           </li>
           <li className="responsive-header">
             <Link href="/usuario/maestros" className="nav-item">
-              <BiCategoryAlt className="icon" />
+              <BiCategory className="icon" />
               Categorías
             </Link>
           </li>
