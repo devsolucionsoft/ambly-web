@@ -60,6 +60,7 @@ export const Main = styled.div<{ openNav: boolean }>`
     .nav-links {
       list-style-type: none;
       margin-top: 2em;
+
       margin-left: 0em;
       .responsive-header {
         display: none;
