@@ -61,6 +61,12 @@ export const Main = styled.div<{ openNav: boolean }>`
       list-style-type: none;
       margin-top: 2em;
       margin-left: 0em;
+      .responsive-header {
+        display: none;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          display: flex;
+        }
+      }
       .nav-item {
         display: flex;
         align-items: center;

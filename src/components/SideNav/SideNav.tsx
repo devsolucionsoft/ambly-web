@@ -6,8 +6,11 @@ import IconAmbly from "../../assets/images/icon-ambly.png"
 import { Main } from "./SideNav.styled"
 import { AiFillPlayCircle, AiFillBook } from "react-icons/ai"
 import { MdOutlineSecurity } from "react-icons/md"
+import { FaUserAlt, BiCategoryAlt } from "react-icons/all"
 import { IoExitOutline, IoCloseSharp } from "react-icons/io5"
 import { BsCameraVideoFill, BsFillPeopleFill } from "react-icons/bs"
+import { AiOutlineShoppingCart } from "react-icons/ai"
+
 // Redux
 import { useAppSelector } from "../../store"
 // Redux
@@ -70,6 +73,18 @@ const SideNav = (props: SideNavAttributes) => {
               </Link>
             </li>
           )}
+          <li className="responsive-header">
+            <Link href="/usuario/maestros" className="nav-item">
+              <FaUserAlt className="icon" />
+              Iniciar sesion
+            </Link>
+          </li>
+          <li className="responsive-header">
+            <Link href="/usuario/maestros" className="nav-item">
+              <BiCategoryAlt className="icon" />
+              Categorías
+            </Link>
+          </li>
           <li>
             <Link href="/usuario/cursos/todos" className="nav-item">
               <AiFillBook className="icon" />
@@ -86,6 +101,12 @@ const SideNav = (props: SideNavAttributes) => {
             <Link href="/usuario/maestros" className="nav-item">
               <BsFillPeopleFill className="icon" />
               Maestros
+            </Link>
+          </li>
+          <li className="responsive-header">
+            <Link href="/usuario/maestros" className="nav-item">
+              <AiOutlineShoppingCart className="icon" />
+              Carrito
             </Link>
           </li>
           {!minimal && (
