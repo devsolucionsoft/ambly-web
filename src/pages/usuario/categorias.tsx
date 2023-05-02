@@ -12,16 +12,16 @@ import {
   getSessionVerificationNotCreated,
 } from "../../../lib/session"
 import { UserApi } from "../api"
+import { categories } from "../../json/data"
 
-const items = [1, 2, 3, 4]
 const UserApiModel = new UserApi()
 
 export default function Login(props: any) {
-  const [topics, setTopics] = useState([])
+  const [topics, setTopics] = useState(categories)
   useEffect(() => {
     ;(async () => {
       const response = await UserApiModel.GetCategories()
-      response.status === 200 && setTopics(response.data)
+      //response.status === 200 && setTopics(response.data)
     })()
   }, [])
 
@@ -42,7 +42,7 @@ export default function Login(props: any) {
           <br />
           <br />
           <div className="category-list">
-            {topics.map((item: any, index) => (
+            {topics.map((item: any, index: number) => (
               <section key={index} className="category-item">
                 <Image
                   className="category-image"

@@ -1,3 +1,158 @@
+export const intructorDetail: any = {
+  id: 4,
+  name_instructor: "Leonor Espinoza",
+  image_instructor:
+    "https://app-ambly.s3.amazonaws.com/static/uploads/c20a05f2d76ccbdbc6a8-CHEF-LEONOR-01.jpg",
+  description_instructor:
+    'La "mejor chef mujer del mundo", según una prestigiosa firma británica, es una colombiana y cualquiera que escuche su historia se dará cuenta de lo extraordinario que fue su ascenso a la cima. - bbc',
+  image_secondary:
+    "https://app-ambly.s3.amazonaws.com/static/uploads/0aa34d8a00760e2e6cbf-leonor-espinosa-baron-b-1369210.jpg",
+  description_secondary:
+    "Leonor Espinosa dedicó la primera etapa de su vida, es decir, sus primeros 35 años, a estudiar economía y arte, y luego, a trabajar como ejecutiva de publicidad.No fue hasta 2007, tras haber aprendido de manera autodidacta a cocinar, que abrió su primer restaurante, Leo.",
+  carousel_images: "",
+  description_third: "",
+  createdAt: "2022-12-28T08:49:14.289Z",
+  updateAt: "2022-12-27T08:49:20.318Z",
+  course: [
+    {
+      id: 4,
+      createdAt: "2022-12-21T09:26:11.107Z",
+      updateAt: "2023-01-02T10:10:47.000Z",
+      activityDate: "2023-01-02T10:17:18.000Z",
+      name_course: "Pacífico: tradición y futuro",
+      image_course:
+        "https://app-ambly.s3.amazonaws.com/static/uploads/c20a05f2d76ccbdbc6a8-CHEF-LEONOR-01.jpg",
+      num_modulos: 9,
+      time_course: "4:00",
+      image_name:
+        "https://app-ambly.s3.amazonaws.com/static/uploads/1c8b483a1ad77d94e89c-ambly-cocina+con+pacifico.png",
+      description:
+        "“Cuando el negro está en el monte frente a su canalón su comida es calangá y su caldo de bocón. Pero cuando llega al pueblo da unos pasos hasta el fogón, yo quiero mi desayuno chocolate y chicharrón. La mujer queda pensando, camina pa´lla y pa´ca, no hay ni un poquito de manteca, ¿en qué yo voy a fritar? Pues se olvidó que en el campo comía su palazán, aguacate y chontaduro, birimbí con pepepán.”\r\n      Margarita Hurtado (poeta popular)",
+      popular_course: false,
+      next_course: true,
+      price_course: "34000",
+      characteristic1: "4 horas",
+      characteristic2: "Los Secretos De La Concina Del Pacífico",
+      characteristic3: "8 Modulos",
+      characteristic4: "A Tu Propio Ritmo",
+      categories: {
+        id: 4,
+        createdAt: "2022-11-11T11:33:35.028Z",
+        updateAt: "2022-12-21T09:39:30.705Z",
+        name: "Cocina",
+        image:
+          "https://app-ambly.s3.amazonaws.com/static/uploads/18ec1f3f722ffd11908b-cocina.jpg",
+        image_banner: "",
+        description: "",
+      },
+      modules: [
+        {
+          id: 52,
+          name_module: "El Pacífico colombiano: potencia diversa",
+          description:
+            "¿Qué está sucediendo culturalmente en la región pacífica de Colombia? ¿Cómo está constituida a nivel cultural y étnico? ¿Cómo influye su geografía e historia en su cocina? Presentación de la instructora: su historia y relación con la cocina del Pacífico.",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:27:39.135Z",
+          updateAt: "2022-12-21T09:27:39.095Z",
+          videos: [
+            {
+              id: 5,
+              createdAt: "2023-04-13T17:25:33.963Z",
+              updateAt: "2023-04-13T17:25:33.963Z",
+              video:
+                "https://app-ambly.s3.amazonaws.com/static/uploads/57865ccfb2df78a10ec0-pexels-pressmaster-3209828-3840x2160-25fps.mp4",
+              name_video: "Video 1",
+              description_video:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            },
+            {
+              id: 6,
+              createdAt: "2023-04-13T17:26:43.069Z",
+              updateAt: "2023-04-13T17:26:43.069Z",
+              video:
+                "https://app-ambly.s3.amazonaws.com/static/uploads/77d2d99a950c3d7ca390-pexels-cottonbro-studio-5532772-4096x2160-25fps.mp4",
+              name_video: "Video 2",
+              description_video:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            },
+          ],
+        },
+        {
+          id: 53,
+          name_module: "Los ejes fundamentales de la cocina del pacífico",
+          description:
+            "¿Cómo ha evolucionado la cocina de la región? ¿Cúal es su relación con las prácticas cotidianas de sus habitantes? ¿Cuáles son sus ingredientes fundamentales y cómo varían de acuerdo a las zonas geográficas que las componen?",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:27:39.115Z",
+          updateAt: "2022-12-21T09:27:39.095Z",
+          videos: [],
+        },
+        {
+          id: 54,
+          name_module: "La influencia de la cultura afro",
+          description:
+            "¿Cuáles son las prácticas culinarias de los afrodescendientes del Pacífico colombiano? ¿Cuál es su origen y cómo han evolucionado? ¿Cómo se han visto afectadas por el clima, vegetación y otras características geográficas de la zona?",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:28:40.145Z",
+          updateAt: "2022-12-21T09:28:40.165Z",
+          videos: [],
+        },
+        {
+          id: 55,
+          name_module: "La cocina: lugar de encuentro de culturas",
+          description:
+            "¿Cómo se han mezclado culturas y tradiciones en la cocina del Pacífico? ¿Cuál es el legado de los pueblos indígenas? ¿Cómo han influido la cultura andina y mestiza en la gastronomía? ¿Qué otras influencias se pueden encontrar en la cocina contemporánea?",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:28:40.115Z",
+          updateAt: "2022-12-21T09:28:40.095Z",
+          videos: [],
+        },
+        {
+          id: 56,
+          name_module: "Las técnicas culinarias tradicionales",
+          description:
+            "¿Cuáles son las principales prácticas de la cocina popular y tradicional de la región? ¿Por qué se implementaron? ¿Cuáles son las características y utilidad de cada una?",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:29:39.145Z",
+          updateAt: "2022-12-21T09:29:39.000Z",
+          videos: [],
+        },
+        {
+          id: 57,
+          name_module: "Tipos de Preparaciones",
+          description:
+            "¿Cuáles son las fórmulas de cocina básicas del Pacífico? ¿Cómo debe ejecutarse cada una y cuál es su utilidad en la cocina de la región?",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:29:39.095Z",
+          updateAt: "2022-12-21T09:29:40.125Z",
+          videos: [],
+        },
+        {
+          id: 58,
+          name_module: "Viaje de sabor por el pacífico colombiano",
+          description:
+            "¿Cómo cambia la gastronomía de acuerdo con el territorio? ¿Cuáles son los platos más representativos de cada subregión o cultura? ¿Cómo cambian sus técnicas e ingredientes?",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:30:45.145Z",
+          updateAt: "2022-12-21T09:30:45.000Z",
+          videos: [],
+        },
+        {
+          id: 59,
+          name_module: "Reivindicar, potenciar y visibilizar",
+          description:
+            "Conclusión del curso. El papel de la cultura culinaria frente a la inseguridad alimentaria, a los malos hábitos de alimentación y la inequidad económica y política. Historias del instructor. Sugerencias de material de consulta (texto y video).",
+          time_module: "03:20",
+          createdAt: "2022-12-21T09:30:45.115Z",
+          updateAt: "2022-12-21T09:30:45.125Z",
+          videos: [],
+        },
+      ],
+    },
+  ],
+  reviews: [],
+}
+
 export const trailers: any = [
   {
     id: 5,

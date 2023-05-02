@@ -12,18 +12,17 @@ import {
   getSessionVerificationNotCreated,
 } from "../../../lib/session"
 import { InstructorApi } from "../../pages/api"
-const items = [1, 2, 3, 4]
-
+import { intructors } from "../../json/data"
 const InstructorApiModel = new InstructorApi()
 export default function Login(props: any) {
-  const [intructorList, setIntructorList] = useState([])
+  const [intructorList, setIntructorList] = useState(intructors)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     ;(async () => {
       setLoading(true)
       const response = await InstructorApiModel.GetInstructors()
-      response.status === 200 && setIntructorList(response.data)
+      //response.status === 200 && setIntructorList(response.data)
       setLoading(false)
     })()
   }, [])
@@ -45,7 +44,7 @@ export default function Login(props: any) {
           <Typography text="Maestros" variant="H1" />
 
           <div className="my-courses-list">
-            {intructorList.map((item: any, index) => (
+            {intructorList.map((item: any, index: number) => (
               <Link
                 href={`/usuario/maestro/${item.id}`}
                 key={index}

@@ -17,10 +17,10 @@ import {
 import { TrailersApi } from "../api"
 const TrailersApiModel = new TrailersApi()
 
-const items = [1, 2, 3, 4]
+import { trailers } from "../../json/data"
 
 export default function Login(props: any) {
-  const [trailersList, setTrailerList] = useState([])
+  const [trailersList, setTrailerList] = useState(trailers)
   const [showModal, setShowModal] = useState(false)
   const [trailerPlay, setTrailerPlay] = useState({
     title: "",
@@ -30,7 +30,7 @@ export default function Login(props: any) {
   useEffect(() => {
     ;(async () => {
       const response = await TrailersApiModel.GetTrailers()
-      response.status === 200 && setTrailerList(response.data)
+      //response.status === 200 && setTrailerList(response.data)
     })()
   }, [])
 
@@ -72,7 +72,7 @@ export default function Login(props: any) {
           <Typography text="Trailers" variant="H1" />
 
           <div className="my-courses-list">
-            {trailersList.map((item: any, index) => (
+            {trailersList.map((item: any, index: number) => (
               <div
                 key={index}
                 className="course-item"

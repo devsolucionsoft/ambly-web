@@ -5,7 +5,14 @@ import { useState, useEffect } from "react"
 // Styled components
 import { MainDetail } from "../../../styles/maestros.styled"
 // Components
-import { Header, Typography, SideNav, Footer } from "../../../components"
+import {
+  Header,
+  Typography,
+  SideNav,
+  Footer,
+  HeaderSection,
+  Sliders,
+} from "../../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -13,9 +20,13 @@ import {
 } from "../../../../lib/session"
 import { InstructorApi } from "../../api"
 
+import { intructorDetail } from "../../../json/data"
+
 export default function Login() {
-  const [instructorInfo, setInfo] = useState<any>({})
+  const [instructorInfo, setInfo] = useState<any>(intructorDetail)
   const [intructorList, setIntructorList] = useState([])
+
+  console.log("instructorInfo", instructorInfo)
 
   const router = useRouter()
   const { id_maestro } = router.query
@@ -25,12 +36,12 @@ export default function Login() {
 
     ;(async () => {
       const response = await InstructorApiModel.GetInstructors()
-      response.status === 200 && setIntructorList(response.data)
+      //response.status === 200 && setIntructorList(response.data)
     })()
   }, [id_maestro])
 
   useEffect(() => {
-    setInfo(intructorList.find((item: any) => item.id == id_maestro))
+    //setInfo(intructorList.find((item: any) => item.id == id_maestro))
   }, [intructorList, id_maestro])
 
   return (
@@ -72,6 +83,18 @@ export default function Login() {
             <Typography
               text={instructorInfo?.description_secondary}
               variant="P"
+            />
+          </div>
+          <div>
+            <HeaderSection title="Cursos" />
+            <Sliders
+              variant="popular"
+              items={instructorInfo.course.map((item: any) => ({
+                ...item,
+                instructor: {
+                  image_instructor: instructorInfo.image_secondary,
+                },
+              }))}
             />
           </div>
         </div>
