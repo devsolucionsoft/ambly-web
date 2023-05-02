@@ -35,6 +35,7 @@ import { useAppSelector, useAppDispatch } from "../../../store"
 import { UserApi } from "../../api"
 // Store
 import { selectCourse } from "../../../store/User/actions"
+import { courseDetail } from "../../../json/data"
 
 const items = [1, 2, 3, 4]
 
@@ -59,7 +60,8 @@ export default function Modulo() {
   const { id_modulo, video }: any = router.query
 
   // Store
-  const courseInfo = useAppSelector((store) => store.User.selectCourse)
+  //const courseInfo = useAppSelector((store) => store.User.selectCourse)
+  const courseInfo = courseDetail
   const dispatch = useAppDispatch()
   const userApiModel = new UserApi()
 
@@ -100,18 +102,17 @@ export default function Modulo() {
       )
       // En caso de que encuentre un progreso edita el tiempo de vista cuando se cambia el video
       saved ? setCurrentVideoTime(saved.time_seen) : setCurrentVideoTime(0)
-
-      // Condicion para habilitar y desahabilitar el boton de next
-      if (
-        currentVideo === courseInfo.modules[currentModule]?.videos.length - 1 &&
-        currentModule === courseInfo.modules.length - 1
-      ) {
-        setDisableNext(true)
-      } else {
-        setDisableNext(false)
-      }
-      // Condicion para habilitar y desahabilitar el boton de prev
     }
+    // Condicion para habilitar y desahabilitar el boton de next
+    if (
+      currentVideo === courseInfo.modules[currentModule]?.videos.length - 1 &&
+      currentModule === courseInfo.modules.length - 1
+    ) {
+      setDisableNext(true)
+    } else {
+      setDisableNext(false)
+    }
+    // Condicion para habilitar y desahabilitar el boton de prev
     if (currentVideo === 0 && currentModule === 0) {
       setDisablePrev(true)
     } else {

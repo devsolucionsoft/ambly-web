@@ -1074,3 +1074,104 @@ export const courses: any = [
     modules: [],
   },
 ]
+
+export const courseDetail: any = {
+  id: 4,
+  createdAt: "2022-12-21T09:26:11.107Z",
+  updateAt: "2023-01-02T10:10:47.000Z",
+  activityDate: "2023-01-02T10:17:18.000Z",
+  name_course: "Pacífico: tradición y futuro",
+  image_course:
+    "https://app-ambly.s3.amazonaws.com/static/uploads/c20a05f2d76ccbdbc6a8-CHEF-LEONOR-01.jpg",
+  num_modulos: 9,
+  time_course: "4:00",
+  image_name:
+    "https://app-ambly.s3.amazonaws.com/static/uploads/1c8b483a1ad77d94e89c-ambly-cocina+con+pacifico.png",
+  description:
+    "“Cuando el negro está en el monte frente a su canalón su comida es calangá y su caldo de bocón. Pero cuando llega al pueblo da unos pasos hasta el fogón, yo quiero mi desayuno chocolate y chicharrón. La mujer queda pensando, camina pa´lla y pa´ca, no hay ni un poquito de manteca, ¿en qué yo voy a fritar? Pues se olvidó que en el campo comía su palazán, aguacate y chontaduro, birimbí con pepepán.”\r\n      Margarita Hurtado (poeta popular)",
+  popular_course: false,
+  next_course: true,
+  price_course: "34000",
+  characteristic1: "4 horas",
+  characteristic2: "Los Secretos De La Concina Del Pacífico",
+  characteristic3: "8 Modulos",
+  characteristic4: "A Tu Propio Ritmo",
+  categories: {
+    id: 4,
+    createdAt: "2022-11-11T11:33:35.028Z",
+    updateAt: "2022-12-21T09:39:30.705Z",
+    name: "Cocina",
+    image:
+      "https://app-ambly.s3.amazonaws.com/static/uploads/18ec1f3f722ffd11908b-cocina.jpg",
+    image_banner: "",
+    description: "",
+  },
+  instructor: {
+    id: 4,
+    name_instructor: "Leonor Espinoza",
+    image_instructor:
+      "https://app-ambly.s3.amazonaws.com/static/uploads/c20a05f2d76ccbdbc6a8-CHEF-LEONOR-01.jpg",
+    description_instructor:
+      'La "mejor chef mujer del mundo", según una prestigiosa firma británica, es una colombiana y cualquiera que escuche su historia se dará cuenta de lo extraordinario que fue su ascenso a la cima. - bbc',
+    image_secondary:
+      "https://app-ambly.s3.amazonaws.com/static/uploads/0aa34d8a00760e2e6cbf-leonor-espinosa-baron-b-1369210.jpg",
+    description_secondary:
+      "Leonor Espinosa dedicó la primera etapa de su vida, es decir, sus primeros 35 años, a estudiar economía y arte, y luego, a trabajar como ejecutiva de publicidad.No fue hasta 2007, tras haber aprendido de manera autodidacta a cocinar, que abrió su primer restaurante, Leo.",
+    carousel_images: "",
+    description_third: "",
+    createdAt: "2022-12-28T08:49:14.289Z",
+    updateAt: "2022-12-27T08:49:20.318Z",
+  },
+  modules: [
+    {
+      id: 52,
+      name_module: "El Pacífico colombiano: potencia diversa",
+      description:
+        "¿Qué está sucediendo culturalmente en la región pacífica de Colombia? ¿Cómo está constituida a nivel cultural y étnico? ¿Cómo influye su geografía e historia en su cocina? Presentación de la instructora: su historia y relación con la cocina del Pacífico.",
+      time_module: "03:20",
+      createdAt: "2022-12-21T09:27:39.135Z",
+      updateAt: "2022-12-21T09:27:39.095Z",
+      videos: [
+        {
+          id: 5,
+          createdAt: "2023-04-13T17:25:33.963Z",
+          updateAt: "2023-04-13T17:25:33.963Z",
+          video:
+            "https://app-ambly.s3.amazonaws.com/static/uploads/57865ccfb2df78a10ec0-pexels-pressmaster-3209828-3840x2160-25fps.mp4",
+          name_video: "Video 1",
+          description_video:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        },
+        {
+          id: 6,
+          createdAt: "2023-04-13T17:26:43.069Z",
+          updateAt: "2023-04-13T17:26:43.069Z",
+          video:
+            "https://app-ambly.s3.amazonaws.com/static/uploads/77d2d99a950c3d7ca390-pexels-cottonbro-studio-5532772-4096x2160-25fps.mp4",
+          name_video: "Video 2",
+          description_video:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        },
+      ],
+      file: [
+        {
+          id: 1,
+          createdAt: "2023-04-13T17:27:40.974Z",
+          updateAt: "2023-04-13T17:27:40.974Z",
+          name_file: "Archivo 1",
+          link_file:
+            "https://app-ambly.s3.amazonaws.com/static/uploads/ed1ad8f4f32d7b432e75-Ejemplo.pdf",
+        },
+        {
+          id: 2,
+          createdAt: "2023-04-13T17:27:53.841Z",
+          updateAt: "2023-04-13T17:27:53.841Z",
+          name_file: "Archivo 2",
+          link_file:
+            "https://app-ambly.s3.amazonaws.com/static/uploads/9fbc8f5f31d265f6533c-Ejemplo.pdf",
+        },
+      ],
+      save: [],
+    },
+  ],
+}

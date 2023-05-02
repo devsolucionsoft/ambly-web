@@ -28,16 +28,18 @@ import {
 // Store
 import { useAppSelector, useAppDispatch } from "../../../store"
 import { selectCourse } from "../../../store/User/actions"
-import { onLoader } from "../../../store/Loader/actions"
 // API
 import { UserApi } from "../../api"
+
+import { courseDetail } from "../../../json/data"
 
 export default function CourseDetail(props: any) {
   const router = useRouter()
   const { course_id }: any = router.query
 
   const dispatch = useAppDispatch()
-  const courseInfo = useAppSelector((store) => store.User.selectCourse)
+  //const courseInfo = useAppSelector((store) => store.User.selectCourse)
+  const courseInfo = courseDetail
   const myCourses = useAppSelector((store) => store.User.myCourses)
   const [includeMyCourse, setIncludeMyCourse] = useState(false)
   const [includeCart, setIncludeCart] = useState(false)
@@ -77,9 +79,11 @@ export default function CourseDetail(props: any) {
       const response = await userApiModel.GetCourse(course_id)
 
       if (response.status === 200) {
-        dispatch(selectCourse(response.data))
-        Array.isArray(response.data?.modules) &&
-          setCourseModules(response.data?.modules)
+        //dispatch(selectCourse(response.data))
+        // Array.isArray(response.data?.modules) &&
+        //   setCourseModules(response.data?.modules)
+        courseInfo
+        setCourseModules(courseInfo.modules)
       }
       setTimeout(() => {
         setLoading(false)
