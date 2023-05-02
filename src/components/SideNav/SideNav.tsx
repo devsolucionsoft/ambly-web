@@ -75,12 +75,7 @@ const SideNav = (props: SideNavAttributes) => {
               </Link>
             </li>
           )}
-          <li className="responsive-header">
-            <Link href="/usuario/maestros" className="nav-item">
-              <FaUser className="icon" />
-              Iniciar sesion
-            </Link>
-          </li>
+
           <li className="responsive-header">
             <Link href="/usuario/maestros" className="nav-item">
               <BiCategory className="icon" />
@@ -109,6 +104,12 @@ const SideNav = (props: SideNavAttributes) => {
             <Link href="/usuario/maestros" className="nav-item">
               <AiOutlineShoppingCart className="icon" />
               Carrito
+            </Link>
+          </li>
+          <li className="responsive-header">
+            <Link href="/usuario/maestros" className="nav-item">
+              <FaUser className="icon" />
+              Iniciar sesion
             </Link>
           </li>
           {!minimal && (
