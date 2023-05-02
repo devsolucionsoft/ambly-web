@@ -18,13 +18,14 @@ import {
   sessionOptions,
   getSessionVerificationNotCreated,
 } from "../../../../lib/session"
-const items = [1, 2, 3, 4]
+
+import { courses } from "../../../json/data"
 
 import { CourseApi } from "../../api"
 const CourseApiModel = new CourseApi()
 
 export default function Login(props: any) {
-  const [courses, setCourses] = useState([])
+  const [coursesList, setCourses] = useState(courses)
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
@@ -34,7 +35,7 @@ export default function Login(props: any) {
     ;(async () => {
       setLoading(true)
       const response = await CourseApiModel.GetCourses()
-      response.status === 200 && setCourses(response.data)
+      //response.status === 200 && setCourses(response.data)
       setLoading(false)
     })()
   }, [])
@@ -56,7 +57,7 @@ export default function Login(props: any) {
           <Typography text="Todos los cursos" variant="H1" />
 
           <div className="my-courses-list">
-            {courses.map((item: any, index) => (
+            {coursesList.map((item: any, index: number) => (
               <section key={index} className="course-item">
                 <Image
                   className="image-course"
