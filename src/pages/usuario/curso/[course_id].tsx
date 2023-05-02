@@ -82,9 +82,9 @@ export default function CourseDetail(props: any) {
         //dispatch(selectCourse(response.data))
         // Array.isArray(response.data?.modules) &&
         //   setCourseModules(response.data?.modules)
-        courseInfo
-        setCourseModules(courseInfo.modules)
+        //setCourseModules(courseInfo.modules)
       }
+      setCourseModules(courseInfo.modules)
       setTimeout(() => {
         setLoading(false)
         setLoad(true)
@@ -98,7 +98,7 @@ export default function CourseDetail(props: any) {
         }
       })
     }
-  }, [course_id, dispatch, includeMyCourse, myCourses])
+  }, [course_id, dispatch, includeMyCourse, myCourses, courseInfo])
 
   // Funcion para extraer la informacion del ultimo video visto por el usuario y poder redirigirlo a el
   useEffect(() => {
