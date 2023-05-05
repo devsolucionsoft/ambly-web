@@ -4,12 +4,15 @@ import { useRouter } from "next/router"
 import { Main } from "../styles/index.styled"
 import Image from "next/image"
 import IconAmbly from "../assets/images/icon-ambly.png"
+import GooglePlay from "../assets/images/google-play.png"
+import AppStore from "../assets/images/app-store.png"
 // Components
 import { Button, Typography } from "../components"
 import { BsGooglePlay } from "react-icons/bs"
 import { SiAppstore } from "react-icons/si"
 import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
+import { appendFile } from "fs"
 
 export default function Home() {
   const router = useRouter()
@@ -63,19 +66,17 @@ export default function Home() {
 
           <div className="shops-section">
             <Typography
-              text="Descarga nuestra App:"
+              text="Descarga nuestra"
               variant="P"
               style={{ fontSize: "1.1rem" }}
             />
             <div className="shops">
               <a href="#">
-                <BsGooglePlay className="icon" />
-                <p>Play Store</p>
+                <Image className="icon" src={GooglePlay} alt="" />
               </a>
 
               <a href="#">
-                <SiAppstore className="icon" />
-                <p>App Store</p>
+                <Image className="icon" src={AppStore} alt="" />
               </a>
             </div>
           </div>

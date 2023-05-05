@@ -43,28 +43,16 @@ export const Main = styled.main`
       text-align: center;
 
       .shops {
+        margin-top: 1em;
         display: flex;
-        gap: 6em;
-        margin-top: 3em;
-
+        gap: 1rem;
         @media (max-width: ${(props) => props.theme.sizes.sm}) {
-          gap: 1em;
-        }
-
-        a {
-          display: flex;
           flex-direction: column;
-          align-items: center;
-          text-decoration: none;
-          font-size: 1rem;
-          color: #ffffff;
-          font-weight: 600;
-          border: 1px solid #ffffff;
-          padding: 1em;
-          border-radius: 1em;
-          .icon {
-            margin-bottom: 0.5rem;
-            font-size: 2.8rem;
+          gap: 0.5rem;
+        }
+        a {
+          img {
+            width: 250px;
           }
         }
       }

@@ -44,7 +44,7 @@ export const Main = styled.main`
     }
     .shops-section {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       flex-direction: column;
       width: 20%;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
@@ -58,34 +58,12 @@ export const Main = styled.main`
       }
       .shops {
         display: flex;
-        gap: 1em;
-        margin-left: 2em;
-
-        @media (max-width: ${(props) => props.theme.sizes.md}) {
-          margin-left: 0em;
-          gap: 1em;
-        }
-
+        flex-direction: column;
+        gap: 0.5rem;
         a {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-decoration: none;
-          font-size: 0.62vw;
-          color: #ffffff;
-          font-weight: 600;
-          border: 1px solid #ffffff;
-          padding: 1em;
-          border-radius: 1em;
-          .icon {
-            margin-bottom: 0.5rem;
-            font-size: 2.5vw;
-          }
-          @media (max-width: ${(props) => props.theme.sizes.md}) {
-            font-size: 0.62rem;
-            .icon {
-              font-size: 2.5rem;
-            }
+          img {
+            width: 200px;
+            height: auto;
           }
         }
       }

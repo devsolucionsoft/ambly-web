@@ -1,13 +1,10 @@
 // React
 import Link from "next/link"
+import Image from "next/image"
 // Styled components
-import { Typography } from "../"
 import { Main } from "./Footer.styled"
-import { BiHelpCircle } from "react-icons/bi"
-import { TfiWorld } from "react-icons/tfi"
-import { MdLocalPolice } from "react-icons/md"
-import { BsGooglePlay } from "react-icons/bs"
-import { SiAppstore } from "react-icons/si"
+import GooglePlay from "../../assets/images/google-play.png"
+import AppStore from "../../assets/images/app-store.png"
 
 interface FooterProps {}
 
@@ -95,13 +92,11 @@ const Footer = (props: FooterProps) => {
           <h3 style={{ marginBottom: "1em" }}>Ambly App</h3>
           <div className="shops">
             <a href="#">
-              <BsGooglePlay className="icon" />
-              <p>Play Store</p>
+              <Image className="icon" src={GooglePlay} alt="" />
             </a>
 
             <a href="#">
-              <SiAppstore className="icon" />
-              <p>App Store</p>
+              <Image className="icon" src={AppStore} alt="" />
             </a>
           </div>
         </div>
