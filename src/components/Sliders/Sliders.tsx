@@ -77,7 +77,7 @@ const Sliders = (props: SlidersAttributes) => {
         pagination={{ clickable: true }}
         spaceBetween={20}
         slidesPerView={slidesPerView}
-        centeredSlides={width < 720}
+        centeredSlides={true}
       >
         {items.map((item: any, index: number) => {
           if (variant === "new") {
