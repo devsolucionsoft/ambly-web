@@ -68,7 +68,7 @@ const ModuleItem = ({
               }`}
               key={index}
               onClick={() =>
-                router.push(`/usuario/modulo/${indexModule}?video=${index}`)
+                router.push(`/modulo/${indexModule}?video=${index}`)
               }
             >
               <div className="video-image-contain">

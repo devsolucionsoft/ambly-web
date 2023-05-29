@@ -25,7 +25,7 @@ export default function Home(props: any) {
         <SideNav minimal={!props.user} />
         <Header minimal={!props.user} />
         <div className="contain-page">
-          <Typography variant="H1" text="Politicas " />
+          <Typography variant="H4" text="Terminos y condiciónes " />
           <br />
           <br />
           <Typography

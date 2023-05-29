@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 // Styled components
-import { MainDetail } from "../../../styles/maestros.styled"
+import { MainDetail } from "../../styles/maestros.styled"
 // Components
 import {
   Header,
@@ -12,15 +12,15 @@ import {
   Footer,
   HeaderSection,
   Sliders,
-} from "../../../components"
+} from "../../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-} from "../../../../lib/session"
-import { InstructorApi } from "../../api"
+} from "../../../lib/session"
+import { InstructorApi } from "../api"
 
-import { intructorDetail } from "../../../json/data"
+import { intructorDetail } from "../../json/data"
 
 export default function Login() {
   const [instructorInfo, setInfo] = useState<any>(intructorDetail)

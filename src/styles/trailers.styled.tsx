@@ -7,7 +7,11 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 10em 10% 6em 10%;
+    padding: 5em 10% 6em 10%;
+
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      padding: 5em 8% 6em 8%;
+    }
 
     .my-courses-list {
       display: flex;
@@ -20,7 +24,7 @@ export const Main = styled.main`
         height: auto;
         margin-bottom: 3em;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 47%;
+          width: 100%;
           font-size: 0.8rem;
         }
       }

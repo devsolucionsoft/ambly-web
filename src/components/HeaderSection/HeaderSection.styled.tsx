@@ -19,11 +19,11 @@ export const Main = styled.div`
     .action {
       background-color: transparent;
       border: none;
-      font-size: 1vw;
+      font-size: 1.2vw;
       cursor: pointer;
       color: ${(props) => props.theme.colors.redPrimary};
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
       }
     }
   }

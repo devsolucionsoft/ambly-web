@@ -1,6 +1,6 @@
 import Head from "next/head"
 // Styled components
-import { Main } from "../../styles/perfil.styled"
+import { Main } from "../styles/perfil.styled"
 // Components
 import {
   Header,
@@ -9,12 +9,12 @@ import {
   Input,
   Button,
   Footer,
-} from "../../components"
+} from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   sessionVerificationNotCreated,
-} from "../../../lib/session"
+} from "../../lib/session"
 
 export default function Perfil() {
   return (

@@ -1,9 +1,26 @@
 import styled from "styled-components"
 
-export const Main = styled.div`
+export const Main = styled.div<{ variant: "new" | "popular" | "trailers" }>`
+  padding: 0 ${(props) => (props.variant !== "new" ? "10%" : "0%")};
+  @media (max-width: ${(props) => props.theme.sizes.md}) {
+    padding: 0 0%;
+  }
   .swiper-button-next,
   .swiper-button-prev {
     color: white;
+  }
+
+  .swiper-button-next {
+    right: 15%;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      right: 5%;
+    }
+  }
+  .swiper-button-prev {
+    left: 15%;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      left: 5%;
+    }
   }
 
   .swiper-pagination {
@@ -35,23 +52,38 @@ export const SliderNew = styled.section`
     height: 50vh;
     object-fit: cover;
     object-position: top;
+    display: none;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      display: block;
+    }
+  }
+  .image-desktop {
+    display: block;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      display: none;
+    }
   }
   .slider-content {
     position: absolute;
     z-index: 2;
     bottom: 0;
-    width: 80%;
-    padding: 2em;
-    display: flex;
+    width: 90%;
     align-items: center;
+    display: none;
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       flex-direction: column-reverse;
+      display: flex;
+      button {
+        padding: 0.3rem 2rem;
+        font-size: 1rem;
+        margin-left: 0.8rem;
+      }
     }
     .content-1 {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      width: 45%;
+      width: 90%;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         width: 100%;
       }
@@ -62,6 +94,7 @@ export const SliderNew = styled.section`
 
       .autor {
         margin: 1em 0;
+        padding-left: 0.8rem;
         .icon {
           margin-right: 10px;
         }
@@ -112,6 +145,10 @@ export const SliderNew = styled.section`
       rgba(0, 0, 0, 1) 0%,
       rgba(255, 255, 255, 0) 100%
     );
+    display: none;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      display: block;
+    }
   }
 `
 

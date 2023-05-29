@@ -3,16 +3,16 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 // Styled components
-import { Main } from "../../styles/maestros.styled"
+import { Main } from "../styles/maestros.styled"
 // Components
-import { Header, Typography, SideNav, Loader, Footer } from "../../components"
+import { Header, Typography, SideNav, Loader, Footer } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-} from "../../../lib/session"
-import { InstructorApi } from "../../pages/api"
-import { intructors } from "../../json/data"
+} from "../../lib/session"
+import { InstructorApi } from "../pages/api"
+import { intructors } from "../json/data"
 const InstructorApiModel = new InstructorApi()
 export default function Login(props: any) {
   const [intructorList, setIntructorList] = useState(intructors)
@@ -41,15 +41,11 @@ export default function Login(props: any) {
         <Loader loading={loading} />
 
         <div className="content-page">
-          <Typography text="Maestros" variant="H1" />
+          <Typography text="Maestros" variant="H4" />
 
           <div className="my-courses-list">
             {intructorList.map((item: any, index: number) => (
-              <Link
-                href={`/usuario/maestro/${item.id}`}
-                key={index}
-                className="teacher-item"
-              >
+              <Link href={`/${item.id}`} key={index} className="teacher-item">
                 <Image
                   className="teacher-image"
                   src={item.image_instructor}

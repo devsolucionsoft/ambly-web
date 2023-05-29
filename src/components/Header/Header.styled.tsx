@@ -49,10 +49,10 @@ export const Main = styled.header`
     }
 
     .logo {
-      width: 6vw;
+      width: 7vw;
       height: auto;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        width: 4rem;
+        width: 5rem;
       }
     }
     .open-menu {

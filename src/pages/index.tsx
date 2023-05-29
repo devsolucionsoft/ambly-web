@@ -3,7 +3,8 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 // Styled components
-import { Main } from "../styles/inicio.styled"
+import { FaUserAlt } from "react-icons/fa"
+import { Main, MyCourses } from "../styles/inicio.styled"
 // Components
 import {
   Header,
@@ -126,38 +127,42 @@ export default function Login(props: any) {
           <div>
             <HeaderSection
               title="Populares"
-              action={() => router.push(`/usuario/cursos/todos`)}
+              action={() => router.push(`/cursos/todos`)}
             />
-            <Sliders variant="popular" items={coursesList} />
           </div>
+        </div>
+        <Sliders variant="popular" items={coursesList} />
 
+        <div className="content-page">
           <div>
             <HeaderSection
               title="Trailers"
-              action={() => router.push(`/usuario/trailers`)}
-            />
-            <Sliders
-              variant="trailers"
-              onClickSlider={(data) => handleTrailerClick(data)}
-              items={[
-                trailersList[0],
-                trailersList[0],
-                trailersList[0],
-                trailersList[0],
-              ]}
+              action={() => router.push(`/trailers`)}
             />
           </div>
+        </div>
 
+        <Sliders
+          variant="trailers"
+          onClickSlider={(data) => handleTrailerClick(data)}
+          items={[
+            trailersList[0],
+            trailersList[0],
+            trailersList[0],
+            trailersList[0],
+          ]}
+        />
+        <div className="content-page">
           <div>
             <HeaderSection
               title="Maestros"
-              action={() => router.push(`/usuario/maestros`)}
+              action={() => router.push(`/maestros`)}
             />
 
             <div className="teachers-list">
               {intructorList.map((item: any, index: number) => (
                 <Link
-                  href={`/usuario/maestro/${item?.id}`}
+                  href={`/maestro/${item?.id}`}
                   key={index}
                   className="teacher-item"
                 >
@@ -165,8 +170,8 @@ export default function Login(props: any) {
                     className="teacher-image"
                     src={item?.image_secondary}
                     alt=""
-                    height={100}
-                    width={100}
+                    height={500}
+                    width={500}
                   />
                   <Typography
                     className="teacher-title"
@@ -183,7 +188,7 @@ export default function Login(props: any) {
             <div className="category-list">
               {topics.map((item: any, index: number) => (
                 <Link
-                  href={`/usuario/cursos/todos`}
+                  href={`/cursos/todos`}
                   key={index}
                   className="category-item"
                 >
@@ -191,14 +196,56 @@ export default function Login(props: any) {
                     className="category-image"
                     src={item.image}
                     alt=""
-                    height={100}
-                    width={100}
+                    height={500}
+                    width={500}
                   />
                 </Link>
               ))}
             </div>
+
+            <h3 className="text-bottom">
+              "El conocimiento es un regalo de los cielos que debe ser
+              democratizado"
+            </h3>
           </div>
+
+          <MyCourses>
+            <div className="my-courses-list">
+              {coursesList.length === 0 && (
+                <Typography
+                  text="Aun no tienes cursos..."
+                  variant="H2"
+                  style={{ textAlign: "center" }}
+                />
+              )}
+
+              {coursesList.map((item: any, index: any) => (
+                <section key={index} className="course-item">
+                  <Image
+                    className="image-name"
+                    src={item.image_course}
+                    height={500}
+                    width={500}
+                    alt=""
+                  />
+                  <div className="course-content">
+                    <Typography
+                      text={item.name_course}
+                      variant="H4"
+                      className="course-title"
+                    />
+                    <div className="autor">
+                      <FaUserAlt className="icon" />
+                      <span>{item?.instructor?.name_instructor}</span>
+                    </div>
+                  </div>
+                  <div className="overlay"></div>
+                </section>
+              ))}
+            </div>
+          </MyCourses>
         </div>
+
         <Footer />
       </Main>
     </>

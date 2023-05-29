@@ -32,6 +32,17 @@ type SlidersAttributes = SlidersProps & HTMLAttributes<HTMLDivElement>
 
 const Sliders = (props: SlidersAttributes) => {
   const router = useRouter()
+
+  const [width, setWidth] = useState(0)
+
+  const handleResize = () => {
+    setWidth(window.innerWidth)
+  }
+
+  useEffect(() => {
+    handleResize()
+  }, [])
+
   const {
     variant,
     onClickSlider = () => false,
@@ -58,14 +69,15 @@ const Sliders = (props: SlidersAttributes) => {
   }, [variant])
 
   return (
-    <Main>
+    <Main variant={variant}>
       <Swiper
         style={{ paddingBottom: "3em" }}
         modules={variant === "new" ? [] : [Navigation, Pagination]}
         navigation={variant !== "new"}
         pagination={{ clickable: true }}
-        spaceBetween={40}
+        spaceBetween={20}
         slidesPerView={slidesPerView}
+        centeredSlides={width < 720}
       >
         {items.map((item: any, index: number) => {
           if (variant === "new") {
@@ -73,14 +85,21 @@ const Sliders = (props: SlidersAttributes) => {
               <SwiperSlide key={index}>
                 <SliderNew>
                   <Image
-                    className="image-course"
+                    className="image-course image-desktop"
                     src={Pintura}
                     alt=""
-                    height={100}
-                    width={100}
+                    height={1000}
+                    width={1000}
+                  />
+                  <Image
+                    className="image-course"
+                    src={item?.image_course}
+                    alt=""
+                    height={1000}
+                    width={1000}
                   />
                   <div className="slider-content">
-                    {/* <div className="content-1">
+                    <div className="content-1">
                       <Image
                         className="image-name"
                         src={item?.image_name}
@@ -97,17 +116,17 @@ const Sliders = (props: SlidersAttributes) => {
                         bg
                         color="redPrimary"
                         variant="sm"
-                        onClick={() => router.push(`/usuario/curso/${item.id}`)}
+                        onClick={() => router.push(`/curso/${item.id}`)}
                       />
                     </div>
-                    <div className="content-2">
+                    {/* <div className="content-2">
                       <Typography
                         variant="H6"
                         text={`${item?.description.substr(0, 180)}...`}
                       />
                     </div> */}
                   </div>
-                  {/* <div className="overflow"></div> */}
+                  <div className="overflow"></div>
                 </SliderNew>
               </SwiperSlide>
             )
@@ -115,15 +134,13 @@ const Sliders = (props: SlidersAttributes) => {
           if (variant === "popular") {
             return (
               <SwiperSlide key={index}>
-                <SliderPopular
-                  onClick={() => router.push(`/usuario/curso/${item.id}`)}
-                >
+                <SliderPopular onClick={() => router.push(`/curso/${item.id}`)}>
                   <Image
                     className="image-course"
                     src={item?.instructor?.image_instructor}
                     alt=""
-                    height={100}
-                    width={100}
+                    height={500}
+                    width={500}
                   />
                   <Image
                     className="image-name"

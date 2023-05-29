@@ -3,12 +3,12 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { useEffect, useState, Fragment } from "react"
 // Assests
-import Detail1 from "../../../assets/images/icon-detail-1.png"
-import Detail2 from "../../../assets/images/icon-detail-2.png"
-import Detail3 from "../../../assets/images/icon-detail-3.png"
-import Detail4 from "../../../assets/images/icon-detail-4.png"
+import Detail1 from "../../assets/images/icon-detail-1.png"
+import Detail2 from "../../assets/images/icon-detail-2.png"
+import Detail3 from "../../assets/images/icon-detail-3.png"
+import Detail4 from "../../assets/images/icon-detail-4.png"
 // Styled components
-import { Main } from "../../../styles/curso.styled"
+import { Main } from "../../styles/curso.styled"
 // Components
 import {
   Header,
@@ -18,20 +18,19 @@ import {
   Button,
   Loader,
   Footer,
-} from "../../../components"
+} from "../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-} from "../../../../lib/session"
+} from "../../../lib/session"
 // Store
-import { useAppSelector, useAppDispatch } from "../../../store"
-import { selectCourse } from "../../../store/User/actions"
+import { useAppSelector, useAppDispatch } from "../../store"
 // API
-import { UserApi } from "../../api"
+import { UserApi } from "../api"
 
-import { courseDetail } from "../../../json/data"
+import { courseDetail } from "../../json/data"
 
 export default function CourseDetail(props: any) {
   const router = useRouter()
@@ -186,9 +185,7 @@ export default function CourseDetail(props: any) {
   const handleActionButton = () => {
     if (props.user) {
       includeMyCourse
-        ? router.push(
-            `/usuario/modulo/${savedItem.module}?video=${savedItem.video}`
-          )
+        ? router.push(`/modulo/${savedItem.module}?video=${savedItem.video}`)
         : addCart()
     } else {
       addCart()

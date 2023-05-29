@@ -7,34 +7,27 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 6em 15% 6em 15%;
+    padding: 5em 15% 6em 15%;
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      padding: 6em 8% 6em 8%;
-    }
-
-    h1 {
-      font-size: 2.5vw;
-      @media (max-width: ${(props) => props.theme.sizes.md}) {
-        font-size: 1.5rem;
-      }
+      padding: 5em 8% 6em 8%;
     }
 
     .my-courses-list {
       display: flex;
       flex-wrap: wrap;
       margin-top: 3em;
-      gap: 8%;
+      gap: 5%;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         gap: 10%;
       }
       .course-item {
         position: relative;
-        width: 28%;
+        width: 30%;
         height: 20vw;
         border-radius: 20px;
         overflow: hidden;
-        margin-bottom: 2em;
+        margin-bottom: 3em;
         cursor: pointer;
         .overlay {
           position: absolute;
@@ -71,17 +64,20 @@ export const Main = styled.main`
           .autor {
             margin-top: 1em;
             font-size: 0.9vw;
+            margin-left: 0.4rem;
             .icon {
               margin-right: 10px;
             }
           }
         }
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 44%;
+          width: 100%;
           height: 40vw;
+          margin-bottom: 2em;
           .course-content {
+            padding: 1em;
             .image-name {
-              width: 90%;
+              width: 40%;
               height: auto;
             }
             .autor {

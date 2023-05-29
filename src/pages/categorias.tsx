@@ -4,16 +4,16 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 // Assests
 // Styled components
-import { Main } from "../../styles/categorias.styled"
+import { Main } from "../styles/categorias.styled"
 // Components
-import { Header, Typography, SideNav, Footer } from "../../components"
+import { Header, Typography, SideNav, Footer } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-} from "../../../lib/session"
-import { UserApi } from "../api"
-import { categories } from "../../json/data"
+} from "../../lib/session"
+import { UserApi } from "./api"
+import { categories } from "../json/data"
 
 const UserApiModel = new UserApi()
 
@@ -45,7 +45,7 @@ export default function Login(props: any) {
           <div className="category-list">
             {topics.map((item: any, index: number) => (
               <Link
-                href={`/usuario/cursos/todos`}
+                href={`/cursos/todos`}
                 key={index}
                 className="category-item"
               >

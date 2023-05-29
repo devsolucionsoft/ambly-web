@@ -32,6 +32,10 @@ const Header = (props: HeaderAttributes) => {
 
   const appDispatch = useAppDispatch()
 
+  const openSidenav = () => {
+    appDispatch(onSideNav(true))
+  }
+
   return (
     <Main>
       <div className="contain">
@@ -46,23 +50,23 @@ const Header = (props: HeaderAttributes) => {
             </div>
           )}
           <div className="link-item">
-            <Link href="/usuario/categorias">Categorías</Link>
+            <Link href="/categorias">Categorías</Link>
           </div>
           {!minimal && (
             <Fragment>
               <div className="link-item">
-                <Link href="/usuario/mis-cursos">Mis cursos</Link>
+                <Link href="/mis-cursos">Mis cursos</Link>
               </div>
 
               <div className="link-item">
-                <Link href="/usuario/perfil">
+                <Link href="/perfil">
                   <BiUser className="icon" />
                 </Link>
               </div>
             </Fragment>
           )}
           <div className="link-item">
-            <Link href="/usuario/carrito">
+            <Link href="/carrito">
               <AiOutlineShoppingCart
                 className="icon"
                 style={{ marginTop: "2px" }}
@@ -70,7 +74,7 @@ const Header = (props: HeaderAttributes) => {
             </Link>
           </div>
         </div>
-        <div className="open-menu" onClick={() => appDispatch(onSideNav(true))}>
+        <div className="open-menu" onClick={openSidenav}>
           <HiMenu className="icon" />
         </div>
       </div>

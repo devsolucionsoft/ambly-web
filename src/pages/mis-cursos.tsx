@@ -2,19 +2,19 @@ import Head from "next/head"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 // Styled components
-import { Main } from "../../styles/mis-cursos.styled"
+import { Main } from "../styles/mis-cursos.styled"
 // Components
-import { Header, Typography, SideNav, Footer } from "../../components"
+import { Header, Typography, SideNav, Footer } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   sessionVerificationNotCreated,
-} from "../../../lib/session"
+} from "../../lib/session"
 // Store
-import { useAppSelector, useAppDispatch } from "../../store"
+import { useAppSelector, useAppDispatch } from "../store"
 // API LOCAL
-import { UserApi } from "../api"
-import { loadCourses } from "../../store/User/actions"
+import { UserApi } from "./api"
+import { loadCourses } from "../store/User/actions"
 
 const items = [1, 2, 3, 4]
 

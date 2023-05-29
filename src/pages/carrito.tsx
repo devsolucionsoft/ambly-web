@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 // Assests
 import { FaUserAlt } from "react-icons/fa"
 // Styled components
-import { Main } from "../../styles/carrito.styled"
+import { Main } from "../styles/carrito.styled"
 // Components
 import {
   Header,
@@ -15,15 +15,15 @@ import {
   Button,
   Footer,
   Loader,
-} from "../../components"
+} from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-} from "../../../lib/session"
+} from "../../lib/session"
 import { MdDelete } from "react-icons/md"
 // API
-import { CourseApi } from "../api"
+import { CourseApi } from "./api"
 const CourseApiModel = new CourseApi()
 
 export default function Carrito(props: any) {

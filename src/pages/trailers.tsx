@@ -4,20 +4,20 @@ import { useState, useEffect } from "react"
 import { AiFillPlayCircle } from "react-icons/ai"
 import { FaUserAlt } from "react-icons/fa"
 // Styled components
-import { Main } from "../../styles/trailers.styled"
-import { SlidersTrailer } from "../../components/Sliders/Sliders.styled"
+import { Main } from "../styles/trailers.styled"
+import { SlidersTrailer } from "../components/Sliders/Sliders.styled"
 // Components
-import { Header, Typography, SideNav, Modal, Footer } from "../../components"
+import { Header, Typography, SideNav, Modal, Footer } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-} from "../../../lib/session"
+} from "../../lib/session"
 
-import { TrailersApi } from "../api"
+import { TrailersApi } from "./api"
 const TrailersApiModel = new TrailersApi()
 
-import { trailers } from "../../json/data"
+import { trailers } from "../json/data"
 
 export default function Login(props: any) {
   const [trailersList, setTrailerList] = useState(trailers)
@@ -69,7 +69,7 @@ export default function Login(props: any) {
         </Modal>
 
         <div className="content-page">
-          <Typography text="Trailers" variant="H1" />
+          <Typography text="Trailers" variant="H4" />
 
           <div className="my-courses-list">
             {trailersList.map((item: any, index: number) => (

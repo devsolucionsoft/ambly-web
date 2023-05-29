@@ -3,25 +3,19 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 // Styled components
-import { Main } from "../../../styles/cursos-populares.styled"
+import { Main } from "../../styles/cursos-populares.styled"
 // Components
-import {
-  Header,
-  Typography,
-  SideNav,
-  Loader,
-  Footer,
-} from "../../../components"
+import { Header, Typography, SideNav, Loader, Footer } from "../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-} from "../../../../lib/session"
+} from "../../../lib/session"
 
-import { courses } from "../../../json/data"
+import { courses } from "../../json/data"
 
-import { CourseApi } from "../../api"
+import { CourseApi } from "../api"
 const CourseApiModel = new CourseApi()
 
 export default function Login(props: any) {
@@ -54,7 +48,7 @@ export default function Login(props: any) {
         <Header minimal={!props.user} />
 
         <div className="content-page">
-          <Typography text="Todos los cursos" variant="H1" />
+          <Typography text="Todos los cursos" variant="H4" />
 
           <div className="my-courses-list">
             {coursesList.map((item: any, index: number) => (
@@ -62,16 +56,16 @@ export default function Login(props: any) {
                 <Image
                   className="image-course"
                   src={item?.image_course}
-                  height={100}
-                  width={100}
+                  height={500}
+                  width={500}
                   alt=""
                 />
                 <div className="course-content">
                   <Image
                     className="image-name"
                     src={item?.image_name}
-                    height={100}
-                    width={100}
+                    height={500}
+                    width={500}
                     alt=""
                   />
                   <div className="autor">

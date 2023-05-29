@@ -8,11 +8,8 @@ import GooglePlay from "../assets/images/google-play.png"
 import AppStore from "../assets/images/app-store.png"
 // Components
 import { Button, Typography } from "../components"
-import { BsGooglePlay } from "react-icons/bs"
-import { SiAppstore } from "react-icons/si"
 import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
-import { appendFile } from "fs"
 
 export default function Home() {
   const router = useRouter()
@@ -32,28 +29,24 @@ export default function Home() {
             <Typography
               text="Crea una cuenta para continuar"
               variant="H6"
-              style={{ marginBottom: "1em" }}
+              style={{ marginBottom: "2em" }}
             />
-            <br />
-            <br />
-            <br />
             <Button
               text="Crear con correo electrónico"
               bg
               color="redPrimary"
               onClick={() => router.push("registro")}
             />
-            <br />
-            <br />
             <Button
               text="Accede a tu cuenta"
-              style={{ textDecoration: "underline", textAlign: "center" }}
+              style={{
+                textDecoration: "underline",
+                textAlign: "center",
+                marginBottom: "1em",
+              }}
               onClick={() => router.push("login")}
             />
-          </div>
 
-          <div className="divider"></div>
-          <div>
             <Button
               text="Explora nuestros cursos"
               bg
@@ -62,7 +55,6 @@ export default function Home() {
               onClick={() => router.push("/")}
             />
           </div>
-          <div className="divider"></div>
 
           <div className="shops-section">
             <Typography

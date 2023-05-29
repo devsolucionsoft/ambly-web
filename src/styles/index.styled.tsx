@@ -45,14 +45,15 @@ export const Main = styled.main`
       .shops {
         margin-top: 1em;
         display: flex;
+        justify-content: center;
         gap: 1rem;
         @media (max-width: ${(props) => props.theme.sizes.sm}) {
-          flex-direction: column;
           gap: 0.5rem;
         }
         a {
+          width: 40%;
           img {
-            width: 250px;
+            width: 100%;
           }
         }
       }

@@ -6,6 +6,6 @@ export const Main = styled.main`
   color: ${(props) => props.theme.colors.ligth};
 
   .contain-page {
-    padding: 10em 10% 6em 10%;
+    padding: 5em 10% 6em 10%;
   }
 `

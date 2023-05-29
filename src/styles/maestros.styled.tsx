@@ -8,16 +8,9 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 6em 15% 6em 15%;
+    padding: 5em 15% 6em 15%;
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      padding: 6em 8% 6em 8%;
-    }
-
-    h1 {
-      font-size: 2.5vw;
-      @media (max-width: ${(props) => props.theme.sizes.md}) {
-        font-size: 1.5rem;
-      }
+      padding: 5em 8% 6em 8%;
     }
 
     .my-courses-list {
@@ -51,8 +44,8 @@ export const Main = styled.main`
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           width: 42%;
           .teacher-image {
-            width: 32vw;
-            height: 32vw;
+            width: 35vw;
+            height: 35vw;
           }
           .teacher-title {
             font-size: 0.9rem;
