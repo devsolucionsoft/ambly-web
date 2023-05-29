@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 // Assests
-import ImageCourse from "../../..//assets/images/new-course.jpg"
+import ImageCourse from "../../assets/images/new-course.jpg"
 // Styled components
 import { Main } from "../../styles/modulo.styled"
 // Components
