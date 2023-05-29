@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 // Assests
 import ImageCourse from "../../..//assets/images/new-course.jpg"
 // Styled components
-import { Main } from "../../../styles/modulo.styled"
+import { Main } from "../../styles/modulo.styled"
 // Components
 import {
   Header,
@@ -14,7 +14,7 @@ import {
   ModulesList,
   Loader,
   Footer,
-} from "../../../components"
+} from "../../components"
 import { MdPictureAsPdf } from "react-icons/md"
 import { HiDownload } from "react-icons/hi"
 import { BsFillPlayFill } from "react-icons/bs"
@@ -27,15 +27,15 @@ import {
   sessionOptions,
   getSessionVerificationNotCreated,
   sessionVerificationNotCreated,
-} from "../../../../lib/session"
+} from "../../../lib/session"
 import ReactPlayer from "react-player"
 // Store
-import { useAppSelector, useAppDispatch } from "../../../store"
+import { useAppSelector, useAppDispatch } from "../../store"
 // API
-import { UserApi } from "../../api"
+import { UserApi } from "../api"
 // Store
-import { selectCourse } from "../../../store/User/actions"
-import { courseDetail } from "../../../json/data"
+import { selectCourse } from "../../store/User/actions"
+import { courseDetail } from "../../json/data"
 
 const items = [1, 2, 3, 4]
 
