@@ -160,7 +160,7 @@ export const MyCourses = styled.div`
         position: absolute;
         height: 100%;
         width: 100%;
-        padding: 2em;
+        padding: 1.5em;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -168,6 +168,7 @@ export const MyCourses = styled.div`
         z-index: 2;
         .course-title {
           font-size: 1.5rem;
+          line-height: 110%;
           width: 80%;
           margin-left: 0px;
           margin-bottom: 0.5rem;
@@ -181,11 +182,14 @@ export const MyCourses = styled.div`
           }
         }
         .autor {
-          margin-top: 1em;
+          margin-top: 0em;
           font-size: 0.9vw;
           margin-left: 0.4rem;
           .icon {
             margin-right: 10px;
+          }
+          @media (max-width: ${(props) => props.theme.sizes.md}) {
+            font-size: 0.6rem;
           }
         }
       }
@@ -193,7 +197,7 @@ export const MyCourses = styled.div`
         width: 100%;
         height: 25vh;
         .course-content {
-          padding: 2em;
+          padding: 1.5em;
           .course-title {
             font-size: 1.3rem;
           }
