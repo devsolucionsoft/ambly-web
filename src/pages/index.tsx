@@ -228,6 +228,7 @@ export default function Login(props: any) {
                     width={500}
                     alt=""
                   />
+
                   <div className="course-content">
                     <Typography
                       text={item.name_course}
