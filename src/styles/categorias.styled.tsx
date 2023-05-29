@@ -8,19 +8,12 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 6em 15% 6em 15%;
-
-    h1 {
-      font-size: 2.5vw;
-      @media (max-width: ${(props) => props.theme.sizes.md}) {
-        font-size: 1.5rem;
-      }
-    }
+    padding: 5em 15% 6em 15%;
 
     .category-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 5%;
+      gap: 10%;
       justify-content: center;
       .category-item {
         width: 20%;

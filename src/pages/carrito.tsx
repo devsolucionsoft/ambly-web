@@ -170,7 +170,7 @@ export default function Carrito(props: any) {
               }}
             >
               <Button
-                text="Inicia sesion para realizar la compra"
+                text="Realizar la compra"
                 bg
                 color="redPrimary"
                 onClick={() => router.push("/inicio")}

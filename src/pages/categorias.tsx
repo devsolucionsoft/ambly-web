@@ -39,7 +39,7 @@ export default function Login(props: any) {
         <Header minimal={!props.user} />
 
         <div className="content-page">
-          <Typography text="Categorías" variant="H1" />
+          <Typography text="Categorías" variant="H4" />
           <br />
           <br />
           <div className="category-list">
