@@ -46,6 +46,25 @@ export const Main = styled.header`
           font-size: 1.5rem;
         }
       }
+      .link-item.carrito {
+        position: relative;
+        span {
+          background-color: ${(props) => props.theme.colors.redPrimary};
+          position: absolute;
+          height: 18px;
+          width: 18px;
+          padding: 0;
+          font-size: 0.8rem;
+          display: flex;
+          text-align: center;
+          align-items: center;
+          justify-content: center;
+          border-radius: 100%;
+          right: -0.6rem;
+          top: -0.4rem;
+          font-weight: bold;
+        }
+      }
     }
 
     .logo {

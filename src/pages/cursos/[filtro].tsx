@@ -5,7 +5,14 @@ import { useRouter } from "next/router"
 // Styled components
 import { Main } from "../../styles/cursos-populares.styled"
 // Components
-import { Header, Typography, SideNav, Loader, Footer } from "../../components"
+import {
+  Header,
+  Typography,
+  SideNav,
+  Loader,
+  Footer,
+  Button,
+} from "../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
 import {
@@ -23,13 +30,45 @@ export default function Login(props: any) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    ;(async () => {
-      setLoading(true)
-      const response = await CourseApiModel.GetCourses()
-      response.status === 200 && setCourses(response.data)
-      setLoading(false)
-    })()
+    getCourses()
   }, [])
+
+  const getCourses = async () => {
+    setLoading(true)
+    const response = await CourseApiModel.GetCourses()
+    response.status === 200 && setCourses(response.data)
+    setLoading(false)
+  }
+
+  const addCart = (id: any) => {
+    setLoading(true)
+    const stored = localStorage.getItem("cart_products")
+
+    if (stored) {
+      const cart_products: Array<any> = JSON.parse(stored)
+      cart_products.push(id)
+      console.log(cart_products)
+      localStorage.setItem("cart_products", JSON.stringify(cart_products))
+    } else {
+      localStorage.setItem("cart_products", JSON.stringify([id]))
+    }
+    getCourses()
+    setTimeout(() => {
+      setLoading(false)
+    }, 300)
+  }
+
+  const includeCourse = (id: any) => {
+    let include = false
+    const stored = JSON.parse(localStorage.getItem("cart_products") || "[]")
+    stored.forEach((element: any) => {
+      if (element === id) {
+        include = true
+      }
+    })
+
+    return include
+  }
 
   return (
     <>
@@ -49,11 +88,23 @@ export default function Login(props: any) {
 
           <div className="my-courses-list">
             {coursesList.map((item: any, index: number) => (
-              <section
-                key={index}
-                className="course-item"
-                onClick={() => router.push(`/curso/${item.id}`)}
-              >
+              <section key={index} className="course-item">
+                <div className="hover-content">
+                  <Button
+                    text="Ir a curso"
+                    onClick={() => router.push(`/curso/${item.id}`)}
+                    style={{ textDecoration: "underline" }}
+                  />
+                  {!includeCourse(item.id) && (
+                    <Button
+                      text="Agregar a carrito"
+                      bg
+                      color="redPrimary"
+                      variant="sm"
+                      onClick={() => addCart(item.id)}
+                    />
+                  )}
+                </div>
                 <Image
                   className="image-course"
                   src={item?.image_course}

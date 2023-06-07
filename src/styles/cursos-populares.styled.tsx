@@ -28,7 +28,7 @@ export const Main = styled.main`
         border-radius: 20px;
         overflow: hidden;
         margin-bottom: 3em;
-        cursor: pointer;
+        //cursor: pointer;
         .overlay {
           position: absolute;
           height: 100%;
@@ -40,6 +40,18 @@ export const Main = styled.main`
             #00000084 0%,
             rgba(255, 255, 255, 0) 100%
           );
+        }
+        .hover-content {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          top: 0;
+          z-index: 5;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(0, 0, 0, 0.6);
         }
         .image-course {
           height: 100%;

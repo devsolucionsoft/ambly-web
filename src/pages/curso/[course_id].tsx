@@ -268,7 +268,7 @@ export default function CourseDetail(props: any) {
                     text={"Ir a carrito"}
                     bg
                     color="redPrimary"
-                    onClick={() => router.push("/usuario/carrito")}
+                    onClick={() => router.push("/carrito")}
                   />
                 )}
               </div>

@@ -1,5 +1,6 @@
+"use client"
 // React
-import { HTMLAttributes, Fragment } from "react"
+import { HTMLAttributes, Fragment, useState, useEffect } from "react"
 import Image from "next/image"
 import MobileContent from "../MobileContent"
 // Styled components
@@ -29,6 +30,20 @@ type HeaderAttributes = HeaderProps & HTMLAttributes<HTMLDivElement>
 
 const Header = (props: HeaderAttributes) => {
   const { minimal } = props
+  let value = "[]"
+
+  if (typeof window !== "undefined") {
+    value = localStorage.getItem("cart_products") || "[]"
+  }
+
+  //const [stored, setStored] = useState(value)
+
+  // useEffect(() => {
+  //   let stored
+  //   // Get the value from local storage if it exists
+  //   stored = localStorage.getItem("cart_products") || "[]"
+  //   setStored(JSON.parse(stored).length)
+  // }, [])
 
   const appDispatch = useAppDispatch()
 
@@ -65,7 +80,9 @@ const Header = (props: HeaderAttributes) => {
               </div>
             </Fragment>
           )}
-          <div className="link-item">
+          <div className="link-item item carrito">
+            <span>{JSON.parse(value).length}</span>
+
             <Link href="/carrito">
               <AiOutlineShoppingCart
                 className="icon"
