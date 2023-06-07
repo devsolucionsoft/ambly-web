@@ -43,15 +43,22 @@ export const Main = styled.main`
         }
         .hover-content {
           position: absolute;
-          height: 100%;
+          height: 0%;
           width: 100%;
-          top: 0;
+          bottom: 0;
           z-index: 5;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           background-color: rgba(0, 0, 0, 0.6);
+          overflow: hidden;
+          transition: 200ms;
+        }
+        &:hover {
+          .hover-content {
+            height: 100%;
+          }
         }
         .image-course {
           height: 100%;
