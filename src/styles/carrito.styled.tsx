@@ -26,6 +26,7 @@ export const Main = styled.main`
         display: flex;
         align-items: center;
         width: 100%;
+        margin-bottom: 2rem;
         .flex {
           width: 100%;
           display: flex;
