@@ -100,7 +100,7 @@ export default function Carrito(props: any) {
 
           <div className="items-carrito">
             {courses.map((item: any, index: number) => {
-              total += item.price_course
+              total += parseInt(item.price_course)
               return (
                 <div className="item-carrito" key={index}>
                   <div className="flex">
