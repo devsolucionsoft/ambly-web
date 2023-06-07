@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import Head from "next/head"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 // Styled components
 import { Main } from "../styles/login.styled"
 // Components
@@ -25,7 +25,6 @@ export default function Login() {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
-
   const [showModal, setShowModal] = useState(false)
 
   const defaultInputs = {

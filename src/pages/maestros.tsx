@@ -12,17 +12,17 @@ import {
   getSessionVerificationNotCreated,
 } from "../../lib/session"
 import { InstructorApi } from "../pages/api"
-import { intructors } from "../json/data"
+
 const InstructorApiModel = new InstructorApi()
 export default function Login(props: any) {
-  const [intructorList, setIntructorList] = useState(intructors)
+  const [intructorList, setIntructorList] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     ;(async () => {
       setLoading(true)
       const response = await InstructorApiModel.GetInstructors()
-      //response.status === 200 && setIntructorList(response.data)
+      response.status === 200 && setIntructorList(response.data)
       setLoading(false)
     })()
   }, [])
@@ -41,7 +41,7 @@ export default function Login(props: any) {
         <Loader loading={loading} />
 
         <div className="content-page">
-          <Typography text="Maestros" variant="H4" />
+          <Typography text="Maestros" variant="H5" />
 
           <div className="my-courses-list">
             {intructorList.map((item: any, index: number) => (

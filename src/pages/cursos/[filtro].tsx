@@ -13,23 +13,20 @@ import {
   getSessionVerificationNotCreated,
 } from "../../../lib/session"
 
-import { courses } from "../../json/data"
-
 import { CourseApi } from "../api"
 const CourseApiModel = new CourseApi()
 
 export default function Login(props: any) {
-  const [coursesList, setCourses] = useState(courses)
+  const [coursesList, setCourses] = useState([])
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
-  const { filtro } = router.query
 
   useEffect(() => {
     ;(async () => {
       setLoading(true)
       const response = await CourseApiModel.GetCourses()
-      //response.status === 200 && setCourses(response.data)
+      response.status === 200 && setCourses(response.data)
       setLoading(false)
     })()
   }, [])
@@ -48,11 +45,15 @@ export default function Login(props: any) {
         <Header minimal={!props.user} />
 
         <div className="content-page">
-          <Typography text="Todos los cursos" variant="H4" />
+          <Typography text="Todos los cursos" variant="H5" />
 
           <div className="my-courses-list">
             {coursesList.map((item: any, index: number) => (
-              <section key={index} className="course-item">
+              <section
+                key={index}
+                className="course-item"
+                onClick={() => router.push(`/curso/${item.id}`)}
+              >
                 <Image
                   className="image-course"
                   src={item?.image_course}

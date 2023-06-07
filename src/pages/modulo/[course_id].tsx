@@ -57,21 +57,30 @@ const FileItem = ({ item }: { item: any }) => {
 
 export default function Modulo() {
   const router = useRouter()
-  const { id_modulo, video }: any = router.query
+  const { course_id, modulo, video }: any = router.query
 
   // Store
-  //const courseInfo = useAppSelector((store) => store.User.selectCourse)
-  const courseInfo = courseDetail
+  //const courseInfo = courseDetail
   const dispatch = useAppDispatch()
   const userApiModel = new UserApi()
 
-  const [currentModule, setCurrentModule] = useState(parseInt(id_modulo))
-  const [currentVideo, setCurrentVideo] = useState(parseInt(video))
+  const [currentModule, setCurrentModule] = useState(0)
+  const [currentVideo, setCurrentVideo] = useState(0)
   const [currentVideoTime, setCurrentVideoTime] = useState(0)
+  const [courseInfo, setCourseInfo] = useState<any>(false)
 
   const [disableNext, setDisableNext] = useState(false)
   const [disablePrev, setDisablePrev] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await userApiModel.GetCourse(course_id)
+      if (response.status === 200) {
+        setCourseInfo(response.data)
+      }
+    })()
+  }, [course_id])
 
   // Efecto para consutar a la api los modulos del curso selccionado segun los parametros recibidos
   useEffect(() => {
@@ -83,14 +92,21 @@ export default function Modulo() {
 
   // Efecto para actualizar el state con los parametros recividos
   useEffect(() => {
-    //setCurrentModule(parseInt(id_modulo))
-    //setCurrentVideo(parseInt(video))
-  }, [id_modulo, video])
+    if (modulo) {
+      console.log("set")
+
+      setCurrentModule(parseInt(modulo))
+    }
+    if (video) {
+      setCurrentVideo(parseInt(video))
+    }
+  }, [modulo, video])
 
   // Efecto para desactivar los botones prev/next cuando lleguen al primer y ultimo video
   useEffect(() => {
     setLoading(true)
     if (
+      courseInfo &&
       courseInfo.module &&
       courseInfo.modules.length > 0 &&
       courseInfo.modules[currentModule]?.videos.length > 0
@@ -102,22 +118,23 @@ export default function Modulo() {
       )
       // En caso de que encuentre un progreso edita el tiempo de vista cuando se cambia el video
       saved ? setCurrentVideoTime(saved.time_seen) : setCurrentVideoTime(0)
+      if (
+        currentVideo ===
+          courseInfo?.modules[currentModule]?.videos.length - 1 &&
+        currentModule === courseInfo?.modules.length - 1
+      ) {
+        setDisableNext(true)
+      } else {
+        setDisableNext(false)
+      }
+      // Condicion para habilitar y desahabilitar el boton de prev
+      if (currentVideo === 0 && currentModule === 0) {
+        setDisablePrev(true)
+      } else {
+        setDisablePrev(false)
+      }
     }
     // Condicion para habilitar y desahabilitar el boton de next
-    if (
-      currentVideo === courseInfo.modules[currentModule]?.videos.length - 1 &&
-      currentModule === courseInfo.modules.length - 1
-    ) {
-      setDisableNext(true)
-    } else {
-      setDisableNext(false)
-    }
-    // Condicion para habilitar y desahabilitar el boton de prev
-    if (currentVideo === 0 && currentModule === 0) {
-      setDisablePrev(true)
-    } else {
-      setDisablePrev(false)
-    }
     setTimeout(() => {
       setLoading(false)
     }, 1000)
@@ -179,6 +196,8 @@ export default function Modulo() {
     setVideo(video)
   }
 
+  console.log(currentModule)
+
   return (
     <>
       <Head>
@@ -192,19 +211,23 @@ export default function Modulo() {
         <Header />
         <Loader loading={loading} />
 
-        {courseInfo.modules &&
-        courseInfo.modules.length > 0 &&
-        courseInfo.modules[currentModule].videos.length > 0 ? (
+        {courseInfo &&
+        courseInfo?.modules &&
+        courseInfo?.modules.length > 0 &&
+        courseInfo?.modules[currentModule]?.videos.length > 0 ? (
           <div className="page-content">
             <div className="page-top">
-              <video
-                className="page-top-video"
-                controls
-                src={
-                  courseInfo.modules[currentModule]?.videos[currentVideo]
-                    .video ?? ""
-                }
-              ></video>
+              {courseInfo.modules[currentModule]?.videos[currentVideo]
+                .video && (
+                <video
+                  className="page-top-video"
+                  controls
+                  src={
+                    courseInfo.modules[currentModule]?.videos[currentVideo]
+                      .video ?? ""
+                  }
+                ></video>
+              )}
               {/* <ReactPlayer
                 className="page-top-video"
                 controls

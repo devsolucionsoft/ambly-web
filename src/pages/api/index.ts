@@ -60,7 +60,7 @@ export class AuthApi {
         password: "0000000",
         username: data.email,
         role: "user",
-        dateTime: "1970-01-01T00:00:00.000Z",
+        dateTime: new Date(),
       })
     } catch (error: any) {
       return error.response
@@ -84,7 +84,7 @@ export class AuthApi {
         password: "0000000",
         username: data.email,
         role: "user",
-        dateTime: "1970-01-01T00:00:00.000Z",
+        dateTime: new Date(),
       })
     } catch (error: any) {
       return error.response
@@ -109,7 +109,7 @@ export class AuthApi {
         password: "0000000",
         username: data.email,
         role: "user",
-        dateTime: "1970-01-01T00:00:00.000Z",
+        dateTime: new Date(),
       })
     } catch (error: any) {
       return error.response
@@ -123,7 +123,7 @@ export class AuthApi {
         password: data.password,
         email: data.email,
         role: "user",
-        dateTime: "1970-01-01T00:00:00.000Z",
+        dateTime: new Date(),
       })
     } catch (error: any) {
       return error.response
@@ -159,6 +159,22 @@ export class UserApi {
   async GetMyCourses(id: any) {
     try {
       return await axios.get(`${url}/course/all/course/${id}`)
+    } catch (error: any) {
+      return error.response
+    }
+  }
+
+  async EditUser(id: any, inputs: any) {
+    const data = {
+      username: inputs.username,
+      phone: inputs.phone,
+      city: "---",
+      country: inputs.country,
+      gender: inputs.gender,
+      email: inputs.email,
+    }
+    try {
+      return await axios.patch(`${url}/users/${id}`, data)
     } catch (error: any) {
       return error.response
     }

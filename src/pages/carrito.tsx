@@ -157,7 +157,9 @@ export default function Carrito(props: any) {
                   <Input type="email" label="CV" name="nomber" />
                 </div>
               </div>
-              <Button text="Aceptar" bg color="redPrimary" />
+              <div>
+                <Button text="Realizar compra" bg color="redPrimary" />
+              </div>
             </Fragment>
           ) : (
             <div
@@ -170,7 +172,7 @@ export default function Carrito(props: any) {
               }}
             >
               <Button
-                text="Realizar la compra"
+                text="Inicia sesion"
                 bg
                 color="redPrimary"
                 onClick={() => router.push("/inicio")}

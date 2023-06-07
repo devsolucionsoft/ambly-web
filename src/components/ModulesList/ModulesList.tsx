@@ -15,6 +15,7 @@ interface ModulesListProps {
   items: Array<any>
   currentModule?: number
   currentVideo?: number
+  idCourse?: number
 }
 
 type ModulesListAttributes = ModulesListProps & HTMLAttributes<HTMLElement>
@@ -24,11 +25,13 @@ const ModuleItem = ({
   indexModule,
   active,
   currentVideo,
+  idCourse,
 }: {
   module: any
   indexModule: number
   active?: boolean
   currentVideo?: number
+  idCourse?: number
 }) => {
   const [openItem, setOpenItem] = useState(false)
   const router = useRouter()
@@ -68,7 +71,9 @@ const ModuleItem = ({
               }`}
               key={index}
               onClick={() =>
-                router.push(`/modulo/${indexModule}?video=${index}`)
+                router.push(
+                  `/modulo/${idCourse}?modulo=${indexModule}&video=${index}`
+                )
               }
             >
               <div className="video-image-contain">
@@ -89,7 +94,7 @@ const ModuleItem = ({
 }
 
 const ModulesList = (props: ModulesListAttributes) => {
-  const { items, currentModule } = props
+  const { items, currentModule, idCourse } = props
   return (
     <Main>
       <div className="modules-list">
@@ -98,6 +103,7 @@ const ModulesList = (props: ModulesListAttributes) => {
             key={index}
             module={item}
             indexModule={index}
+            idCourse={idCourse}
             active={currentModule === index}
           />
         ))}

@@ -74,9 +74,10 @@ export const SliderNew = styled.section`
       flex-direction: column-reverse;
       display: flex;
       button {
-        padding: 0.3rem 2rem;
-        font-size: 1rem;
+        padding: 0.5rem 2.5rem;
+        font-size: 1.2rem;
         margin-left: 0.8rem;
+        margin-top: 1rem;
       }
     }
     .content-1 {

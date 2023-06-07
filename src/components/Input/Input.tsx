@@ -6,7 +6,7 @@ import { Main } from "./Input.styled"
 export interface InputProps {
   label?: string
   name: string
-  type: "text" | "email" | "password"
+  type: "text" | "email" | "password" | "number"
   error?: boolean
   message?: string
 }

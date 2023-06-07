@@ -59,7 +59,7 @@ export default function Login() {
       setLoading(true)
       const repsonse = await AuthApiModel.UserRegister(stateInputs)
       switch (repsonse.status) {
-        case 200:
+        case 201:
           Swal.fire({
             title: "Registro exitoso.",
             text: "Ya puedes iniciar sessionapp",
@@ -103,7 +103,7 @@ export default function Login() {
             <Input
               type="text"
               label="Nombre"
-              name="name"
+              name="username"
               onChange={handleKeyUp}
               error={errorInputs.username.error}
               message={errorInputs.username.message}
@@ -111,7 +111,7 @@ export default function Login() {
             <Input
               type="text"
               label="E-mail"
-              name="mail"
+              name="email"
               onChange={handleKeyUp}
               error={errorInputs.email.error}
               message={errorInputs.email.message}

@@ -25,12 +25,14 @@ export const Main = styled.main`
       .item-carrito {
         display: flex;
         align-items: center;
+        width: 100%;
         .flex {
+          width: 100%;
           display: flex;
           align-items: center;
         }
         .image {
-          width: 20%;
+          width: 15%;
           height: auto;
           border-radius: 10px;
           @media (max-width: ${(props) => props.theme.sizes.md}) {
@@ -53,13 +55,13 @@ export const Main = styled.main`
             margin-left: 1em;
           }
           h3 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             @media (max-width: ${(props) => props.theme.sizes.md}) {
               font-size: 1rem;
             }
           }
           h5 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             text-align: right;
             color: ${(props) => props.theme.colors.grayText};
             @media (max-width: ${(props) => props.theme.sizes.md}) {
@@ -68,7 +70,7 @@ export const Main = styled.main`
           }
           .autor {
             h4 {
-              font-size: 1.2rem;
+              font-size: 1rem;
               color: ${(props) => props.theme.colors.grayText};
               font-weight: 400;
               @media (max-width: ${(props) => props.theme.sizes.md}) {
@@ -89,7 +91,7 @@ export const Main = styled.main`
     }
     .total {
       width: 100%;
-      margin-top: 3em;
+      margin-top: 2.4em;
       text-align: right;
     }
     .divider {
@@ -99,6 +101,7 @@ export const Main = styled.main`
       background-color: ${(props) => props.theme.colors.ligth};
     }
     .form {
+      width: 100%;
       margin-top: 4em;
       margin-bottom: 2em;
       display: flex;

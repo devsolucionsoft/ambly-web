@@ -17,10 +17,8 @@ import {
 import { TrailersApi } from "./api"
 const TrailersApiModel = new TrailersApi()
 
-import { trailers } from "../json/data"
-
 export default function Login(props: any) {
-  const [trailersList, setTrailerList] = useState(trailers)
+  const [trailersList, setTrailerList] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [trailerPlay, setTrailerPlay] = useState({
     title: "",
@@ -30,7 +28,7 @@ export default function Login(props: any) {
   useEffect(() => {
     ;(async () => {
       const response = await TrailersApiModel.GetTrailers()
-      //response.status === 200 && setTrailerList(response.data)
+      response.status === 200 && setTrailerList(response.data)
     })()
   }, [])
 
@@ -69,7 +67,7 @@ export default function Login(props: any) {
         </Modal>
 
         <div className="content-page">
-          <Typography text="Trailers" variant="H4" />
+          <Typography text="Trailers" variant="H5" />
 
           <div className="my-courses-list">
             {trailersList.map((item: any, index: number) => (

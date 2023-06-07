@@ -13,16 +13,15 @@ import {
   getSessionVerificationNotCreated,
 } from "../../lib/session"
 import { UserApi } from "./api"
-import { categories } from "../json/data"
 
 const UserApiModel = new UserApi()
 
 export default function Login(props: any) {
-  const [topics, setTopics] = useState(categories)
+  const [topics, setTopics] = useState([])
   useEffect(() => {
     ;(async () => {
       const response = await UserApiModel.GetCategories()
-      //response.status === 200 && setTopics(response.data)
+      response.status === 200 && setTopics(response.data)
     })()
   }, [])
 
@@ -39,7 +38,7 @@ export default function Login(props: any) {
         <Header minimal={!props.user} />
 
         <div className="content-page">
-          <Typography text="Categorías" variant="H4" />
+          <Typography text="Categorías" variant="H5" />
           <br />
           <br />
           <div className="category-list">

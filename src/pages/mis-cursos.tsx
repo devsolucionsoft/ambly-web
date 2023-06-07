@@ -18,12 +18,10 @@ import { loadCourses } from "../store/User/actions"
 
 const items = [1, 2, 3, 4]
 
-export default function Login(props: any) {
+export default function MyCoursesPage(props: any) {
   const dispatch = useAppDispatch()
 
   const [coursesList, setCourseslist] = useState([])
-  const myCourses = useAppSelector((store) => store.User.myCourses)
-  const userAuth = useAppSelector((store) => store.Auth)
 
   useEffect(() => {
     const UserpiModel = new UserApi()
@@ -51,7 +49,7 @@ export default function Login(props: any) {
         <Header />
 
         <div className="content-page">
-          <Typography text="Mis Cursos" variant="H1" />
+          <Typography text="Mis Cursos" variant="H5" />
 
           <div className="my-courses-list">
             {coursesList.length === 0 && (

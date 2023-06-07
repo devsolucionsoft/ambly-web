@@ -27,6 +27,7 @@ import {
 } from "../../../lib/session"
 // Store
 import { useAppSelector, useAppDispatch } from "../../store"
+import { selectCourse } from "../../store/User/actions"
 // API
 import { UserApi } from "../api"
 
@@ -37,8 +38,8 @@ export default function CourseDetail(props: any) {
   const { course_id }: any = router.query
 
   const dispatch = useAppDispatch()
-  //const courseInfo = useAppSelector((store) => store.User.selectCourse)
-  const courseInfo = courseDetail
+  const courseInfo = useAppSelector((store) => store.User.selectCourse)
+  //const courseInfo = courseDetail
   const myCourses = useAppSelector((store) => store.User.myCourses)
   const [includeMyCourse, setIncludeMyCourse] = useState(false)
   const [includeCart, setIncludeCart] = useState(false)
@@ -75,15 +76,14 @@ export default function CourseDetail(props: any) {
     }
 
     ;(async () => {
-      //const response = await userApiModel.GetCourse(course_id)
+      const response = await userApiModel.GetCourse(course_id)
 
-      //if (response.status === 200) {
-      //dispatch(selectCourse(response.data))
-      // Array.isArray(response.data?.modules) &&
-      //   setCourseModules(response.data?.modules)
-      //setCourseModules(courseInfo.modules)
-      //}
-      setCourseModules(courseInfo.modules)
+      if (response.status === 200) {
+        dispatch(selectCourse(response.data))
+        if (Array.isArray(response.data?.modules)) {
+          setCourseModules(response.data?.modules)
+        }
+      }
       setTimeout(() => {
         setLoading(false)
         setLoad(true)
@@ -97,7 +97,7 @@ export default function CourseDetail(props: any) {
         }
       })
     }
-  }, [course_id, dispatch, includeMyCourse, myCourses, courseInfo])
+  }, [course_id, dispatch, includeMyCourse, myCourses])
 
   // Funcion para extraer la informacion del ultimo video visto por el usuario y poder redirigirlo a el
   useEffect(() => {
@@ -159,11 +159,6 @@ export default function CourseDetail(props: any) {
     }
   }, [courseInfo])
 
-  const onSeeMore = () => {
-    setActiveSeeMore(false)
-    setDesctActive(courseInfo?.description)
-  }
-
   const addCart = () => {
     const stored = localStorage.getItem("cart_products")
     setLoading(true)
@@ -185,7 +180,9 @@ export default function CourseDetail(props: any) {
   const handleActionButton = () => {
     if (props.user) {
       includeMyCourse
-        ? router.push(`/modulo/${savedItem.module}?video=${savedItem.video}`)
+        ? router.push(
+            `/modulo/${courseInfo?.id}?modulo=${savedItem.module}&video=${savedItem.video}`
+          )
         : addCart()
     } else {
       addCart()
@@ -212,7 +209,7 @@ export default function CourseDetail(props: any) {
                 className="image-course"
                 src={courseInfo?.image_course}
                 height={100}
-                width={100}
+                width={1000}
                 alt=""
               />
               <div className="overlay"></div>
@@ -220,8 +217,8 @@ export default function CourseDetail(props: any) {
                 <Image
                   className="image-name"
                   src={courseInfo?.image_name}
-                  height={100}
-                  width={100}
+                  height={500}
+                  width={300}
                   alt=""
                 />
                 <div className="autor">
@@ -316,7 +313,10 @@ export default function CourseDetail(props: any) {
 
                 <div className="ModulesList-contain">
                   {/* {courseModules} */}
-                  <ModulesList items={courseModules} />
+                  <ModulesList
+                    items={courseModules}
+                    idCourse={courseInfo?.id}
+                  />
                 </div>
               </div>
 
@@ -329,8 +329,8 @@ export default function CourseDetail(props: any) {
                 <Image
                   className="avatar"
                   src={courseInfo?.instructor?.image_instructor}
-                  height={100}
-                  width={100}
+                  height={300}
+                  width={300}
                   alt=""
                 />
                 <Typography
@@ -341,8 +341,8 @@ export default function CourseDetail(props: any) {
                 <Image
                   className="image-teacher"
                   src={courseInfo?.instructor?.image_secondary}
-                  height={100}
-                  width={100}
+                  height={500}
+                  width={400}
                   alt=""
                 />
                 <Typography

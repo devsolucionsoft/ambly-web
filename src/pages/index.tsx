@@ -26,7 +26,6 @@ import { UserApi, CourseApi, InstructorApi, TrailersApi } from "./api"
 import { useAppDispatch } from "../store"
 import { loadCourses } from "../store/User/actions"
 import { useRouter } from "next/router"
-import { courses, trailers, intructors, categories } from "../json/data"
 
 const UserApiModel = new UserApi()
 const CourseApiModel = new CourseApi()
@@ -39,10 +38,10 @@ export default function Login(props: any) {
 
   const [loading, setLoading] = useState(false)
 
-  const [coursesList, setCourseslist] = useState(courses)
-  const [intructorList, setIntructorList] = useState(intructors)
-  const [trailersList, setTrailerList] = useState(trailers)
-  const [topics, setTopics] = useState(categories)
+  const [coursesList, setCourseslist] = useState([])
+  const [intructorList, setIntructorList] = useState([])
+  const [trailersList, setTrailerList] = useState([])
+  const [topics, setTopics] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [trailerPlay, setTrailerPlay] = useState({
     title: "",
@@ -67,19 +66,19 @@ export default function Login(props: any) {
     })()
     ;(async () => {
       const response = await CourseApiModel.GetCourses()
-      //response.status === 200 && setCourseslist(response.data)
+      response.status === 200 && setCourseslist(response.data)
     })()
     ;(async () => {
       const response = await InstructorApiModel.GetInstructors()
-      //response.status === 200 && setIntructorList(response.data)
+      response.status === 200 && setIntructorList(response.data)
     })()
     ;(async () => {
       const response = await TrailersApiModel.GetTrailers()
-      //response.status === 200 && setTrailerList(response.data)
+      response.status === 200 && setTrailerList(response.data)
     })()
     ;(async () => {
       const response = await UserApiModel.GetCategories()
-      //response.status === 200 && setTopics(response.data)
+      response.status === 200 && setTopics(response.data)
     })()
     setTimeout(() => {
       setLoading(false)
@@ -119,7 +118,7 @@ export default function Login(props: any) {
         <div className="content-page">
           <Typography
             text={
-              '"Explore your new skill today explore your new skill today explore your new skill today"'
+              '"El conocimiento es un regalo de los cielos que debe ser democratizado"'
             }
             variant="H1"
             style={{ textAlign: "center" }}
@@ -145,12 +144,7 @@ export default function Login(props: any) {
         <Sliders
           variant="trailers"
           onClickSlider={(data) => handleTrailerClick(data)}
-          items={[
-            trailersList[0],
-            trailersList[0],
-            trailersList[0],
-            trailersList[0],
-          ]}
+          items={trailersList}
         />
         <div className="content-page">
           <div>
@@ -202,11 +196,6 @@ export default function Login(props: any) {
                 </Link>
               ))}
             </div>
-
-            <h3 className="text-bottom">
-              "El conocimiento es un regalo de los cielos que debe ser
-              democratizado"
-            </h3>
           </div>
 
           <MyCourses>

@@ -70,7 +70,7 @@ export const Main = styled.main`
     }
   }
   .footer-bottom {
-    margin-top: 10em;
+    margin-top: 5em;
     text-align: center;
     font-size: 0.82vw;
     @media (max-width: ${(props) => props.theme.sizes.md}) {

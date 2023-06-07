@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import Head from "next/head"
 // Styled components
 import { Main } from "../styles/perfil.styled"
@@ -15,8 +16,121 @@ import {
   sessionOptions,
   sessionVerificationNotCreated,
 } from "../../lib/session"
+// Hooks
+import useValidateForm, {
+  InputValidationI,
+  IErrorInputs,
+} from "../hooks/useValidateForm"
+import axios from "axios"
+import Swal from "sweetalert2"
+import { UserApi } from "./api"
 
-export default function Perfil() {
+export default function Perfil(props: any) {
+  const UserApiModel = new UserApi()
+
+  const defaultInputs = {
+    username: "",
+    email: "",
+    phone: "",
+    country: "",
+    gender: "",
+  }
+  // States inputs
+  const [stateInputs, setStateInputs] = useState(defaultInputs)
+  const [countries, setCountries] = useState([])
+  // Use Hook Validation
+  const defaultValidation: InputValidationI = {
+    username: { required: "text" },
+    email: { required: "email" },
+    phone: { required: "number", minLengt: 5 },
+    country: { required: "text" },
+    gender: { required: "text" },
+  }
+
+  const { validationInputs, getValidation } = useValidateForm({
+    defaultInputs,
+    defaultValidation,
+  })
+
+  const [errorInputs, setErrorInputs] = useState<IErrorInputs>(validationInputs)
+  // Inputs keyup
+  const handleKeyUp = (value: string, name: string): void => {
+    setStateInputs({
+      ...stateInputs,
+      [name]: value,
+    })
+    setErrorInputs(validationInputs)
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await axios.get("https://restcountries.com/v3.1/all")
+        const coutries = response.data.map((country: any) => ({
+          label: country.name.common,
+          value: country.cioc,
+        }))
+        setCountries(
+          coutries.sort(function (a: any, b: any) {
+            if (a.label > b.label) {
+              return 1
+            }
+            if (a.label < b.label) {
+              return -1
+            }
+            // a must be equal to b
+            return 0
+          })
+        )
+      } catch (error: any) {
+        return error.response
+      }
+
+      // try {
+      //   const response = await UserApiModel.GetUser(userInfo.id)
+      //   const userData = response.data
+      //   console.log(userData)
+
+      //   setStateInputs({
+      //     ...stateInputs,
+      //     email: userData.email,
+      //     phone: userData.phone,
+      //     country: userData.country,
+      //     gender: userData.gender,
+      //   })
+      // } catch (error) {}
+    })()
+    setErrorInputs(validationInputs)
+  }, [])
+
+  const handleSend = async () => {
+    const { errors, validation } = getValidation(stateInputs)
+
+    if (validation) {
+      const response = await UserApiModel.EditUser(props.user.id, stateInputs)
+
+      if (response.status === 200) {
+        Swal.fire({
+          title: "No se ha podido realizar el regístro.",
+          text: "Comprueba tu email e intentalo mas tarde",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        })
+      } else {
+        Swal.fire({
+          title: "No se ha podido realizar el regístro.",
+          text: "Comprueba tu email e intentalo mas tarde",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        })
+      }
+    } else {
+      setErrorInputs({
+        ...errorInputs,
+        ...errors,
+      })
+    }
+  }
   return (
     <>
       <Head>
@@ -34,11 +148,11 @@ export default function Perfil() {
           <br />
           <br />
           <br />
-          <Input type="email" label="Nomber" name="nomber" />
+          <Input type="text" label="Nomber" name="username" />
           <Input type="email" label="Email" name="email" />
-          <Input type="email" label="Telefono" name="phone" />
+          <Input type="number" label="Telefono" name="phone" />
           <Input type="email" label="País" name="coutry" />
-          <Input type="email" label="Ciudad" name="city" />
+          <Input type="email" label="Ciudad" name="gender" />
           <br />
           <br />
           <Button text="Aceptar" bg color="redPrimary" />
