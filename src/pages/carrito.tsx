@@ -68,8 +68,13 @@ export default function Carrito(props: any) {
   }, [])
 
   const deleteItem = (id: number) => {
-    const filterdata = courses.filter((item: any) => item.id !== id)
-    localStorage.setItem("cart_products", JSON.stringify(filterdata))
+    const stored = localStorage.getItem("cart_products")
+
+    if (stored) {
+      const cart_products: Array<any> = JSON.parse(stored)
+      const filterdata = cart_products.filter((item: any) => item !== id)
+      localStorage.setItem("cart_products", JSON.stringify(filterdata))
+    }
     getItems()
   }
 

@@ -19,8 +19,10 @@ import {
   sessionOptions,
   getSessionVerificationNotCreated,
 } from "../../../lib/session"
+import Swal from "sweetalert2"
 
 import { CourseApi } from "../api"
+import { log } from "console"
 const CourseApiModel = new CourseApi()
 
 export default function Login(props: any) {
@@ -55,18 +57,23 @@ export default function Login(props: any) {
     getCourses()
     setTimeout(() => {
       setLoading(false)
+      Swal.fire("¡Curso agregado al carrito de compras!")
     }, 300)
   }
 
   const includeCourse = (id: any) => {
     let include = false
-    const stored = JSON.parse(localStorage.getItem("cart_products") || "[]")
-    stored.forEach((element: any) => {
-      if (element === id) {
-        include = true
-      }
-    })
+    let stored: any = localStorage.getItem("cart_products")
 
+    if (stored) {
+      stored = JSON.parse(stored)
+      console.log(stored)
+      stored.map((element: any) => {
+        if (element === id) {
+          include = true
+        }
+      })
+    }
     return include
   }
 
