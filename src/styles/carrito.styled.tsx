@@ -102,14 +102,12 @@ export const Main = styled.main`
       background-color: ${(props) => props.theme.colors.ligth};
     }
     .form {
-      width: 100%;
+      width: 500px;
       margin-top: 4em;
       margin-bottom: 2em;
       display: flex;
-      justify-content: space-between;
-      & > div {
-        width: 46%;
-      }
+      flex-direction: column;
+
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         flex-direction: column;
         & > div {

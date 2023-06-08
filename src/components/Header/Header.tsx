@@ -1,6 +1,6 @@
 "use client"
 // React
-import { HTMLAttributes, Fragment, useState, useEffect } from "react"
+import { HTMLAttributes, Fragment } from "react"
 import Image from "next/image"
 import MobileContent from "../MobileContent"
 // Styled components

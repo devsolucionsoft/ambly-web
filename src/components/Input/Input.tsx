@@ -1,5 +1,5 @@
 // React
-import { HTMLAttributes } from "react"
+import { HTMLAttributes, DetailedHTMLProps, InputHTMLAttributes } from "react"
 // Styled components
 import { Main } from "./Input.styled"
 
@@ -11,12 +11,13 @@ export interface InputProps {
   message?: string
 }
 
-type InputAttributes = InputProps & HTMLAttributes<HTMLInputElement>
+type InputAttributes = InputProps &
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Input = (props: InputAttributes) => {
-  const { type, label, name, error, message } = props
+  const { type, label, name, error = false, message } = props
   return (
-    <Main {...props}>
+    <Main error={error}>
       <label htmlFor={name}>{label}</label>
       <input {...props} type={type} placeholder={label} name={name} />
       {error && <label className="label-error">{message}</label>}

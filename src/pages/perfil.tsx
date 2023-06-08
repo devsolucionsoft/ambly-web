@@ -10,6 +10,7 @@ import {
   Input,
   Button,
   Footer,
+  Select,
 } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
@@ -61,6 +62,27 @@ export default function Perfil(props: any) {
     })
     setErrorInputs(validationInputs)
   }
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await UserApiModel.GetUser(props.user.id)
+      console.log({
+        username: response.data.user.username,
+        email: response.data.user.email,
+        phone: response.data.user.phone,
+        country: response.data.user.country,
+        gender: response.data.user.gender,
+      })
+
+      setStateInputs({
+        username: response.data.user.username,
+        email: response.data.user.email,
+        phone: response.data.user.phone,
+        country: response.data.user.coutry,
+        gender: response.data.user.gender,
+      })
+    })()
+  }, [])
 
   useEffect(() => {
     ;(async () => {
@@ -148,11 +170,26 @@ export default function Perfil(props: any) {
           <br />
           <br />
           <br />
-          <Input type="text" label="Nomber" name="username" />
-          <Input type="email" label="Email" name="email" />
-          <Input type="number" label="Telefono" name="phone" />
-          <Input type="email" label="País" name="coutry" />
-          <Input type="email" label="Ciudad" name="gender" />
+          <Input
+            type="text"
+            label="Nomber"
+            name="username"
+            value={stateInputs.username}
+          />
+          <Input
+            type="email"
+            label="Email"
+            disabled
+            name="email"
+            value={stateInputs.email}
+          />
+          <Input
+            type="number"
+            label="Telefono"
+            name="phone"
+            value={stateInputs.phone}
+          />
+          <Select label="Ciudad" options={countries} />
           <br />
           <br />
           <Button text="Aceptar" bg color="redPrimary" />

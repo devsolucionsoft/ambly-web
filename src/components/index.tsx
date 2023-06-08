@@ -11,6 +11,7 @@ import MobileContent from "./MobileContent"
 import ForgotPassword from "./ForgotPassword"
 import Loader from "./Loader"
 import Footer from "./Footer"
+import Select from "./Select"
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   ForgotPassword,
   Loader,
   Footer,
+  Select,
 }

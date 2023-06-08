@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { InputProps } from "./Input"
+import { InputProps } from "./Select"
 
 export const Main = styled.div<{ error: boolean }>`
   display: flex;
@@ -11,7 +11,7 @@ export const Main = styled.div<{ error: boolean }>`
     margin-bottom: 0.5rem;
   }
 
-  input {
+  select {
     background-color: transparent;
     font-size: 1rem;
     padding: 0.7rem 1.3rem;
@@ -20,10 +20,5 @@ export const Main = styled.div<{ error: boolean }>`
     border: 1px solid
       ${(props) =>
         props.error ? props.theme.colors.redPrimary : props.theme.colors.ligth};
-  }
-
-  .label-error {
-    margin-top: 0.5rem;
-    color: ${(props) => props.theme.colors.redPrimary};
   }
 `

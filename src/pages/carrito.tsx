@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import { FaUserAlt } from "react-icons/fa"
 // Styled components
 import { Main } from "../styles/carrito.styled"
+import { Md5 } from "md5-typescript"
 // Components
 import {
   Header,
@@ -24,11 +25,25 @@ import {
 import { MdDelete } from "react-icons/md"
 // API
 import { CourseApi } from "./api"
+import { useAppSelector, useAppDispatch } from "../store"
 const CourseApiModel = new CourseApi()
+
+const merchantId = "508029"
+const accountId = "512321"
+const ApiKey = "4Vj8eK4rloUd272L48hsrarnUA"
 
 export default function Carrito(props: any) {
   const router = useRouter()
   const [courses, setCourses] = useState([])
+  const [referenceCode, setReferenceCode] = useState("")
+  const [signature, setSignature] = useState("")
+
+  let urlsite = ""
+
+  if (typeof window !== "undefined") {
+    urlsite = window.location.host || ""
+  }
+
   const [loading, setLoading] = useState(false)
   let total = 0
 
@@ -65,7 +80,28 @@ export default function Carrito(props: any) {
         setLoading(false)
       })()
     }
-  }, [])
+  }, [props.user.id])
+
+  useEffect(() => {
+    let amount = 0
+
+    if (total > 0 && courses.length > 0) {
+      courses.forEach((item: any) => {
+        amount += parseInt(item.price_course)
+      })
+      const time = new Date()
+      const ref = encodeURIComponent(
+        `${
+          props.user.id
+        }-${time.getMinutes()}${time.getSeconds()}${time.getMilliseconds()}`
+      )
+      const md5 = Md5.init(`${ApiKey}~${merchantId}~${ref}~${amount}~COP`)
+      setSignature(md5)
+
+      setReferenceCode(ref)
+      console.log(md5)
+    }
+  }, [props.user.id, total, courses])
 
   const deleteItem = (id: number) => {
     const stored = localStorage.getItem("cart_products")
@@ -145,27 +181,68 @@ export default function Carrito(props: any) {
             />
           </div>
           {props.user ? (
-            <Fragment>
+            <form
+              method="post"
+              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+            >
               <div className="divider"></div>
               <div className="form">
-                <div>
-                  <Typography text="Datos de pago" variant="H4" />
-                  <br />
-                  <Input type="email" label="Nomber" name="nomber" />
-                  <Input type="email" label="Email" name="email" />
-                  <Input type="email" label="Telefono" name="phone" />
-                </div>
-                <div>
+                <Typography text="Datos de pago" variant="H4" />
+                <br />
+                <Input
+                  type="text"
+                  label="Nomber completo"
+                  name="buyerFullName"
+                  required
+                />
+                <Input type="email" label="Email" name="buyerEmail" required />
+                <Input
+                  type="number"
+                  label="Telefono"
+                  name="mobilePhone"
+                  required
+                />
+
+                <input name="merchantId" type="hidden" value={merchantId} />
+                <input name="accountId" type="hidden" value={accountId} />
+                <input name="description" type="hidden" value="Test PAYU" />
+                <input
+                  name="referenceCode"
+                  type="hidden"
+                  value={referenceCode}
+                />
+                <input name="amount" type="hidden" value={total} required />
+                <input name="tax" type="hidden" value="0" />
+                <input name="taxReturnBase" type="hidden" value="0" />
+                <input name="currency" type="hidden" value="COP" />
+                <input name="signature" type="hidden" value={signature} />
+                <input name="test" type="hidden" value="0" />
+                <input
+                  name="responseUrl"
+                  type="hidden"
+                  value="http://www.test.com/response"
+                />
+                <input
+                  name="confirmationUrl"
+                  type="hidden"
+                  value={`${urlsite}/compra-realizada`}
+                />
+                {/* <div>
                   <Typography text="Datos de tarjeta" variant="H4" />
                   <br />
                   <Input type="email" label="Numero de tarjeta" name="nomber" />
                   <Input type="email" label="CV" name="nomber" />
-                </div>
+                </div> */}
               </div>
               <div>
-                <Button text="Realizar compra" bg color="redPrimary" />
+                <Button
+                  text="Realizar compra"
+                  bg
+                  color="redPrimary"
+                  type="submit"
+                />
               </div>
-            </Fragment>
+            </form>
           ) : (
             <div
               style={{

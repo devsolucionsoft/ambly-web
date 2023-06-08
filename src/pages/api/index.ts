@@ -132,6 +132,13 @@ export class AuthApi {
 }
 
 export class UserApi {
+  async GetUser(id: any) {
+    try {
+      return await axios.get(`${url}/users/${id}`)
+    } catch (error: any) {
+      return error.response
+    }
+  }
   async GetCategories() {
     try {
       return await axios.get(`${url}/category/all`)

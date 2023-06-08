@@ -10,6 +10,7 @@ export interface ButtonProps {
   color?: paletteTypes
   variant?: "lg" | "sm"
   disabled?: boolean
+  type?: "button" | "submit"
 }
 
 type ButtonAttributes = ButtonProps & HTMLAttributes<HTMLButtonElement>
