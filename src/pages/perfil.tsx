@@ -33,19 +33,14 @@ export default function Perfil(props: any) {
     username: "",
     email: "",
     phone: "",
-    country: "",
-    gender: "",
   }
   // States inputs
   const [stateInputs, setStateInputs] = useState(defaultInputs)
-  const [countries, setCountries] = useState([])
   // Use Hook Validation
   const defaultValidation: InputValidationI = {
     username: { required: "text" },
     email: { required: "email" },
     phone: { required: "number", minLengt: 5 },
-    country: { required: "text" },
-    gender: { required: "text" },
   }
 
   const { validationInputs, getValidation } = useValidateForm({
@@ -66,82 +61,34 @@ export default function Perfil(props: any) {
   useEffect(() => {
     ;(async () => {
       const response = await UserApiModel.GetUser(props.user.id)
-      console.log({
-        username: response.data.user.username,
-        email: response.data.user.email,
-        phone: response.data.user.phone,
-        country: response.data.user.country,
-        gender: response.data.user.gender,
-      })
-
       setStateInputs({
         username: response.data.user.username,
         email: response.data.user.email,
         phone: response.data.user.phone,
-        country: response.data.user.coutry,
-        gender: response.data.user.gender,
       })
     })()
   }, [])
 
   useEffect(() => {
-    ;(async () => {
-      try {
-        const response = await axios.get("https://restcountries.com/v3.1/all")
-        const coutries = response.data.map((country: any) => ({
-          label: country.name.common,
-          value: country.cioc,
-        }))
-        setCountries(
-          coutries.sort(function (a: any, b: any) {
-            if (a.label > b.label) {
-              return 1
-            }
-            if (a.label < b.label) {
-              return -1
-            }
-            // a must be equal to b
-            return 0
-          })
-        )
-      } catch (error: any) {
-        return error.response
-      }
-
-      // try {
-      //   const response = await UserApiModel.GetUser(userInfo.id)
-      //   const userData = response.data
-      //   console.log(userData)
-
-      //   setStateInputs({
-      //     ...stateInputs,
-      //     email: userData.email,
-      //     phone: userData.phone,
-      //     country: userData.country,
-      //     gender: userData.gender,
-      //   })
-      // } catch (error) {}
-    })()
-    setErrorInputs(validationInputs)
+    ;(async () => {})()
   }, [])
 
   const handleSend = async () => {
     const { errors, validation } = getValidation(stateInputs)
-
     if (validation) {
       const response = await UserApiModel.EditUser(props.user.id, stateInputs)
 
       if (response.status === 200) {
         Swal.fire({
-          title: "No se ha podido realizar el regístro.",
-          text: "Comprueba tu email e intentalo mas tarde",
-          icon: "error",
+          title: "Usuario editado",
+          text: "",
+          icon: "success",
           confirmButtonText: "Aceptar",
         })
       } else {
         Swal.fire({
-          title: "No se ha podido realizar el regístro.",
-          text: "Comprueba tu email e intentalo mas tarde",
+          title: "Ha ocurrido un error.",
+          text: "Intentalo mas tarde",
           icon: "error",
           confirmButtonText: "Aceptar",
         })
@@ -174,6 +121,7 @@ export default function Perfil(props: any) {
             type="text"
             label="Nomber"
             name="username"
+            onChange={(ev) => handleKeyUp(ev.target.value, "username")}
             value={stateInputs.username}
           />
           <Input
@@ -182,17 +130,19 @@ export default function Perfil(props: any) {
             disabled
             name="email"
             value={stateInputs.email}
+            onChange={(ev) => handleKeyUp(ev.target.value, "email")}
           />
           <Input
             type="number"
             label="Telefono"
+            onChange={(ev) => handleKeyUp(ev.target.value, "phone")}
             name="phone"
             value={stateInputs.phone}
           />
-          <Select label="Ciudad" options={countries} />
+          {/* <Select label="Ciudad" options={countries} /> */}
           <br />
           <br />
-          <Button text="Aceptar" bg color="redPrimary" />
+          <Button text="Aceptar" bg color="redPrimary" onClick={handleSend} />
         </div>
         <Footer />
       </Main>

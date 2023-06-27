@@ -175,7 +175,7 @@ export default function Carrito(props: any) {
               />
             </div>
           </div>
-          <div style={{ width: "60%" }}>
+          <div style={{ width: "80%" }}>
             {true ? (
               <form
                 method="post"
