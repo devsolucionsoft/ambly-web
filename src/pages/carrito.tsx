@@ -224,12 +224,12 @@ export default function Carrito(props: any) {
                   <input
                     name="responseUrl"
                     type="hidden"
-                    value={`http://localhost:3000/compra-realizada`}
+                    value={`https://ambly-web.vercel.app/compra-realizada`}
                   />
                   <input
                     name="confirmationUrl"
                     type="hidden"
-                    value={`http://localhost:3000/compra-realizada`}
+                    value={`https://ambly-web.vercel.app/compra-realizada`}
                   />
                   {/* <div>
                   <Typography text="Datos de tarjeta" variant="H4" />
