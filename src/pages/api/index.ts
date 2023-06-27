@@ -19,7 +19,7 @@ type userRegistryType = userLoginType & {
 export class ConfigApi {
   async Splash() {
     try {
-      return await axios.get(`${url}/splash`)
+      return await axios.get(`${url}/us...`)
     } catch (error: any) {
       return error.response
     }

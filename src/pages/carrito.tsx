@@ -1,6 +1,6 @@
 import Head from "next/head"
 import Image from "next/image"
-import { useState, useEffect, Fragment } from "react"
+import { useState, useEffect, useId } from "react"
 import { useRouter } from "next/router"
 // Assests
 import { FaUserAlt } from "react-icons/fa"
@@ -25,7 +25,6 @@ import {
 import { MdDelete } from "react-icons/md"
 // API
 import { CourseApi } from "./api"
-import { useAppSelector, useAppDispatch } from "../store"
 const CourseApiModel = new CourseApi()
 
 const merchantId = "508029"
@@ -34,10 +33,10 @@ const ApiKey = "4Vj8eK4rloUd272L48hsrarnUA"
 
 export default function Carrito(props: any) {
   const router = useRouter()
+  const [cartProducts, setCartProducts] = useState("")
   const [courses, setCourses] = useState([])
-  const [referenceCode, setReferenceCode] = useState("")
   const [signature, setSignature] = useState("")
-
+  const referenceCode = useId()
   let urlsite = ""
 
   if (typeof window !== "undefined") {
@@ -69,6 +68,7 @@ export default function Carrito(props: any) {
     const stored = localStorage.getItem("cart_products")
 
     if (stored) {
+      setCartProducts(stored)
       const cart_products: Array<any> = JSON.parse(stored)
       ;(async () => {
         setLoading(true)
@@ -89,19 +89,12 @@ export default function Carrito(props: any) {
       courses.forEach((item: any) => {
         amount += parseInt(item.price_course)
       })
-      const time = new Date()
-      const ref = encodeURIComponent(
-        `${
-          props.user.id
-        }-${time.getMinutes()}${time.getSeconds()}${time.getMilliseconds()}`
+      const md5Signature = Md5.init(
+        `${ApiKey}~${merchantId}~${referenceCode}~${amount}~COP`
       )
-      const md5 = Md5.init(`${ApiKey}~${merchantId}~${ref}~${amount}~COP`)
-      setSignature(md5)
-
-      setReferenceCode(ref)
-      console.log(md5)
+      setSignature(md5Signature)
     }
-  }, [props.user.id, total, courses])
+  }, [total, courses, referenceCode])
 
   const deleteItem = (id: number) => {
     const stored = localStorage.getItem("cart_products")
@@ -128,139 +121,151 @@ export default function Carrito(props: any) {
         <Loader loading={loading} />
 
         <div className="content-page">
-          <Typography
-            text="Carrito"
-            variant="H1"
-            style={{ textAlign: "left", width: "100%" }}
-          />
+          <div style={{ width: "100%" }}>
+            <Typography
+              text="Carrito"
+              variant="H1"
+              style={{ textAlign: "left", width: "100%" }}
+            />
 
-          <div className="items-carrito">
-            {courses.map((item: any, index: number) => {
-              total += parseInt(item.price_course)
-              return (
-                <div className="item-carrito" key={index}>
-                  <div className="flex">
-                    <Image
-                      className="image"
-                      src={item.image_course}
-                      height={100}
-                      width={100}
-                      alt=""
-                    />
+            <div className="items-carrito">
+              {courses.map((item: any, index: number) => {
+                total += parseInt(item.price_course)
+                return (
+                  <div className="item-carrito" key={index}>
+                    <div className="flex">
+                      <Image
+                        className="image"
+                        src={item.image_course}
+                        height={100}
+                        width={100}
+                        alt=""
+                      />
 
-                    <div className="content">
-                      <Typography text={item.name_course} variant="H3" />
+                      <div className="content">
+                        <Typography text={item.name_course} variant="H3" />
 
-                      <div className="autor">
-                        <FaUserAlt className="icon" />
+                        <div className="autor">
+                          <FaUserAlt className="icon" />
+                          <Typography
+                            text={item.instructor.name_instructor}
+                            variant="H4"
+                          />
+                        </div>
                         <Typography
-                          text={item.instructor.name_instructor}
-                          variant="H4"
+                          text={new Intl.NumberFormat("es-MX").format(
+                            item.price_course
+                          )}
+                          variant="H5"
                         />
                       </div>
-                      <Typography
-                        text={new Intl.NumberFormat("es-MX").format(
-                          item.price_course
-                        )}
-                        variant="H5"
-                      />
+                    </div>
+
+                    <div className="delete" onClick={() => deleteItem(item.id)}>
+                      <MdDelete className="icon" />
                     </div>
                   </div>
-
-                  <div className="delete" onClick={() => deleteItem(item.id)}>
-                    <MdDelete className="icon" />
-                  </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
+            <div className="total">
+              <Typography
+                text={`Total: $${new Intl.NumberFormat("es-MX").format(total)}`}
+                variant="H2"
+              />
+            </div>
           </div>
-          <div className="total">
-            <Typography
-              text={`Total: $${new Intl.NumberFormat("es-MX").format(total)}`}
-              variant="H2"
-            />
-          </div>
-          {props.user ? (
-            <form
-              method="post"
-              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
-            >
-              <div className="divider"></div>
-              <div className="form">
-                <Typography text="Datos de pago" variant="H4" />
-                <br />
-                <Input
-                  type="text"
-                  label="Nomber completo"
-                  name="buyerFullName"
-                  required
-                />
-                <Input type="email" label="Email" name="buyerEmail" required />
-                <Input
-                  type="number"
-                  label="Telefono"
-                  name="mobilePhone"
-                  required
-                />
+          <div style={{ width: "60%" }}>
+            {true ? (
+              <form
+                method="post"
+                action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+              >
+                <div className="divider"></div>
+                <div className="form">
+                  <Typography text="Datos de pago" variant="H4" />
+                  <br />
+                  <Input
+                    type="text"
+                    label="Nomber completo"
+                    name="buyerFullName"
+                    required
+                  />
+                  <Input
+                    type="email"
+                    label="Email"
+                    name="buyerEmail"
+                    required
+                  />
+                  <Input
+                    type="number"
+                    label="Telefono"
+                    name="mobilePhone"
+                    required
+                  />
 
-                <input name="merchantId" type="hidden" value={merchantId} />
-                <input name="accountId" type="hidden" value={accountId} />
-                <input name="description" type="hidden" value="Test PAYU" />
-                <input
-                  name="referenceCode"
-                  type="hidden"
-                  value={referenceCode}
-                />
-                <input name="amount" type="hidden" value={total} required />
-                <input name="tax" type="hidden" value="0" />
-                <input name="taxReturnBase" type="hidden" value="0" />
-                <input name="currency" type="hidden" value="COP" />
-                <input name="signature" type="hidden" value={signature} />
-                <input name="test" type="hidden" value="0" />
-                <input
-                  name="responseUrl"
-                  type="hidden"
-                  value="http://www.test.com/response"
-                />
-                <input
-                  name="confirmationUrl"
-                  type="hidden"
-                  value={`${urlsite}/compra-realizada`}
-                />
-                {/* <div>
+                  <input name="merchantId" type="hidden" value={merchantId} />
+                  <input name="accountId" type="hidden" value={accountId} />
+                  <input name="description" type="hidden" value="Test PAYU" />
+                  <input
+                    name="referenceCode"
+                    type="hidden"
+                    value={referenceCode}
+                  />
+                  <input name="amount" type="hidden" value={total} required />
+                  <input name="tax" type="hidden" value="0" />
+                  <input name="taxReturnBase" type="hidden" value="0" />
+                  <input name="currency" type="hidden" value="COP" />
+                  <input name="signature" type="hidden" value={signature} />
+                  <input name="test" type="hidden" value="0" />
+                  <input name="extra1" type="hidden" value={props.user.id} />
+                  <input name="extra2" type="hidden" value={cartProducts} />
+
+                  <input
+                    name="responseUrl"
+                    type="hidden"
+                    value={`http://localhost:3000/compra-realizada`}
+                  />
+                  <input
+                    name="confirmationUrl"
+                    type="hidden"
+                    value={`http://localhost:3000/compra-realizada`}
+                  />
+                  {/* <div>
                   <Typography text="Datos de tarjeta" variant="H4" />
                   <br />
                   <Input type="email" label="Numero de tarjeta" name="nomber" />
                   <Input type="email" label="CV" name="nomber" />
                 </div> */}
-              </div>
-              <div>
+                </div>
+                <div>
+                  <Button
+                    text="Realizar compra"
+                    bg
+                    color="redPrimary"
+                    type="submit"
+                  />
+                </div>
+              </form>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "auto",
+                  marginTop: "5em",
+                }}
+              >
                 <Button
-                  text="Realizar compra"
+                  text="Inicia sesion"
                   bg
                   color="redPrimary"
-                  type="submit"
+                  onClick={() => router.push("/inicio")}
                 />
               </div>
-            </form>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: "auto",
-                marginTop: "5em",
-              }}
-            >
-              <Button
-                text="Inicia sesion"
-                bg
-                color="redPrimary"
-                onClick={() => router.push("/inicio")}
-              />
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <Footer />
       </Main>
