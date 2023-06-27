@@ -36,7 +36,8 @@ export default function Carrito(props: any) {
   const [cartProducts, setCartProducts] = useState("")
   const [courses, setCourses] = useState([])
   const [signature, setSignature] = useState("")
-  const referenceCode = useId()
+  const [referenceCode, setReferenceCode] = useState("")
+
   let urlsite = ""
 
   if (typeof window !== "undefined") {
@@ -89,12 +90,17 @@ export default function Carrito(props: any) {
       courses.forEach((item: any) => {
         amount += parseInt(item.price_course)
       })
+
+      const code =
+        Math.random().toString(36).slice(2) +
+        Math.random().toString(36).slice(2)
+      setReferenceCode(code)
       const md5Signature = Md5.init(
-        `${ApiKey}~${merchantId}~${referenceCode}~${amount}~COP`
+        `${ApiKey}~${merchantId}~${code}~${amount}~COP`
       )
       setSignature(md5Signature)
     }
-  }, [total, courses, referenceCode])
+  }, [total, courses])
 
   const deleteItem = (id: number) => {
     const stored = localStorage.getItem("cart_products")
