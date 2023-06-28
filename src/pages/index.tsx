@@ -39,6 +39,7 @@ export default function Login(props: any) {
   const [loading, setLoading] = useState(false)
 
   const [coursesList, setCourseslist] = useState([])
+  const [myCoursesList, setMyCourseslist] = useState([])
   const [intructorList, setIntructorList] = useState([])
   const [trailersList, setTrailerList] = useState([])
   const [topics, setTopics] = useState([])
@@ -61,7 +62,7 @@ export default function Login(props: any) {
     ;(async () => {
       if (props.user && props.user.id) {
         const response = await UserApiModel.GetMyCourses(props.user.id)
-        response.status === 200 && dispatch(loadCourses(response.data.courses))
+        response.status === 200 && setMyCourseslist(response.data.courses)
       }
     })()
     ;(async () => {
@@ -200,38 +201,32 @@ export default function Login(props: any) {
 
           <MyCourses>
             <div className="my-courses-list">
-              {coursesList.length === 0 && (
-                <Typography
-                  text="Aun no tienes cursos..."
-                  variant="H2"
-                  style={{ textAlign: "center" }}
-                />
-              )}
-
-              {coursesList.map((item: any, index: any) => (
-                <section key={index} className="course-item">
-                  <Image
-                    className="image-name"
-                    src={item.image_course}
-                    height={500}
-                    width={500}
-                    alt=""
-                  />
-
-                  <div className="course-content">
-                    <Typography
-                      text={item.name_course}
-                      variant="H4"
-                      className="course-title"
+              {props.user &&
+                props.user.id &&
+                myCoursesList.map((item: any, index: any) => (
+                  <section key={index} className="course-item">
+                    <Image
+                      className="image-name"
+                      src={item.image_course}
+                      height={500}
+                      width={500}
+                      alt=""
                     />
-                    <div className="autor">
-                      <FaUserAlt className="icon" />
-                      <span>{item?.instructor?.name_instructor}</span>
+
+                    <div className="course-content">
+                      <Typography
+                        text={item.name_course}
+                        variant="H4"
+                        className="course-title"
+                      />
+                      <div className="autor">
+                        <FaUserAlt className="icon" />
+                        <span>{item?.instructor?.name_instructor}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="overlay"></div>
-                </section>
-              ))}
+                    <div className="overlay"></div>
+                  </section>
+                ))}
             </div>
           </MyCourses>
         </div>

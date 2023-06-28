@@ -54,6 +54,7 @@ export const Main = styled.main`
         }
         .content {
           margin-left: 2em;
+          width: 70% !important;
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             margin-left: 1em;
           }
@@ -64,6 +65,7 @@ export const Main = styled.main`
             }
           }
           h5 {
+            width: 100% !important;
             font-size: 1.5rem;
             text-align: right;
             color: ${(props) => props.theme.colors.grayText};

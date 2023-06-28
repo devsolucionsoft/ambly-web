@@ -159,9 +159,10 @@ export default function Carrito(props: any) {
                           />
                         </div>
                         <Typography
-                          text={new Intl.NumberFormat("es-MX").format(
+                          style={{ textAlign: "right" }}
+                          text={`$${new Intl.NumberFormat("es-MX").format(
                             item.price_course
-                          )}
+                          )}`}
                           variant="H5"
                         />
                       </div>
