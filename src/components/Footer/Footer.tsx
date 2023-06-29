@@ -69,20 +69,20 @@ const Footer = (props: FooterProps) => {
             <ul>
               <li>
                 <Link href="/politicas" className="nav-item">
-                  {/* <TfiWorld className="icon" /> */}
-                  Terminos y condiciones
+                  {/* <MdLocalPolice className="icon" /> */}
+                  Instagram
                 </Link>
               </li>
               <li>
                 <Link href="/politicas" className="nav-item">
-                  {/* <MdLocalPolice className="icon" /> */}
-                  Políticas de privacidad
+                  {/* <TfiWorld className="icon" /> */}
+                  Facebook
                 </Link>
               </li>
               <li>
                 <Link href="/" className="nav-item">
                   {/* <BiHelpCircle className="icon" /> */}
-                  Ayuda y soporte
+                  Youtube
                 </Link>
               </li>
             </ul>
