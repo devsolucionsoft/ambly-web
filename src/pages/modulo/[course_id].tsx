@@ -26,16 +26,11 @@ import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
-  sessionVerificationNotCreated,
 } from "../../../lib/session"
-import ReactPlayer from "react-player"
 // Store
-import { useAppSelector, useAppDispatch } from "../../store"
+import { useAppDispatch } from "../../store"
 // API
 import { UserApi } from "../api"
-// Store
-import { selectCourse } from "../../store/User/actions"
-import { courseDetail } from "../../json/data"
 
 const items = [1, 2, 3, 4]
 
@@ -62,7 +57,6 @@ export default function Modulo() {
   // Store
   //const courseInfo = courseDetail
   const dispatch = useAppDispatch()
-  const userApiModel = new UserApi()
 
   const [currentModule, setCurrentModule] = useState(0)
   const [currentVideo, setCurrentVideo] = useState(0)
@@ -74,6 +68,7 @@ export default function Modulo() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    const userApiModel = new UserApi()
     ;(async () => {
       const response = await userApiModel.GetCourse(course_id)
       if (response.status === 200) {
@@ -128,13 +123,13 @@ export default function Modulo() {
         setDisableNext(false)
       }
       // Condicion para habilitar y desahabilitar el boton de prev
-      if (currentVideo === 0 && currentModule === 0) {
-        setDisablePrev(true)
-      } else {
-        setDisablePrev(false)
-      }
     }
     // Condicion para habilitar y desahabilitar el boton de next
+    if (currentVideo === 0 && currentModule === 0) {
+      setDisablePrev(true)
+    } else {
+      setDisablePrev(false)
+    }
     setTimeout(() => {
       setLoading(false)
     }, 1000)
@@ -196,7 +191,14 @@ export default function Modulo() {
     setVideo(video)
   }
 
-  console.log(currentModule)
+  const ShowVideo = () => {
+    return (
+      courseInfo &&
+      courseInfo?.modules &&
+      courseInfo?.modules.length > 0 &&
+      courseInfo?.modules[currentModule]?.videos.length > 0
+    )
+  }
 
   return (
     <>
@@ -211,23 +213,29 @@ export default function Modulo() {
         <Header />
         <Loader loading={loading} />
 
-        {courseInfo &&
-        courseInfo?.modules &&
-        courseInfo?.modules.length > 0 &&
-        courseInfo?.modules[currentModule]?.videos.length > 0 ? (
+        {courseInfo ? (
           <div className="page-content">
             <div className="page-top">
-              {courseInfo.modules[currentModule]?.videos[currentVideo]
-                .video && (
-                <video
-                  className="page-top-video"
-                  controls
-                  src={
-                    courseInfo.modules[currentModule]?.videos[currentVideo]
-                      .video ?? ""
-                  }
-                ></video>
-              )}
+              <div className="page-top-video">
+                {ShowVideo() &&
+                courseInfo.modules[currentModule]?.videos[currentVideo]
+                  .video ? (
+                  <video
+                    className="top-video"
+                    controls
+                    src={
+                      courseInfo.modules[currentModule]?.videos[currentVideo]
+                        .video ?? ""
+                    }
+                  ></video>
+                ) : (
+                  <Typography
+                    text="Este modulo no tiene videos disponibles"
+                    variant="H6"
+                    className="title"
+                  />
+                )}
+              </div>
               {/* <ReactPlayer
                 className="page-top-video"
                 controls
@@ -238,20 +246,26 @@ export default function Modulo() {
               /> */}
               <div className="page-top-content">
                 <div>
-                  <Typography
-                    text={
-                      courseInfo.modules[currentModule]?.videos[currentVideo]
-                        .name_video
-                    }
-                    variant="H2"
-                  />
-                  <Typography
-                    text={
-                      courseInfo.modules[currentModule]?.videos[currentVideo]
-                        .description_video
-                    }
-                    variant="P"
-                  />
+                  {ShowVideo() && (
+                    <>
+                      <Typography
+                        text={
+                          courseInfo.modules[currentModule]?.videos[
+                            currentVideo
+                          ].name_video
+                        }
+                        variant="H2"
+                      />
+                      <Typography
+                        text={
+                          courseInfo.modules[currentModule]?.videos[
+                            currentVideo
+                          ].description_video
+                        }
+                        variant="P"
+                      />
+                    </>
+                  )}
                 </div>
                 <div className="action-buttons">
                   <button
@@ -312,6 +326,7 @@ export default function Modulo() {
                   className="title"
                 />
                 <ModulesList
+                  idCourse={course_id}
                   items={courseInfo.modules}
                   currentModule={currentModule}
                   currentVideo={currentVideo}
@@ -326,7 +341,7 @@ export default function Modulo() {
 
                 <div className="list-files">
                   {courseInfo.modules[currentModule]?.file.map((item: any) => (
-                    <FileItem key={item} item={item} />
+                    <FileItem key={item.link_file} item={item} />
                   ))}
                 </div>
               </div>

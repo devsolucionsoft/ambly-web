@@ -38,12 +38,21 @@ export const Main = styled.main`
     .page-top {
       display: flex;
       justify-content: space-between;
+      padding-top: 1em;
       .page-top-video {
         width: 50%;
-        border-radius: 15px;
+        min-height: 15em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .top-video {
+          border-radius: 15px;
+          width: 100%;
+        }
       }
       .page-top-content {
         width: 40%;
+        min-height: 20em;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
