@@ -9,8 +9,9 @@ export const Main = styled.main`
     position: relative;
     .image-course {
       width: 100%;
-      height: 80vh;
+      height: 65vh;
       object-fit: cover;
+
       object-position: top;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         height: 30vh;
@@ -33,7 +34,7 @@ export const Main = styled.main`
       position: absolute;
       bottom: 0;
       padding-left: 15%;
-      margin-bottom: 3em;
+      margin-bottom: 0em;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         margin-bottom: 1em;
         padding-left: 8%;
@@ -131,12 +132,13 @@ export const Main = styled.main`
     .caracteristics {
       display: flex;
       justify-content: space-evenly;
+      margin-bottom: 5em;
       .caracteristics-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 18%;
-        padding: 1.5em 1em;
+        width: 20%;
+        padding: 1.2em 0.8em;
         border: 2px solid #52525293;
         border-radius: 20px;
         text-align: center;
@@ -144,15 +146,15 @@ export const Main = styled.main`
         .icon {
           margin-bottom: 1em;
           width: auto;
-          height: 55px;
+          height: 40px;
         }
         p {
           font-size: 1vw;
           font-weight: 500;
         }
         span {
-          margin-top: 0.5rem;
-          font-size: 0.9vw;
+          margin-top: 0.2rem;
+          font-size: 0.7vw;
           color: ${(props) => props.theme.colors.redPrimary};
         }
       }

@@ -229,6 +229,28 @@ export default function CourseDetail(props: any) {
             </div>
 
             <div className="content-page">
+              <div className="caracteristics">
+                <div className="caracteristics-item">
+                  <Image className="icon" src={Detail1} alt="" />
+                  <p>Duración</p>
+                  <span>{courseInfo.characteristic1}</span>
+                </div>
+                <div className="caracteristics-item">
+                  <Image className="icon" src={Detail2} alt="" />
+                  <p>Aprenderás</p>
+                  <span>{courseInfo.characteristic2}</span>
+                </div>
+                <div className="caracteristics-item">
+                  <Image className="icon" src={Detail3} alt="" />
+                  <p>Cantidad de modulos</p>
+                  <span>{courseInfo.characteristic3}</span>
+                </div>
+                <div className="caracteristics-item">
+                  <Image className="icon" src={Detail4} alt="" />
+                  <p>Estructura</p>
+                  <span>{courseInfo.characteristic4}</span>
+                </div>
+              </div>
               <Typography
                 className="description"
                 text={courseInfo?.description}
@@ -273,29 +295,6 @@ export default function CourseDetail(props: any) {
                 )}
               </div>
               <div className="button-action"></div>
-
-              <div className="caracteristics">
-                <div className="caracteristics-item">
-                  <Image className="icon" src={Detail1} alt="" />
-                  <p>Duración</p>
-                  <span>{courseInfo.characteristic1}</span>
-                </div>
-                <div className="caracteristics-item">
-                  <Image className="icon" src={Detail2} alt="" />
-                  <p>Aprenderás</p>
-                  <span>{courseInfo.characteristic2}</span>
-                </div>
-                <div className="caracteristics-item">
-                  <Image className="icon" src={Detail3} alt="" />
-                  <p>Cantidad de modulos</p>
-                  <span>{courseInfo.characteristic3}</span>
-                </div>
-                <div className="caracteristics-item">
-                  <Image className="icon" src={Detail4} alt="" />
-                  <p>Estructura</p>
-                  <span>{courseInfo.characteristic4}</span>
-                </div>
-              </div>
 
               <div className="modulos-section">
                 <Typography
