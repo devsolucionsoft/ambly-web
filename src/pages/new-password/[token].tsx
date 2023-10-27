@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import Head from "next/head"
 import { useState } from "react"
 // Styled components
-import { Main } from "../styles/login.styled"
+import { Main } from "../../styles/login.styled"
 // Components
 import {
   Button,
@@ -10,39 +10,44 @@ import {
   Input,
   ForgotPassword,
   Loader,
-} from "../components"
+} from "../../components"
 // Hooks
 import useValidateForm, {
   InputValidationI,
   IErrorInputs,
-} from "../hooks/useValidateForm"
+} from "../../hooks/useValidateForm"
 import axios from "axios"
 import { withIronSessionSsr } from "iron-session/next"
-import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
+import { sessionOptions, sessionVerificationCreated } from "../../../lib/session"
 import Swal from "sweetalert2"
 
 export default function NewPassword() {
   const router = useRouter()
 
+  const { token }: any = router.query
+
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
   const defaultInputs = {
-    email: "",
     password: "",
+    passwordVerify: "",
   }
+
   // States inputs
   const [stateInputs, setStateInputs] = useState(defaultInputs)
+
   // Use Hook Validation
   const defaultValidation: InputValidationI = {
-    email: { required: "email" },
-    password: { required: "text" },
+    password: { required: "text",  },
+    passwordVerify: { required: "text" },
   }
   const { validationInputs, getValidation } = useValidateForm({
     defaultInputs,
     defaultValidation,
   })
   const [errorInputs, setErrorInputs] = useState<IErrorInputs>(validationInputs)
+
   // Inputs keyup
   const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setStateInputs({
@@ -54,15 +59,21 @@ export default function NewPassword() {
 
   const handleLogin = async () => {
     const { errors, validation } = getValidation(stateInputs)
-
+    const headers = {
+      'reset': `${token}`, 
+      'Content-Type': 'application/json'
+    }
     if (validation) {
       setLoading(true)
       try {
-        await axios.post(`/api/login`, stateInputs)
+        await axios.put(`https://apiambly.solucionsoft.com/auth/new-password`, {
+          newPassword: stateInputs.password
+        },{
+          headers: headers
+        })
         router.replace("/")
       } catch (error: any) {
         setLoading(false)
-
         Swal.fire({
           title: "Valida tu usuario y contraseña",
           icon: "error",
@@ -101,18 +112,20 @@ export default function NewPassword() {
               label="Contraseña"
               placeholder="Ingrese su contraseña"
               name="password"
+              value={stateInputs.password}
               onChange={handleKeyUp}
-              error={errorInputs.email.error}
-              message={errorInputs.email.message}
+              error={errorInputs.password.error}
+              message={errorInputs.password.message}
             />
             <Input
               type="password"
               label="Repetir Contraseña"
               placeholder="Confirme su contraseña"
               name="passwordVerify"
+              value={stateInputs.passwordVerify}
               onChange={handleKeyUp}
-              error={errorInputs.password.error}
-              message={errorInputs.password.message}
+              error={errorInputs.passwordVerify.error}
+              message={errorInputs.passwordVerify.message}
             />
 
             <div className="button-contain">

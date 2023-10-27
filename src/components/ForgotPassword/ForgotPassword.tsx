@@ -58,9 +58,7 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
         icon: 'success',
         confirmButtonText: "Aceptar",
       })
-      console.log(validation, ' validation')
     } else {
-      console.log(errors, ' errors')
       setErrorInputs({
         ...errorInputs,
         ...errors,

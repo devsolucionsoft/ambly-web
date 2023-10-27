@@ -113,7 +113,7 @@ export default function Login() {
             />
 
             <div className="forget-password">
-              <p onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña 2222</p>
+              <p onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña</p>
             </div>
 
             <div className="button-contain">
