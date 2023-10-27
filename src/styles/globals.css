@@ -22,3 +22,32 @@ button,
 a {
   font-family: "Poppins", sans-serif;
 }
+
+/* Modals */
+body .swal2-popup {
+  background: rgb(0,0,0);
+  border-radius: 15px;
+  background: linear-gradient(157deg, rgba(0,0,0,1) 36%, rgba(55,55,55,1) 100%);
+}
+body .swal2-popup .swal2-title {
+  color: white;
+  font-size: 1.475em;
+}
+body .swal2-styled.swal2-confirm{
+  padding: 0.6em 1.7em;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 50px;
+  text-align: center;
+  border: none;
+  color: #FFFFFF;
+  width: 100%;
+  background-color: #FF3437;
+  box-shadow: none;
+  outline: none;
+}
+body .swal2-styled.swal2-confirm:focus {
+  box-shadow: none;
+  outline: none;
+}

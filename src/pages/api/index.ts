@@ -1,5 +1,5 @@
 import axios from "axios"
-const url: any = "https://apiambly.solucionsoft.com/"
+const url: string = "https://apiambly.solucionsoft.com"
 
 interface userLoginType {
   email: string

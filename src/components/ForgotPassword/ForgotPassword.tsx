@@ -55,9 +55,12 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
       await AuthApiModel.ForgotPassword(stateInputs.email)
       Swal.fire({
         title: "Revisa tu correo para continuar con el proceso",
+        icon: 'success',
         confirmButtonText: "Aceptar",
       })
+      console.log(validation, ' validation')
     } else {
+      console.log(errors, ' errors')
       setErrorInputs({
         ...errorInputs,
         ...errors,
