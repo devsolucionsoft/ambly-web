@@ -64,6 +64,18 @@ export default function NewPassword() {
       'Content-Type': 'application/json'
     }
     if (validation) {
+      if(stateInputs.password !== stateInputs.passwordVerify){
+        Swal.fire({
+          title: "Las contraseñas no coinciden...",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        })
+        setErrorInputs({
+          ...errorInputs,
+          ...errors,
+        })
+        return
+      }
       setLoading(true)
       try {
         await axios.put(`https://apiambly.solucionsoft.com/auth/new-password`, {
@@ -71,11 +83,16 @@ export default function NewPassword() {
         },{
           headers: headers
         })
-        router.replace("/")
+        Swal.fire({
+          title: "Contraseña guardada exitosamente!",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        })
+        router.replace("/login")
       } catch (error: any) {
         setLoading(false)
         Swal.fire({
-          title: "Valida tu usuario y contraseña",
+          title: stateInputs.password.length < 6 ? "Su contraseña debe tener 6 caracteres mínimo..." : "Valida tu contraseña ingresa...",
           icon: "error",
           confirmButtonText: "Aceptar",
         })
