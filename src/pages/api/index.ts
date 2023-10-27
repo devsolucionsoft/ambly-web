@@ -35,6 +35,22 @@ export class AuthApi {
     }
   }
 
+  async ChangePassword(password: string, token: string) {
+    const headers = {
+      'reset': `${token}`, 
+      'Content-Type': 'application/json'
+    }
+    return new Promise((resolve, reject) => {
+      axios.put(`${url}/auth/new-password`, { newPassword: password },{
+        headers: headers
+      })
+        .then((resp) => {
+          resolve(resp)
+        })
+        .catch((err) => reject(err))
+    })
+  }
+
   async UserLogin(data: userLoginType) {
     try {
       return await axios.post(`${url}/auth/login`, data)
