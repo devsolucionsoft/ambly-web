@@ -21,7 +21,7 @@ import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
 import Swal from "sweetalert2"
 
-export default function Login() {
+export default function NewPassword() {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
@@ -93,32 +93,31 @@ export default function Login() {
           closeModal={() => setShowModal(false)}
         />
         <div className="contain">
-          <Typography text="Iniciar sesion" variant="H1" />
+          <Typography text="Recuperar contraseña" variant="H1" />
+          <p className="subtitle">Ingrese su nueva contraseña a continuación:</p>
           <div className="form-login">
             <Input
-              type="email"
-              label="E-mail"
-              name="email"
+              type="password"
+              label="Contraseña"
+              placeholder="Ingrese su contraseña"
+              name="password"
               onChange={handleKeyUp}
               error={errorInputs.email.error}
               message={errorInputs.email.message}
             />
             <Input
               type="password"
-              label="Contraseña"
-              name="password"
+              label="Repetir Contraseña"
+              placeholder="Confirme su contraseña"
+              name="passwordVerify"
               onChange={handleKeyUp}
               error={errorInputs.password.error}
               message={errorInputs.password.message}
             />
 
-            <div className="forget-password">
-              <p onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña 2222</p>
-            </div>
-
             <div className="button-contain">
               <Button
-                text="INICIAR"
+                text="Guardar"
                 bg
                 color="redPrimary"
                 onClick={handleLogin}
