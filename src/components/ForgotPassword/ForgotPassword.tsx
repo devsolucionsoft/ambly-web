@@ -57,6 +57,8 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
         title: "Revisa tu correo para continuar con el proceso",
         icon: 'success',
         confirmButtonText: "Aceptar",
+      }).then(() => {
+        closeModal();
       })
     } else {
       setErrorInputs({

@@ -58,7 +58,7 @@ export default function Home() {
 
           <div className="shops-section">
             <Typography
-              text="Descarga nuestra"
+              text="Descarga nuestra app en todas las plataformas"
               variant="P"
               style={{ fontSize: "1.1rem" }}
             />

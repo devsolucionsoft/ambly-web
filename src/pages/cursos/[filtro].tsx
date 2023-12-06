@@ -49,7 +49,6 @@ export default function Login(props: any) {
     if (stored) {
       const cart_products: Array<any> = JSON.parse(stored)
       cart_products.push(id)
-      console.log(cart_products)
       localStorage.setItem("cart_products", JSON.stringify(cart_products))
     } else {
       localStorage.setItem("cart_products", JSON.stringify([id]))
@@ -67,7 +66,6 @@ export default function Login(props: any) {
 
     if (stored) {
       stored = JSON.parse(stored)
-      console.log(stored)
       stored.map((element: any) => {
         if (element === id) {
           include = true

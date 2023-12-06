@@ -95,7 +95,6 @@ const ModuleItem = ({
 
 const ModulesList = (props: ModulesListAttributes) => {
   const { items, currentModule, idCourse } = props
-  console.log(idCourse)
 
   return (
     <Main>

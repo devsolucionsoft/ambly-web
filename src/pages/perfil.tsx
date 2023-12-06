@@ -119,7 +119,7 @@ export default function Perfil(props: any) {
           <br />
           <Input
             type="text"
-            label="Nomber"
+            label="Nombre"
             name="username"
             onChange={(ev) => handleKeyUp(ev.target.value, "username")}
             value={stateInputs.username}
@@ -134,7 +134,7 @@ export default function Perfil(props: any) {
           />
           <Input
             type="number"
-            label="Telefono"
+            label="Teléfono"
             onChange={(ev) => handleKeyUp(ev.target.value, "phone")}
             name="phone"
             value={stateInputs.phone}

@@ -20,7 +20,7 @@ export const middleware = async (req: NextRequest) => {
   // or maybe you want to destroy session:
   // await session.destroy();
 
-  console.log("from middleware", { user })
+  // console.log("from middleware", { user })
 
   // demo:
   if (user?.login !== "vvo") {

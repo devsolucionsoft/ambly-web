@@ -25,9 +25,6 @@ import { intructorDetail } from "../../json/data"
 export default function Login() {
   const [instructorInfo, setInfo] = useState<any>(intructorDetail)
   const [intructorList, setIntructorList] = useState([])
-
-  console.log("instructorInfo", instructorInfo)
-
   const router = useRouter()
   const { id_maestro } = router.query
 
@@ -36,12 +33,12 @@ export default function Login() {
 
     ;(async () => {
       const response = await InstructorApiModel.GetInstructors()
-      //response.status === 200 && setIntructorList(response.data)
+      response.status === 200 && setIntructorList(response.data)
     })()
   }, [id_maestro])
 
   useEffect(() => {
-    //setInfo(intructorList.find((item: any) => item.id == id_maestro))
+    setInfo(intructorList.find((item: any) => item.id == id_maestro))
   }, [intructorList, id_maestro])
 
   return (
@@ -61,8 +58,8 @@ export default function Login() {
             className="image"
             src={instructorInfo?.image_secondary}
             alt=""
-            height={100}
-            width={100}
+            height={500}
+            width={500}
           />
           <div className="overlay"></div>
         </div>
@@ -72,8 +69,8 @@ export default function Login() {
               className="avatar-image"
               src={instructorInfo?.image_instructor}
               alt=""
-              height={100}
-              width={100}
+              height={500}
+              width={500}
             />
             <Typography text={instructorInfo?.name_instructor} variant="H1" />
             <Typography
@@ -89,7 +86,7 @@ export default function Login() {
             <HeaderSection title="Cursos" />
             <Sliders
               variant="popular"
-              items={instructorInfo.course.map((item: any) => ({
+              items={instructorInfo?.course.map((item: any) => ({
                 ...item,
                 instructor: {
                   image_instructor: instructorInfo.image_secondary,

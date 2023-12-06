@@ -14,7 +14,6 @@ export default function Perfil(props: any) {
   const router = useRouter()
 
   const { extra1, extra2 }: any = router.query
-  //console.log(JSON.parse(extra1, extra1))
 
   return (
     <>

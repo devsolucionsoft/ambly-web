@@ -194,7 +194,7 @@ export default function Carrito(props: any) {
                   <br />
                   <Input
                     type="text"
-                    label="Nomber completo"
+                    label="Nombre completo"
                     name="buyerFullName"
                     required
                   />
@@ -206,7 +206,7 @@ export default function Carrito(props: any) {
                   />
                   <Input
                     type="number"
-                    label="Telefono"
+                    label="Teléfono"
                     name="mobilePhone"
                     required
                   />

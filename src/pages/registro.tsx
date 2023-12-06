@@ -62,9 +62,9 @@ export default function Login() {
         case 201:
           Swal.fire({
             title: "Registro exitoso.",
-            text: "Ya puedes iniciar sessionapp",
+            text: "Ya puedes iniciar sesión",
             icon: "success",
-            confirmButtonText: "Ir Login",
+            confirmButtonText: "Ir a inicio de sesión",
           }).then(() => {
             router.replace("/login")
           })

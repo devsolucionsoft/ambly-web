@@ -45,12 +45,12 @@ export default function Login(props: any) {
 
           <div className="my-courses-list">
             {intructorList.map((item: any, index: number) => (
-              <Link href={`/${item.id}`} key={index} className="teacher-item">
+              <Link href={`/maestro/${item.id}`} key={index} className="teacher-item">
                 <Image
                   className="teacher-image"
                   src={item.image_instructor}
-                  height={100}
-                  width={100}
+                  height={500}
+                  width={500}
                   alt=""
                 />
                 <Typography

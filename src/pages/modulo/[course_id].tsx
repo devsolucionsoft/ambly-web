@@ -85,10 +85,9 @@ export default function Modulo() {
     })()
   }, [router.query, dispatch])
 
-  // Efecto para actualizar el state con los parametros recividos
+  // Efecto para actualizar el state con los parametros recibidos
   useEffect(() => {
     if (modulo) {
-      console.log("set")
 
       setCurrentModule(parseInt(modulo))
     }
