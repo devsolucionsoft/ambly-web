@@ -61,7 +61,7 @@ const Header = (props: HeaderAttributes) => {
         <div className="links">
           {minimal && (
             <div className="link-item">
-              <Link href="/inicio">Iniciar sesion</Link>
+              <Link href="/inicio">Iniciar sesión</Link>
             </div>
           )}
           <div className="link-item">
