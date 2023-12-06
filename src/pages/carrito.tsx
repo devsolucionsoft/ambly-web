@@ -74,7 +74,7 @@ export default function Carrito(props: any) {
   };
 
   const [loading, setLoading] = useState(false)
-  let total = -valueCupon;
+  let total = valueCupon ? -valueCupon : 0;
 
   const getItems = () => {
     const stored = localStorage.getItem("cart_products")

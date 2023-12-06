@@ -22,7 +22,6 @@ import {
 import Swal from "sweetalert2"
 
 import { CourseApi } from "../api"
-import { log } from "console"
 const CourseApiModel = new CourseApi()
 
 export default function Login(props: any) {
