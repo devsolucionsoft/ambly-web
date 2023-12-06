@@ -115,4 +115,50 @@ export const Main = styled.main`
       }
     }
   }
+  .validateCupon {
+    display : flex;
+    flex-direction : column;
+    gap : 10px;
+
+    label {
+      display : flex;
+      gap : 10px;
+
+    }
+    section {
+      display : flex;
+      flex-direction : column;
+      gap : 5px ;
+      width : 250px;
+
+      input {
+        height: 40px;
+        outline: none;
+        width: 100%;
+        border: none;
+        border: 1px solid white;
+        padding-inline: 5px;
+        border-radius: 5px;
+        background-color : black;
+        color : white;
+    
+    }
+    span {
+      font-size : 12px;
+      margin : 5px 0;
+    }
+    button {
+      width : 80%;
+      height: 30px;
+      cursor : pointer;
+      background-color : #FF3437;
+      color : white;
+      font-weight : bold;
+      border : none ;
+      border-radius : 5px;
+    }
+    }
+
+  }
+  
 `

@@ -24,8 +24,10 @@ import {
 } from "../../lib/session"
 import { MdDelete } from "react-icons/md"
 // API
-import { CourseApi } from "./api"
+import { CourseApi, PayuApi } from "./api"
 const CourseApiModel = new CourseApi()
+const PayuApiModel = new PayuApi()
+
 
 const merchantId = "508029"
 const accountId = "512321"
@@ -37,15 +39,42 @@ export default function Carrito(props: any) {
   const [courses, setCourses] = useState([])
   const [signature, setSignature] = useState("")
   const [referenceCode, setReferenceCode] = useState("")
-
+  const [usarCupon, setUsarCupon] = useState(false);
+  const [codigoCupon, setCodigoCupon] = useState({code : '', error : false, message : ''});
+  const [valueCupon, setValueCupon] = useState(0)
   let urlsite = ""
 
   if (typeof window !== "undefined") {
     urlsite = window.location.host || ""
   }
+  const validateCupon = async (info : any) => {
+    
+    if (usarCupon && codigoCupon.code) {
+      setLoading(true)
+        const response = await PayuApiModel.GetCupon(info);
+        if (response.status === 200) {
+          setCodigoCupon(prevState => ( {
+            ...prevState,
+            error : false,
+            message : response.data.message
+          }))
+          setValueCupon(parseInt(response.data.discount_value, 10)) 
+        } else {
+          setCodigoCupon(prevState => ({
+            ...prevState,
+            error : true,
+            message : response.data.message
+
+          }));
+        }
+  
+    }
+    setLoading(false)
+
+  };
 
   const [loading, setLoading] = useState(false)
-  let total = 0
+  let total = -valueCupon;
 
   const getItems = () => {
     const stored = localStorage.getItem("cart_products")
@@ -96,7 +125,7 @@ export default function Carrito(props: any) {
         Math.random().toString(36).slice(2)
       setReferenceCode(code)
       const md5Signature = Md5.init(
-        `${ApiKey}~${merchantId}~${code}~${amount}~COP`
+        `${ApiKey}~${merchantId}~${code}~${amount-valueCupon}~COP`
       )
       setSignature(md5Signature)
     }
@@ -174,6 +203,28 @@ export default function Carrito(props: any) {
                   </div>
                 )
               })}
+            </div>
+            <div className="validateCupon">
+              <label>
+                <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
+                Usar cupón de descuento
+              </label>
+              {usarCupon && (
+                <section>
+                   <label>
+                    <input
+                    value={codigoCupon.code} 
+                    type="text"
+                    placeholder="Ingrese el cupón de descuento"
+                    onChange={(e) => setCodigoCupon(prevState =>({...prevState, code : e.target.value}))} />
+                  </label>
+                  {codigoCupon?.error ? <span style={{color : 'red'}}>{codigoCupon.message}</span> : <span style={{color : 'green'}}>{codigoCupon.message}</span>}
+                  {codigoCupon?.code && (
+                    <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : 4})}>Validar cupón</button>
+                  )}
+                </section>
+               
+              )}
             </div>
             <div className="total">
               <Typography
