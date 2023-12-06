@@ -33,14 +33,19 @@ export default function Login(props: any) {
 
   useEffect(() => {
     getCourses()
-  }, [])
+  }, [filtro])
 
   const getCourses = async () => {
     setLoading(true)
     const response = await CourseApiModel.GetCourses()
     if (response.status === 200) {
-      const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
-      setCourses(filterCourse)
+      if (filtro === "todos") {
+        setCourses(response.data)
+      }
+      else {
+        const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
+        setCourses(filterCourse)
+      }
       setLoading(false)
     }
   }

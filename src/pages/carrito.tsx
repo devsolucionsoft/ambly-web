@@ -204,28 +204,31 @@ export default function Carrito(props: any) {
                 )
               })}
             </div>
-            <div className="validateCupon">
-              <label>
-                <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
-                Usar cupón de descuento
-              </label>
-              {usarCupon && (
-                <section>
-                   <label>
-                    <input
-                    value={codigoCupon.code} 
-                    type="text"
-                    placeholder="Ingrese el cupón de descuento"
-                    onChange={(e) => setCodigoCupon(prevState =>({...prevState, code : e.target.value}))} />
-                  </label>
-                  {codigoCupon?.error ? <span style={{color : 'red'}}>{codigoCupon.message}</span> : <span style={{color : 'green'}}>{codigoCupon.message}</span>}
-                  {codigoCupon?.code && (
-                    <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : 4})}>Validar cupón</button>
-                  )}
-                </section>
-               
-              )}
-            </div>
+            {courses.length > 0 ?
+             <div className="validateCupon">
+             <label>
+               <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
+               Usar cupón de descuento
+             </label>
+             {usarCupon && (
+               <section>
+                  <label>
+                   <input
+                   value={codigoCupon.code} 
+                   type="text"
+                   placeholder="Ingrese el cupón de descuento"
+                   onChange={(e) => setCodigoCupon(prevState =>({...prevState, code : e.target.value}))} />
+                 </label>
+                 {codigoCupon?.error ? <span style={{color : 'red'}}>{codigoCupon.message}</span> : <span style={{color : 'green'}}>{codigoCupon.message}</span>}
+                 {codigoCupon?.code && (
+                   <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : 4})}>Validar cupón</button>
+                 )}
+               </section>
+              
+             )}
+           </div> : 'No hay nada en el carrito' 
+            }
+           
             <div className="total">
               <Typography
                 text={`Total: $${new Intl.NumberFormat("es-MX").format(total)}`}
