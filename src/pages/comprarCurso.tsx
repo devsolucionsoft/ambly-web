@@ -74,7 +74,7 @@ export default function Carrito(props: any) {
   };
 
   const [loading, setLoading] = useState(false)
-  let total = valueCupon ? -valueCupon : 0;
+  let total = valueCupon && courses.length ? -valueCupon : 0;
 
   const getItems = () => {
     const stored = localStorage.getItem("cart_products")
@@ -140,8 +140,12 @@ export default function Carrito(props: any) {
       localStorage.setItem("cart_products", JSON.stringify(filterdata))
     }
     getItems()
-  }
 
+
+  }
+  //@ts-ignore
+  const courseId = courses.length ? courses[0].id : '';
+  
   return (
     <>
       <Head>
@@ -221,7 +225,7 @@ export default function Carrito(props: any) {
                  </label>
                  {codigoCupon?.error ? <span style={{color : 'red'}}>{codigoCupon.message}</span> : <span style={{color : 'green'}}>{codigoCupon.message}</span>}
                  {codigoCupon?.code && (
-                   <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : courses[0]?.id})}>Validar cupón</button>
+                   <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : courseId})}>Validar cupón</button>
                  )}
                </section>
               
