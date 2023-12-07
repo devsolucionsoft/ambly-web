@@ -187,7 +187,7 @@ export default function Carrito(props: any) {
                         <div className="autor">
                           <FaUserAlt className="icon" />
                           <Typography
-                            text={item.instructor.name_instructor}
+                            text={item.instructor?.name_instructor}
                             variant="H4"
                           />
                         </div>

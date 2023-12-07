@@ -55,7 +55,7 @@ export default function Login(props: any) {
                 />
                 <Typography
                   className="teacher-title"
-                  text={item.name_instructor}
+                  text={item?.name_instructor}
                   variant="H4"
                 />
               </Link>
