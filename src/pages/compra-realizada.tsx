@@ -12,9 +12,6 @@ import {
 
 export default function Perfil(props: any) {
   const router = useRouter()
-  localStorage.clear()
-  console.log(router);
-  
 
   const { extra1, extra2 }: any = router.query
 
