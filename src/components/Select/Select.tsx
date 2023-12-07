@@ -2,7 +2,6 @@
 import { HTMLAttributes, DetailedHTMLProps, InputHTMLAttributes } from "react"
 // Styled components
 import { Main } from "./Select.styled"
-import { log } from "console"
 
 export interface InputProps {
   label?: string

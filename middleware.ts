@@ -20,8 +20,6 @@ export const middleware = async (req: NextRequest) => {
   // or maybe you want to destroy session:
   // await session.destroy();
 
-  // console.log("from middleware", { user })
-
   // demo:
   if (user?.login !== "vvo") {
     return new NextResponse(null, { status: 403 }) // unauthorized to see pages inside admin/

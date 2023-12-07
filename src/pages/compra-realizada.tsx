@@ -9,11 +9,34 @@ import {
   sessionOptions,
   sessionVerificationNotCreated,
 } from "../../lib/session"
+import { useEffect, useState } from "react"
 
 export default function Perfil(props: any) {
+  const [message, setMessage] = useState('')
   const router = useRouter()
+  
 
-  const { extra1, extra2 }: any = router.query
+  const { extra1, extra2, transactionState }: any = router.query
+
+  useEffect(() => {
+    validateTransaction()
+  }, [])
+  
+
+  const validateTransaction = () => {
+    if (transactionState == 4) {
+      setMessage('¡Tu compra se realizó con exito!')
+    }
+    else if (transactionState == 6) {
+      setMessage('No se pudo realizar su compra')
+    }
+    else if (transactionState == 7) {
+      setMessage('Pago pendiente')
+    }
+    else {
+      setMessage('Hubo un error al realizar su compra')
+    }
+  }
 
   return (
     <>
@@ -38,7 +61,7 @@ export default function Perfil(props: any) {
             paddingBottom: "10em",
           }}
         >
-          <h1>¡Tu compra se realizó con exito!</h1>
+          <h1>{message}</h1>
           <div style={{ marginTop: "3rem" }}>
             <Button
               text="Ir a mis cursos"
