@@ -27,6 +27,8 @@ interface SlidersProps {
   onClickSlider?: (item: any) => void
   items?: any
 }
+console.log('prueba');
+
 
 
 type SlidersAttributes = SlidersProps & HTMLAttributes<HTMLDivElement>
