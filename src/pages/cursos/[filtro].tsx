@@ -51,36 +51,28 @@ export default function Login(props: any) {
 
   const addCart = (id: any) => {
     setLoading(true)
-    const stored = localStorage.getItem("cart_products")
-
-    if (stored) {
-      const cart_products: Array<any> = JSON.parse(stored)
-      cart_products.push(id)
-      localStorage.setItem("cart_products", JSON.stringify(cart_products))
-    } else {
-      localStorage.setItem("cart_products", JSON.stringify([id]))
-    }
+    localStorage.setItem("cart_products", JSON.stringify([id]))
     getCourses()
     setTimeout(() => {
+      router.push(`/comprarCurso/`)
       setLoading(false)
-      Swal.fire("¡Curso agregado al carrito de compras!")
     }, 300)
   }
 
-  const includeCourse = (id: any) => {
-    let include = false
-    let stored: any = localStorage.getItem("cart_products")
+  // const includeCourse = (id: any) => {
+  //   let include = false
+  //   let stored: any = localStorage.getItem("cart_products")
 
-    if (stored) {
-      stored = JSON.parse(stored)
-      stored.map((element: any) => {
-        if (element === id) {
-          include = true
-        }
-      })
-    }
-    return include
-  }
+  //   if (stored) {
+  //     stored = JSON.parse(stored)
+  //     stored.map((element: any) => {
+  //       if (element === id) {
+  //         include = true
+  //       }
+  //     })
+  //   }
+  //   return include
+  // }
 
   return (
     <>
@@ -103,19 +95,19 @@ export default function Login(props: any) {
               <section key={index} className="course-item">
                 <div className="hover-content">
                   <Button
-                    text="Ir a curso"
+                    text="Ver más"
                     onClick={() => router.push(`/curso/${item.id}`)}
                     style={{ textDecoration: "underline" }}
                   />
-                  {!includeCourse(item.id) && (
                     <Button
-                      text="Agregar a carrito"
+                      text="Comprar curso"
                       bg
                       color="redPrimary"
                       variant="sm"
-                      onClick={() => addCart(item.id)}
+                      onClick={() => {
+                        addCart(item.id)
+                      }}
                     />
-                  )}
                 </div>
                 <Image
                   className="image-course"

@@ -28,11 +28,11 @@ interface SlidersProps {
   items?: any
 }
 
+
 type SlidersAttributes = SlidersProps & HTMLAttributes<HTMLDivElement>
 
 const Sliders = (props: SlidersAttributes) => {
   const router = useRouter()
-
   const [width, setWidth] = useState(0)
 
   const handleResize = () => {
@@ -137,7 +137,7 @@ const Sliders = (props: SlidersAttributes) => {
                 <SliderPopular onClick={() => router.push(`/curso/${item.id}`)}>
                   <Image
                     className="image-course"
-                    src={item?.instructor?.image_instructor}
+                    src={item?.image_course}
                     alt=""
                     height={500}
                     width={500}

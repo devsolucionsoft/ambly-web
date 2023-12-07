@@ -158,7 +158,7 @@ export default function Carrito(props: any) {
         <div className="content-page">
           <div style={{ width: "100%" }}>
             <Typography
-              text="Carrito"
+              text="Comprar curso"
               variant="H1"
               style={{ textAlign: "left", width: "100%" }}
             />
@@ -221,12 +221,12 @@ export default function Carrito(props: any) {
                  </label>
                  {codigoCupon?.error ? <span style={{color : 'red'}}>{codigoCupon.message}</span> : <span style={{color : 'green'}}>{codigoCupon.message}</span>}
                  {codigoCupon?.code && (
-                   <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : 4})}>Validar cupón</button>
+                   <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : courses[0]?.id})}>Validar cupón</button>
                  )}
                </section>
               
              )}
-           </div> : 'No hay nada en el carrito' 
+           </div> : 'Por favor selecciona el curso que deseas comprar' 
             }
            
             <div className="total">

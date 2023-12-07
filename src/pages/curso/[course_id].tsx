@@ -160,19 +160,10 @@ export default function CourseDetail(props: any) {
   }, [courseInfo])
 
   const addCart = () => {
-    const stored = localStorage.getItem("cart_products")
     setLoading(true)
-
-    if (stored) {
-      const cart_products: Array<any> = JSON.parse(stored)
-      cart_products.push(courseInfo.id)
-      localStorage.setItem("cart_products", JSON.stringify(cart_products))
-    } else {
       localStorage.setItem("cart_products", JSON.stringify([courseInfo.id]))
-    }
-
     setTimeout(() => {
-      setIncludeCart(true)
+      router.push("/comprarCurso")
       setLoading(false)
     }, 300)
   }
@@ -275,11 +266,9 @@ export default function CourseDetail(props: any) {
                     />
                   </div>
                 )}
-                {!includeCart ? (
+                {includeMyCourse ? (
                   <Button
-                    text={
-                      includeMyCourse ? "Continuar curso" : "Agregar al carrito"
-                    }
+                    text="Continuar curso"
                     variant="sm"
                     bg
                     color="redPrimary"
@@ -287,10 +276,10 @@ export default function CourseDetail(props: any) {
                   />
                 ) : (
                   <Button
-                    text={"Ir a carrito"}
+                    text={"Comprar curso"}
                     bg
                     color="redPrimary"
-                    onClick={() => router.push("/carrito")}
+                    onClick={() => addCart() }
                   />
                 )}
               </div>
