@@ -187,7 +187,7 @@ export class UserApi {
     }
   }
 
-  async EditUser(id: any, inputs: any) {
+  async EditUser(id: any, inputs: any, token : any) {
     const data = {
       username: inputs.username,
       phone: inputs.phone,
@@ -197,7 +197,12 @@ export class UserApi {
       email: inputs.email,
     }
     try {
-      return await axios.patch(`${url}/users/${id}`, data)
+      return await axios.patch(`${url}/users/${id}`, data, {
+        headers : {
+          "Content-Type": "application/json",
+          "auth": token,
+        }
+      })
     } catch (error: any) {
       return error.response
     }

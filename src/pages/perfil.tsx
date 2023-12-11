@@ -27,6 +27,7 @@ import Swal from "sweetalert2"
 import { UserApi } from "./api"
 
 export default function Perfil(props: any) {
+  
   const UserApiModel = new UserApi()
 
   const defaultInputs = {
@@ -57,7 +58,7 @@ export default function Perfil(props: any) {
     })
     setErrorInputs(validationInputs)
   }
-
+  
   useEffect(() => {
     ;(async () => {
       const response = await UserApiModel.GetUser(props.user.id)
@@ -75,10 +76,10 @@ export default function Perfil(props: any) {
 
   const handleSend = async () => {
     const { errors, validation } = getValidation(stateInputs)
+    
     if (validation) {
-      const response = await UserApiModel.EditUser(props.user.id, stateInputs)
-
-      if (response.status === 200) {
+      const response = await UserApiModel.EditUser(props?.user.id, stateInputs, props?.user.token)
+      if (response.status === 201) {
         Swal.fire({
           title: "Usuario editado",
           text: "",
@@ -123,6 +124,8 @@ export default function Perfil(props: any) {
             name="username"
             onChange={(ev) => handleKeyUp(ev.target.value, "username")}
             value={stateInputs.username}
+            error={errorInputs.username.error}
+            message={errorInputs.username.message}
           />
           <Input
             type="email"
@@ -138,6 +141,8 @@ export default function Perfil(props: any) {
             onChange={(ev) => handleKeyUp(ev.target.value, "phone")}
             name="phone"
             value={stateInputs.phone}
+            error={errorInputs.phone.error}
+            message={errorInputs.phone.message}
           />
           {/* <Select label="Ciudad" options={countries} /> */}
           <br />
