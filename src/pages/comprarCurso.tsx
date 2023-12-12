@@ -58,6 +58,7 @@ export default function Carrito(props: any) {
     urlsite = window.location.host || ""
   }
   
+  
   const validateCupon = async (info : any) => {
     
     if (usarCupon && codigoCupon.code) {
@@ -93,7 +94,10 @@ export default function Carrito(props: any) {
         const filterdata = response.data.filter((item: any) =>
           cart_products.includes(item.id)
         )
-        response.status === 200 && setCourses(filterdata)
+        if (response.status === 200){
+          setCourses(filterdata)
+          setCurrentCouse(filterdata[0])          
+        }
         setLoading(false)
       })()
     }
@@ -197,7 +201,6 @@ export default function Carrito(props: any) {
       setTotalWithDiscount(nuevoTotal)
     }
   }, [valueCourse, valueCupon])
-  
 
   return (
     <>
@@ -287,17 +290,17 @@ export default function Carrito(props: any) {
            
             <div className="total">
               <Typography
-                text={`Subtotal: $${new Intl.NumberFormat("es-MX").format(total)}`}
+                text={`Subtotal: $${new Intl.NumberFormat("es-MX").format(total ? total : 0)}`}
                 variant="H5"
               />
               <hr />
               <Typography
-                text={`Descuento: $${new Intl.NumberFormat("es-MX").format(valueCupon)}`}
+                text={`Descuento: $${new Intl.NumberFormat("es-MX").format(currentCouse && valueCupon ? valueCupon : 0)}`}
                 variant="H6"
               />
               <hr />
               <Typography
-                text={`Total: $${new Intl.NumberFormat("es-MX").format(totalWithDiscount)}`}
+                text={`Total: $${new Intl.NumberFormat("es-MX").format(totalWithDiscount && currentCouse ? totalWithDiscount : 0)}`}
                 variant="H2"
               />
             </div>
