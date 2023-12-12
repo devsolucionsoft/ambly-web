@@ -43,6 +43,7 @@ export default function Carrito(props: any) {
   const [codigoCupon, setCodigoCupon] = useState({code : '', error : false, message : ''});
   const [valueCupon, setValueCupon] = useState(0)
   let urlsite = ""
+  
 
   if (typeof window !== "undefined") {
     urlsite = window.location.host || ""
@@ -241,7 +242,7 @@ export default function Carrito(props: any) {
             </div>
           </div>
           <div style={{ width: "80%" }}>
-            {true ? (
+            {props.user ? (
               <form
                 method="post"
                 action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
