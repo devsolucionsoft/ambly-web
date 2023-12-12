@@ -278,4 +278,17 @@ export class PayuApi {
       
     }
   }
+  async RegisterTransaction (data : any) {
+    try {
+      return await axios.post(`${url}/payu/register-transaction`, data, {
+        headers : {
+          "Content-Type": "application/json",
+          "auth": data.token,
+        }
+      })
+      
+    } catch (error : any) {
+        return error.response
+    }
+  }
 }

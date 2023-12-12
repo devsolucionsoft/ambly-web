@@ -6,7 +6,6 @@ import { useRouter } from "next/router"
 import { FaUserAlt } from "react-icons/fa"
 // Styled components
 import { Main } from "../styles/carrito.styled"
-import { Md5 } from "md5-typescript"
 // Components
 import {
   Header,
@@ -24,30 +23,41 @@ import {
 } from "../../lib/session"
 import { MdDelete } from "react-icons/md"
 // API
-import { CourseApi, PayuApi } from "./api"
+import { CourseApi, PayuApi, UserApi } from "./api"
 const CourseApiModel = new CourseApi()
 const PayuApiModel = new PayuApi()
-
-
-const merchantId = "508029"
-const accountId = "512321"
-const ApiKey = "4Vj8eK4rloUd272L48hsrarnUA"
+const UserApiModel = new UserApi()
 
 export default function Carrito(props: any) {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const [cartProducts, setCartProducts] = useState("")
   const [courses, setCourses] = useState([])
-  const [signature, setSignature] = useState("")
-  const [referenceCode, setReferenceCode] = useState("")
+  const [currentCouse, setCurrentCouse] = useState({})
   const [usarCupon, setUsarCupon] = useState(false);
   const [codigoCupon, setCodigoCupon] = useState({code : '', error : false, message : ''});
   const [valueCupon, setValueCupon] = useState(0)
+  const [currentUser, setCurrentUser] = useState({})
+  const [total, setTotal] = useState(0)
+  const [totalWithDiscount, setTotalWithDiscount] = useState(0)
+  const [paymentData, setPaymentData] = useState({
+    accountId: '',
+    confirmationUrl: '',
+    currency: '',
+    description: 'Test PAYU',
+    merchantId: '',
+    referenceCode: '',
+    signature: '',
+    tax: 0,
+    taxReturnBase: 0,
+    test : '0'
+  });
   let urlsite = ""
-  
 
   if (typeof window !== "undefined") {
     urlsite = window.location.host || ""
   }
+  
   const validateCupon = async (info : any) => {
     
     if (usarCupon && codigoCupon.code) {
@@ -59,7 +69,8 @@ export default function Carrito(props: any) {
             error : false,
             message : response.data.message
           }))
-          setValueCupon(parseInt(response.data.discount_value, 10)) 
+          setValueCupon(parseInt(response.data.discount_value, 10))
+          
         } else {
           setCodigoCupon(prevState => ({
             ...prevState,
@@ -68,21 +79,14 @@ export default function Carrito(props: any) {
 
           }));
         }
-  
     }
     setLoading(false)
-
   };
-
-  const [loading, setLoading] = useState(false)
-  let total = valueCupon && courses.length ? -valueCupon : 0;
 
   const getItems = () => {
     const stored = localStorage.getItem("cart_products")
-    total = 0
-
     if (stored) {
-      const cart_products: Array<any> = JSON.parse(stored)
+      const cart_products = JSON.parse(stored)
       ;(async () => {
         setLoading(true)
         const response = await CourseApiModel.GetCourses()
@@ -97,9 +101,8 @@ export default function Carrito(props: any) {
 
   useEffect(() => {
     const stored = localStorage.getItem("cart_products")
-
     if (stored) {
-      setCartProducts(stored)
+      setCartProducts(stored)      
       const cart_products: Array<any> = JSON.parse(stored)
       ;(async () => {
         setLoading(true)
@@ -107,30 +110,14 @@ export default function Carrito(props: any) {
         const filterdata = response.data.filter((item: any) =>
           cart_products.includes(item.id)
         )
-        response.status === 200 && setCourses(filterdata)
+        if (response.status === 200){
+          setCourses(filterdata)
+          setCurrentCouse(filterdata[0])          
+        }
         setLoading(false)
       })()
     }
   }, [props.user.id])
-
-  useEffect(() => {
-    let amount = 0
-
-    if (total > 0 && courses.length > 0) {
-      courses.forEach((item: any) => {
-        amount += parseInt(item.price_course)
-      })
-
-      const code =
-        Math.random().toString(36).slice(2) +
-        Math.random().toString(36).slice(2)
-      setReferenceCode(code)
-      const md5Signature = Md5.init(
-        `${ApiKey}~${merchantId}~${code}~${amount-valueCupon}~COP`
-      )
-      setSignature(md5Signature)
-    }
-  }, [total, courses])
 
   const deleteItem = (id: number) => {
     const stored = localStorage.getItem("cart_products")
@@ -141,12 +128,77 @@ export default function Carrito(props: any) {
       localStorage.setItem("cart_products", JSON.stringify(filterdata))
     }
     getItems()
-
-
   }
-  //@ts-ignore
-  const courseId = courses.length ? courses[0].id : '';
+
+  interface UserInfo {
+    username : string,
+    email : string,
+    phone : string
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await UserApiModel.GetUser(props.user.id)     
+      setCurrentUser({
+        username: response.data.user.username,
+        email: response.data.user.email,
+        phone: response.data.user.phone,
+      })
+    })()
+  }, [])
+
+  interface CourseInfo {
+    price_course: string;
+    id : number;
+  }
+
+  const valueCourse = (currentCouse as CourseInfo)?.price_course;
+  const courseId = (currentCouse as CourseInfo)?.id;
+  const username = (currentUser as UserInfo)?.username;     
+  const email = (currentUser as UserInfo)?.email;      
+  const phone = (currentUser as UserInfo)?.phone;
   
+  const data = {
+    value : valueCourse ? parseInt(valueCourse, 10) : 0,
+    courseId : courseId ? courseId : 0,
+    codeDiscount : codigoCupon.code ? codigoCupon.code : '',
+    token : props?.user?.token
+  }
+
+  const regitserAndSubmitTransaction = async () => {
+    setLoading(true)
+    if (data) {
+      const response = await PayuApiModel.RegisterTransaction(data)
+      console.log(response);
+      if (response.status === 200) {
+          setPaymentData({
+            ...paymentData,
+            accountId: response.data.data.accountId,
+            confirmationUrl: response.data.data.confirmationUrl,
+            currency: response.data.data.currency,
+            description: response.data.data.description,
+            merchantId: response.data.data.merchantId,
+            referenceCode: response.data.data.referenceCode,
+            signature: response.data.data.signature,
+            tax: response.data.data.tax,
+            taxReturnBase: response.data.data.taxReturnBase,
+        })
+      }
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    regitserAndSubmitTransaction()
+    setTotal(parseInt(valueCourse))
+    setTotalWithDiscount(parseInt(valueCourse))
+    if (valueCupon) {
+      const nuevoTotal = total - valueCupon      
+      setTotalWithDiscount(nuevoTotal)
+    }
+  }, [valueCourse, valueCupon])
+  
+
   return (
     <>
       <Head>
@@ -170,7 +222,6 @@ export default function Carrito(props: any) {
 
             <div className="items-carrito">
               {courses.map((item: any, index: number) => {
-                total += parseInt(item.price_course)
                 return (
                   <div className="item-carrito" key={index}>
                     <div className="flex">
@@ -236,7 +287,17 @@ export default function Carrito(props: any) {
            
             <div className="total">
               <Typography
-                text={`Total: $${new Intl.NumberFormat("es-MX").format(total)}`}
+                text={`Subtotal: $${new Intl.NumberFormat("es-MX").format(total)}`}
+                variant="H5"
+              />
+              <hr />
+              <Typography
+                text={`Descuento: $${new Intl.NumberFormat("es-MX").format(valueCupon)}`}
+                variant="H6"
+              />
+              <hr />
+              <Typography
+                text={`Total: $${new Intl.NumberFormat("es-MX").format(totalWithDiscount)}`}
                 variant="H2"
               />
             </div>
@@ -249,44 +310,21 @@ export default function Carrito(props: any) {
               >
                 <div className="divider"></div>
                 <div className="form">
-                  <Typography text="Datos de pago" variant="H4" />
-                  <br />
-                  <Input
-                    type="text"
-                    label="Nombre completo"
-                    name="buyerFullName"
-                    required
-                  />
-                  <Input
-                    type="email"
-                    label="Email"
-                    name="buyerEmail"
-                    required
-                  />
-                  <Input
-                    type="number"
-                    label="Teléfono"
-                    name="mobilePhone"
-                    required
-                  />
-
-                  <input name="merchantId" type="hidden" value={merchantId} />
-                  <input name="accountId" type="hidden" value={accountId} />
-                  <input name="description" type="hidden" value="Test PAYU" />
-                  <input
-                    name="referenceCode"
-                    type="hidden"
-                    value={referenceCode}
-                  />
-                  <input name="amount" type="hidden" value={total} required />
-                  <input name="tax" type="hidden" value="0" />
-                  <input name="taxReturnBase" type="hidden" value="0" />
-                  <input name="currency" type="hidden" value="COP" />
-                  <input name="signature" type="hidden" value={signature} />
-                  <input name="test" type="hidden" value="0" />
+                  <input name="buyerFullName" type="hidden" value={username} />
+                  <input name="buyerEmail" type="hidden" value={email} />
+                  <input name="mobilePhone" type="hidden" value={phone} />
+                  <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
+                  <input name="accountId" type="hidden" value={paymentData?.accountId} />
+                  <input name="description" type="hidden" value={paymentData?.description} />
+                  <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
+                  <input name="amount" type="hidden" value={totalWithDiscount} />
+                  <input name="tax" type="hidden" value={paymentData?.tax} />
+                  <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
+                  <input name="currency" type="hidden" value={paymentData?.currency} />
+                  <input name="signature" type="hidden" value={paymentData?.signature} />
+                  <input name="test" type="hidden" value={paymentData?.test} />
                   <input name="extra1" type="hidden" value={props.user.id} />
                   <input name="extra2" type="hidden" value={cartProducts} />
-
                   <input
                     name="responseUrl"
                     type="hidden"
@@ -295,18 +333,12 @@ export default function Carrito(props: any) {
                   <input
                     name="confirmationUrl"
                     type="hidden"
-                    value={`https://ambly-web.vercel.app/compra-realizada`}
+                    value={paymentData.confirmationUrl}
                   />
-                  {/* <div>
-                  <Typography text="Datos de tarjeta" variant="H4" />
-                  <br />
-                  <Input type="email" label="Numero de tarjeta" name="nomber" />
-                  <Input type="email" label="CV" name="nomber" />
-                </div> */}
                 </div>
                 <div>
                   <Button
-                    text="Realizar compra"
+                    text="Realizar pago"
                     bg
                     color="redPrimary"
                     type="submit"
