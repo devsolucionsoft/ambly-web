@@ -215,8 +215,8 @@ export default function Carrito(props: any) {
         <Header minimal={!props.user} />
         <Loader loading={loading} />
 
-        <div className="content-page">
-          <div style={{ width: "100%" }}>
+        <div className="content-page" style={{display : "flex", flexDirection : "column" }}>
+          <div style={{ width: "100%"}}>
             <Typography
               text="Comprar curso"
               variant="H1"
@@ -231,14 +231,13 @@ export default function Carrito(props: any) {
                       <Image
                         className="image"
                         src={item.image_course}
-                        height={100}
-                        width={100}
+                        height={500}
+                        width={500}
                         alt=""
                       />
 
                       <div className="content">
                         <Typography text={item.name_course} variant="H3" />
-
                         <div className="autor">
                           <FaUserAlt className="icon" />
                           <Typography
@@ -246,8 +245,9 @@ export default function Carrito(props: any) {
                             variant="H4"
                           />
                         </div>
+                        <br />
                         <Typography
-                          style={{ textAlign: "right" }}
+                          style={{ textAlign: "left" }}
                           text={`$${new Intl.NumberFormat("es-MX").format(
                             item.price_course
                           )}`}
@@ -305,7 +305,7 @@ export default function Carrito(props: any) {
               />
             </div>
           </div>
-          <div style={{ width: "80%" }}>
+          <div style={{ width: "100%" }}>
             {props.user ? (
               <form
                 method="post"
@@ -339,12 +339,14 @@ export default function Carrito(props: any) {
                     value={paymentData.confirmationUrl}
                   />
                 </div>
-                <div>
-                  <Button
+                <div style={{display : "flex", justifyContent
+               : "center", padding : "10px"}}>
+                  <Button style={{width: "450px"}}
                     text="Realizar pago"
                     bg
                     color="redPrimary"
                     type="submit"
+                    disabled={!currentCouse}
                   />
                 </div>
               </form>
