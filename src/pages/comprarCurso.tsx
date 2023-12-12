@@ -57,8 +57,6 @@ export default function Carrito(props: any) {
   if (typeof window !== "undefined") {
     urlsite = window.location.host || ""
   }
-  
-  
   const validateCupon = async (info : any) => {
     
     if (usarCupon && codigoCupon.code) {
@@ -142,12 +140,14 @@ export default function Carrito(props: any) {
 
   useEffect(() => {
     ;(async () => {
-      const response = await UserApiModel.GetUser(props.user.id)     
-      setCurrentUser({
+      if (props.user) {
+        const response = await UserApiModel.GetUser(props.user.id)     
+        setCurrentUser({
         username: response.data.user.username,
         email: response.data.user.email,
         phone: response.data.user.phone,
       })
+      }   
     })()
   }, [])
 
@@ -171,9 +171,8 @@ export default function Carrito(props: any) {
 
   const regitserAndSubmitTransaction = async () => {
     setLoading(true)
-    if (data) {
+    if (data && props.user) {
       const response = await PayuApiModel.RegisterTransaction(data)
-      console.log(response);
       if (response.status === 200) {
           setPaymentData({
             ...paymentData,
@@ -191,9 +190,11 @@ export default function Carrito(props: any) {
     }
     setLoading(false)
   }
-
+  
   useEffect(() => {
-    regitserAndSubmitTransaction()
+    if (data.value) {
+      regitserAndSubmitTransaction()
+    }
     setTotal(parseInt(valueCourse))
     setTotalWithDiscount(parseInt(valueCourse))
     if (valueCupon) {
@@ -235,7 +236,6 @@ export default function Carrito(props: any) {
                         width={500}
                         alt=""
                       />
-
                       <div className="content">
                         <Typography text={item.name_course} variant="H3" />
                         <div className="autor">
@@ -356,12 +356,13 @@ export default function Carrito(props: any) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
+                  justifyContent : "center",
                   padding: "auto",
                   marginTop: "5em",
                 }}
               >
-                <Button
-                  text="Inicia sesion"
+                <Button style={{width: "450px"}}
+                  text="Iniciar sesión"
                   bg
                   color="redPrimary"
                   onClick={() => router.push("/inicio")}

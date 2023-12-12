@@ -272,7 +272,6 @@ export class PayuApi {
   async GetCupon (data : any) {
     try {
       return await axios.post(`${url}/discount-codes/validation`, data)
-      
     } catch (error: any) {
       return error.response
       
@@ -286,7 +285,6 @@ export class PayuApi {
           "auth": data.token,
         }
       })
-      
     } catch (error : any) {
         return error.response
     }
