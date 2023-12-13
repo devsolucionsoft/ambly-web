@@ -6,7 +6,7 @@ import Link from "next/link"
 // Styled components
 import { Main } from "../styles/categorias.styled"
 // Components
-import { Header, Typography, SideNav, Footer } from "../components"
+import { Header, Typography, SideNav, Footer, Loader } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -18,11 +18,15 @@ const UserApiModel = new UserApi()
 
 export default function Login(props: any) {
   const [topics, setTopics] = useState([])
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
+    setLoading(true)
     ;(async () => {
       const response = await UserApiModel.GetCategories()
       response.status === 200 && setTopics(response.data)
     })()
+    setLoading(false)
   }, [])
   
   return (
@@ -34,6 +38,7 @@ export default function Login(props: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
+        <Loader loading={loading} />
         <SideNav minimal={!props.user} />
         <Header minimal={!props.user} />
 
