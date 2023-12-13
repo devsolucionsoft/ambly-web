@@ -82,10 +82,18 @@ export default function Login(props: any) {
     setLoading(true)
     localStorage.setItem("cart_products", JSON.stringify([id]))
     getCourses()
-    setTimeout(() => {
-      router.push(`/comprarCurso/`)
-      setLoading(false)
-    }, 300)
+    if (includeCourse.includes(id)) {
+      setTimeout(() => {
+        router.push('/curso/id')
+        setLoading(false)
+      }, 300)
+    }
+    else {
+      setTimeout(() => {
+        router.push(`/comprarCurso/`)
+        setLoading(false)
+      }, 300)
+    }
   }
   const includeCourseUser = () => {
     if (coursesList.length && userCoursesList) {
