@@ -55,9 +55,13 @@ export default function Login(props: any) {
   }, [dispatch, props.user, coursesList])
   
   useEffect(() => {
-    getCourses()
-    includeCourseUser()
+    loadCoursesAndIncludeUser()
   }, [filtro])
+
+  const loadCoursesAndIncludeUser = async () => {
+    await getCourses()
+    includeCourseUser()    
+  }
 
   const getCourses = async () => {
     setLoading(true)
@@ -65,13 +69,10 @@ export default function Login(props: any) {
     if (response.status === 200) {
       if (filtro === "todos") {
         setCoursesList(response.data)
-        await includeCourseUser()
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
         setCoursesList(filterCourse)
-        await includeCourseUser()
-
       }
     }
     setLoading(false)
@@ -86,7 +87,7 @@ export default function Login(props: any) {
       setLoading(false)
     }, 300)
   }
-  const includeCourseUser = async () => {
+  const includeCourseUser = () => {
     if (coursesList.length && userCoursesList) {
       let newIncludeCourse : number[] = [];
       coursesList.forEach((course) : any => {
