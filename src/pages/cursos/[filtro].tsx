@@ -56,6 +56,7 @@ export default function Login(props: any) {
   
   useEffect(() => {
     getCourses()
+    includeCourseUser()
   }, [filtro])
 
   const getCourses = async () => {
@@ -84,7 +85,8 @@ export default function Login(props: any) {
       setLoading(false)
     }, 300)
   }
-  const includeCourseUser = () => {
+  const includeCourseUser = () => {  
+
     if (coursesList.length && userCoursesList) {
       let newIncludeCourse : number[] = [];
       coursesList.forEach((course) : any => {
