@@ -22,7 +22,7 @@ export default function Perfil(props: any) {
     validateTransaction()
   }, [])
   
-
+//Función para validar el estado de la transacción y mostrarselo al usuario
   const validateTransaction = () => {
     if (transactionState == 4) {
       setMessage('¡Tu compra se realizó con exito!')

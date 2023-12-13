@@ -57,6 +57,7 @@ export default function Carrito(props: any) {
   if (typeof window !== "undefined") {
     urlsite = window.location.host || ""
   }
+  //Validación de cupón ingresado por el usuario
   const validateCupon = async (info : any) => {
     
     if (usarCupon && codigoCupon.code) {
@@ -81,7 +82,7 @@ export default function Carrito(props: any) {
     }
     setLoading(false)
   };
-
+//Se obtiene la data del carrito de compras
   const getItems = () => {
     const stored = localStorage.getItem("cart_products")
     if (stored) {
@@ -100,7 +101,7 @@ export default function Carrito(props: any) {
       })()
     }
   }
-
+//Se obtiene la data del carrito de compras al cargar la página
   useEffect(() => {
     const stored = localStorage.getItem("cart_products")
     if (stored) {
@@ -120,7 +121,8 @@ export default function Carrito(props: any) {
       })()
     }
   }, [props.user.id])
-
+  
+//Se borra el curso seleccionado
   const deleteItem = (id: number) => {
     const stored = localStorage.getItem("cart_products")
 
@@ -129,15 +131,17 @@ export default function Carrito(props: any) {
       const filterdata = cart_products.filter((item: any) => item !== id)
       localStorage.setItem("cart_products", JSON.stringify(filterdata))
     }
+    //Se llama la función para actualizar la información que ve el usuario
     getItems()
   }
 
+//Se crea una interfaz para darle el tipo de datos a las variables
   interface UserInfo {
     username : string,
     email : string,
     phone : string
   }
-
+//Se obtiene la data del usuario que está logueado
   useEffect(() => {
     ;(async () => {
       if (props.user) {
@@ -150,12 +154,12 @@ export default function Carrito(props: any) {
       }   
     })()
   }, [])
-
+//Se crea una interfaz para darle el tipo de datos a las variables
   interface CourseInfo {
     price_course: string;
     id : number;
   }
-
+//Se relaciona a currentCourse del tipo CourseInfo para poder acceder a las variables
   const valueCourse = (currentCouse as CourseInfo)?.price_course;
   const courseId = (currentCouse as CourseInfo)?.id;
   const username = (currentUser as UserInfo)?.username;     
@@ -168,12 +172,13 @@ export default function Carrito(props: any) {
     codeDiscount : codigoCupon.code ? codigoCupon.code : '',
     token : props?.user?.token
   }
-
+//Función para registrar la transacción
   const regitserAndSubmitTransaction = async () => {
     setLoading(true)
     if (data && props.user) {
       const response = await PayuApiModel.RegisterTransaction(data)
       if (response.status === 200) {
+        //Si la respuesta es 200 se setea PaymentData con la información obtenida
           setPaymentData({
             ...paymentData,
             accountId: response.data.data.accountId,
@@ -190,7 +195,7 @@ export default function Carrito(props: any) {
     }
     setLoading(false)
   }
-  
+  //LLamado de la función de Registrar transacción y se calcula el valor del curso
   useEffect(() => {
     if (data.value) {
       regitserAndSubmitTransaction()
