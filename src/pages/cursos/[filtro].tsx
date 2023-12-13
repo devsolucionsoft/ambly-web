@@ -33,7 +33,7 @@ interface Course {
 
 export default function Login(props: any) {
   const dispatch = useAppDispatch()
-  const [coursesList, setCourses] = useState<Course[]>([])
+  const [coursesList, setCoursesList] = useState<Course[]>([])
   const [userCoursesList, setUserCoursesList] = useState<Course[]>([])
   const router = useRouter()
   const {filtro} = router.query
@@ -63,14 +63,12 @@ export default function Login(props: any) {
     const response = await CourseApiModel.GetCourses()
     if (response.status === 200) {
       if (filtro === "todos") {
-        setCourses(response.data)
-        includeCourseUser()
+        setCoursesList(response.data)
 
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
-        setCourses(filterCourse)
-        includeCourseUser()
+        setCoursesList(filterCourse)
 
       }
       setLoading(false)
