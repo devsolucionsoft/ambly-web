@@ -39,7 +39,23 @@ export default function Login(props: any) {
   const {filtro} = router.query
   const [loading, setLoading] = useState(false)
   const [includeCourse, setIncludeCourse] = useState<number[]>([])
-  
+
+  const includeCourseUser = () => {  
+    setLoading(true)
+    if (coursesList.length && userCoursesList) {
+      let newIncludeCourse : number[] = [];
+      coursesList.forEach((course) : any => {
+        userCoursesList.forEach((userCourse) : any => {
+          if (course.id === userCourse.id) {
+            newIncludeCourse.push(course.id)
+          }
+        })
+        
+      })
+      setIncludeCourse(newIncludeCourse)
+    }
+    setLoading(false)
+  }
   useEffect(() => {
     const UserpiModel = new UserApi()
     ;(async () => {
@@ -55,8 +71,10 @@ export default function Login(props: any) {
   }, [dispatch, props.user, coursesList])
   
   useEffect(() => {
+    setLoading(true)
     getCourses()
     includeCourseUser()
+    setLoading(false)
   }, [filtro])
 
   const getCourses = async () => {
@@ -65,15 +83,16 @@ export default function Login(props: any) {
     if (response.status === 200) {
       if (filtro === "todos") {
         setCoursesList(response.data)
-
+        includeCourseUser()
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
+        console.log(filterCourse);
         setCoursesList(filterCourse)
-
+        includeCourseUser()
       }
-      setLoading(false)
     }
+    setLoading(false)
   }
 
   const addCart = (id: any) => {
@@ -85,23 +104,7 @@ export default function Login(props: any) {
       setLoading(false)
     }, 300)
   }
-  const includeCourseUser = () => {  
 
-    if (coursesList.length && userCoursesList) {
-      let newIncludeCourse : number[] = [];
-      coursesList.forEach((course) : any => {
-        userCoursesList.forEach((userCourse) : any => {
-          if (course.id === userCourse.id) {
-            newIncludeCourse.push(course.id)
-          }
-        })
-        
-      })
-      setIncludeCourse(newIncludeCourse)
-      
-    }
-    
-  }
   // const includeCourse = (id: any) => {
   //   let include = false
   //   let stored: any = localStorage.getItem("cart_products")
