@@ -76,7 +76,7 @@ export default function Modulo() {
       }
     })()
   }, [course_id])
-
+  
   // Efecto para consutar a la api los modulos del curso selccionado segun los parametros recibidos
   useEffect(() => {
     setLoading(true)

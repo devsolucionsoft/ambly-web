@@ -196,7 +196,7 @@ export default function Carrito(props: any) {
     setLoading(false)
   }
   //LLamado de la función de Registrar transacción y se calcula el valor del curso
-  useEffect(() => {
+  useEffect(() => {    
     if (data.value) {
       regitserAndSubmitTransaction()
     }
@@ -207,6 +207,7 @@ export default function Carrito(props: any) {
       setTotalWithDiscount(nuevoTotal)
     }
   }, [valueCourse, valueCupon])
+
 
   return (
     <>

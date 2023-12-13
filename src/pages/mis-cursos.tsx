@@ -15,14 +15,15 @@ import { useAppSelector, useAppDispatch } from "../store"
 // API LOCAL
 import { UserApi } from "./api"
 import { loadCourses } from "../store/User/actions"
+import { useRouter } from "next/router"
 
 const items = [1, 2, 3, 4]
 
 export default function MyCoursesPage(props: any) {
   const dispatch = useAppDispatch()
-
+  const router = useRouter()
   const [coursesList, setCourseslist] = useState([])
-
+  
   useEffect(() => {
     const UserpiModel = new UserApi()
     ;(async () => {
@@ -61,12 +62,12 @@ export default function MyCoursesPage(props: any) {
             )}
 
             {coursesList.map((item: any, index) => (
-              <section key={index} className="course-item">
+              <section key={index} className="course-item" onClick={() => router.push(`/curso/${item.id}`)}>
                 <Image
                   className="image-name"
                   src={item.image_course}
-                  height={100}
-                  width={100}
+                  height={500}
+                  width={500}
                   alt=""
                 />
                 <div className="course-content">

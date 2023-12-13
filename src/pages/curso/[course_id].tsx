@@ -43,11 +43,12 @@ export default function CourseDetail(props: any) {
   const myCourses = useAppSelector((store) => store.User.myCourses)
   const [includeMyCourse, setIncludeMyCourse] = useState(false)
   const [includeCart, setIncludeCart] = useState(false)
+  const [currentCourse, setCurrentCourse] = useState({})
   const auth = useAppSelector((store) => store.Auth)
 
   useEffect(() => {
     setIncludeMyCourse(false)
-  }, [course_id])
+  }, [course_id, myCourses])
 
   const [load, setLoad] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -77,7 +78,7 @@ export default function CourseDetail(props: any) {
 
     ;(async () => {
       const response = await userApiModel.GetCourse(course_id)
-
+      setIncludeMyCourse(true)
       if (response.status === 200) {
         dispatch(selectCourse(response.data))
         if (Array.isArray(response.data?.modules)) {
@@ -89,12 +90,12 @@ export default function CourseDetail(props: any) {
         setLoad(true)
       }, 300)
     })()
-
     if (!includeMyCourse && myCourses.length > 0) {
       myCourses.forEach((element: any) => {
         if (element.id === course_id) {
           setIncludeMyCourse(true)
         }
+        
       })
     }
   }, [course_id, dispatch, includeMyCourse, myCourses])

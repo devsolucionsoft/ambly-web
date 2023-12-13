@@ -15,21 +15,45 @@ import {
 } from "../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
+import { useAppDispatch } from "../../store"
+import { loadCourses } from "../../store/User/actions"
+
 import {
   sessionOptions,
   getSessionVerificationNotCreated,
 } from "../../../lib/session"
 import Swal from "sweetalert2"
 
-import { CourseApi } from "../api"
+import { CourseApi, UserApi } from "../api"
 const CourseApiModel = new CourseApi()
 
+interface Course {
+  id : number;
+}
+
 export default function Login(props: any) {
-  const [coursesList, setCourses] = useState([])
+  const dispatch = useAppDispatch()
+  const [coursesList, setCourses] = useState<Course[]>([])
+  const [userCoursesList, setUserCoursesList] = useState<Course[]>([])
   const router = useRouter()
   const {filtro} = router.query
   const [loading, setLoading] = useState(false)
-
+  const [includeCourse, setIncludeCourse] = useState<number[]>([])
+  
+  useEffect(() => {
+    const UserpiModel = new UserApi()
+    ;(async () => {
+      if (props.user.id) {
+        const response = await UserpiModel.GetMyCourses(props.user.id)
+        if (response.status === 200) {
+          dispatch(loadCourses(response.data.courses))
+          setUserCoursesList(response.data.courses)
+          includeCourseUser()
+        }
+      }
+    })()
+  }, [dispatch, props.user, coursesList])
+  
   useEffect(() => {
     getCourses()
   }, [filtro])
@@ -58,7 +82,22 @@ export default function Login(props: any) {
       setLoading(false)
     }, 300)
   }
-
+  const includeCourseUser = () => {
+    if (coursesList.length && userCoursesList) {
+      let newIncludeCourse : number[] = [];
+      coursesList.forEach((course) : any => {
+        userCoursesList.forEach((userCourse) : any => {
+          if (course.id === userCourse.id) {
+            newIncludeCourse.push(course.id)
+          }
+        })
+        
+      })
+      setIncludeCourse(newIncludeCourse)
+      
+    }
+    
+  }
   // const includeCourse = (id: any) => {
   //   let include = false
   //   let stored: any = localStorage.getItem("cart_products")
@@ -99,15 +138,25 @@ export default function Login(props: any) {
                     onClick={() => router.push(`/curso/${item.id}`)}
                     style={{ textDecoration: "underline" }}
                   />
-                    <Button
-                      text="Comprar curso"
-                      bg
-                      color="redPrimary"
-                      variant="sm"
-                      onClick={() => {
-                        addCart(item.id)
-                      }}
-                    />
+                      {includeCourse.includes(item.id) ? (
+                        <Button
+                          text="Continuar curso"
+                          bg
+                          color="redPrimary"
+                          variant="sm"
+                          onClick={() => router.push(`/curso/${item.id}`)}
+                        />
+                      ) : (
+                        <Button
+                          text="Comprar curso"
+                          bg
+                          color="redPrimary"
+                          variant="sm"
+                          onClick={() => {
+                            addCart(item.id);
+                          }}
+                        />
+      )}
                 </div>
                 <Image
                   className="image-course"
