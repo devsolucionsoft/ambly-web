@@ -64,10 +64,14 @@ export default function Login(props: any) {
     if (response.status === 200) {
       if (filtro === "todos") {
         setCourses(response.data)
+        includeCourseUser()
+
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
         setCourses(filterCourse)
+        includeCourseUser()
+
       }
       setLoading(false)
     }
