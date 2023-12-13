@@ -56,6 +56,7 @@ export default function Login(props: any) {
   
   useEffect(() => {
     getCourses()
+    includeCourseUser()
   }, [filtro])
 
   const getCourses = async () => {
