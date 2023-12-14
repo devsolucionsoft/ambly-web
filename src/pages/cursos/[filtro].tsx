@@ -15,7 +15,7 @@ import {
 } from "../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
-import { useAppDispatch } from "../../store"
+import { useAppDispatch, useAppSelector } from "../../store"
 import { loadCourses } from "../../store/User/actions"
 
 import {
@@ -39,6 +39,9 @@ export default function Login(props: any) {
   const {filtro} = router.query
   const [loading, setLoading] = useState(false)
   const [includeCourse, setIncludeCourse] = useState<number[]>([])
+  const myCourses = useAppSelector((store) => store.User.myCourses)
+
+  
   
   useEffect(() => {
     const UserpiModel = new UserApi()
@@ -46,22 +49,22 @@ export default function Login(props: any) {
       if (props.user.id) {
         const response = await UserpiModel.GetMyCourses(props.user.id)
         if (response.status === 200) {
-          dispatch(loadCourses(response.data.courses))
-          setUserCoursesList(response.data.courses)
-          includeCourseUser()
+          dispatch(loadCourses(response.data.courses))          
         }
       }
     })()
-  }, [dispatch, props.user, coursesList])
-  
-  useEffect(() => {
-    loadCoursesAndIncludeUser()
-  }, [filtro])
+  }, [dispatch, props.user, filtro])
 
-  const loadCoursesAndIncludeUser = async () => {
-    await getCourses()
-    includeCourseUser()    
-  }
+  useEffect(() => {
+    if (myCourses) {
+        setUserCoursesList(myCourses)
+        includeCourseUser(myCourses)  
+    }
+  }, [myCourses])
+
+  useEffect(() => {
+    getCourses()
+  }, [filtro])
 
   const getCourses = async () => {
     setLoading(true)
@@ -82,23 +85,15 @@ export default function Login(props: any) {
     setLoading(true)
     localStorage.setItem("cart_products", JSON.stringify([id]))
     getCourses()
-    if (includeCourse.includes(id)) {
-      setTimeout(() => {
-        router.push('/curso/id')
-        setLoading(false)
-      }, 300)
-    }
-    else {
-      setTimeout(() => {
-        router.push(`/comprarCurso/`)
-        setLoading(false)
-      }, 300)
-    }
+    setTimeout(() => {
+      router.push(`/comprarCurso/`)
+      setLoading(false)
+    }, 300)
   }
-  const includeCourseUser = () => {
-    if (coursesList.length && userCoursesList) {
+  const includeCourseUser = (courses : Course[] = []) => {
+    if (coursesList.length > 0 && userCoursesList) {
       let newIncludeCourse : number[] = [];
-      coursesList.forEach((course) : any => {
+      courses.forEach((course) : any => {
         userCoursesList.forEach((userCourse) : any => {
           if (course.id === userCourse.id) {
             newIncludeCourse.push(course.id)
@@ -111,21 +106,7 @@ export default function Login(props: any) {
     }
     
   }
-  // const includeCourse = (id: any) => {
-  //   let include = false
-  //   let stored: any = localStorage.getItem("cart_products")
-
-  //   if (stored) {
-  //     stored = JSON.parse(stored)
-  //     stored.map((element: any) => {
-  //       if (element === id) {
-  //         include = true
-  //       }
-  //     })
-  //   }
-  //   return include
-  // }
-
+ 
   return (
     <>
       <Head>
