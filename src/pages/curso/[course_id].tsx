@@ -45,7 +45,6 @@ export default function CourseDetail(props: any) {
   const myCourses = useAppSelector((store) => store.User.myCourses)
   const [includeMyCourse, setIncludeMyCourse] = useState(false)
   const [includeCart, setIncludeCart] = useState(false)
-  const [currentCourse, setCurrentCourse] = useState({})
   const auth = useAppSelector((store) => store.Auth)
 
   useEffect(() => {
@@ -66,7 +65,7 @@ export default function CourseDetail(props: any) {
         setIncludeMyCourse(true);
       }
     }
-  }, [course_id, myCourses])
+  }, [courseInfo.id, myCourses])
 
   const [load, setLoad] = useState(false)
   const [loading, setLoading] = useState(false)
