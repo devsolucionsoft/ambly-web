@@ -13,12 +13,26 @@ import {
   getSessionVerificationNotCreated,
 } from "../../lib/session"
 import { UserApi } from "./api"
+import { useAppDispatch, useAppSelector } from "../store"
+import { loadCourses } from "../store/User/actions"
 
 const UserApiModel = new UserApi()
 
 export default function Login(props: any) {
+  const dispatch = useAppDispatch()
   const [topics, setTopics] = useState([])
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    ;(async () => {
+      if (props.user.id) {
+        const response = await UserApiModel.GetMyCourses(props.user.id)
+        if (response.status === 200) {
+          dispatch(loadCourses(response.data.courses))          
+        }
+      }
+    })()
+  }, [dispatch, props.user])
 
   useEffect(() => {
     setLoading(true)
