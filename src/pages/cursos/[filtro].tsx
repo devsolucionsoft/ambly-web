@@ -69,12 +69,15 @@ export default function Login(props: any) {
   const getCourses = async () => {
     setLoading(true)
     const response = await CourseApiModel.GetCourses()
+  
     if (response.status === 200) {
       if (filtro === "todos") {
-        setCoursesList(response.data)
+        includeCourseUser(response.data)
+        setCoursesList(response.data)        
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
+        includeCourseUser(filterCourse)
         setCoursesList(filterCourse)
       }
     }
@@ -84,7 +87,6 @@ export default function Login(props: any) {
   const addCart = (id: any) => {
     setLoading(true)
     localStorage.setItem("cart_products", JSON.stringify([id]))
-    getCourses()
     setTimeout(() => {
       router.push(`/comprarCurso/`)
       setLoading(false)
