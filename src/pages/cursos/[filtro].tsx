@@ -38,9 +38,14 @@ export default function Login(props: any) {
   const router = useRouter()
   const {filtro} = router.query
   const [loading, setLoading] = useState(false)
-  const [includeCourse, setIncludeCourse] = useState<number[]>([])
-
-  
+  const [includeCourse, setIncludeCourse] = useState<number[]>(() => {
+    if (typeof window !== 'undefined') {
+      const storedIncludeCourse = localStorage.getItem("includeCourse");
+      return storedIncludeCourse ? JSON.parse(storedIncludeCourse) : [];
+    } else {
+      return [];
+    }
+  });
   
   useEffect(() => {
     const UserpiModel = new UserApi()
@@ -49,13 +54,15 @@ export default function Login(props: any) {
         const response = await UserpiModel.GetMyCourses(props.user.id)
         if (response.status === 200) {
           dispatch(loadCourses(response.data.courses))
-          setUserCoursesList(response.data.courses)
-          includeCourseUser()
+          if (response.data.courses.length > 0) {
+            setUserCoursesList(response.data.courses)
+            includeCourseUser()
+          }
           
         }
       }
     })()
-  }, [dispatch, props.user, coursesList])
+  }, [dispatch, props.user, filtro])
   
   useEffect(() => {
     loadCoursesAndIncludeUser()
@@ -65,6 +72,11 @@ export default function Login(props: any) {
     await getCourses()
     includeCourseUser()    
   }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("includeCourse", JSON.stringify(includeCourse));
+    }
+  }, [includeCourse]);
 
   const getCourses = async () => {
     setLoading(true)
@@ -72,14 +84,12 @@ export default function Login(props: any) {
     if (response.status === 200) {
       if (filtro === "todos") {
         setCoursesList(response.data)
-        loadCoursesAndIncludeUser()
-
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
-        setCoursesList(filterCourse)
-        loadCoursesAndIncludeUser()
-
+        if (filterCourse.length > 0) {
+          setCoursesList(filterCourse)
+        }
       }
     }
     setLoading(false)
@@ -88,7 +98,6 @@ export default function Login(props: any) {
   const addCart = (id: any) => {
     setLoading(true)
     localStorage.setItem("cart_products", JSON.stringify([id]))
-    getCourses()
     setTimeout(() => {
       router.push(`/comprarCurso/`)
       setLoading(false)
@@ -110,6 +119,21 @@ export default function Login(props: any) {
     }
     
   }
+  // const includeCourse = (id: any) => {
+  //   let include = false
+  //   let stored: any = localStorage.getItem("cart_products")
+
+  //   if (stored) {
+  //     stored = JSON.parse(stored)
+  //     stored.map((element: any) => {
+  //       if (element === id) {
+  //         include = true
+  //       }
+  //     })
+  //   }
+  //   return include
+  // }
+
   return (
     <>
       <Head>
