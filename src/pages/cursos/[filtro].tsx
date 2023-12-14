@@ -15,7 +15,7 @@ import {
 } from "../../components"
 import { FaUserAlt } from "react-icons/fa"
 import { withIronSessionSsr } from "iron-session/next"
-import { useAppDispatch, useAppSelector } from "../../store"
+import { useAppDispatch } from "../../store"
 import { loadCourses } from "../../store/User/actions"
 
 import {
@@ -39,7 +39,6 @@ export default function Login(props: any) {
   const {filtro} = router.query
   const [loading, setLoading] = useState(false)
   const [includeCourse, setIncludeCourse] = useState<number[]>([])
-  const myCourses = useAppSelector((store) => store.User.myCourses)
 
   
   
@@ -49,36 +48,38 @@ export default function Login(props: any) {
       if (props.user.id) {
         const response = await UserpiModel.GetMyCourses(props.user.id)
         if (response.status === 200) {
-          dispatch(loadCourses(response.data.courses))          
+          dispatch(loadCourses(response.data.courses))
+          setUserCoursesList(response.data.courses)
+          includeCourseUser()
+          
         }
       }
     })()
-  }, [dispatch, props.user, filtro])
-
+  }, [dispatch, props.user, coursesList])
+  
   useEffect(() => {
-    if (myCourses) {
-        setUserCoursesList(myCourses)
-        includeCourseUser(myCourses)  
-    }
-  }, [myCourses])
-
-  useEffect(() => {
-    getCourses()
+    loadCoursesAndIncludeUser()
   }, [filtro])
+
+  const loadCoursesAndIncludeUser = async () => {
+    await getCourses()
+    includeCourseUser()    
+  }
 
   const getCourses = async () => {
     setLoading(true)
     const response = await CourseApiModel.GetCourses()
-  
     if (response.status === 200) {
       if (filtro === "todos") {
-        includeCourseUser(response.data)
-        setCoursesList(response.data)        
+        setCoursesList(response.data)
+        loadCoursesAndIncludeUser()
+
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
-        includeCourseUser(filterCourse)
         setCoursesList(filterCourse)
+        loadCoursesAndIncludeUser()
+
       }
     }
     setLoading(false)
@@ -87,15 +88,16 @@ export default function Login(props: any) {
   const addCart = (id: any) => {
     setLoading(true)
     localStorage.setItem("cart_products", JSON.stringify([id]))
+    getCourses()
     setTimeout(() => {
       router.push(`/comprarCurso/`)
       setLoading(false)
     }, 300)
   }
-  const includeCourseUser = (courses : Course[] = []) => {
-    if (coursesList.length > 0 && userCoursesList) {
+  const includeCourseUser = () => {
+    if (coursesList.length && userCoursesList) {
       let newIncludeCourse : number[] = [];
-      courses.forEach((course) : any => {
+      coursesList.forEach((course) : any => {
         userCoursesList.forEach((userCourse) : any => {
           if (course.id === userCourse.id) {
             newIncludeCourse.push(course.id)
@@ -108,7 +110,6 @@ export default function Login(props: any) {
     }
     
   }
- 
   return (
     <>
       <Head>

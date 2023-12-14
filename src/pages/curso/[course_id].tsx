@@ -32,6 +32,8 @@ import { selectCourse } from "../../store/User/actions"
 import { UserApi } from "../api"
 
 import { courseDetail } from "../../json/data"
+const UserApiModel = new UserApi()
+import { loadCourses } from "../../store/User/actions"
 
 export default function CourseDetail(props: any) {
   const router = useRouter()
@@ -47,7 +49,23 @@ export default function CourseDetail(props: any) {
   const auth = useAppSelector((store) => store.Auth)
 
   useEffect(() => {
+    ;(async () => {
+      if (props.user.id) {
+        const response = await UserApiModel.GetMyCourses(props.user.id)
+        if (response.status === 200) {
+          dispatch(loadCourses(response.data.courses))          
+        }
+      }
+    })()
+  }, [dispatch, props.user])
+
+  useEffect(() => {
     setIncludeMyCourse(false)
+    if (myCourses.length > 0) {
+      if (myCourses.some((course : any) => course.id === courseInfo.id)) {
+        setIncludeMyCourse(true);
+      }
+    }
   }, [course_id, myCourses])
 
   const [load, setLoad] = useState(false)
@@ -78,7 +96,6 @@ export default function CourseDetail(props: any) {
 
     ;(async () => {
       const response = await userApiModel.GetCourse(course_id)
-      setIncludeMyCourse(true)
       if (response.status === 200) {
         dispatch(selectCourse(response.data))
         if (Array.isArray(response.data?.modules)) {
