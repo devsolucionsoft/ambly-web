@@ -34,19 +34,10 @@ interface Course {
 export default function Login(props: any) {
   const dispatch = useAppDispatch()
   const [coursesList, setCoursesList] = useState<Course[]>([])
-  const [userCoursesList, setUserCoursesList] = useState<Course[]>([])
   const router = useRouter()
   const {filtro} = router.query
   const [loading, setLoading] = useState(false)
-  const [includeCourse, setIncludeCourse] = useState<number[]>(() => {
-    if (typeof window !== 'undefined') {
-      const storedIncludeCourse = localStorage.getItem("includeCourse");
-      return storedIncludeCourse ? JSON.parse(storedIncludeCourse) : [];
-    } else {
-      return [];
-    }
-  });
-  
+
   useEffect(() => {
     const UserpiModel = new UserApi()
     ;(async () => {
@@ -54,29 +45,14 @@ export default function Login(props: any) {
         const response = await UserpiModel.GetMyCourses(props.user.id)
         if (response.status === 200) {
           dispatch(loadCourses(response.data.courses))
-          if (response.data.courses.length > 0) {
-            setUserCoursesList(response.data.courses)
-            includeCourseUser()
-          }
-          
         }
       }
     })()
-  }, [dispatch, props.user, filtro])
+  }, [dispatch, props.user])
   
   useEffect(() => {
-    loadCoursesAndIncludeUser()
+    getCourses()
   }, [filtro])
-
-  const loadCoursesAndIncludeUser = async () => {
-    await getCourses()
-    includeCourseUser()    
-  }
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem("includeCourse", JSON.stringify(includeCourse));
-    }
-  }, [includeCourse]);
 
   const getCourses = async () => {
     setLoading(true)
@@ -87,53 +63,20 @@ export default function Login(props: any) {
       }
       else {
         const filterCourse = response?.data.filter((item: any) => item?.categories?.name == filtro)
-        if (filterCourse.length > 0) {
-          setCoursesList(filterCourse)
-        }
+        setCoursesList(filterCourse)
       }
     }
     setLoading(false)
   }
 
-  const addCart = (id: any) => {
+  const viewDetails = (id: any) => {
     setLoading(true)
     localStorage.setItem("cart_products", JSON.stringify([id]))
     setTimeout(() => {
-      router.push(`/comprarCurso/`)
-      setLoading(false)
+      router.push(`/curso/${id}`)
     }, 300)
+    setLoading(false)
   }
-  const includeCourseUser = () => {
-    if (coursesList.length && userCoursesList) {
-      let newIncludeCourse : number[] = [];
-      coursesList.forEach((course) : any => {
-        userCoursesList.forEach((userCourse) : any => {
-          if (course.id === userCourse.id) {
-            newIncludeCourse.push(course.id)
-          }
-        })
-        
-      })
-      setIncludeCourse(newIncludeCourse)
-      
-    }
-    
-  }
-  // const includeCourse = (id: any) => {
-  //   let include = false
-  //   let stored: any = localStorage.getItem("cart_products")
-
-  //   if (stored) {
-  //     stored = JSON.parse(stored)
-  //     stored.map((element: any) => {
-  //       if (element === id) {
-  //         include = true
-  //       }
-  //     })
-  //   }
-  //   return include
-  // }
-
   return (
     <>
       <Head>
@@ -156,28 +99,12 @@ export default function Login(props: any) {
                 <div className="hover-content">
                   <Button
                     text="Ver más"
-                    onClick={() => router.push(`/curso/${item.id}`)}
-                    style={{ textDecoration: "underline" }}
+                    onClick={() => viewDetails(item.id)}
+                    bg
+                    color="redPrimary"
+                    variant="sm"
                   />
-                      {includeCourse.includes(item.id) ? (
-                        <Button
-                          text="Continuar curso"
-                          bg
-                          color="redPrimary"
-                          variant="sm"
-                          onClick={() => router.push(`/curso/${item.id}`)}
-                        />
-                      ) : (
-                        <Button
-                          text="Comprar curso"
-                          bg
-                          color="redPrimary"
-                          variant="sm"
-                          onClick={() => {
-                            addCart(item.id);
-                          }}
-                        />
-      )}
+                
                 </div>
                 <Image
                   className="image-course"
