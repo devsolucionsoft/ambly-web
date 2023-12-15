@@ -112,7 +112,7 @@ export default function Login(props: any) {
           )}
         </Modal>
         <SideNav minimal={!props.user} />
-        <Header minimal={!props.user} />
+        <Header minimal={!props.user} home={true} />
         <div className="content-page-top">
           <Sliders variant="new" items={coursesList} />
         </div>

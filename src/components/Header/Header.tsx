@@ -10,6 +10,8 @@ import IconAmbly from "../../assets/images/icon-ambly.png"
 import { HiMenu } from "react-icons/hi"
 import { AiOutlineShoppingCart } from "react-icons/ai"
 import { BiUser } from "react-icons/bi"
+import { IoMdArrowBack } from "react-icons/io";
+
 
 // Redux
 import { useAppDispatch } from "../../store"
@@ -24,12 +26,13 @@ import {
 
 interface HeaderProps {
   minimal?: boolean
+  home? : boolean
 }
 
 type HeaderAttributes = HeaderProps & HTMLAttributes<HTMLDivElement>
 
 const Header = (props: HeaderAttributes) => {
-  const { minimal } = props
+  const { minimal, home } = props
   let value = "[]"
 
   if (typeof window !== "undefined") {
@@ -50,6 +53,11 @@ const Header = (props: HeaderAttributes) => {
   const openSidenav = () => {
     appDispatch(onSideNav(true))
   }
+
+  const handleGoBack = () => {
+    window.history.back()
+  }
+  
 
   return (
     <Main>
@@ -95,6 +103,12 @@ const Header = (props: HeaderAttributes) => {
           <HiMenu className="icon" />
         </div>
       </div>
+      {!home && (
+        <IoMdArrowBack
+        onClick={handleGoBack}  
+        style={{fontSize : '40px', cursor : "pointer", position : "absolute", top : 12}}/>
+      )}
+      
     </Main>
   )
 }
