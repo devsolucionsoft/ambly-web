@@ -84,4 +84,16 @@ export const Main = styled.header`
       }
     }
   }
+  .iconBack {
+    position : absolute;
+    font-size : 24px;
+    cursor : pointer;
+    top : 20px;
+    left : 15px;
+    &:hover {
+      border : 1px solid white;
+      border-radius : 50%;
+    }
+
+  }
 `

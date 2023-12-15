@@ -104,9 +104,9 @@ const Header = (props: HeaderAttributes) => {
         </div>
       </div>
       {!home && (
-        <IoMdArrowBack
+        <IoMdArrowBack className="iconBack"
         onClick={handleGoBack}  
-        style={{fontSize : '40px', cursor : "pointer", position : "absolute", top : 12}}/>
+        />
       )}
       
     </Main>
