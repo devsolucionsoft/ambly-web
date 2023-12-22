@@ -54,17 +54,15 @@ const ModuleItem = ({
         showCancelButton : true,
         cancelButtonText : 'Seguir explorando',
         
-      }).then(() => {
-         localStorage.setItem("cart_products", JSON.stringify([idCourse]))
-      setTimeout(() => {
-        router.push("/comprarCurso")
-      }, 300)
-
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.setItem("cart_products", JSON.stringify([idCourse]))
+          setTimeout(() => {
+            router.push("/comprarCurso")
+          }, 300) 
+        }
       })
-     
-      
     }
-    
   }
   
   return (
