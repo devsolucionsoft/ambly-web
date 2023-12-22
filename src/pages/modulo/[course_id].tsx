@@ -28,9 +28,11 @@ import {
   getSessionVerificationNotCreated,
 } from "../../../lib/session"
 // Store
-import { useAppDispatch } from "../../store"
+import { useAppDispatch, useAppSelector } from "../../store"
 // API
 import { UserApi } from "../api"
+import { selectCourse } from "@/store/User/actions"
+import Swal from "sweetalert2"
 
 const items = [1, 2, 3, 4]
 
@@ -50,30 +52,42 @@ const FileItem = ({ item }: { item: any }) => {
   )
 }
 
-export default function Modulo() {
+export default function Modulo(props: any) {
   const router = useRouter()
   const { course_id, modulo, video }: any = router.query
 
   // Store
   //const courseInfo = courseDetail
   const dispatch = useAppDispatch()
-
+  const courseInfor = useAppSelector((store) => store.User.selectCourse)
   const [currentModule, setCurrentModule] = useState(0)
   const [currentVideo, setCurrentVideo] = useState(0)
   const [currentVideoTime, setCurrentVideoTime] = useState(0)
   const [courseInfo, setCourseInfo] = useState<any>(false)
-
+  const [includeMyCourse, setIncludeMyCourse] = useState(false)
   const [disableNext, setDisableNext] = useState(false)
   const [disablePrev, setDisablePrev] = useState(false)
   const [loading, setLoading] = useState(false)
 
+
   useEffect(() => {
     const userApiModel = new UserApi()
     ;(async () => {
+      const responseUser = await userApiModel.GetMyCourses(props.user.id)
       const response = await userApiModel.GetCourse(course_id)
-      if (response.status === 200) {
-        setCourseInfo(response.data)
-      }
+      
+      if (response.status === 200 && responseUser) {
+          if (responseUser?.data?.courses?.some((course : any) => course.id === response.data.id)) {
+            setIncludeMyCourse(true);
+            dispatch(selectCourse(response.data))
+            setCourseInfo(response.data)
+          }else {
+            Swal.fire({
+              icon : 'info',
+              text : 'Por favor inicia sesión o compra el curso para poder acceder a los módulos.'
+            }).then(() => router.push('/'))
+          }
+      }  
     })()
   }, [course_id])
   
@@ -212,7 +226,7 @@ export default function Modulo() {
         <Header />
         <Loader loading={loading} />
 
-        {courseInfo ? (
+        {courseInfor.id && courseInfo ? (
           <div className="page-content">
             <div className="page-top">
               <div className="page-top-video">
@@ -329,6 +343,7 @@ export default function Modulo() {
                   items={courseInfo.modules}
                   currentModule={currentModule}
                   currentVideo={currentVideo}
+                  includeCourse={includeMyCourse}
                 />
               </div>
               <div className="fileslist-contain">

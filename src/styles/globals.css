@@ -39,15 +39,11 @@ body .swal2-popup .swal2-title {
   font-size: 1.475em;
 }
 body .swal2-styled.swal2-confirm{
-  padding: 0.6em 1.7em;
-  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  border-radius: 50px;
   text-align: center;
   border: none;
   color: #FFFFFF;
-  width: 100%;
   background-color: #FF3437;
   box-shadow: none;
   outline: none;

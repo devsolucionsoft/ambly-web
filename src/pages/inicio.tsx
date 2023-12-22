@@ -11,6 +11,7 @@ import { Button, Typography } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
 
+
 export default function Home() {
   const router = useRouter()
 

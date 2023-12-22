@@ -305,7 +305,7 @@ export default function CourseDetail(props: any) {
               <div className="modulos-section">
                 <Typography
                   className="modulos-title"
-                  text="Cononce todos los módulos"
+                  text="Conoce todos los módulos"
                   variant="H4"
                 />
                 <Typography
@@ -321,6 +321,7 @@ export default function CourseDetail(props: any) {
                   <ModulesList
                     items={courseModules}
                     idCourse={courseInfo?.id}
+                    includeCourse={includeMyCourse}
                   />
                 </div>
               </div>
