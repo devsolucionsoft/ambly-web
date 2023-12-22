@@ -196,9 +196,7 @@ export default function CourseDetail(props: any) {
       addCart()
     }
   }
-  console.log(courseInfo);
   
-
   return (
     <>
       <Head>
@@ -331,7 +329,7 @@ export default function CourseDetail(props: any) {
               <div className="teacher-section">
                 <Typography
                   className="modulos-title"
-                  text="Cononce a tu maestro"
+                  text="Conoce a tu maestro"
                   variant="H4"
                 />
                 <Image

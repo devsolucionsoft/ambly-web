@@ -37,6 +37,8 @@ export default function MyCoursesPage(props: any) {
     })()
   }, [dispatch, props.user])
 
+  
+
   return (
     <>
       <Head>
@@ -78,7 +80,7 @@ export default function MyCoursesPage(props: any) {
                   />
                   <div className="course-datails">
                     <p>
-                      {item.num_modulos} Módulo - {item.time_course} horas
+                      {item?.modules.length} {item.modules.length > 1 ? 'Modulos' : 'Modulo'} - {item.time_course}
                     </p>
                   </div>
                 </div>
