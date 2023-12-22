@@ -196,6 +196,8 @@ export default function CourseDetail(props: any) {
       addCart()
     }
   }
+  console.log(courseInfo);
+  
 
   return (
     <>
@@ -251,7 +253,7 @@ export default function CourseDetail(props: any) {
                 <div className="caracteristics-item">
                   <Image className="icon" src={Detail3} alt="" />
                   <p>Cantidad de modulos</p>
-                  <span>{courseInfo.characteristic3}</span>
+                  <span>{courseInfo?.modules?.length}</span>
                 </div>
                 <div className="caracteristics-item">
                   <Image className="icon" src={Detail4} alt="" />

@@ -81,7 +81,7 @@ const ModuleItem = ({
               variant="H6"
               style={{ textAlign: "left" }}
             />
-            <Typography text={`${module.time_module} Horas`} variant="P" />
+            <Typography text={module.time_module} variant="P" />
           </div>
         </div>
         <IoIosArrowForward className="arrow" />
@@ -108,7 +108,6 @@ const ModuleItem = ({
               </div>
               <div className="video-content">
                 <Typography text={video.name_video} variant="H6" />
-                <Typography text="3:00:00 minutos" variant="P" />
               </div>
             </div>
           ))}
