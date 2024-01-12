@@ -59,28 +59,28 @@ export default function Login(props: any) {
 
   useEffect(() => {
     setLoading(true)
-    ;(async () => {
-      if (props.user && props.user.id) {
-        const response = await UserApiModel.GetMyCourses(props.user.id)
-        response.status === 200 && setMyCourseslist(response.data.courses)
-      }
-    })()
-    ;(async () => {
-      const response = await CourseApiModel.GetCourses()
-      response.status === 200 && setCourseslist(response.data)
-    })()
-    ;(async () => {
-      const response = await InstructorApiModel.GetInstructors()
-      response.status === 200 && setIntructorList(response.data)
-    })()
-    ;(async () => {
-      const response = await TrailersApiModel.GetTrailers()
-      response.status === 200 && setTrailerList(response.data)
-    })()
-    ;(async () => {
-      const response = await UserApiModel.GetCategories()
-      response.status === 200 && setTopics(response.data)
-    })()
+      ; (async () => {
+        if (props.user && props.user.id) {
+          const response = await UserApiModel.GetMyCourses(props.user.id)
+          response.status === 200 && setMyCourseslist(response.data.courses)
+        }
+      })()
+      ; (async () => {
+        const response = await CourseApiModel.GetCourses()
+        response.status === 200 && setCourseslist(response.data)
+      })()
+      ; (async () => {
+        const response = await InstructorApiModel.GetInstructors()
+        response.status === 200 && setIntructorList(response.data)
+      })()
+      ; (async () => {
+        const response = await TrailersApiModel.GetTrailers()
+        response.status === 200 && setTrailerList(response.data)
+      })()
+      ; (async () => {
+        const response = await UserApiModel.GetCategories()
+        response.status === 200 && setTopics(response.data)
+      })()
     setTimeout(() => {
       setLoading(false)
     }, 1000)
@@ -183,7 +183,7 @@ export default function Login(props: any) {
             <div className="category-list">
               {topics.map((item: any, index: number) => (
                 <Link
-                  href={`/cursos/todos`}
+                  href={`/cursos/${item.name}`}
                   key={index}
                   className="category-item"
                 >
