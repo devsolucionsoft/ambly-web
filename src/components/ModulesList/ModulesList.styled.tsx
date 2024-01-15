@@ -19,6 +19,7 @@ export const Main = styled.div`
     }
     .module-item {
       border-bottom: 1px solid #ffffff;
+      width : 90%;
       &:last-child {
         border-bottom: none;
       }

@@ -91,26 +91,50 @@ export const Main = styled.main`
       gap: 5%;
       justify-content: center;
       .category-item {
-        width: 12vw;
+        position : relative;
+        width: 150px;
         margin-bottom: 1.5em;
+        display : flex;
+        justify-content : center;
+        align-items : center;
         cursor: pointer;
         .category-image {
-          width: 12vw;
-          height: 12vw;
+          width: 150px;
+          height: 150px;
           object-fit: cover;
           border-radius: 100%;
         }
-      }
-      @media (max-width: ${(props) => props.theme.sizes.sm}) {
-        gap: 10%;
-        .category-item {
-          width: 40%;
-          .category-image {
-            width: 100%;
-            height: auto;
-          }
+        .categoryName {
+          position : absolute;
+          left : 50;
+          top : 50;
+          color : white;
+          text-decoration : none;
+          font-weight : 600;
+          font-size : 16px;
+          text-align : center;
+          padding : 0 10px
+
+        }
+        .dark-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5); /* Ajusta el valor alpha según sea necesario */
         }
       }
+      // @media (max-width: ${(props) => props.theme.sizes.sm}) {
+      //   gap: 10%;
+      //   .category-item {
+      //     width: 40%;
+      //     .category-image {
+      //       width: 100%;
+      //       height: auto;
+      //     }
+      //   }
+      // }
     }
     .text-bottom {
       font-size: 1.5rem;

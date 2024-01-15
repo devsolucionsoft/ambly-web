@@ -86,6 +86,12 @@ export default function Login(props: any) {
     }, 1000)
   }, [props.user, dispatch])
 
+  const closeModal = (e: any) => {
+    if (e.target.classList.contains("TMAsm")) {
+      setShowModal(false)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -95,7 +101,7 @@ export default function Login(props: any) {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Main>
+      <Main onClick={closeModal}>
         <Loader loading={loading} />
         <Modal
           show={showModal}
@@ -108,6 +114,7 @@ export default function Login(props: any) {
               controls
               style={{ width: "100%" }}
               src={trailerPlay.video}
+              autoPlay
             ></video>
           )}
         </Modal>
@@ -187,6 +194,7 @@ export default function Login(props: any) {
                   key={index}
                   className="category-item"
                 >
+                  <div className="dark-overlay" />
                   <Image
                     className="category-image"
                     src={item.image}
@@ -194,6 +202,7 @@ export default function Login(props: any) {
                     height={500}
                     width={500}
                   />
+                  <small className="categoryName">{item.name}</small>
                 </Link>
               ))}
             </div>

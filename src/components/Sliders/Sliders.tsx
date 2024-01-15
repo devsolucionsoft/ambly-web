@@ -162,7 +162,6 @@ const Sliders = (props: SlidersAttributes) => {
                     className="click"
                     onClick={(ev) => {
                       onClickSlider({
-                        title: "Titulo del video",
                         video: item?.video,
                       })
                     }}

@@ -49,7 +49,7 @@ const ModuleItem = ({
     } else {
       Swal.fire({
         icon : 'info',
-        text : 'Para poder acceder al material del curso, por favor, compra el curso.',
+        text : 'Obtén este curso para explorar el contenido',
         confirmButtonText : 'Comprar curso',
         showCancelButton : true,
         cancelButtonText : 'Seguir explorando',

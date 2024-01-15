@@ -62,19 +62,21 @@ export default function Login(props: any) {
           <br />
           <div className="category-list">
             {topics.map((item: any, index: number) => (
-              <Link
-                href={`/cursos/${item.name}`}
-                key={index}
-                className="category-item"
-              >
-                <Image
-                  className="category-image"
-                  src={item.image}
-                  alt=""
-                  height={100}
-                  width={100}
-                />
-              </Link>
+                 <Link
+                 href={`/cursos/${item.name}`}
+                 key={index}
+                 className="category-item"
+               >
+                 <div className="dark-overlay" />
+                 <Image
+                   className="category-image"
+                   src={item.image}
+                   alt=""
+                   height={500}
+                   width={500}
+                 />
+                 <small className="categoryName">{item.name}</small>
+               </Link>
             ))}
           </div>
         </div>
