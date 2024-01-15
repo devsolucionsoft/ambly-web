@@ -92,7 +92,8 @@ const ModuleItem = ({
           className="video-desription"
           variant="P"
         />
-        <div className="list-videos">
+        {module.videos.length > 0 && (
+          <div className="list-videos">
           {module.videos.map((video: any, index: number) => (
             <div
               className={`video-item ${
@@ -112,6 +113,7 @@ const ModuleItem = ({
             </div>
           ))}
         </div>
+        )}
       </div>
     </ModuleItemMain>
   )

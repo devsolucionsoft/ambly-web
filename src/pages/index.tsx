@@ -213,7 +213,7 @@ export default function Login(props: any) {
               {props.user &&
                 props.user.id &&
                 myCoursesList.map((item: any, index: any) => (
-                  <section key={index} className="course-item">
+                  <section key={index} className="course-item" onClick={() => router.push(`/curso/${item.id}`)}>
                     <Image
                       className="image-name"
                       src={item.image_course}

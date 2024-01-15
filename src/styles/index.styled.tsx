@@ -59,4 +59,60 @@ export const Main = styled.main`
       }
     }
   }
+  .errorMain {
+    display : flex;
+    justify-content : center ;
+    gap : 40px;
+    flex-wrap : wrap;
+
+    .errorContainer {
+      display : flex;
+      flex-direction : column;
+      gap : 40px;
+      width : 500px;
+      max-width : 500px;
+      justify-content : center;
+      padding : 20px;
+
+    }
+
+    section {
+      display : flex;
+      align-items : center;
+      gap : 10px;
+      background-color : #FF3437;
+      margin-top : 20px;
+      height : 40px;
+      border-radius : 10px;
+      cursor : pointer;
+      width : 100%;
+      justify-content : center;
+
+      &:hover {
+        opacity : .7;
+      }
+      
+      small {
+        font-size : 16px;
+        font-weight : bold;
+        letter-spacing : 1px;
+
+      }
+    }
+    .errorImage {
+      width : 375px;
+      height : 375px;
+      max-width : 100%
+      object-fit : cover;
+
+
+    }
+  
+  }
+  .iconBack {
+    font-size : 28px;
+    cursor : pointer;
+    top : 20px;
+    left : 15px;
+  }
 `
