@@ -153,6 +153,7 @@ const Sliders = (props: SlidersAttributes) => {
               </SwiperSlide>
             )
           }
+          
 
           if (variant === "trailers") {
             return (
@@ -170,9 +171,7 @@ const Sliders = (props: SlidersAttributes) => {
                     <video
                       className="video"
                       style={{ userSelect: "none" }}
-                      src={
-                        "https://joy1.videvo.net/videvo_files/video/free/video0455/large_watermarked/_import_609113a1be0e89.39394997_preview.mp4"
-                      }
+                      src={item?.video}
                     ></video>
                     <AiFillPlayCircle className="icon-play" />
                   </div>

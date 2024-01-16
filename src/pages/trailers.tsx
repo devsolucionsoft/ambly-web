@@ -62,6 +62,7 @@ export default function Login(props: any) {
               controls
               style={{ width: "100%" }}
               src={trailerPlay.video}
+              autoPlay
             ></video>
           )}
         </Modal>
