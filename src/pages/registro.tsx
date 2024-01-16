@@ -123,6 +123,7 @@ export default function Login() {
               onChange={handleKeyUp}
               error={errorInputs.password.error}
               message={errorInputs.password.message}
+              visible={true}
             />
 
             <div className="politis">

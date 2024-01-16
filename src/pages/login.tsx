@@ -118,8 +118,8 @@ export default function Login() {
               onChange={handleKeyUp}
               error={errorInputs.password.error}
               message={errorInputs.password.message}
+              visible = {true}
             />
-
             <div className="forget-password">
               <p onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña?</p>
             </div>

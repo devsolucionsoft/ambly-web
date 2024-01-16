@@ -130,6 +130,8 @@ export default function NewPassword() {
               onChange={handleKeyUp}
               error={errorInputs.password.error}
               message={errorInputs.password.message}
+              visible={true}
+
             />
             <Input
               type="password"
@@ -140,6 +142,8 @@ export default function NewPassword() {
               onChange={handleKeyUp}
               error={errorInputs.passwordVerify.error}
               message={errorInputs.passwordVerify.message}
+              visible={true}
+
             />
 
             <div className="button-contain">
