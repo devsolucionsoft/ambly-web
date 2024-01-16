@@ -145,8 +145,8 @@ const Sliders = (props: SlidersAttributes) => {
                     className="image-name"
                     src={item?.image_name}
                     alt=""
-                    height={100}
-                    width={100}
+                    height={500}
+                    width={500}
                   />
                   <div className="overlay"></div>
                 </SliderPopular>

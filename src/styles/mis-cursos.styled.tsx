@@ -14,6 +14,11 @@ export const Main = styled.main`
       flex-wrap: wrap;
       justify-content: space-between;
       margin-top: 3em;
+      .emptyCourses {
+        display : flex;
+        flex-direction : column;
+        gap : 20px;
+      }
       .course-item {
         position: relative;
         width: 48%;

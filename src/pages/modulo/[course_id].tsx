@@ -72,31 +72,31 @@ export default function Modulo(props: any) {
 
   useEffect(() => {
     const userApiModel = new UserApi()
-    ;(async () => {
-      const responseUser = await userApiModel.GetMyCourses(props.user.id)
-      const response = await userApiModel.GetCourse(course_id)
-      
-      if (response.status === 200 && responseUser) {
-          if (responseUser?.data?.courses?.some((course : any) => course.id === response.data.id)) {
+      ; (async () => {
+        const responseUser = await userApiModel.GetMyCourses(props.user.id)
+        const response = await userApiModel.GetCourse(course_id)
+
+        if (response.status === 200 && responseUser) {
+          if (responseUser?.data?.courses?.some((course: any) => course.id === response.data.id)) {
             setIncludeMyCourse(true);
             dispatch(selectCourse(response.data))
             setCourseInfo(response.data)
-          }else {
+          } else {
             Swal.fire({
-              icon : 'info',
-              text : 'Por favor inicia sesión o compra el curso para poder acceder a los módulos.'
+              icon: 'info',
+              text: 'Por favor inicia sesión o compra el curso para poder acceder a los módulos.'
             }).then(() => router.push('/'))
           }
-      }  
-    })()
+        }
+      })()
   }, [course_id])
-  
+
   // Efecto para consutar a la api los modulos del curso selccionado segun los parametros recibidos
   useEffect(() => {
     setLoading(true)
-    ;(async () => {
-      setLoading(false)
-    })()
+      ; (async () => {
+        setLoading(false)
+      })()
   }, [router.query, dispatch])
 
   // Efecto para actualizar el state con los parametros recibidos
@@ -128,7 +128,7 @@ export default function Modulo(props: any) {
       saved ? setCurrentVideoTime(saved.time_seen) : setCurrentVideoTime(0)
       if (
         currentVideo ===
-          courseInfo?.modules[currentModule]?.videos.length - 1 &&
+        courseInfo?.modules[currentModule]?.videos.length - 1 &&
         currentModule === courseInfo?.modules.length - 1
       ) {
         setDisableNext(true)
@@ -196,6 +196,8 @@ export default function Modulo(props: any) {
         }, 1000)
       }
     }
+    setLoading(false)
+
   }
 
   const handleNavigateVideo = (module: number, video: number) => {
@@ -231,15 +233,14 @@ export default function Modulo(props: any) {
             <div className="page-top">
               <div className="page-top-video">
                 {ShowVideo() &&
-                courseInfo.modules[currentModule]?.videos[currentVideo]
-                  .video ? (
+                  courseInfo.modules[currentModule]?.videos[currentVideo].video ? (
                   <video
                     className="top-video"
                     controls
                     src={
-                      courseInfo.modules[currentModule]?.videos[currentVideo]
-                        .video ?? ""
+                      courseInfo.modules[currentModule]?.videos[currentVideo].video ?? ""
                     }
+                    autoPlay
                   ></video>
                 ) : (
                   <Typography
@@ -311,19 +312,13 @@ export default function Modulo(props: any) {
                   {courseInfo.modules[currentModule]?.videos.map(
                     (item: any, index: number) => (
                       <div
-                        className={`video-item ${
-                          currentVideo == index && `video-item-active`
-                        }`}
+                        className={`video-item ${currentVideo == index && `video-item-active`
+                          }`}
                         key={index}
                         onClick={() => setVideo(index)}
                       >
                         <div className="video-image-contain">
                           <BsFillPlayFill className="icon-play" />
-                          <Image
-                            className="video-image"
-                            src={ImageCourse}
-                            alt=""
-                          />
                         </div>
                         <div className="video-content">
                           <Typography text={item.name_video} variant="H6" />

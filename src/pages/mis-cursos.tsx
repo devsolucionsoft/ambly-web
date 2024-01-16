@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 // Styled components
 import { Main } from "../styles/mis-cursos.styled"
 // Components
-import { Header, Typography, SideNav, Footer } from "../components"
+import { Header, Typography, SideNav, Footer, Button } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import {
   sessionOptions,
@@ -23,21 +23,21 @@ export default function MyCoursesPage(props: any) {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const [coursesList, setCourseslist] = useState([])
-  
+
   useEffect(() => {
     const UserpiModel = new UserApi()
-    ;(async () => {
-      if (props.user.id) {
-        const response = await UserpiModel.GetMyCourses(props.user.id)
-        if (response.status === 200) {
-          dispatch(loadCourses(response.data.courses))
-          setCourseslist(response.data.courses)
+      ; (async () => {
+        if (props.user.id) {
+          const response = await UserpiModel.GetMyCourses(props.user.id)
+          if (response.status === 200) {
+            dispatch(loadCourses(response.data.courses))
+            setCourseslist(response.data.courses)
+          }
         }
-      }
-    })()
+      })()
   }, [dispatch, props.user])
 
-  
+
 
   return (
     <>
@@ -56,11 +56,21 @@ export default function MyCoursesPage(props: any) {
 
           <div className="my-courses-list">
             {coursesList.length === 0 && (
-              <Typography
-                text="Aun no tienes cursos..."
-                variant="H2"
-                style={{ textAlign: "center" }}
-              />
+              <section className="emptyCourses">
+
+                <Typography
+                  text="Aun no tienes cursos disponibles..."
+                  variant="H2"
+                  style={{ textAlign: "center" }}
+                />
+                <Button
+                  text="Seguir explorando"
+                  bg
+                  color="redPrimary"
+                  style={{width : 250,}}
+                  onClick={() => router.push('/cursos/todos')}
+                />
+              </section>
             )}
 
             {coursesList.map((item: any, index) => (
