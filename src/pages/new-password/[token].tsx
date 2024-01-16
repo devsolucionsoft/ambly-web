@@ -32,7 +32,7 @@ export default function NewPassword() {
   }
   // Use Hook Validation
   const defaultValidation: InputValidationI = {
-    password: { required: "text",  },
+    password: { required: "text", },
     passwordVerify: { required: "text" },
   }
   const [loading, setLoading] = useState(false)
@@ -57,7 +57,7 @@ export default function NewPassword() {
   const handleNewPassword = async () => {
     const { errors, validation } = getValidation(stateInputs)
     if (validation) {
-      if(stateInputs.password !== stateInputs.passwordVerify){
+      if (stateInputs.password !== stateInputs.passwordVerify) {
         Swal.fire({
           title: "Las contraseñas no coinciden...",
           icon: "error",
@@ -72,7 +72,7 @@ export default function NewPassword() {
       setLoading(true)
       try {
         await AuthApiModel.ChangePassword(stateInputs.password, token)
-        
+
         Swal.fire({
           title: "Contraseña guardada exitosamente!",
           icon: "success",
@@ -95,6 +95,13 @@ export default function NewPassword() {
       })
     }
   }
+  const handleKeyEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleNewPassword();
+    }
+  }
 
   return (
     <>
@@ -113,7 +120,7 @@ export default function NewPassword() {
         <div className="contain">
           <Typography text="Recuperar contraseña" variant="H1" />
           <p className="subtitle">Ingrese su nueva contraseña a continuación:</p>
-          <div className="form-login">
+          <div className="form-login" onKeyUp={handleKeyEnter}>
             <Input
               type="password"
               label="Contraseña"

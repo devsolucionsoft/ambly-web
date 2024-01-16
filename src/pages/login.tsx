@@ -45,11 +45,19 @@ export default function Login() {
   const [errorInputs, setErrorInputs] = useState<IErrorInputs>(validationInputs)
   // Inputs keyup
   const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
+
     setStateInputs({
       ...stateInputs,
       [event.target.name]: event.target.value,
     })
     setErrorInputs(validationInputs)
+
+  }
+  const handleKeyEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+
+    if (event.key === "Enter") {
+      handleLogin();
+    }
   }
 
   const handleLogin = async () => {
@@ -94,7 +102,7 @@ export default function Login() {
         />
         <div className="contain">
           <Typography text="Iniciar sesión" variant="H1" />
-          <div className="form-login">
+          <div className="form-login" onKeyUp={handleKeyEnter}>
             <Input
               type="email"
               label="E-mail"

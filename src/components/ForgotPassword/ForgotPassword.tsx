@@ -47,6 +47,12 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
     })
     setErrorInputs(validationInputs)
   }
+  const handleKeyEnter = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit();
+    }
+  };
 
   const handleSubmit = async () => {
     const { errors, validation } = getValidation(stateInputs)
@@ -69,12 +75,13 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
   }
   return (
     <Modal onClose={closeModal} show={showModal} title="Recuperar contraseña">
-      <FormPassword>
+      <FormPassword onSubmit={handleSubmit}>
         <Input
           type="email"
           label="Email"
           name="email"
           onChange={handleKeyUp}
+          onKeyUp={handleKeyEnter}
           error={errorInputs.email.error}
           message={errorInputs.email.message}
         />
