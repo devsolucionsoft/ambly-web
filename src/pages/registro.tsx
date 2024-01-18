@@ -135,7 +135,7 @@ export default function Login() {
 
             <div className="button-contain">
               <Button
-                text="INICIAR"
+                text="INICIAR SESIÓN"
                 bg
                 color="redPrimary"
                 onClick={handleRegistry}

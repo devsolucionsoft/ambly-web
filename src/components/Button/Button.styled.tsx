@@ -11,6 +11,9 @@ export const Main = styled.button<ButtonProps>`
   border: none;
   color: ${(props) => props.theme.colors.ligth};
   width: 100%;
+  &:hover {
+    opacity : .7;
+  }
   ${(props) =>
     props.bg && props.color
       ? `background-color: ${props.theme.colors[props.color]}`
@@ -26,6 +29,9 @@ export const MainSm = styled.button<ButtonProps>`
   border: none;
   color: ${(props) => props.theme.colors.ligth};
   text-align: center;
+  &:hover {
+    opacity : .7;
+  }
   ${(props) =>
     props.bg && props.color
       ? `background-color: ${props.theme.colors[props.color]}`

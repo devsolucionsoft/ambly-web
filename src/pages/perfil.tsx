@@ -118,6 +118,7 @@ export default function Perfil(props: any) {
           <br />
           <br />
           <br />
+          <div>
           <Input
             type="text"
             label="Nombre"
@@ -148,6 +149,8 @@ export default function Perfil(props: any) {
           <br />
           <br />
           <Button text="Aceptar" bg color="redPrimary" onClick={handleSend} />
+
+          </div>
         </div>
         <Footer />
       </Main>

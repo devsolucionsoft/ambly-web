@@ -28,6 +28,7 @@ export const Main = styled.div<{ error: boolean }>`
     outline : none;
     color: ${(props) => props.theme.colors.ligth};
     width : 95%; 
+
     
   }
   .icon {

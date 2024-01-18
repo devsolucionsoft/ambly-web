@@ -241,6 +241,7 @@ export default function Modulo(props: any) {
                       courseInfo.modules[currentModule]?.videos[currentVideo].video ?? ""
                     }
                     autoPlay
+                    controlsList="nodownload"
                   ></video>
                 ) : (
                   <Typography

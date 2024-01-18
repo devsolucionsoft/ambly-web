@@ -133,7 +133,7 @@ export default function Login(props: any) {
           />
           <div>
             <HeaderSection
-              title="Populares"
+              title="Cursos populares"
               action={() => router.push(`/cursos/todos`)}
             />
           </div>

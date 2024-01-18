@@ -118,7 +118,7 @@ export default function NewPassword() {
           closeModal={() => setShowModal(false)}
         />
         <div className="contain">
-          <Typography text="Recuperar contraseña" variant="H1" />
+          <Typography text="Recuperar contraseña" variant="H2" />
           <p className="subtitle">Ingrese su nueva contraseña a continuación:</p>
           <div className="form-login" onKeyUp={handleKeyEnter}>
             <Input

@@ -35,7 +35,7 @@ export default function Carrito(props: any) {
   const [courses, setCourses] = useState([])
   const [currentCouse, setCurrentCouse] = useState({})
   const [usarCupon, setUsarCupon] = useState(false);
-  const [codigoCupon, setCodigoCupon] = useState({code : '', error : false, message : ''});
+  const [codigoCupon, setCodigoCupon] = useState({ code: '', error: false, message: '' });
   const [valueCupon, setValueCupon] = useState(0)
   const [currentUser, setCurrentUser] = useState({})
   const [total, setTotal] = useState(0)
@@ -50,7 +50,7 @@ export default function Carrito(props: any) {
     signature: '',
     tax: 0,
     taxReturnBase: 0,
-    test : '0'
+    test: '0'
   });
   let urlsite = ""
 
@@ -58,71 +58,71 @@ export default function Carrito(props: any) {
     urlsite = window.location.host || ""
   }
   //Validación de cupón ingresado por el usuario
-  const validateCupon = async (info : any) => {
-    
+  const validateCupon = async (info: any) => {
+
     if (usarCupon && codigoCupon.code) {
       setLoading(true)
-        const response = await PayuApiModel.GetCupon(info);
-        if (response.status === 200) {
-          setCodigoCupon(prevState => ( {
-            ...prevState,
-            error : false,
-            message : response.data.message
-          }))
-          setValueCupon(parseInt(response.data.discount_value, 10))
-          
-        } else {
-          setCodigoCupon(prevState => ({
-            ...prevState,
-            error : true,
-            message : response.data.message
+      const response = await PayuApiModel.GetCupon(info);
+      if (response.status === 200) {
+        setCodigoCupon(prevState => ({
+          ...prevState,
+          error: false,
+          message: response.data.message
+        }))
+        setValueCupon(parseInt(response.data.discount_value, 10))
 
-          }));
-        }
+      } else {
+        setCodigoCupon(prevState => ({
+          ...prevState,
+          error: true,
+          message: response.data.message
+
+        }));
+      }
     }
     setLoading(false)
   };
-//Se obtiene la data del carrito de compras
+  //Se obtiene la data del carrito de compras
   const getItems = () => {
     const stored = localStorage.getItem("cart_products")
     if (stored) {
       const cart_products = JSON.parse(stored)
-      ;(async () => {
-        setLoading(true)
-        const response = await CourseApiModel.GetCourses()
-        const filterdata = response.data.filter((item: any) =>
-          cart_products.includes(item.id)
-        )
-        if (response.status === 200){
-          setCourses(filterdata)
-          setCurrentCouse(filterdata[0])          
-        }
-        setLoading(false)
-      })()
+        ; (async () => {
+          setLoading(true)
+          const response = await CourseApiModel.GetCourses()
+          const filterdata = response.data.filter((item: any) =>
+            cart_products.includes(item.id)
+          )
+          if (response.status === 200) {
+            setCourses(filterdata)
+            setCurrentCouse(filterdata[0])
+          }
+          setLoading(false)
+        })()
     }
   }
-//Se obtiene la data del carrito de compras al cargar la página
+  //Se obtiene la data del carrito de compras al cargar la página
   useEffect(() => {
     const stored = localStorage.getItem("cart_products")
     if (stored) {
-      setCartProducts(stored)      
+      setCartProducts(stored)
       const cart_products: Array<any> = JSON.parse(stored)
-      ;(async () => {
-        setLoading(true)
-        const response = await CourseApiModel.GetCourses()
-        const filterdata = response.data.filter((item: any) =>
-          cart_products.includes(item.id)
-        )
-        if (response.status === 200){
-          setCourses(filterdata)
-          setCurrentCouse(filterdata[0])          
-        }
-        setLoading(false)
-      })()
+        ; (async () => {
+          setLoading(true)
+          const response = await CourseApiModel.GetCourses()
+          const filterdata = response.data.filter((item: any) =>
+            cart_products.includes(item.id)
+          )
+          if (response.status === 200) {
+            setCourses(filterdata)
+            setCurrentCouse(filterdata[0])
+          }
+          setLoading(false)
+        })()
     }
   }, [props.user.id])
-  
-//Se borra el curso seleccionado
+
+  //Se borra el curso seleccionado
   const deleteItem = (id: number) => {
     const stored = localStorage.getItem("cart_products")
 
@@ -135,75 +135,75 @@ export default function Carrito(props: any) {
     getItems()
   }
 
-//Se crea una interfaz para darle el tipo de datos a las variables
+  //Se crea una interfaz para darle el tipo de datos a las variables
   interface UserInfo {
-    username : string,
-    email : string,
-    phone : string
+    username: string,
+    email: string,
+    phone: string
   }
-//Se obtiene la data del usuario que está logueado
+  //Se obtiene la data del usuario que está logueado
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       if (props.user) {
-        const response = await UserApiModel.GetUser(props.user.id)     
+        const response = await UserApiModel.GetUser(props.user.id)
         setCurrentUser({
-        username: response.data.user.username,
-        email: response.data.user.email,
-        phone: response.data.user.phone,
-      })
-      }   
+          username: response.data.user.username,
+          email: response.data.user.email,
+          phone: response.data.user.phone,
+        })
+      }
     })()
   }, [])
-//Se crea una interfaz para darle el tipo de datos a las variables
+  //Se crea una interfaz para darle el tipo de datos a las variables
   interface CourseInfo {
     price_course: string;
-    id : number;
+    id: number;
   }
-//Se relaciona a currentCourse del tipo CourseInfo para poder acceder a las variables
+  //Se relaciona a currentCourse del tipo CourseInfo para poder acceder a las variables
   const valueCourse = (currentCouse as CourseInfo)?.price_course;
   const courseId = (currentCouse as CourseInfo)?.id;
-  const username = (currentUser as UserInfo)?.username;     
-  const email = (currentUser as UserInfo)?.email;      
+  const username = (currentUser as UserInfo)?.username;
+  const email = (currentUser as UserInfo)?.email;
   const phone = (currentUser as UserInfo)?.phone;
-  
+
   const data = {
-    value : valueCourse ? parseInt(valueCourse, 10) : 0,
-    courseId : courseId ? courseId : 0,
-    codeDiscount : codigoCupon.code ? codigoCupon.code : '',
-    token : props?.user?.token
+    value: valueCourse ? parseInt(valueCourse, 10) : 0,
+    courseId: courseId ? courseId : 0,
+    codeDiscount: codigoCupon.code ? codigoCupon.code : '',
+    token: props?.user?.token
   }
-//Función para registrar la transacción
+  //Función para registrar la transacción
   const regitserAndSubmitTransaction = async () => {
     setLoading(true)
     if (data && props.user) {
       const response = await PayuApiModel.RegisterTransaction(data)
       if (response.status === 200) {
         //Si la respuesta es 200 se setea PaymentData con la información obtenida
-          setPaymentData({
-            ...paymentData,
-            accountId: response.data.data.accountId,
-            confirmationUrl: response.data.data.confirmationUrl,
-            currency: response.data.data.currency,
-            description: response.data.data.description,
-            merchantId: response.data.data.merchantId,
-            referenceCode: response.data.data.referenceCode,
-            signature: response.data.data.signature,
-            tax: response.data.data.tax,
-            taxReturnBase: response.data.data.taxReturnBase,
+        setPaymentData({
+          ...paymentData,
+          accountId: response.data.data.accountId,
+          confirmationUrl: response.data.data.confirmationUrl,
+          currency: response.data.data.currency,
+          description: response.data.data.description,
+          merchantId: response.data.data.merchantId,
+          referenceCode: response.data.data.referenceCode,
+          signature: response.data.data.signature,
+          tax: response.data.data.tax,
+          taxReturnBase: response.data.data.taxReturnBase,
         })
       }
     }
     setLoading(false)
   }
   //LLamado de la función de Registrar transacción y se calcula el valor del curso
-  useEffect(() => {    
+  useEffect(() => {
     if (data.value) {
       regitserAndSubmitTransaction()
     }
     setTotal(parseInt(valueCourse))
     setTotalWithDiscount(parseInt(valueCourse))
     if (valueCupon) {
-      const nuevoTotal = total - valueCupon      
+      const nuevoTotal = total - valueCupon
       setTotalWithDiscount(nuevoTotal)
     }
   }, [valueCourse, valueCupon])
@@ -222,11 +222,11 @@ export default function Carrito(props: any) {
         <Header minimal={!props.user} />
         <Loader loading={loading} />
 
-        <div className="content-page" style={{display : "flex", flexDirection : "column" }}>
-          <div style={{ width: "100%"}}>
+        <div className="content-page" style={{ display: "flex", flexDirection: "column" }}>
+          <div className="container">
             <Typography
               text="Comprar curso"
-              variant="H1"
+              variant="H2"
               style={{ textAlign: "left", width: "100%" }}
             />
 
@@ -260,40 +260,42 @@ export default function Carrito(props: any) {
                           variant="H5"
                         />
                       </div>
+                      <div className="delete" onClick={() => deleteItem(item.id)}>
+                        <small>Borrar</small>
+                        <MdDelete className="icon" />
+                      </div>
                     </div>
 
-                    <div className="delete" onClick={() => deleteItem(item.id)}>
-                      <MdDelete className="icon" />
-                    </div>
+
                   </div>
                 )
               })}
             </div>
             {courses.length > 0 ?
-             <div className="validateCupon">
-             <label>
-               <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
-               Usar cupón de descuento
-             </label>
-             {usarCupon && (
-               <section>
-                  <label>
-                   <input
-                   value={codigoCupon.code} 
-                   type="text"
-                   placeholder="Ingrese el cupón de descuento"
-                   onChange={(e) => setCodigoCupon(prevState =>({...prevState, code : e.target.value}))} />
-                 </label>
-                 {codigoCupon?.error ? <span style={{color : 'red'}}>{codigoCupon.message}</span> : <span style={{color : 'green'}}>{codigoCupon.message}</span>}
-                 {codigoCupon?.code && (
-                   <button  onClick={() => validateCupon({code : codigoCupon.code, course_id : courseId})}>Validar cupón</button>
-                 )}
-               </section>
-              
-             )}
-           </div> : 'Por favor selecciona el curso que deseas comprar' 
+              <div className="validateCupon">
+                <label>
+                  <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
+                  Usar cupón de descuento
+                </label>
+                {usarCupon && (
+                  <section>
+                    <label>
+                      <input
+                        value={codigoCupon.code}
+                        type="text"
+                        placeholder="Ingrese el cupón de descuento"
+                        onChange={(e) => setCodigoCupon(prevState => ({ ...prevState, code: e.target.value }))} />
+                    </label>
+                    {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
+                    {codigoCupon?.code && (
+                      <button onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
+                    )}
+                  </section>
+
+                )}
+              </div> : 'Por favor selecciona el curso que deseas comprar'
             }
-           
+
             <div className="total">
               <Typography
                 text={`Subtotal: $${new Intl.NumberFormat("es-MX").format(total ? total : 0)}`}
@@ -345,9 +347,11 @@ export default function Carrito(props: any) {
                     value={paymentData.confirmationUrl}
                   />
                 </div>
-                <div style={{display : "flex", justifyContent
-               : "center", padding : "10px"}}>
-                  <Button style={{width: "450px"}}
+                <div style={{
+                  display: "flex", justifyContent
+                    : "center", padding: "10px"
+                }}>
+                  <Button style={{ width: "450px" }}
                     text="Realizar pago"
                     bg
                     color="redPrimary"
@@ -362,12 +366,12 @@ export default function Carrito(props: any) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  justifyContent : "center",
+                  justifyContent: "center",
                   padding: "auto",
                   marginTop: "5em",
                 }}
               >
-                <Button style={{width: "450px"}}
+                <Button style={{ width: "450px" }}
                   text="Iniciar sesión"
                   bg
                   color="redPrimary"

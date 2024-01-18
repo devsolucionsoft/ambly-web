@@ -12,10 +12,19 @@ export const Main = styled.main`
     flex-direction: row;
     align-items: flex-start;
     gap: 15%;
+    .container {
+      width: 80%;
+      margin-inline : 10%;
+    }
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       padding: 10em 10% 6em 10%;
       flex-direction: column;
+
+      .container {
+        width : 100%;
+        margin-inline : 0;
+      }
     }
 
     .items-carrito {
@@ -33,28 +42,40 @@ export const Main = styled.main`
           width: 100%;
           display: flex;
           align-items: center;
-        }
-        .image {
-          width: 15%;
-          height: auto;
-          border-radius: 10px;
+          justify-content : space-between;
+          gap : 20px;
+
           @media (max-width: ${(props) => props.theme.sizes.md}) {
-            width: 30%;
-            height: 70px;
-            object-fit: cover;
+            flex-direction : column;
+            gap : 10px;
           }
         }
+        .image {
+          width: 250px;
+          height: 150px;
+          object-fit : cover;
+          border-radius: 10px;
+        }
         .delete {
+          display : flex;
+          align-items : center;
+          gap : 10px;
+          border : 1px solid white;
           cursor: pointer;
-          font-size: 2rem;
+          font-size: 1.5em;
+          border-radius : 8px;
+          padding : 10px;
+          justify-content : center;
+
+          &:hover {
+            background : red;
+          }
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             font-size: 1.5rem;
-            margin-left: 1rem;
+            margin: 1rem;
           }
         }
         .content {
-          margin-left: 2em;
-          width: 70% !important;
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             margin-left: 1em;
           }

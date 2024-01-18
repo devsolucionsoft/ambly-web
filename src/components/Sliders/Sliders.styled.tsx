@@ -58,7 +58,9 @@ export const SliderNew = styled.section`
     }
   }
   .image-desktop {
-    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       display: none;
     }

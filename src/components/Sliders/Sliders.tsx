@@ -11,7 +11,7 @@ import {
   SliderPopular,
   SlidersTrailer,
 } from "./Sliders.styled"
-import Pintura from "../../assets/images/lago.jpg"
+// import Pintura from "../../assets/images/paisaje.jpeg"
 // Import Swiper React components
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
 import { FaUserAlt } from "react-icons/fa"
@@ -83,13 +83,13 @@ const Sliders = (props: SlidersAttributes) => {
             return (
               <SwiperSlide key={index}>
                 <SliderNew>
-                  <Image
-                    className="image-course image-desktop"
+                  {/* <Image
+                    className="image-desktop"
                     src={Pintura}
                     alt=""
-                    height={1000}
-                    width={1000}
-                  />
+                    height={3000}
+                    width={3000}
+                  /> */}
                   <Image
                     className="image-course"
                     src={item?.image_course}

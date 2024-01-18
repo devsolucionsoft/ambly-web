@@ -5,12 +5,25 @@ export const Main = styled.main`
   color: ${(props) => props.theme.colors.ligth};
   padding: 0% 0;
   .content-page {
-    position: relative;
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
     z-index: 1;
-    padding: 10em 15% 6em 15%;
+    padding: 10em 0;
+    width : 100%;
+
+    div {
+      width : 375px;
+    }
+
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       padding: 10em 10% 6em 10%;
+
+      div {
+        width : 100%;
+      }
     }
   }
 `

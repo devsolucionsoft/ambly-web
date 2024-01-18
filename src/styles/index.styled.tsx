@@ -46,12 +46,13 @@ export const Main = styled.main`
         margin-top: 1em;
         display: flex;
         justify-content: center;
+        flex-wrap : wrap;
         gap: 1rem;
         @media (max-width: ${(props) => props.theme.sizes.sm}) {
           gap: 0.5rem;
         }
         a {
-          width: 40%;
+          width: 200px;
           img {
             width: 100%;
           }
