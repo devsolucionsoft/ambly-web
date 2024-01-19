@@ -159,6 +159,11 @@ export const SliderPopular = styled.section`
   height: 19vw;
   cursor: pointer;
   position: relative;
+  transition : all .5s;
+
+  &:hover {
+    scale : .9;
+  }
   @media (max-width: ${(props) => props.theme.sizes.sm}) {
     height: 23vh;
   }

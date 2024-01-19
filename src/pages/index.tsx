@@ -87,7 +87,8 @@ export default function Login(props: any) {
   }, [props.user, dispatch])
 
   const closeModal = (e: any) => {
-    if (e.target.classList.contains("TMAsm")) {
+    
+    if (showModal && !e.target.classList.contains("playing")) {
       setShowModal(false)
     }
   }
@@ -106,7 +107,7 @@ export default function Login(props: any) {
         <Modal
           show={showModal}
           onClose={() => setShowModal(false)}
-          title={trailerPlay.title}
+          title={"playing"}
         >
           {showModal && (
             <video

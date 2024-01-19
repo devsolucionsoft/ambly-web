@@ -39,13 +39,13 @@ const Modal = (props: ModalProps) => {
 
   const modalContent = show ? (
     <StyledModalOverlay>
-      <StyledModal>
+      <StyledModal className={title}>
         <StyledModalHeader>
           <button className="button-close" onClick={handleCloseClick}>
             <IoIosClose className="icon" />
           </button>
         </StyledModalHeader>
-        {title && <StyledModalTitle>{title}</StyledModalTitle>}
+        {/* {title && <StyledModalTitle>{title}</StyledModalTitle>} */}
         <StyledModalBody>{children}</StyledModalBody>
       </StyledModal>
     </StyledModalOverlay>

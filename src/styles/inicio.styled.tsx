@@ -49,6 +49,11 @@ export const Main = styled.main`
         display: flex;
         flex-direction: column;
         align-items: center;
+        transition : all .5s;
+
+        &:hover {
+          scale : 1.1;
+        }
         .teacher-image {
           width: 11.5vw;
           height: 11.5vw;
@@ -98,6 +103,10 @@ export const Main = styled.main`
         justify-content : center;
         align-items : center;
         cursor: pointer;
+        transition : all .5s;
+        &:hover {
+          scale : 1.1;
+        }
         .category-image {
           width: 150px;
           height: 150px;
