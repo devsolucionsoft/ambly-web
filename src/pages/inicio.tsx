@@ -19,7 +19,7 @@ import { FaFacebook } from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter()
-  const AuthApiModel = new AuthApi()
+  // const AuthApiModel = new AuthApi()
 
   // const signInWithGoogle = () => {
   //   signInWithPopup(auth, google)

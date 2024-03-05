@@ -28,6 +28,7 @@ import { MdDelete } from "react-icons/md"
 // API
 import { CourseApi, PayuApi, UserApi } from "./api"
 import Swal from "sweetalert2"
+import Link from "next/link"
 const CourseApiModel = new CourseApi()
 const PayuApiModel = new PayuApi()
 const UserApiModel = new UserApi()
@@ -244,7 +245,7 @@ export default function Carrito(props: any) {
             <Typography
               text="Carrito de compras"
               variant="H4"
-              style={{ textAlign: "left", width: "100%", fontSize : "1.7rem" }}
+              style={{ textAlign: "left", width: "100%", fontSize: "1.7rem" }}
             />
 
             <div className="items-carrito">
@@ -289,9 +290,10 @@ export default function Carrito(props: any) {
               })}
             </div>
             <div className="continueBuying">
-              <a href="/cursos/todos">Continuar comprando</a>
+              <Link href="/cursos/todos" className="nav-item">
+                Continuar comprando
+              </Link>
               <FaArrowRight />
-
             </div>
             {/* {courses.length > 0 ?
               <div className="validateCupon">
@@ -320,34 +322,34 @@ export default function Carrito(props: any) {
 
             <div className="total">
               <section>
-              {courses.length > 0 ?
-              <div className="validateCupon">
-                <label>
-                  <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
-                  Usar cupón de descuento
-                </label>
-                {usarCupon && (
-                  <section>
+                {courses.length > 0 ?
+                  <div className="validateCupon">
                     <label>
-                      <input
-                        value={codigoCupon.code}
-                        type="text"
-                        placeholder="Ingrese el cupón de descuento"
-                        onChange={(e) => setCodigoCupon(prevState => ({ ...prevState, code: e.target.value }))} />
+                      <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
+                      Usar cupón de descuento
                     </label>
-                    {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
-                    {codigoCupon?.code && (
-                      <button onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
-                    )}
-                  </section>
+                    {usarCupon && (
+                      <section>
+                        <label>
+                          <input
+                            value={codigoCupon.code}
+                            type="text"
+                            placeholder="Ingrese el cupón de descuento"
+                            onChange={(e) => setCodigoCupon(prevState => ({ ...prevState, code: e.target.value }))} />
+                        </label>
+                        {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
+                        {codigoCupon?.code && (
+                          <button onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
+                        )}
+                      </section>
 
-                )}
-              </div> : 'Por favor selecciona el curso que deseas comprar'
-            }
-              <Typography
-                text={`Subtotal: ${new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(total ? total : 0)}`}
-                variant="H6"
-              />
+                    )}
+                  </div> : 'Por favor selecciona el curso que deseas comprar'
+                }
+                <Typography
+                  text={`Subtotal: ${new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(total ? total : 0)}`}
+                  variant="H6"
+                />
               </section>
               <hr />
               <Typography
