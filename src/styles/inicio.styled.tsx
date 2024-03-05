@@ -89,16 +89,19 @@ export const Main = styled.main`
         }
       }
     }
+    .categoryContent {
+      margin-bottom : 2em;
+    }
 
     .category-list {
       display: flex;
       flex-wrap: wrap;
       gap: 5%;
       justify-content: center;
+      margin-bottom : 5em;
       .category-item {
         position : relative;
         width: 150px;
-        margin-bottom: 1.5em;
         display : flex;
         justify-content : center;
         align-items : center;
@@ -134,16 +137,9 @@ export const Main = styled.main`
           background-color: rgba(0, 0, 0, 0.5); /* Ajusta el valor alpha según sea necesario */
         }
       }
-      // @media (max-width: ${(props) => props.theme.sizes.sm}) {
-      //   gap: 10%;
-      //   .category-item {
-      //     width: 40%;
-      //     .category-image {
-      //       width: 100%;
-      //       height: auto;
-      //     }
-      //   }
-      // }
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        gap: 20px 40px;
+      }
     }
     .text-bottom {
       font-size: 1.5rem;
@@ -160,7 +156,7 @@ export const MyCourses = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 3em;
+    // margin-top: 3em;
     .course-item {
       position: relative;
       width: 48%;

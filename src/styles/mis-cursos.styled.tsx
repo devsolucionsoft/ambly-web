@@ -57,10 +57,13 @@ export const Main = styled.main`
           justify-content: flex-end;
           align-items: flex-start;
           z-index: 2;
+          h1 {
+            line-height : 2rem;
+          }
           .course-title {
             font-size: 1.8rem;
             width: 80%;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
           }
           .course-datails {
             padding: 10px 20px;

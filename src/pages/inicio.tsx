@@ -10,10 +10,52 @@ import AppStore from "../assets/images/app-store.png"
 import { Button, Typography } from "../components"
 import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
+import { auth, facebook, google } from '../firebase/firebaseConfig'
+import { signInWithPopup } from "firebase/auth"
+import { AuthApi } from "./api"
 
+import { FaGoogle } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter()
+  const AuthApiModel = new AuthApi()
+
+  // const signInWithGoogle = () => {
+  //   signInWithPopup(auth, google)
+  //     .then(async (result) => {
+  //       const user = result.user;
+  //       console.log(user);
+  //       let response = await AuthApiModel.UserLoginGoogle(user?.email)
+  //       if (response.status === 204) {
+  //         response = await AuthApiModel.UserRegistryGoogle({
+  //           email: user?.email,
+  //           name: user?.displayName
+  //         })
+  //       }
+  //       // Respuesta satisfactoria tanto para registro como para login
+  //       if (response.status === 200 || response.status === 201) {
+  //         router.replace('/')
+  //       }
+
+
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }
+  // function signInWithFacebook() {
+  //   signInWithPopup(auth, facebook)
+  //     .then((result) => {
+  //       console.log(result);
+
+  //       const user = result.user;
+  //       console.log(user);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }
 
   return (
     <>
@@ -30,7 +72,7 @@ export default function Home() {
             <Typography
               text="Crea una cuenta para continuar"
               variant="H6"
-              style={{ marginBottom: "2em" }}
+              style={{ marginBottom: "2em", fontSize : "1.2em" }}
             />
             <Button
               text="Crear con correo electrónico"
@@ -43,10 +85,15 @@ export default function Home() {
               style={{
                 textDecoration: "underline",
                 textAlign: "center",
-                marginBottom: "1em",
+                margin: "1em",
               }}
               onClick={() => router.push("login")}
             />
+            {/* <div className="socialButtons">
+              <button className="buttonSocial" onClick={() => signInWithGoogle()}><FaGoogle /> Iniciar sesión con Google</button>
+              <button className="buttonSocial" onClick={() => signInWithFacebook()}><FaFacebook /> Iniciar sesión con Facebook</button>
+
+            </div> */}
 
             <Button
               text="Explora nuestros cursos"

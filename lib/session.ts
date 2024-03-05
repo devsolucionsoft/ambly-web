@@ -49,7 +49,7 @@ export async function sessionVerificationNotCreated({ req }: any) {
 
 export async function sessionVerificationCreated({ req }: any) {
   const user = req.session.user
-
+  
   if (user && user.token) {
     return {
       redirect: {

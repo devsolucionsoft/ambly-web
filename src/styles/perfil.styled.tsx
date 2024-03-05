@@ -10,7 +10,7 @@ export const Main = styled.main`
     justify-content : center;
     align-items : center;
     z-index: 1;
-    padding: 10em 0;
+    padding: 6em 0;
     width : 100%;
 
     div {

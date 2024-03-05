@@ -101,7 +101,7 @@ export default function Login() {
           closeModal={() => setShowModal(false)}
         />
         <div className="contain">
-          <Typography text="Iniciar sesión" variant="H1" />
+          <Typography text="Iniciar sesión" variant="H4" />
           <div className="form-login" onKeyUp={handleKeyEnter}>
             <Input
               type="email"

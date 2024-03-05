@@ -104,6 +104,9 @@ export default function Login(props: any) {
                     bg
                     color="redPrimary"
                     variant="sm"
+                    style={{
+                      fontSize : "1rem"
+                    }}
                   />
                 
                 </div>

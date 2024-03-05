@@ -18,6 +18,7 @@ export const Main = styled.div<{ error: boolean }>`
     border-radius: 0.5rem;
     border: 1px solid;
     padding : 0 1em;
+    height : 50px;
       ${(props) =>
     props.error ? props.theme.colors.redPrimary : props.theme.colors.ligth};
         input {

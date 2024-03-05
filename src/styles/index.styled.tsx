@@ -43,7 +43,7 @@ export const Main = styled.main`
       text-align: center;
 
       .shops {
-        margin-top: 1em;
+        margin-top: 2em;
         display: flex;
         justify-content: center;
         flex-wrap : wrap;
@@ -52,7 +52,7 @@ export const Main = styled.main`
           gap: 0.5rem;
         }
         a {
-          width: 200px;
+          width: 150px;
           img {
             width: 100%;
           }
@@ -115,5 +115,37 @@ export const Main = styled.main`
     cursor : pointer;
     top : 20px;
     left : 15px;
+  }
+  .socialButtons {
+    display : flex;
+    flex-direction : column;
+    gap : 5px;
+    margin-bottom : 10px;
+  }
+  .buttonSocial {
+    display : flex;
+    align-items : center;
+    height : 40px !important;
+    border : 1px solid gray;
+    padding : 10px;
+    border-radius : 5px;
+    width : 300px;
+    gap : 10px;
+    cursor : pointer;
+    justify-content : center;
+    transition : all .3s ease;
+
+    &:hover {
+      opacity : .8;
+    }
+
+    &:first-child {
+      svg {
+        color : red;
+      }
+    }
+    &:last-child {
+      color : blue;
+    }
   }
 `

@@ -21,7 +21,7 @@ export const Main = styled.main`
       }
       .forget-password {
         font-size: 1rem;
-        margin: 2em 0;
+        margin: 3em 0 2em 0;
         p {
           text-align: center;
           text-decoration: underline;
@@ -42,7 +42,7 @@ export const Main = styled.main`
         }
       }
       .button-contain {
-        margin-top: 2em;
+        margin-top: 1.6em;
       }
     }
   }

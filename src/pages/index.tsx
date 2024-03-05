@@ -48,6 +48,8 @@ export default function Login(props: any) {
     title: "",
     video: "",
   })
+  console.log(props);
+
 
   const handleTrailerClick = (item: any) => {
     setTrailerPlay({
@@ -87,7 +89,7 @@ export default function Login(props: any) {
   }, [props.user, dispatch])
 
   const closeModal = (e: any) => {
-    
+
     if (showModal && !e.target.classList.contains("playing")) {
       setShowModal(false)
     }
@@ -186,7 +188,7 @@ export default function Login(props: any) {
             </div>
           </div>
 
-          <div>
+          <div className="categoryContent">
             <HeaderSection title="Categorías" />
             <div className="category-list">
               {topics.map((item: any, index: number) => (
@@ -210,7 +212,11 @@ export default function Login(props: any) {
           </div>
 
           <MyCourses>
+            <HeaderSection
+              title="Tus cursos"
+            />
             <div className="my-courses-list">
+
               {props.user &&
                 props.user.id &&
                 myCoursesList.map((item: any, index: any) => (

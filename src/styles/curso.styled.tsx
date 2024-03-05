@@ -44,13 +44,13 @@ export const Main = styled.main`
         height: auto;
         margin-bottom: 1rem;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 30vw;
+          width: 40vw;
         }
       }
       .autor {
         font-size: 1vw;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          font-size: 0.7rem;
+          font-size: 1rem;
         }
         .icon {
           margin-right: 1rem;
@@ -71,7 +71,8 @@ export const Main = styled.main`
     .description {
       font-size: 1vw;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        font-size: 0.6rem;
+        font-size: 0.9rem;
+        text-align : center;
       }
     }
 
@@ -107,6 +108,7 @@ export const Main = styled.main`
         flex-direction: column;
         align-items: center;
         gap: 0em;
+        margin : 1em;
 
         button {
           margin-left: 0em;
@@ -133,6 +135,7 @@ export const Main = styled.main`
       display: flex;
       justify-content: space-evenly;
       margin-bottom: 5em;
+      gap : 10px;
       .caracteristics-item {
         display: flex;
         flex-direction: column;
@@ -163,7 +166,7 @@ export const Main = styled.main`
         .caracteristics-item {
           width: 45%;
           padding: 1em 1em;
-          margin-bottom: 1em;
+          margin-bottom: 0;
           p {
             font-size: 1rem;
           }
@@ -180,11 +183,11 @@ export const Main = styled.main`
     .modulos-title {
       font-size: 1.8vw;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
       }
     }
     .modulos-section {
-      margin-top: 8em;
+      margin-top: 2em;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -197,7 +200,7 @@ export const Main = styled.main`
       .modulos-subtitle {
         font-size: 1vw;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          font-size: 0.7rem;
+          font-size: 0.9rem;
         }
       }
 
@@ -223,7 +226,12 @@ export const Main = styled.main`
       text-align: center;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         margin-top: 4em;
+        .description {
+          text-align : center;
+  
+        }
       }
+      
 
       .avatar {
         margin: 1.5em 0;
@@ -233,8 +241,8 @@ export const Main = styled.main`
         border-radius: 100%;
         object-fit: cover;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 25vw;
-          height: 25vw;
+          width: 30vw;
+          height: 30vw;
           margin: 1em 0;
         }
       }

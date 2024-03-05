@@ -4,6 +4,9 @@ import { useState, useEffect, useId } from "react"
 import { useRouter } from "next/router"
 // Assests
 import { FaUserAlt } from "react-icons/fa"
+import { IoCloseSharp } from "react-icons/io5";
+import { FaArrowRight } from "react-icons/fa";
+
 // Styled components
 import { Main } from "../styles/carrito.styled"
 // Components
@@ -24,6 +27,7 @@ import {
 import { MdDelete } from "react-icons/md"
 // API
 import { CourseApi, PayuApi, UserApi } from "./api"
+import Swal from "sweetalert2"
 const CourseApiModel = new CourseApi()
 const PayuApiModel = new PayuApi()
 const UserApiModel = new UserApi()
@@ -126,14 +130,27 @@ export default function Carrito(props: any) {
   const deleteItem = (id: number) => {
     const stored = localStorage.getItem("cart_products")
 
-    if (stored) {
-      const cart_products: Array<any> = JSON.parse(stored)
-      const filterdata = cart_products.filter((item: any) => item !== id)
-      localStorage.setItem("cart_products", JSON.stringify(filterdata))
-    }
-    //Se llama la función para actualizar la información que ve el usuario
-    getItems()
+    Swal.fire({
+      text: '¿Estás seguro que desesas borrar este curso de tu carrito de compras?',
+      icon: 'warning',
+      showConfirmButton: true,
+      showCancelButton: true,
+      color: 'white',
+      confirmButtonColor: 'gray',
+      iconColor: '#FF3437',
+      cancelButtonColor: '#FF3437',
+      showCloseButton: true,
+    }).then((result) => {
+      if (result.isConfirmed && stored) {
+        const cart_products: Array<any> = JSON.parse(stored)
+        const filterdata = cart_products.filter((item: any) => item !== id)
+        localStorage.setItem("cart_products", JSON.stringify(filterdata))
+        //Se llama la función para actualizar la información que ve el usuario
+        getItems()
+      }
+    })
   }
+
 
   //Se crea una interfaz para darle el tipo de datos a las variables
   interface UserInfo {
@@ -225,9 +242,9 @@ export default function Carrito(props: any) {
         <div className="content-page" style={{ display: "flex", flexDirection: "column" }}>
           <div className="container">
             <Typography
-              text="Comprar curso"
-              variant="H2"
-              style={{ textAlign: "left", width: "100%" }}
+              text="Carrito de compras"
+              variant="H4"
+              style={{ textAlign: "left", width: "100%", fontSize : "1.7rem" }}
             />
 
             <div className="items-carrito">
@@ -243,7 +260,7 @@ export default function Carrito(props: any) {
                         alt=""
                       />
                       <div className="content">
-                        <Typography text={item.name_course} variant="H3" />
+                        <Typography text={item.name_course} variant="H3" style={{ fontSize: "1.3em" }} />
                         <div className="autor">
                           <FaUserAlt className="icon" />
                           <Typography
@@ -253,16 +270,16 @@ export default function Carrito(props: any) {
                         </div>
                         <br />
                         <Typography
-                          style={{ textAlign: "left" }}
+                          style={{ textAlign: "left", marginTop: "1.3em" }}
                           text={`$${new Intl.NumberFormat("es-MX").format(
                             item.price_course
-                          )}`}
-                          variant="H5"
+                          )} COP`}
+                          variant="H6"
                         />
                       </div>
                       <div className="delete" onClick={() => deleteItem(item.id)}>
-                        <small>Borrar</small>
-                        <MdDelete className="icon" />
+                        <IoCloseSharp className="icon" />
+
                       </div>
                     </div>
 
@@ -271,7 +288,39 @@ export default function Carrito(props: any) {
                 )
               })}
             </div>
-            {courses.length > 0 ?
+            <div className="continueBuying">
+              <a href="/cursos/todos">Continuar comprando</a>
+              <FaArrowRight />
+
+            </div>
+            {/* {courses.length > 0 ?
+              <div className="validateCupon">
+                <label>
+                  <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
+                  Usar cupón de descuento
+                </label>
+                {usarCupon && (
+                  <section>
+                    <label>
+                      <input
+                        value={codigoCupon.code}
+                        type="text"
+                        placeholder="Ingrese el cupón de descuento"
+                        onChange={(e) => setCodigoCupon(prevState => ({ ...prevState, code: e.target.value }))} />
+                    </label>
+                    {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
+                    {codigoCupon?.code && (
+                      <button onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
+                    )}
+                  </section>
+
+                )}
+              </div> : 'Por favor selecciona el curso que deseas comprar'
+            } */}
+
+            <div className="total">
+              <section>
+              {courses.length > 0 ?
               <div className="validateCupon">
                 <label>
                   <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
@@ -295,12 +344,11 @@ export default function Carrito(props: any) {
                 )}
               </div> : 'Por favor selecciona el curso que deseas comprar'
             }
-
-            <div className="total">
               <Typography
-                text={`Subtotal: $${new Intl.NumberFormat("es-MX").format(total ? total : 0)}`}
-                variant="H5"
+                text={`Subtotal: ${new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(total ? total : 0)}`}
+                variant="H6"
               />
+              </section>
               <hr />
               <Typography
                 text={`Descuento: $${new Intl.NumberFormat("es-MX").format(currentCouse && valueCupon ? valueCupon : 0)}`}
@@ -308,8 +356,8 @@ export default function Carrito(props: any) {
               />
               <hr />
               <Typography
-                text={`Total: $${new Intl.NumberFormat("es-MX").format(totalWithDiscount && currentCouse ? totalWithDiscount : 0)}`}
-                variant="H2"
+                text={`Total: $${new Intl.NumberFormat("es-MX").format(totalWithDiscount && currentCouse ? totalWithDiscount : 0)} COP`}
+                variant="H4"
               />
             </div>
           </div>
@@ -351,7 +399,7 @@ export default function Carrito(props: any) {
                   display: "flex", justifyContent
                     : "center", padding: "10px"
                 }}>
-                  <Button style={{ width: "450px" }}
+                  <Button style={{ width: "350px" }}
                     text="Realizar pago"
                     bg
                     color="redPrimary"

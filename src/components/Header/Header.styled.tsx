@@ -30,6 +30,7 @@ export const Main = styled.header`
       display: flex;
       width: 100%;
       justify-content: center;
+      align-items : center;
       left: 0;
       margin-top: 0.2rem;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
@@ -48,6 +49,7 @@ export const Main = styled.header`
       }
       .link-item.carrito {
         position: relative;
+
         span {
           background-color: ${(props) => props.theme.colors.redPrimary};
           position: absolute;

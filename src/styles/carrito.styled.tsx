@@ -7,7 +7,7 @@ export const Main = styled.main`
   .content-page {
     position: relative;
     z-index: 1;
-    padding: 10em 10% 6em 10%;
+    padding: 5em 10% 6em 5%;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -38,11 +38,13 @@ export const Main = styled.main`
         align-items: center;
         width: 100%;
         margin-bottom: 2rem;
+        position : relative;
+       
         .flex {
           width: 100%;
           display: flex;
           align-items: center;
-          justify-content : space-between;
+          justify-content : start;
           gap : 20px;
 
           @media (max-width: ${(props) => props.theme.sizes.md}) {
@@ -60,15 +62,17 @@ export const Main = styled.main`
           display : flex;
           align-items : center;
           gap : 10px;
-          border : 1px solid white;
           cursor: pointer;
           font-size: 1.5em;
           border-radius : 8px;
           padding : 10px;
           justify-content : center;
+          position : absolute;
+          right : 0;
+          top : 0 ;
 
           &:hover {
-            background : red;
+            background : gray;
           }
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             font-size: 1.5rem;
@@ -85,11 +89,14 @@ export const Main = styled.main`
               font-size: 1rem;
             }
           }
+          h4 {
+            font-size : 16px;
+          }
           h5 {
             width: 100% !important;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             text-align: right;
-            color: ${(props) => props.theme.colors.grayText};
+            color: white;
             @media (max-width: ${(props) => props.theme.sizes.md}) {
               font-size: 1.2rem;
             }
@@ -117,8 +124,31 @@ export const Main = styled.main`
     }
     .total {
       width: 100%;
-      margin-top: 2.4em;
+      margin-top: 1em;
       text-align: right;
+      display : flex;
+      flex-direction : column;
+      gap : 5px;
+      section {
+        display : flex;
+        align-items : center;
+        justify-content : space-between;
+        padding : 10px 0
+      }
+    }
+    .continueBuying {
+      display : flex;
+      align-items : center;
+      gap : 5px;
+      font-size : 1.2em;
+      cursor : pointer;
+      font-weight : bold;
+
+      a {
+        text-decoration : none;
+        color : white;
+      }
+      
     }
 
     .form {
@@ -144,6 +174,7 @@ export const Main = styled.main`
     label {
       display : flex;
       gap : 10px;
+      font-size: 1.1em;
 
     }
     section {

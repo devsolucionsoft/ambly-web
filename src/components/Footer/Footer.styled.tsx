@@ -23,6 +23,7 @@ export const Main = styled.main`
       }
     }
     .item-footer-2 {
+      
     }
     .links {
       ul {
@@ -62,7 +63,7 @@ export const Main = styled.main`
         gap: 0.5rem;
         a {
           img {
-            width: 200px;
+            width: 150px;
             height: auto;
           }
         }

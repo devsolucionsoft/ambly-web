@@ -133,10 +133,10 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
       }
       .video-item {
         display: flex;
+        align-items : center;
         width: 90%;
         margin-left: 5%;
         margin-bottom: 1em;
-        align-items: center;
         cursor: pointer;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           margin-bottom: 1.5em;
@@ -153,9 +153,8 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
             bottom: 0;
             left: 0;
             right: 0;
-            margin: auto;
-            font-size: 3rem;
-            color: ${(props) => props.theme.colors.yellowPrimary};
+            font-size: 2.5rem;
+            color: white;
             @media (max-width: ${(props) => props.theme.sizes.md}) {
               font-size: 2rem;
             }
@@ -174,6 +173,7 @@ export const ModuleItemMain = styled.div<{ openItem: boolean }>`
           flex-direction: column;
           align-items: flex-start;
           margin-left: 2em;
+          width : 85%;
           h6 {
             font-size: 1.1rem;
           }

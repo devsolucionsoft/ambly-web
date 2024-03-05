@@ -98,7 +98,7 @@ export default function Login() {
       <Main>
         <Loader loading={loading} />
         <div className="contain">
-          <Typography text="Crea una cuenta" variant="H2" />
+          <Typography text="Crea una cuenta" variant="H4" />
           <div className="form-login">
             <Input
               type="text"

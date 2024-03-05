@@ -114,9 +114,7 @@ export default function Perfil(props: any) {
         <Header />
 
         <div className="content-page">
-          <Typography text="Perfil" variant="H1" />
-          <br />
-          <br />
+          <Typography text="Perfil" variant="H4" />
           <br />
           <div>
           <Input
