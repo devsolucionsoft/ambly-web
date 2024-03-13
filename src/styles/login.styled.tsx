@@ -43,7 +43,24 @@ export const Main = styled.main`
       }
       .button-contain {
         margin-top: 1.6em;
+       @media(max-width : 500px){
+        button {
+          font-size : .9rem;
+        }
+       }
       }
+    }
+  }
+  @media(max-width:500px){
+    h4 {
+      font-size : 1.5rem;
+    }
+    .forget-password {
+      margin-top : 5em !important;
+      p {
+        font-size: .8rem !important;
+      }
+
     }
   }
 `

@@ -6,10 +6,13 @@ export const Main = styled.main`
   padding: 0% 0;
 
   .content-page-top {
+    margin-top: 20px;
     padding: 68px 0% 3.5em 0%;
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      padding: 45px 0% 1.5em 0%;
+      margin-top: 50px;
+      padding : 0;
+
     }
   }
   .content-page {
@@ -25,7 +28,6 @@ export const Main = styled.main`
       font-size: 1.6vw;
       width: 70%;
       margin-left: 15%;
-      margin-bottom: 5em;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         font-size: 1.2rem;
         width: 80%;
@@ -110,6 +112,7 @@ export const Main = styled.main`
         &:hover {
           scale : 1.1;
         }
+    
         .category-image {
           width: 150px;
           height: 150px;
@@ -139,6 +142,14 @@ export const Main = styled.main`
       }
       @media (max-width: ${(props) => props.theme.sizes.sm}) {
         gap: 20px 40px;
+
+        .category-item {
+          width : 130px;
+          .category-image {
+            width: 130px;
+            height: 130px;
+          }
+        }
       }
     }
     .text-bottom {

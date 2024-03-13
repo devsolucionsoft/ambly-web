@@ -50,16 +50,16 @@ export const Main = styled.main`
           background-color: rgba(0, 0, 0, 0.5); /* Ajusta el valor alpha según sea necesario */
         }
       }
-      // @media (max-width: ${(props) => props.theme.sizes.sm}) {
-      //   gap: 10%;
-      //   .category-item {
-      //     width: 40%;
-      //     .category-image {
-      //       width: 100%;
-      //       height: auto;
-      //     }
-      //   }
-      // }
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        gap: 10%;
+        .category-item {
+          width: 100px;
+          .category-image {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
     }
   }
 `

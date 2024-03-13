@@ -48,11 +48,11 @@ export default function CourseDetail(props: any) {
   const auth = useAppSelector((store) => store.Auth)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       if (props.user.id) {
         const response = await UserApiModel.GetMyCourses(props.user.id)
         if (response.status === 200) {
-          dispatch(loadCourses(response.data.courses))          
+          dispatch(loadCourses(response.data.courses))
         }
       }
     })()
@@ -61,7 +61,7 @@ export default function CourseDetail(props: any) {
   useEffect(() => {
     setIncludeMyCourse(false)
     if (myCourses.length > 0) {
-      if (myCourses.some((course : any) => course.id === courseInfo.id)) {
+      if (myCourses.some((course: any) => course.id === courseInfo.id)) {
         setIncludeMyCourse(true);
       }
     }
@@ -93,7 +93,7 @@ export default function CourseDetail(props: any) {
       }
     }
 
-    ;(async () => {
+    ; (async () => {
       const response = await userApiModel.GetCourse(course_id)
       if (response.status === 200) {
         dispatch(selectCourse(response.data))
@@ -111,7 +111,7 @@ export default function CourseDetail(props: any) {
         if (element.id === course_id) {
           setIncludeMyCourse(true)
         }
-        
+
       })
     }
   }, [course_id, dispatch, includeMyCourse, myCourses])
@@ -178,7 +178,7 @@ export default function CourseDetail(props: any) {
 
   const addCart = () => {
     setLoading(true)
-      localStorage.setItem("cart_products", JSON.stringify([courseInfo.id]))
+    localStorage.setItem("cart_products", JSON.stringify([courseInfo.id]))
     setTimeout(() => {
       router.push("/comprarCurso")
       setLoading(false)
@@ -189,14 +189,14 @@ export default function CourseDetail(props: any) {
     if (props.user) {
       includeMyCourse
         ? router.push(
-            `/modulo/${courseInfo?.id}?modulo=${savedItem.module}&video=${savedItem.video}`
-          )
+          `/modulo/${courseInfo?.id}?modulo=${savedItem.module}&video=${savedItem.video}`
+        )
         : addCart()
     } else {
       addCart()
     }
   }
-  
+
   return (
     <>
       <Head>
@@ -296,7 +296,7 @@ export default function CourseDetail(props: any) {
                     text={"Comprar curso"}
                     bg
                     color="redPrimary"
-                    onClick={() => addCart() }
+                    onClick={() => addCart()}
                   />
                 )}
               </div>
@@ -356,6 +356,43 @@ export default function CourseDetail(props: any) {
                   text={courseInfo?.instructor?.description_secondary}
                   variant="P"
                 />
+              </div>
+              <div className="price">
+                {!includeMyCourse && (
+                  <div className="text-price">
+                    <Typography
+                      className="price-text"
+                      text="Precio:"
+                      variant="H6"
+                    />
+                    <Typography
+                      className="price-text"
+                      text={`$${new Intl.NumberFormat("es-MX").format(
+                        courseInfo?.price_course
+                      )}`}
+                      variant="H2"
+                    />
+                  </div>
+                )}
+                {includeMyCourse ? (
+                  <Button
+                    text="Continuar curso"
+                    variant="sm"
+                    bg
+                    color="redPrimary"
+                    onClick={() => handleActionButton()}
+                  />
+                ) : (
+                  <Button
+                    text={"Comprar curso"}
+                    bg
+                    color="redPrimary"
+                    onClick={() => addCart()}
+                  />
+                )}
+              </div>
+              <div className="link">
+                <a href="" >Conoce más cursos</a>
               </div>
             </div>
           </Fragment>

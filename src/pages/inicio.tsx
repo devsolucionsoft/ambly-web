@@ -72,15 +72,17 @@ export default function Home() {
             <Typography
               text="Crea una cuenta para continuar"
               variant="H6"
-              style={{ marginBottom: "2em", fontSize : "1.2em" }}
+              style={{ marginBottom: "2em", fontSize: "1.2em" }}
             />
             <Button
+              className="buttonInitial"
               text="Crear con correo electrónico"
               bg
               color="redPrimary"
               onClick={() => router.push("registro")}
             />
             <Button
+              className="buttonInitial"
               text="Accede a tu cuenta"
               style={{
                 textDecoration: "underline",
@@ -96,6 +98,7 @@ export default function Home() {
             </div> */}
 
             <Button
+              className="buttonInitial"
               text="Explora nuestros cursos"
               bg
               color="ligth"

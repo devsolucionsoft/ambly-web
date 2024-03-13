@@ -14,8 +14,8 @@ export const Main = styled.main`
 
       object-position: top;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        height: 30vh;
-        margin-top: 45px;
+        height: 40vh;
+        margin-top: 50px;
       }
     }
     .overlay {
@@ -44,13 +44,13 @@ export const Main = styled.main`
         height: auto;
         margin-bottom: 1rem;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          width: 40vw;
+          width: 50vw;
         }
       }
       .autor {
         font-size: 1vw;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          font-size: 1rem;
+          font-size: .9rem;
         }
         .icon {
           margin-right: 1rem;
@@ -65,14 +65,16 @@ export const Main = styled.main`
     padding: 4em 15% 6em 15%;
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      padding: 2em 8% 6em 8%;
+      padding: .5em 8% 1em 8%;
     }
 
     .description {
       font-size: 1vw;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
+        padding-inline : 5%;
         font-size: 0.9rem;
-        text-align : center;
+        text-align : left;
+        font-weight : 200;
       }
     }
 
@@ -93,7 +95,7 @@ export const Main = styled.main`
       .price-text {
         font-size: 2vw;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          font-size: 1.5rem;
+          font-size: 1.2rem;
         }
       }
 
@@ -109,12 +111,14 @@ export const Main = styled.main`
         align-items: center;
         gap: 0em;
         margin : 1em;
+        margin-top : 2em;
 
         button {
           margin-left: 0em;
           margin-top: 2em;
           @media (max-width: ${(props) => props.theme.sizes.md}) {
-            margin-top: 1em;
+            margin-top: 1.5em;
+            font-size : 1em;
           }
         }
       }
@@ -163,21 +167,33 @@ export const Main = styled.main`
       }
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         flex-wrap: wrap;
+        margin-bottom : 2em;
         .caracteristics-item {
           width: 45%;
           padding: 1em 1em;
           margin-bottom: 0;
           p {
-            font-size: 1rem;
+            font-size: .9rem;
           }
           span {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
           }
           .icon {
-            height: 60px;
+            height: 40px;
           }
         }
       }
+    }
+    .link {
+      margin-top : 2em;
+      display : flex;
+      align-items : center;
+      text-align : center;
+      justify-content :center;
+      a {
+        color : white;
+      }
+
     }
 
     .modulos-title {
@@ -194,13 +210,13 @@ export const Main = styled.main`
       align-items: center;
 
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        margin-top: 3em;
+        margin-top: 0;
       }
 
       .modulos-subtitle {
         font-size: 1vw;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          font-size: 0.9rem;
+          font-size: 0.8rem;
         }
       }
 
@@ -227,7 +243,9 @@ export const Main = styled.main`
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         margin-top: 4em;
         .description {
-          text-align : center;
+          text-align : left;
+          padding : 0 3%;
+          width : 100%;
   
         }
       }

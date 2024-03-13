@@ -41,4 +41,19 @@ export const Main = styled.div<{ error: boolean }>`
     margin-top: 0.5rem;
     color: ${(props) => props.theme.colors.redPrimary};
   }
+  @media(max-width:500px){
+    label {
+      font-size : .9rem;
+    }
+    section {
+      height : 40px;
+      input {
+        font-size : .9rem;
+
+      }
+    }
+    .icon {
+      height : 15px;
+    }
+  }
 `

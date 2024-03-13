@@ -4,6 +4,7 @@ export const Main = styled.header`
   position: fixed;
   width: 100%;
   z-index: 10;
+  top : 0;
 
   .contain {
     display: flex;
@@ -15,7 +16,7 @@ export const Main = styled.header`
     position: relative;
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      height: 45px;
+      height: 50px;
     }
     .open-menu,
     .logo {
@@ -73,7 +74,7 @@ export const Main = styled.header`
       width: 7vw;
       height: auto;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        width: 5rem;
+        width: 6rem;
       }
     }
     .open-menu {
@@ -81,7 +82,7 @@ export const Main = styled.header`
         font-size: 1.9vw;
         margin-bottom: 0.3rem;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
-          font-size: 1.5rem;
+          font-size: 2rem;
         }
       }
     }

@@ -38,7 +38,7 @@ export const Main = styled.main`
           text-decoration: none;
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
           }
         }
       }

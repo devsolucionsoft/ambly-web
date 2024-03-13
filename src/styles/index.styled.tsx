@@ -17,11 +17,39 @@ export const Main = styled.main`
 
     @media (max-width: ${(props) => props.theme.sizes.sm}) {
       justify-content: space-evenly;
+
+      .init-session {
+        padding-top : 60px;
+
+        h6 {
+          font-size : 1em !important;
+        }
+      }
+      .shops-section {
+        padding-top : 20px;
+        p {
+          font-size : .8rem !important;
+          padding-inline : 30px;
+        }
+        .shops {
+          .icon {
+            width : 150px;
+          }
+        }
+      }
+      .buttonInitial {
+        width : 100%;
+        font-size : .9rem;
+      }
     }
 
     .icon {
       width: auto;
       height: auto;
+
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        width : 150px;
+      }
     }
 
     .divider {
@@ -37,6 +65,8 @@ export const Main = styled.main`
       display: flex;
       flex-direction: column;
       align-items: center;
+
+     
     }
 
     .shops-section {
@@ -50,6 +80,11 @@ export const Main = styled.main`
         gap: 1rem;
         @media (max-width: ${(props) => props.theme.sizes.sm}) {
           gap: 0.5rem;
+          flex-direction : column;
+          width : 100%;
+          align-items : center;
+
+         
         }
         a {
           width: 150px;

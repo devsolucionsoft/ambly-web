@@ -72,11 +72,12 @@ const Sliders = (props: SlidersAttributes) => {
       <Swiper
         style={{ paddingBottom: "3em" }}
         modules={variant === "new" ? [] : [Navigation, Pagination]}
-        navigation={variant !== "new"}
+        // navigation={variant !== "new"}
         pagination={{ clickable: true }}
         spaceBetween={20}
         slidesPerView={slidesPerView}
         centeredSlides={width < 720}
+        
       >
         {items.map((item: any, index: number) => {
           if (variant === "new") {

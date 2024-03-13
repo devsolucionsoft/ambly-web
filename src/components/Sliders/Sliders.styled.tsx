@@ -77,7 +77,7 @@ export const SliderNew = styled.section`
       display: flex;
       button {
         padding: 0.5rem 2.5rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-left: 0.8rem;
         margin-top: 1rem;
       }
