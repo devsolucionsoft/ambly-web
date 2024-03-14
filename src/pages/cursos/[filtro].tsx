@@ -38,6 +38,9 @@ export default function Login(props: any) {
   const {filtro} = router.query
   const [loading, setLoading] = useState(false)
 
+  console.log(filtro);
+  
+
   useEffect(() => {
     const UserpiModel = new UserApi()
     ;(async () => {
@@ -78,6 +81,7 @@ export default function Login(props: any) {
     setLoading(false)
   }
   
+  
   return (
     <>
       <Head>
@@ -92,7 +96,7 @@ export default function Login(props: any) {
         <Header minimal={!props.user} />
 
         <div className="content-page">
-          <Typography text="Todos los cursos" variant="H5" />
+          <Typography text={filtro !== "todos" ? filtro : 'Todos los cursos'} variant="H5" />
 
           <div className="my-courses-list">
             {coursesList.length ? coursesList.map((item: any, index: number) => (

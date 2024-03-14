@@ -10,6 +10,10 @@ export const Main = styled.main`
     z-index: 1;
     padding: 5em 15% 6em 15%;
 
+    @media (max-width: ${(props) => props.theme.sizes.sm}) {
+      padding : 2em ;
+    }
+
     .category-list {
       display: flex;
       flex-wrap: wrap;
@@ -52,14 +56,16 @@ export const Main = styled.main`
       }
       @media (max-width: ${(props) => props.theme.sizes.sm}) {
         gap: 10%;
+        display : flex;
         .category-item {
-          width: 100px;
+          width: 130px;
           .category-image {
-            width: 100%;
-            height: auto;
+            width: 130px;
+            height: 130px;
           }
         }
       }
     }
   }
 `
+

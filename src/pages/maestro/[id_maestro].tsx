@@ -31,15 +31,18 @@ export default function Login() {
   useEffect(() => {
     const InstructorApiModel = new InstructorApi()
 
-    ;(async () => {
-      const response = await InstructorApiModel.GetInstructors()
-      response.status === 200 && setIntructorList(response.data)
-    })()
+      ; (async () => {
+        const response = await InstructorApiModel.GetInstructors()
+        response.status === 200 && setIntructorList(response.data)
+      })()
   }, [id_maestro])
 
   useEffect(() => {
     setInfo(intructorList.find((item: any) => item.id == id_maestro))
   }, [intructorList, id_maestro])
+
+  console.log(instructorInfo);
+  
 
   return (
     <>
@@ -77,6 +80,20 @@ export default function Login() {
               text={instructorInfo?.description_instructor}
               variant="P"
             />
+            <Image
+              className="image-teacher"
+              src={instructorInfo?.image_instructor}
+              height={500}
+              width={400}
+              alt=""
+            />
+            <Typography
+              text={instructorInfo?.description_secondary}
+              variant="P"
+            />
+          </div>
+          <div>
+            <HeaderSection title="Menciones especiales" />
             <Typography
               text={instructorInfo?.description_secondary}
               variant="P"

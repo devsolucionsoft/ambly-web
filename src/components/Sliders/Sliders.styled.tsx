@@ -166,6 +166,7 @@ export const SliderPopular = styled.section`
   }
   @media (max-width: ${(props) => props.theme.sizes.sm}) {
     height: 23vh;
+    margin-top :10px;
   }
   .image-course {
     width: 100%;

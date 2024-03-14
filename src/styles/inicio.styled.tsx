@@ -141,7 +141,7 @@ export const Main = styled.main`
         }
       }
       @media (max-width: ${(props) => props.theme.sizes.sm}) {
-        gap: 20px 40px;
+        gap: 20px;
 
         .category-item {
           width : 130px;

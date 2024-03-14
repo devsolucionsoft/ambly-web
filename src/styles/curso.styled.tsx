@@ -71,7 +71,7 @@ export const Main = styled.main`
     .description {
       font-size: 1vw;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        padding-inline : 5%;
+        padding-inline : 2%;
         font-size: 0.9rem;
         text-align : left;
         font-weight : 200;
@@ -87,8 +87,10 @@ export const Main = styled.main`
 
       .text-price {
         display: flex;
+        align-items : center;
+        gap : 10px;
         h6 {
-          margin-right: 1rem;
+          
         }
       }
 
@@ -96,6 +98,14 @@ export const Main = styled.main`
         font-size: 2vw;
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           font-size: 1.2rem;
+          .priceValue {
+            font-size : 2rem !important;
+          }
+        }
+      }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        .priceValue {
+          font-size : 1.5rem;
         }
       }
 
@@ -242,9 +252,10 @@ export const Main = styled.main`
       text-align: center;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         margin-top: 4em;
+        padding : 0 3%;
         .description {
           text-align : left;
-          padding : 0 3%;
+          padding : 0;
           width : 100%;
   
         }

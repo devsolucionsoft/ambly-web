@@ -97,6 +97,9 @@ export const Main = styled.header`
       border : 1px solid white;
       border-radius : 50%;
     }
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      display : none;
+    }
 
   }
 `

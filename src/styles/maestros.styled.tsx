@@ -70,6 +70,7 @@ export const MainDetail = styled.main`
       object-fit: cover;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         height: 40vh;
+        margin-top : 50px;
       }
     }
     .overlay {
@@ -114,8 +115,7 @@ export const MainDetail = styled.main`
         margin-bottom: 1em;
       }
       @media (max-width: ${(props) => props.theme.sizes.md}) {
-        padding: 0 0em;
-        padding-bottom: 4em;
+        padding: 0;
         .avatar-image {
           width: 25vw;
           height: 25vw;
@@ -125,9 +125,24 @@ export const MainDetail = styled.main`
           margin-bottom: 1em;
         }
         p {
-          font-size: 0.6rem;
+          font-size: 0.9rem;
+          font-weight : 200;
+          padding-inline : 2%;
+          margin-bottom :0 ;
         }
+        
       }
+    }
+  }
+  .image-teacher {
+    margin: 4em 0;
+    width: 70%;
+    height: auto;
+    border-radius: 20px;
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      width: 100%;
+      margin: 2em 0;
+      height: auto;
     }
   }
 `
