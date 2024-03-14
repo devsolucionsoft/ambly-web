@@ -96,8 +96,7 @@ export default function Login(props: any) {
         <Header minimal={!props.user} />
 
         <div className="content-page">
-          <Typography text={filtro !== "todos" ? filtro : 'Todos los cursos'} variant="H5" />
-
+          <h2 style={{fontSize : "1.3rem", fontWeight : 500}}>{filtro !== "todos" ? filtro : 'Todos los cursos'}</h2>
           <div className="my-courses-list">
             {coursesList.length ? coursesList.map((item: any, index: number) => (
               <section key={index} className="course-item">
