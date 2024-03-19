@@ -200,23 +200,20 @@ export const MyCourses = styled.div`
         position: absolute;
         height: 100%;
         width: 100%;
-        padding: 1.5em;
+        padding: .5em 1em;
+        gap : 10px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-start;
         z-index: 2;
         .course-title {
-          font-size: 1.5rem;
-          line-height: 110%;
+          font-size: 1.1rem;
           width: 80%;
           margin-left: 0px;
-          margin-bottom: 0.5rem;
         }
         .course-datails {
-          padding: 10px 20px;
           border-radius: 30px;
-          background-color: #00000061;
           p {
             font-size: 0.9rem;
           }
@@ -224,7 +221,6 @@ export const MyCourses = styled.div`
         .autor {
           margin-top: 0em;
           font-size: 0.9vw;
-          margin-left: 0.4rem;
           .icon {
             margin-right: 10px;
           }
@@ -237,16 +233,27 @@ export const MyCourses = styled.div`
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         width: 100%;
         height: 25vh;
+       
         .course-content {
-          padding: 1.5em;
+          padding: .5em 1em;
+          gap : 5px;
           .course-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+            margin : 0;
+            width : 100%
           }
+
           .course-datails {
-            padding: 8px 15px;
+            padding: 0;
+            background : none;
+            
             p {
               font-size: 0.7rem;
             }
+          }
+          .autor {
+            font-size : .7rem;
+            margin : 0;
           }
         }
       }

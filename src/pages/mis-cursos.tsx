@@ -16,6 +16,8 @@ import { useAppSelector, useAppDispatch } from "../store"
 import { UserApi } from "./api"
 import { loadCourses } from "../store/User/actions"
 import { useRouter } from "next/router"
+import { FaUserAlt } from "react-icons/fa"
+
 
 const items = [1, 2, 3, 4]
 
@@ -93,6 +95,11 @@ export default function MyCoursesPage(props: any) {
                       {item?.modules.length} {item.modules.length > 1 ? 'Modulos' : 'Modulo'} - {item.time_course}
                     </p>
                   </div>
+                  <div className="autor">
+                    <FaUserAlt className="icon" />
+                    <span>{item?.instructor?.name_instructor}</span>
+                  </div>
+                  
                 </div>
                 <div className="overlay"></div>
               </section>

@@ -5,4 +5,5 @@ export const FormPassword = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  
 `

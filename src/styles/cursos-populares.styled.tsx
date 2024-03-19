@@ -59,6 +59,10 @@ export const Main = styled.main`
           .hover-content {
             height: 100%;
           }
+            .image-course {
+              height: 102%;
+              width: 102%;
+          }
         }
         .image-course {
           height: 100%;
@@ -88,6 +92,7 @@ export const Main = styled.main`
               margin-right: 10px;
             }
           }
+        
         }
         @media (max-width: ${(props) => props.theme.sizes.md}) {
           width: 100%;

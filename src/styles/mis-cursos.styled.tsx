@@ -9,6 +9,10 @@ export const Main = styled.main`
     z-index: 1;
     padding: 10em 10% 6em 10%;
 
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      padding : 5em 10%;
+    }
+
     .my-courses-list {
       display: flex;
       flex-wrap: wrap;
@@ -54,6 +58,7 @@ export const Main = styled.main`
           padding: 2em;
           display: flex;
           flex-direction: column;
+          gap : 10px;
           justify-content: flex-end;
           align-items: flex-start;
           z-index: 2;
@@ -61,32 +66,48 @@ export const Main = styled.main`
             line-height : 2rem;
           }
           .course-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             width: 80%;
-            margin-bottom: 10px;
           }
           .course-datails {
-            padding: 10px 20px;
-            border-radius: 30px;
-            background-color: #00000061;
             p {
               font-size: 0.9rem;
             }
           }
+          .autor {
+            display : flex;
+            gap : 10px;
+            font-size: .9rem;
+
+          }
         }
         @media (max-width: ${(props) => props.theme.sizes.md}) {
+
           width: 100%;
           height: 25vh;
           .course-content {
-            padding: 2em;
-            .course-title {
-              font-size: 1.3rem;
+            padding: .5em 1em;
+            gap : 5px;
+            h1 {
+              line-height : 1.1rem;
             }
+            .course-title {
+              font-size: 1.1rem;
+              margin : 0;
+
+            }
+  
             .course-datails {
-              padding: 8px 15px;
+              padding: 0;
+              background : none;
+              
               p {
                 font-size: 0.7rem;
               }
+            }
+            .autor {
+              font-size : .7rem;
+              margin : 0;
             }
           }
         }

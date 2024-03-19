@@ -210,43 +210,49 @@ export default function Login(props: any) {
               ))}
             </div>
           </div>
+          {props.user &&
+            props.user.id &&
 
-          <MyCourses>
-            <HeaderSection
-              title="Tus cursos"
-            />
-            <div className="my-courses-list">
+            <MyCourses>
+              <HeaderSection
+                title="Tus cursos"
+              />
+              <div className="my-courses-list">
 
-              {props.user &&
-                props.user.id &&
-                myCoursesList.map((item: any, index: any) => (
-                  <section key={index} className="course-item" onClick={() => router.push(`/curso/${item.id}`)}>
-                    <Image
-                      className="image-name"
-                      src={item.image_course}
-                      height={500}
-                      width={500}
-                      alt=""
-                    />
-
-                    <div className="course-content">
-                      <Typography
-                        text={item.name_course}
-                        variant="H4"
-                        className="course-title"
+                {
+                  myCoursesList.map((item: any, index: any) => (
+                    <section key={index} className="course-item" onClick={() => router.push(`/curso/${item.id}`)}>
+                      <Image
+                        className="image-name"
+                        src={item.image_course}
+                        height={500}
+                        width={500}
+                        alt=""
                       />
-                      <div className="course-datails">
-                        <p>
-                          {item?.modules.length} {item.modules.length > 1 ? 'Modulos' : 'Modulo'} - {item.time_course}
-                        </p>
+
+                      <div className="course-content">
+                        <Typography
+                          text={item.name_course}
+                          variant="H4"
+                          className="course-title"
+                        />
+                        <div className="autor">
+                          <FaUserAlt className="icon" />
+                          <span>{item?.instructor?.name_instructor}</span>
+                        </div>
+                        <div className="course-datails">
+                          <p>
+                            {item?.modules.length} {item.modules.length > 1 ? 'Modulos' : 'Modulo'} - {item.time_course}
+                          </p>
+                        </div>
+
                       </div>
-                     
-                    </div>
-                    <div className="overlay"></div>
-                  </section>
-                ))}
-            </div>
-          </MyCourses>
+                      <div className="overlay"></div>
+                    </section>
+                  ))}
+              </div>
+            </MyCourses>
+          }
         </div>
 
         <Footer />

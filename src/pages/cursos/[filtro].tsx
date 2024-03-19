@@ -99,8 +99,8 @@ export default function Login(props: any) {
           <h2 style={{fontSize : "1.3rem", fontWeight : 500}}>{filtro !== "todos" ? filtro : 'Todos los cursos'}</h2>
           <div className="my-courses-list">
             {coursesList.length ? coursesList.map((item: any, index: number) => (
-              <section key={index} className="course-item">
-                <div className="hover-content">
+              <section key={index} className="course-item" onClick={() => viewDetails(item.id)}>
+                {/* <div className="hover-content">
                   <Button
                     text="Ver más"
                     onClick={() => viewDetails(item.id)}
@@ -112,7 +112,7 @@ export default function Login(props: any) {
                     }}
                   />
                 
-                </div>
+                </div> */}
                 <Image
                   className="image-course"
                   src={item?.image_course}
