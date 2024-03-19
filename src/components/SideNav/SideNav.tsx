@@ -104,7 +104,7 @@ const SideNav = (props: SideNavAttributes) => {
               </Link>
             </li>
             <li className="responsive-header">
-              <Link href="/carrito" className="nav-item">
+              <Link href="/comprarCurso" className="nav-item">
                 <AiOutlineShoppingCart className="icon" />
                 Carrito
               </Link>
