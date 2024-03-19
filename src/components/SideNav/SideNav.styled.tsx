@@ -10,6 +10,7 @@ export const Main = styled.div<{ openNav: boolean }>`
   justify-content: flex-end;
   width: 0%;
   overflow: hidden;
+  top : 0;
 
   ${(props) => props.openNav && `width: 100%;`}
 
