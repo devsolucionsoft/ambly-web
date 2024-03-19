@@ -230,6 +230,7 @@ export const MyCourses = styled.div`
           }
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             font-size: 0.6rem;
+            margin-top : 6px;
           }
         }
       }
