@@ -57,23 +57,23 @@ export default function MyCoursesPage(props: any) {
           <Typography text="Mis Cursos" variant="H5" />
 
           <div className="my-courses-list">
-            {coursesList.length === 0 && (
+            {/* {coursesList.length === 0 && (
               <section className="emptyCourses">
 
                 <Typography
-                  text="Aun no tienes cursos disponibles..."
+                  text="Aún no tienes cursos disponibles..."
                   variant="H2"
                   style={{ textAlign: "center" }}
                 />
                 <Button
-                  text="Seguir explorando"
+                  text="Descrubre los cursos"
                   bg
                   color="redPrimary"
                   style={{width : 250,}}
                   onClick={() => router.push('/cursos/todos')}
                 />
               </section>
-            )}
+            )} */}
 
             {coursesList.map((item: any, index) => (
               <section key={index} className="course-item" onClick={() => router.push(`/curso/${item.id}`)}>

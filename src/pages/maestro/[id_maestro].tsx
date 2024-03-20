@@ -97,6 +97,7 @@ export default function Login() {
             <Typography
               text={instructorInfo?.description_secondary}
               variant="P"
+              className="mentions"
             />
           </div>
           <div>

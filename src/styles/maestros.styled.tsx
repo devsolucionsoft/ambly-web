@@ -5,6 +5,7 @@ export const Main = styled.main`
   color: ${(props) => props.theme.colors.ligth};
   padding: 0% 0;
   min-height: 100vh;
+ 
   .content-page {
     position: relative;
     z-index: 1;
@@ -55,6 +56,7 @@ export const Main = styled.main`
         }
       }
     }
+    
   }
 `
 export const MainDetail = styled.main`
@@ -93,7 +95,14 @@ export const MainDetail = styled.main`
     padding: 5em 15% 6em 15%;
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       padding: 6em 8% 0em 8%;
+      .mentions {
+        font-size: 0.9rem;
+        text-align: left;
+      font-weight: 200;
+      padding-inline : 2%;
+      }
     }
+   
     .teacher-content {
       position: relative;
       z-index: 2;

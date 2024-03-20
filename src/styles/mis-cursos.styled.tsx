@@ -22,6 +22,9 @@ export const Main = styled.main`
         display : flex;
         flex-direction : column;
         gap : 20px;
+        @media (max-width: ${(props) => props.theme.sizes.md}) {
+          font-size : 1.1rem;
+        }
       }
       .course-item {
         position: relative;

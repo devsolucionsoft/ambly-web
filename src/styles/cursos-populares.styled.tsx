@@ -9,8 +9,22 @@ export const Main = styled.main`
     z-index: 1;
     padding: 5em 15% 6em 15%;
 
+    p {
+      font-size: 1rem;
+      text-align: left;
+      font-weight: 200;
+      margin-top : 1.7rem;
+  }
+
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       padding: 5em 8% 6em 8%;
+
+      p {
+          font-size: 0.9rem;
+          text-align: left;
+          font-weight: 200;
+          margin-top : 1.5rem;
+      }
     }
 
     .my-courses-list {

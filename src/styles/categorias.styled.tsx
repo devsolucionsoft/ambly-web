@@ -11,7 +11,7 @@ export const Main = styled.main`
     padding: 5em 15% 6em 15%;
 
     @media (max-width: ${(props) => props.theme.sizes.sm}) {
-      padding : 2em ;
+      padding : 4em 2em ;
     }
 
     .category-list {

@@ -28,31 +28,31 @@ import { CourseApi, UserApi } from "../api"
 const CourseApiModel = new CourseApi()
 
 interface Course {
-  id : number;
+  id: number;
 }
 
 export default function Login(props: any) {
   const dispatch = useAppDispatch()
   const [coursesList, setCoursesList] = useState<Course[]>([])
   const router = useRouter()
-  const {filtro} = router.query
+  const { filtro } = router.query
   const [loading, setLoading] = useState(false)
 
   console.log(filtro);
-  
+
 
   useEffect(() => {
     const UserpiModel = new UserApi()
-    ;(async () => {
-      if (props.user.id) {
-        const response = await UserpiModel.GetMyCourses(props.user.id)
-        if (response.status === 200) {
-          dispatch(loadCourses(response.data.courses))
+      ; (async () => {
+        if (props.user.id) {
+          const response = await UserpiModel.GetMyCourses(props.user.id)
+          if (response.status === 200) {
+            dispatch(loadCourses(response.data.courses))
+          }
         }
-      }
-    })()
+      })()
   }, [dispatch, props.user])
-  
+
   useEffect(() => {
     getCourses()
   }, [filtro])
@@ -80,8 +80,8 @@ export default function Login(props: any) {
     }, 300)
     setLoading(false)
   }
-  
-  
+
+
   return (
     <>
       <Head>
@@ -96,7 +96,8 @@ export default function Login(props: any) {
         <Header minimal={!props.user} />
 
         <div className="content-page">
-          <h2 style={{fontSize : "1.3rem", fontWeight : 500}}>{filtro !== "todos" ? filtro : 'Todos los cursos'}</h2>
+          <h2 style={{ fontSize: "1.3rem", fontWeight: 500 }}>{filtro !== "todos" ? filtro : 'Todos los cursos'}</h2>
+          <Typography text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut venenatis diam nec lorem malesuada, sed fermentum libero tempor. In hac habitasse platea dictumst." variant="P" />
           <div className="my-courses-list">
             {coursesList.length ? coursesList.map((item: any, index: number) => (
               <section key={index} className="course-item" onClick={() => viewDetails(item.id)}>
