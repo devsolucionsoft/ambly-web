@@ -111,7 +111,7 @@ export const Main = styled.main`
 
       button {
         width: auto;
-        margin-left: 3em;
+        
         padding: 0.6em 1.7em;
         font-size: 1.1rem;
       }

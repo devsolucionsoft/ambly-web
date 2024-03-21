@@ -34,6 +34,7 @@ import { UserApi } from "../api"
 import { courseDetail } from "../../json/data"
 const UserApiModel = new UserApi()
 import { loadCourses } from "../../store/User/actions"
+import Link from "next/link"
 
 export default function CourseDetail(props: any) {
   const router = useRouter()
@@ -278,7 +279,7 @@ export default function CourseDetail(props: any) {
                       className="price-text priceValue"
                       text={`$${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(
                         courseInfo?.price_course
-                      )} COP` }
+                      )} COP`}
                       variant="H2"
                     />
                   </div>
@@ -392,7 +393,9 @@ export default function CourseDetail(props: any) {
                 )}
               </div>
               <div className="link">
-                <a href="/cursos/todos" >Conoce más cursos</a>
+                <Link href="/cursos/todos" className="nav-item">
+                  Conoce más cursos
+                </Link>
               </div>
             </div>
           </Fragment>

@@ -78,7 +78,7 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
       <FormPassword onSubmit={handleSubmit}>
         <Input
           type="email"
-          label="Email"
+          label="Confirma tu correo electrónico"
           name="email"
           onChange={handleKeyUp}
           onKeyUp={handleKeyEnter}
