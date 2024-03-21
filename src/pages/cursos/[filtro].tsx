@@ -97,7 +97,7 @@ export default function Login(props: any) {
 
         <div className="content-page">
           <h2 style={{ fontSize: "1.3rem", fontWeight: 500 }}>{filtro !== "todos" ? filtro : 'Todos los cursos'}</h2>
-          <Typography text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut venenatis diam nec lorem malesuada, sed fermentum libero tempor. In hac habitasse platea dictumst." variant="P" />
+          {filtro !== "todos" && <Typography text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut venenatis diam nec lorem malesuada, sed fermentum libero tempor. In hac habitasse platea dictumst." variant="P" />}
           <div className="my-courses-list">
             {coursesList.length ? coursesList.map((item: any, index: number) => (
               <section key={index} className="course-item" onClick={() => viewDetails(item.id)}>

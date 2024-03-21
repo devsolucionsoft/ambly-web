@@ -81,7 +81,7 @@ export const Main = styled.main`
     .price {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       margin: 2em 3% 2em 3%;
       gap: 2em;
 

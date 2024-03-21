@@ -347,18 +347,19 @@ export default function Carrito(props: any) {
                   </div> : 'Por favor selecciona el curso que deseas comprar'
                 }
                 <Typography
-                  text={`Subtotal: ${new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP" }).format(total ? total : 0)}`}
+                  text={`Subtotal: $${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(total ? total : 0)} COP`}
                   variant="H6"
                 />
+                
               </section>
               <hr />
               <Typography
-                text={`Descuento: $${new Intl.NumberFormat("es-MX").format(currentCouse && valueCupon ? valueCupon : 0)}`}
+                text={`Descuento: $${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(currentCouse && valueCupon ? valueCupon : 0)} COP`}
                 variant="H6"
               />
               <hr />
               <Typography
-                text={`Total: $${new Intl.NumberFormat("es-MX").format(totalWithDiscount && currentCouse ? totalWithDiscount : 0)} COP`}
+                text={`Total: $${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(totalWithDiscount && currentCouse ? totalWithDiscount : 0)} COP`}
                 variant="H4"
               />
             </div>

@@ -392,7 +392,7 @@ export default function CourseDetail(props: any) {
                 )}
               </div>
               <div className="link">
-                <a href="" >Conoce más cursos</a>
+                <a href="/cursos/todos" >Conoce más cursos</a>
               </div>
             </div>
           </Fragment>

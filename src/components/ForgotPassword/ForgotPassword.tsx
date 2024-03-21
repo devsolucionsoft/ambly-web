@@ -85,7 +85,7 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
           error={errorInputs.email.error}
           message={errorInputs.email.message}
         />
-        <Button text="Enviar" bg color="redPrimary" onClick={handleSubmit} style={{marginTop : "1em"}} />
+        <Button text="Enviar" bg color="redPrimary" onClick={handleSubmit} style={{marginTop : "1em", width : '70%'}} />
       </FormPassword>
     </Modal>
   )

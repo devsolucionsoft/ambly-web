@@ -10,7 +10,7 @@ export const Main = styled.button<ButtonProps>`
   text-align: center;
   border: none;
   color: ${(props) => props.theme.colors.ligth};
-  width: 70%;
+  width: 100%;
   align-self:center;
   &:hover {
     opacity : .7;
