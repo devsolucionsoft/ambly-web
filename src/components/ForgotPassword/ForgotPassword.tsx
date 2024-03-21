@@ -76,16 +76,17 @@ const ForgotPassword = (props: ForgotPasswordAttributes) => {
   return (
     <Modal onClose={closeModal} show={showModal} title="Recuperar contraseña">
       <FormPassword onSubmit={handleSubmit}>
+        <span style={{ marginBottom: "10px" }}>Confirma tu email para cambiar clave: </span>
         <Input
           type="email"
-          label="Confirma tu correo electrónico"
+          label="Correo electrónico"
           name="email"
           onChange={handleKeyUp}
           onKeyUp={handleKeyEnter}
           error={errorInputs.email.error}
           message={errorInputs.email.message}
         />
-        <Button text="Enviar" bg color="redPrimary" onClick={handleSubmit} style={{marginTop : "1em", width : '70%'}} />
+        <Button text="Enviar" bg color="redPrimary" onClick={handleSubmit} style={{ marginTop: "1em", width: '70%' }} />
       </FormPassword>
     </Modal>
   )

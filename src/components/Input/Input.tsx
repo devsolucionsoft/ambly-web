@@ -29,7 +29,7 @@ const Input = (props: InputAttributes) => {
   }
   return (
     <Main error={error}>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>{label !== "Correo electrónico" && label }</label>
       <section>
         <input {...props} type={showPassword ? "text" : type} placeholder={placeholder ?? label} name={name} />
         {visible ? !showPassword ? <FaRegEyeSlash className="icon" size={24} onClick={changeVisibility} /> : <FaRegEye className="icon" size={24} onClick={changeVisibility} /> : ''}

@@ -19,7 +19,7 @@ export const Main = styled.main`
       justify-content: space-evenly;
 
       .init-session {
-        padding-top : 60px;
+        padding-top : 4rem;
 
         h6 {
           font-size : 1em !important;

@@ -246,6 +246,7 @@ export default function Carrito(props: any) {
               text="Carrito de compras"
               variant="H4"
               style={{ textAlign: "left", width: "100%", fontSize: "1.7rem" }}
+              className="titleCarrito"
             />
 
             <div className="items-carrito">
@@ -269,10 +270,9 @@ export default function Carrito(props: any) {
                             variant="H4"
                           />
                         </div>
-                        <br />
                         <Typography
                           style={{ textAlign: "left", marginTop: "1.3em" }}
-                          text={`$${new Intl.NumberFormat("es-MX").format(
+                          text={`$${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(
                             item.price_course
                           )} COP`}
                           variant="H6"
@@ -422,8 +422,8 @@ export default function Carrito(props: any) {
                   marginTop: "5em",
                 }}
               >
-                <Button style={{ width: "450px" }}
-                  text="Iniciar sesión"
+                <Button style={{ width: "350px" }}
+                  text="Realizar pago"
                   bg
                   color="redPrimary"
                   onClick={() => router.push("/inicio")}

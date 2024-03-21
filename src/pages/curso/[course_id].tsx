@@ -367,10 +367,10 @@ export default function CourseDetail(props: any) {
                       variant="H6"
                     />
                     <Typography
-                      className="price-text"
-                      text={`$${new Intl.NumberFormat("es-MX").format(
+                      className="price-text priceValue"
+                      text={`$${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(
                         courseInfo?.price_course
-                      )}`}
+                      )} COP`}
                       variant="H2"
                     />
                   </div>

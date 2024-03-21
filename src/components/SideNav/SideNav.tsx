@@ -48,7 +48,7 @@ const SideNav = (props: SideNavAttributes) => {
     try {
       await axios.post(`/api/logout`, {})
       router.replace("/inicio")
-    } catch (error: any) {}
+    } catch (error: any) { }
   }
 
   return (
@@ -135,22 +135,19 @@ const SideNav = (props: SideNavAttributes) => {
                 </div>
               </li>
             )}
+            <li>
+              <Link href="/login" className="nav-item">
+                <FaUser className="icon" />
+                Iniciar sesion
+              </Link>
+            </li>
 
-            {minimal ? (
-              <li className="responsive-header">
-                <Link href="/login" className="nav-item">
-                  <FaUser className="icon" />
-                  Iniciar sesion
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <div className="nav-item" onClick={handleLogout}>
-                  <IoExitOutline className="icon" />
-                  Cerrar sesión
-                </div>
-              </li>
-            )}
+            {!minimal && <li>
+              <div className="nav-item" onClick={handleLogout}>
+                <IoExitOutline className="icon" />
+                Cerrar sesión
+              </div>
+            </li>}
           </ul>
           <Image className="logo" src={IconAmbly} alt="" />
         </nav>

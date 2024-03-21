@@ -18,12 +18,16 @@ export const Main = styled.main`
     }
 
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      padding: 10em 10% 6em 10%;
+      padding: 4em 2em;
       flex-direction: column;
 
       .container {
         width : 100%;
         margin-inline : 0;
+
+        .titleCarrito {
+          font-size:1.2rem !important;
+        }
       }
     }
 
@@ -50,6 +54,11 @@ export const Main = styled.main`
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             flex-direction : column;
             gap : 10px;
+            align-items : start;
+
+            .imgae {
+
+            }
           }
         }
         .image {
@@ -76,21 +85,23 @@ export const Main = styled.main`
           }
           @media (max-width: ${(props) => props.theme.sizes.md}) {
             font-size: 1.5rem;
-            margin: 1rem;
+
+            .icon {
+              position : absolute;
+              right : 1rem;
+            }
           }
         }
         .content {
-          @media (max-width: ${(props) => props.theme.sizes.md}) {
-            margin-left: 1em;
-          }
           h3 {
             font-size: 1.2rem;
             @media (max-width: ${(props) => props.theme.sizes.md}) {
-              font-size: 1rem;
+              font-size: 1.1rem !important;
+              font-weight : bold;
             }
           }
           h4 {
-            font-size : 16px;
+            font-size : 1rem;
           }
           h5 {
             width: 100% !important;
@@ -101,13 +112,20 @@ export const Main = styled.main`
               font-size: 1.2rem;
             }
           }
+          h6 {
+            @media (max-width: ${(props) => props.theme.sizes.md}) {
+              margin-top : 0 !important;
+              font-size : 1.5rem;
+            }
+
+          }
           .autor {
             h4 {
               font-size: 1rem;
               color: ${(props) => props.theme.colors.grayText};
               font-weight: 400;
               @media (max-width: ${(props) => props.theme.sizes.md}) {
-                font-size: 0.7rem;
+                font-size: .9rem;
               }
             }
             display: flex;
@@ -129,11 +147,26 @@ export const Main = styled.main`
       display : flex;
       flex-direction : column;
       gap : 5px;
+
+   
+  
       section {
         display : flex;
         align-items : center;
         justify-content : space-between;
         padding : 10px 0
+      }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        section {
+          align-items : end;
+          flex-direction : column;
+          gap : 10px;
+          padding : 0;
+
+          h6 {
+            text-align : right !important;
+          }
+        }
       }
     }
     .continueBuying {
@@ -148,6 +181,10 @@ export const Main = styled.main`
         text-decoration : none;
         color : white;
       }
+      @media (max-width: ${(props) => props.theme.sizes.md}) {
+        font-size : 1rem;
+      }
+
       
     }
 
@@ -171,6 +208,7 @@ export const Main = styled.main`
     flex-direction : column;
     gap : 10px;
 
+ 
     label {
       display : flex;
       gap : 10px;
@@ -209,6 +247,15 @@ export const Main = styled.main`
       border : none ;
       border-radius : 5px;
     }
+    }
+
+    @media (max-width: ${(props) => props.theme.sizes.md}) {
+      section {
+
+        span {
+          margin : 0;
+        }
+      }
     }
 
   }
