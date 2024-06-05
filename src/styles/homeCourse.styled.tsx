@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 export const Main = styled.main`
 .container {
-    padding : 5%;
-    backgroun : red;
+    padding : 100px 0;
     display : flex;
     flex-direction : column;
     gap : 4rem;
@@ -17,9 +16,14 @@ export const Main = styled.main`
     h1 {
         color : white;
     font-size : 4rem;
-    line-height : 3.5rem;
+    line-height : 4rem;
     text-align:center;
+        @media (max-width:600px){
+            font-size:2rem;
+            line-height:2rem;
+        }
     }
+    
 }
 .bars {
     display : flex;
@@ -63,24 +67,35 @@ h2 {
     line-height : 3rem;
     text-align:center;
     width : 50%;
+
+    @media (max-width:600px){
+        font-size:2rem;
+        line-height:2rem;
+        width : 100%;
+    }
 }
 p {
     color : white;
     font-size : 2rem;
     line-height : 2rem;
     text-align:center;
-    font-weight : bold;
+    font-weight : 800;
+
+    @media (max-width:600px){
+        font-size:1.5rem;
+        line-height:1.5rem;
+    }
 }
 .card {
-    width : 40%;
+    width: 600px;
     figcaption {
         background-color : #ec4942;
-        height : 200px;
+        min-height : 250px;
         display : flex;
         flex-direction : column;
         align-items : center;
         justify-content : space-around;
-        padding: 0 5%;
+        padding: 5%;
         p {
             color : black;
             span {
@@ -96,7 +111,7 @@ p {
             justify-content : center;
             color : white;
             text-decoration : none;
-            font-weight : bold;
+            font-weight : 800;
             transition : all .3s ease;
             &:hover {
                 background-color :  #ec4942;
@@ -105,7 +120,84 @@ p {
                 
             }
         }
-
     }
+    @media (max-width:600px){
+        figcaption{
+            height: 200px;
+            min-height : 100%;
+        }
+        width:100%;
+    }
+}
+form{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap: 25px;
+    width: 100%;
+    padding: 0 5%;
+
+    small{
+        font-size : 2rem;
+        line-height : 2rem;
+        text-align:center;
+        font-weight : 800;
+        color:white;
+        margin-bottom: 1rem;
+    }
+    label{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        width: 70%;
+        gap: 5px;
+        text-transform: uppercase;
+        font-weight: 800;
+        @media (max-width:600px){
+            flex-direction:column;
+            align-items:start;
+            width: 100%;
+            text-align:left;
+
+            input{
+                width:100%;
+                min-width: 100%;
+            }
+        }
+
+        input{
+            width: 100%;
+            max-width: 70%;
+            height: 35px;
+            border-radius: 5px;
+            padding: 0 5px;
+            outline: none;
+            font-size : 1.2rem;
+            line-height : 1.2rem;
+            border: 1px solid #F1F1F1;
+        }
+    }
+
+    button{
+            background-color : #ec4942;
+            border: 1px solid transparent;
+            height : 40px;
+            width : 150px;
+            display : flex;
+            align-items :center;
+            justify-content : center;
+            color : white;
+            text-decoration : none;
+            font-weight : 800;
+            transition : all .3s ease;
+            &:hover {
+                background-color :  white;
+                color : black;
+                border : 1px solid  black;
+            }
+    }
+    
 }
 `

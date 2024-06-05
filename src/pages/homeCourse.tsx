@@ -1,7 +1,7 @@
 import { Main } from '@/styles/homeCourse.styled'
 import Head from 'next/head'
 import React from 'react'
-import manReflexive from '../assets/images/manr.webp'
+import manReflexive from '../assets/images/back-man.jpg'
 import manBlue from '../assets/images/manBlue.webp'
 import Image from 'next/image'
 import { Header, SideNav, Loader, Footer } from "../components"
@@ -38,7 +38,7 @@ const homeCourse = (props: any) => {
                     <Image
                         className="image"
                         src={manReflexive}
-                        height={500}
+                        height={400}
                         width={500}
                         alt="manBlue"
                     />
@@ -62,7 +62,7 @@ const homeCourse = (props: any) => {
                         <Image
                             className="image"
                             src={manBlue}
-                            height={150}
+                            height={210}
                             width={500}
                             alt=""
                         />
@@ -72,12 +72,25 @@ const homeCourse = (props: any) => {
                         </figcaption>
                     </figure>
                     <p>SOMOS, PERTENECEMOS Y TENEMOS EL PODER DE ALCANZAR CUALQUIER CIMA.</p>
-                    <figure>
-                        <img src="" alt="bars" />
-                    </figure>
-                    <p>¿Quieres ser el primero en saber sobre nuestros próximos lanzamientos?</p>
+                    
+                    <div className="title">
+                        <article className='bars left'>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </article>
+                        <p>¿Quieres ser el primero en saber sobre nuestros próximos lanzamientos?</p>
+                        <article className='bars'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </article>
+                    </div>
+
                     <form>
-                        <small>REGISTRATE AQUIÍ:</small>
+                        <small>REGISTRATE AQUÍ:</small>
                         <label>
                             Nombre
                             <input type="text" />
@@ -91,11 +104,9 @@ const homeCourse = (props: any) => {
                             <input type="text" />
                         </label>
                         <button type='submit'>Enviar</button>
-
                     </form>
                 </article>
-
-
+            <Footer />
             </Main>
         </>
     )
