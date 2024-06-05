@@ -69,11 +69,42 @@ p {
     font-size : 2rem;
     line-height : 2rem;
     text-align:center;
+    font-weight : bold;
 }
 .card {
+    width : 40%;
     figcaption {
         background-color : #ec4942;
-        height : 300px;
+        height : 200px;
+        display : flex;
+        flex-direction : column;
+        align-items : center;
+        justify-content : space-around;
+        padding: 0 5%;
+        p {
+            color : black;
+            span {
+                color : white;
+            }
+        }
+        a {
+            background-color : black;
+            height : 40px;
+            width : 150px;
+            display : flex;
+            align-items :center;
+            justify-content : center;
+            color : white;
+            text-decoration : none;
+            font-weight : bold;
+            transition : all .3s ease;
+            &:hover {
+                background-color :  #ec4942;
+                color : black;
+                border : 1px solid  black;
+                
+            }
+        }
 
     }
 }

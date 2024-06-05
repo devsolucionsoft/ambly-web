@@ -62,12 +62,12 @@ const homeCourse = (props: any) => {
                         <Image
                             className="image"
                             src={manBlue}
-                            height={200}
+                            height={150}
                             width={500}
                             alt=""
                         />
                         <figcaption>
-                            <p>CONOCE LA CLASE AMBLY <span>00</span>1: <br /> "HACKEA TU CEREBRO"</p>
+                            <p>CONOCE LA CLASE <br /> AMBLY <span>00</span>1: <br /> "HACKEA TU CEREBRO"</p>
                             <a href='#'>Ingresa</a>
                         </figcaption>
                     </figure>
