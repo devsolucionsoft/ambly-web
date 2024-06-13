@@ -8,7 +8,7 @@ export const Main = styled.main`
   align-items: center;
   h3 {
     font-size: 1.2 vw;
-    display: none;
+    color: white;
   }
   .footer-top {
     max-width: 1000px;

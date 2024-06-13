@@ -47,7 +47,7 @@ const SideNav = (props: SideNavAttributes) => {
   const handleLogout = async () => {
     try {
       await axios.post(`/api/logout`, {})
-      router.replace("/inicio")
+      router.replace("/login")
     } catch (error: any) { }
   }
 
@@ -79,30 +79,30 @@ const SideNav = (props: SideNavAttributes) => {
               </li>
             )}
 
-            <li>
+            {/* <li>
               <Link href="/cursos/todos" className="nav-item">
                 <AiFillBook className="icon" />
                 Todos los cursos
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link href="/trailers" className="nav-item">
                 <BsCameraVideoFill className="icon" />
                 Trailers
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link href="/maestros" className="nav-item">
                 <BsFillPeopleFill className="icon" />
                 Maestros
               </Link>
-            </li>
-            <li className="responsive-header">
+            </li> */}
+            {/* <li className="responsive-header">
               <Link href="/categorias" className="nav-item">
                 <BiCategory className="icon" />
                 Categorías
               </Link>
-            </li>
+            </li> */}
             <li className="responsive-header">
               <Link href="/comprarCurso" className="nav-item">
                 <AiOutlineShoppingCart className="icon" />
@@ -135,12 +135,13 @@ const SideNav = (props: SideNavAttributes) => {
                 </div>
               </li>
             )}
+            {minimal &&
             <li>
               <Link href="/login" className="nav-item">
                 <FaUser className="icon" />
                 Iniciar sesion
               </Link>
-            </li>
+            </li>}
 
             {!minimal && <li>
               <div className="nav-item" onClick={handleLogout}>

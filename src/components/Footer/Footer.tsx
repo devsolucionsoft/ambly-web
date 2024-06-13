@@ -38,56 +38,32 @@ const Footer = (props: FooterProps) => {
             </ul>
           </div>
         </div>
-        <div className="item-footer item-footer-2">
+        {<div className="item-footer item-footer-2">
           <h3 style={{ marginBottom: "1em" }}>Descubre Ambly</h3>
           <div className="links">
             <ul>
               <li>
                 <Link href="/politicas" className="nav-item">
-                  {/* <TfiWorld className="icon" /> */}
+                  {/*<TfiWorld className="icon" />*/}
                   Terminos y condiciones
                 </Link>
               </li>
               <li>
                 <Link href="/politicas" className="nav-item">
-                  {/* <MdLocalPolice className="icon" /> */}
+                  {/*<MdLocalPolice className="icon" />*/}
                   Políticas de privacidad
                 </Link>
               </li>
               <li>
                 <Link href="/" className="nav-item">
-                  {/* <BiHelpCircle className="icon" /> */}
+                  {/*<BiHelpCircle className="icon" />*/}
                   Ayuda y soporte
                 </Link>
               </li>
             </ul>
           </div>
-        </div>
-        <div className="item-footer item-footer-2">
-          <h3 style={{ marginBottom: "1em" }}>Social Ambly</h3>
-          <div className="links">
-            <ul>
-              <li>
-                <Link href="/politicas" className="nav-item">
-                  {/* <MdLocalPolice className="icon" /> */}
-                  Instagram
-                </Link>
-              </li>
-              <li>
-                <Link href="/politicas" className="nav-item">
-                  {/* <TfiWorld className="icon" /> */}
-                  Facebook
-                </Link>
-              </li>
-              <li>
-                <Link href="/" className="nav-item">
-                  {/* <BiHelpCircle className="icon" /> */}
-                  Youtube
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+        </div>}
+
         {/* <div className="shops-section">
           <h3 style={{ marginBottom: "1em" }}>Ambly App</h3>
           <div className="shops">

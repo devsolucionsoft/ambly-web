@@ -426,7 +426,7 @@ export default function Carrito(props: any) {
                   text="Realizar pago"
                   bg
                   color="redPrimary"
-                  onClick={() => router.push("/inicio")}
+                  onClick={() => router.push("/login")}
                 />
               </div>
             )}

@@ -7,6 +7,9 @@ export const Main = styled.main`
     flex-direction : column;
     gap : 4rem;
     align-items : center;
+    h2{
+        width: 100%;
+    }
 }
 .title {
     display : flex;
@@ -88,6 +91,8 @@ p {
 }
 .card {
     width: 600px;
+    display: flex;
+    flex-direction: column;
     figcaption {
         background-color : #ec4942;
         min-height : 250px;
@@ -148,36 +153,49 @@ form{
     }
     label{
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: white;
+        align-items: start;
+        flex-direction: column;
         width: 70%;
         gap: 5px;
-        text-transform: uppercase;
-        font-weight: 800;
-        @media (max-width:600px){
-            flex-direction:column;
-            align-items:start;
-            width: 100%;
-            text-align:left;
-
-            input{
+        color: white;
+            .inputContainer{
+                display: flex;
+                flex-direction: row;
                 width:100%;
-                min-width: 100%;
+                gap: 5px;
+                justify-content: space-between;
+                text-transform: uppercase;
+                font-weight: 800;
+
+
+                input{
+                    width: 100%;
+                    max-width: 70%;
+                    height: 35px;
+                    border-radius: 5px;
+                    padding: 0 5px;
+                    outline: none;
+                    font-size : 1.2rem;
+                    line-height : 1.2rem;
+                    border: 1px solid #F1F1F1;
+                }
+                @media (max-width:600px){
+                    flex-direction:column;
+                    align-items:start;
+                    width: 100%;
+                    text-align:left;
+
+                    input{
+                        width:100%;
+                        min-width: 100%;
+                    }
+                
             }
         }
-
-        input{
-            width: 100%;
-            max-width: 70%;
-            height: 35px;
-            border-radius: 5px;
-            padding: 0 5px;
-            outline: none;
-            font-size : 1.2rem;
-            line-height : 1.2rem;
-            border: 1px solid #F1F1F1;
-        }
+    span{
+        color:#ec4942;
+    }
+    
     }
 
     button{

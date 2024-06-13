@@ -5,6 +5,7 @@ export const Main = styled.header`
   width: 100%;
   z-index: 10;
   top : 0;
+  color: white;
 
   .contain {
     display: flex;

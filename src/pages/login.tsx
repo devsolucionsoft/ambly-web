@@ -1,8 +1,11 @@
 import { useRouter } from "next/router"
 import Head from "next/head"
 import { useState } from "react"
+import { IoMdArrowBack } from "react-icons/io";
+
 // Styled components
 import { Main } from "../styles/login.styled"
+
 // Components
 import {
   Button,
@@ -20,6 +23,11 @@ import axios from "axios"
 import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
 import Swal from "sweetalert2"
+import Link from "next/link"
+
+const handleGoBack = () => {
+  window.history.back()
+}
 
 export default function Login() {
   const router = useRouter()
@@ -132,8 +140,20 @@ export default function Login() {
                 onClick={handleLogin}
               />
             </div>
+            <div className="button-contain">
+              <Link href="/registro">
+                <Button
+                    text="REGISTRARSE"
+                    bg
+                    color="dark"
+                  />
+              </Link>
+            </div>
           </div>
         </div>
+        <IoMdArrowBack className="iconBack"
+        onClick={handleGoBack}  
+        />
       </Main>
     </>
   )

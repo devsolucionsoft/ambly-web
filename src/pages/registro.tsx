@@ -1,6 +1,7 @@
 import Head from "next/head"
 import { useState } from "react"
 import { useRouter } from "next/router"
+import { IoMdArrowBack } from "react-icons/io";
 
 // Styled components
 import { Main } from "../styles/login.styled"
@@ -11,6 +12,9 @@ import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
 // Api
 import { AuthApi } from "./api/"
 // Hooks
+const handleGoBack = () => {
+  window.history.back()
+}
 import useValidateForm, {
   InputValidationI,
   IErrorInputs,
@@ -135,7 +139,7 @@ export default function Login() {
 
             <div className="button-contain">
               <Button
-                text="INICIAR SESIÓN"
+                text="REGISTRARSE"
                 bg
                 color="redPrimary"
                 onClick={handleRegistry}
@@ -143,6 +147,9 @@ export default function Login() {
             </div>
           </div>
         </div>
+        <IoMdArrowBack className="iconBack"
+        onClick={handleGoBack}  
+        />
       </Main>
     </>
   )
