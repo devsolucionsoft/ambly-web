@@ -106,19 +106,18 @@ export default function Login(props: any) {
       <meta name="title" content="Ambly Cursos Online" />
       <meta name="description" content="Ambly te da la entrada a la mente brillante de destacadas figuras por medio de cursos en línea de alta calidad." />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-      <meta name="keywords" content="Ambly, Generado, SEO, Metadatos"/>
 
       <meta property="og:type" content="website"/>
-      <meta property="og:url" content="https://www.ambly.com"/>
+      <meta property="og:url" content="https://ambly-web.vercel.app/"/>
       <meta property="og:title" content="Ambly Cursos Online"/>
       <meta property="og:description" content="Ambly te da la entrada a la mente brillante de destacadas figuras por medio de cursos en línea de alta calidad."/>
-      <meta property="og:image" content="https://www.ambly.com/image.jpg"/>
+      <meta property="og:image" content="/public/favicon.jpg"/>
 
       <meta property="twitter:card" content="summary_large_image"/>
-      <meta property="twitter:url" content="https://www.ambly.com"/>
+      <meta property="twitter:url" content="https://ambly-web.vercel.app/"/>
       <meta property="twitter:title" content="Ambly Cursos Online"/>
       <meta property="twitter:description" content="Ambly te da la entrada a la mente brillante de destacadas figuras por medio de cursos en línea de alta calidad."/>
-      <meta property="twitter:image" content="https://www.ambly.com/image.jpg"/>
+      <meta property="twitter:image" content="/public/favicon.jpg"/>
 
       <link rel="icon" href="/favicon.ico" />
       </Head>
