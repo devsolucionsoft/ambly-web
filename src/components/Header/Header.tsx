@@ -72,9 +72,9 @@ const Header = (props: HeaderAttributes) => {
               <Link href="/inicio">Iniciar sesión</Link>
             </div>
           )}
-          <div className="link-item">
+          {/* <div className="link-item">
             <Link href="/categorias">Categorías</Link>
-          </div>
+          </div> */}
           {!minimal && (
             <Fragment>
               <div className="link-item">
