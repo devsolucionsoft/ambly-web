@@ -3,10 +3,16 @@ import styled from "styled-components"
 export const Main = styled.main`
   border-top: 1px solid #ffffff29;
   padding: 4em 13% 2em 13%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h3 {
     font-size: 1.2 vw;
+    display: none;
   }
   .footer-top {
+    max-width: 1000px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;

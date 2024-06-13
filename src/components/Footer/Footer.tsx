@@ -88,7 +88,7 @@ const Footer = (props: FooterProps) => {
             </ul>
           </div>
         </div>
-        <div className="shops-section">
+        {/* <div className="shops-section">
           <h3 style={{ marginBottom: "1em" }}>Ambly App</h3>
           <div className="shops">
             <a href="#">
@@ -99,7 +99,7 @@ const Footer = (props: FooterProps) => {
               <Image className="icon" src={AppStore} alt="" />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="footer-bottom">
         <p>&#169; 2024 Ambly </p>
