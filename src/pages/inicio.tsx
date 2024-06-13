@@ -107,7 +107,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="shops-section">
+          {/* <div className="shops-section">
             <Typography
               text="Descarga nuestra app en todas las plataformas"
               variant="P"
@@ -122,7 +122,7 @@ export default function Home() {
                 <Image className="icon" src={AppStore} alt="" />
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </Main>
     </>
