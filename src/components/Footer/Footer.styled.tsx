@@ -73,9 +73,13 @@ export const Main = styled.main`
   .footer-bottom {
     margin-top: 5em;
     text-align: center;
-    font-size: 0.82vw;
+    p{
+      font-size: 1.5rem;
+    }
     @media (max-width: ${(props) => props.theme.sizes.md}) {
-      font-size: 0.82rem;
+      p{
+        font-size: 1rem;
+      }
     }
   }
 `

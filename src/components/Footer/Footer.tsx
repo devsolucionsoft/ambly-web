@@ -102,7 +102,7 @@ const Footer = (props: FooterProps) => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&#169; 2023 Ambly </p>
+        <p>&#169; 2024 Ambly </p>
       </div>
     </Main>
   )
