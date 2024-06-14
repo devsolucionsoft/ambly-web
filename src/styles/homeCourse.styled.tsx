@@ -153,24 +153,29 @@ form{
     }
     label{
         display: flex;
-        align-items: start;
-        flex-direction: column;
-        width: 70%;
-        gap: 5px;
+        flex-direction: row;
+        width:80%;
+        justify-content: space-between;
+        text-transform: uppercase;
+        font-weight: 800;
         color: white;
-            .inputContainer{
-                display: flex;
-                flex-direction: row;
-                width:100%;
-                gap: 5px;
-                justify-content: space-between;
-                text-transform: uppercase;
-                font-weight: 800;
+        align-items: start;
+
+                .errorContainer{
+                    display: flex;
+                    flex-direction: column;
+                    width: fit-content;
+                    align-items: start;
+                    max-width: 75%;
+                    width: 100%;
+                    @media (max-width:600px){
+                    max-width: 100%;
+                    }
+                }
 
 
                 input{
                     width: 100%;
-                    max-width: 70%;
                     height: 35px;
                     border-radius: 5px;
                     padding: 0 5px;
@@ -217,5 +222,8 @@ form{
             }
     }
     
+}
+.invalid {
+    border: 1px solid red;
 }
 `

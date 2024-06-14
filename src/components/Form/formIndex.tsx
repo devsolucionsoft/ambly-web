@@ -48,37 +48,40 @@ export const Form = () => {
         <form onSubmit={handleSubmit}>
             <small>REGISTRATE AQUÍ:</small>
             <label>
-                <div className="inputContainer">
-                    Nombre
+                Nombre
+                <div className="errorContainer">
                     <input
                         type="text"
                         value={name}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                        className={errors.name ? 'invalid' : ''}
                     />
+                    {errors.name && <span>{errors.name}</span>}
                 </div>   
-                {errors.name && <span>{errors.name}</span>}
             </label>
             <label>
-                <div className="inputContainer">
-                    Correo electrónico
+                Correo electrónico
+                <div className="errorContainer">
                     <input
                         type="text"
                         value={email}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                        className={errors.name ? 'invalid' : ''}
                     />
+                    {errors.email && <span>{errors.email}</span>}
                 </div>
-                {errors.email && <span>{errors.email}</span>}
             </label>
             <label>
-                <div className="inputContainer">
-                    Teléfono
+                Teléfono
+                <div className="errorContainer">
                     <input
                         type="text"
                         value={phone}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
+                        className={errors.name ? 'invalid' : ''}
                     />
-                </div>
-                {errors.phone && <span>{errors.phone}</span>}
+                    {errors.phone && <span>{errors.phone}</span>} 
+                </div> 
             </label>
             <button type='submit'>Enviar</button>
         </form>
