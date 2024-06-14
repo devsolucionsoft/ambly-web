@@ -392,11 +392,11 @@ export default function CourseDetail(props: any) {
                   />
                 )}
               </div>
-              <div className="link">
+              {/* <div className="link">
                 <Link href="/cursos/todos" className="nav-item">
                   Conoce más cursos
                 </Link>
-              </div>
+              </div> */}
             </div>
           </Fragment>
         )}
