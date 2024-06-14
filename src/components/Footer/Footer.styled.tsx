@@ -14,12 +14,14 @@ export const Main = styled.main`
     max-width: 1000px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 50px;
     align-items: flex-start;
     @media (max-width: ${(props) => props.theme.sizes.md}) {
       width: 100%;
       flex-direction: column;
       text-align: center;
+      gap: 0;
     }
     .item-footer {
       width: 20%;
