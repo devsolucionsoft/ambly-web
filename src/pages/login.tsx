@@ -27,7 +27,7 @@ export default function Login() {
       </Head>
       <Main>
         <IoMdArrowBack className="iconBack" onClick={handleGoBack} />
-        <LoginForm setShowLogin={false} useLinkForRegisterPage={true}/>
+        <LoginForm/>
       </Main>
     </>
   )

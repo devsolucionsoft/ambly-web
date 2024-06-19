@@ -18,7 +18,12 @@ IErrorInputs,
 import Swal from "sweetalert2"
 import Link from "next/link"
 
-export default function Register({setShowLogin, useLinkForRegisterPage}) {
+interface RegisterFormProps {
+  setShowLogin: boolean;
+  useLinkForRegisterPage: boolean;
+}
+
+export default function Register({setShowLogin, useLinkForRegisterPage}: RegisterFormProps) {
 const router = useRouter()
 
 const [loading, setLoading] = useState(false)

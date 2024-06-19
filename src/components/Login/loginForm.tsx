@@ -18,7 +18,7 @@ import useValidateForm, {
   IErrorInputs,
 } from "../../hooks/useValidateForm"
 
-export default function LoginForm({setShowLogin, useLinkForRegisterPage}) {
+export default function LoginForm() {
   const router = useRouter()
   const currentPath = router.asPath;
 
@@ -81,7 +81,7 @@ export default function LoginForm({setShowLogin, useLinkForRegisterPage}) {
   }
 
   return (
-    <Main>
+    <>
       <Loader loading={loading} />
       <ForgotPassword
         showModal={showModal}
@@ -119,25 +119,16 @@ export default function LoginForm({setShowLogin, useLinkForRegisterPage}) {
             />
           </div>
           <div className="button-contain">
-            {useLinkForRegisterPage ? (
-                <Link href="/registro">
-                    <Button
-                    text="REGISTRARSE"
-                    bg
-                    color="dark"
-                    />
-                </Link>
-                ) : (
+            <Link href="/registro">
                 <Button
-                    text="REGISTRARSE"
-                    bg
-                    color="dark"
-                    onClick={() => setShowLogin(false)}
+                text="REGISTRARSE"
+                bg
+                color="dark"
                 />
-                )}
+            </Link>
           </div>
         </div>
       </div>
-    </Main>
+    </>
   )
 }
