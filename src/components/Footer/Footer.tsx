@@ -18,6 +18,12 @@ const Footer = (props: FooterProps) => {
           <div className="links">
             <ul>
               <li>
+                <Link href="/about" className="nav-item">
+                  {/* <TfiWorld className="icon" /> */}
+                  About
+                </Link>
+              </li>
+              <li>
                 <Link href="/politicas" className="nav-item">
                   {/* <TfiWorld className="icon" /> */}
                   Terminos y condiciones
@@ -30,7 +36,7 @@ const Footer = (props: FooterProps) => {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="nav-item">
+                <Link href="mailto:at@ambly.co" target="_blank" className="nav-item">
                   {/* <BiHelpCircle className="icon" /> */}
                   Ayuda y soporte
                 </Link>
@@ -38,31 +44,54 @@ const Footer = (props: FooterProps) => {
             </ul>
           </div>
         </div>
-        {<div className="item-footer item-footer-2">
+        {/* <div className="item-footer">
           <h3 style={{ marginBottom: "1em" }}>Descubre Ambly</h3>
           <div className="links">
             <ul>
               <li>
                 <Link href="/politicas" className="nav-item">
-                  {/*<TfiWorld className="icon" />*/}
+                  <TfiWorld className="icon" />
                   Terminos y condiciones
                 </Link>
               </li>
               <li>
                 <Link href="/politicas" className="nav-item">
-                  {/*<MdLocalPolice className="icon" />*/}
+                  <MdLocalPolice className="icon" />
                   Políticas de privacidad
                 </Link>
               </li>
               <li>
                 <Link href="/" className="nav-item">
-                  {/*<BiHelpCircle className="icon" />*/}
+                  <BiHelpCircle className="icon" />
                   Ayuda y soporte
                 </Link>
               </li>
             </ul>
           </div>
-        </div>}
+        </div> */}
+
+        <div className="item-footer">
+          <h3 style={{ marginBottom: "1em" }}>Social Ambly</h3>
+          <div className="links">
+            <ul>
+              <li>
+                <Link href="https://www.facebook.com/ambly.co" target="_blank" className="nav-item">
+                  Facebook
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.instagram.com/ambly.co/" target="_blank" className="nav-item">
+                  Instagram
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.youtube.com/@ambly_co" target="_blank" className="nav-item">
+                  Youtube
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
 
         {/* <div className="shops-section">
           <h3 style={{ marginBottom: "1em" }}>Ambly App</h3>

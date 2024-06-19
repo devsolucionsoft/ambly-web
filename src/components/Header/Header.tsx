@@ -88,8 +88,8 @@ const Header = (props: HeaderAttributes) => {
               </div>
             </Fragment>
           )}
-          <div className="link-item item carrito">
-            {/* <span>{JSON.parse(value).length}</span> */}
+          {/* <div className="link-item item carrito">
+            <span>{JSON.parse(value).length}</span>
 
             <Link href="/comprarCurso">
               <AiOutlineShoppingCart
@@ -97,7 +97,7 @@ const Header = (props: HeaderAttributes) => {
                 style={{ marginTop: "2px" }}
               />
             </Link>
-          </div>
+          </div> */}
         </div>
         <div className="open-menu" onClick={openSidenav}>
           <HiMenu className="icon" />

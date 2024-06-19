@@ -70,14 +70,14 @@ const SideNav = (props: SideNavAttributes) => {
           </button>
 
           <ul className="nav-links">
-            {!minimal && (
+            {/* {!minimal && (
               <li>
                 <Link href="/mis-cursos" className="nav-item">
                   <AiFillPlayCircle className="icon" />
                   Mis cursos
                 </Link>
               </li>
-            )}
+            )} */}
 
             {/* <li>
               <Link href="/cursos/todos" className="nav-item">
@@ -103,30 +103,38 @@ const SideNav = (props: SideNavAttributes) => {
                 Categorías
               </Link>
             </li> */}
-            <li className="responsive-header">
+            {/* <li className="responsive-header">
               <Link href="/comprarCurso" className="nav-item">
                 <AiOutlineShoppingCart className="icon" />
                 Carrito
               </Link>
-            </li>
-            <li className="responsive-header">
-              <Link href="/politicas" className="nav-item">
-                <FiHelpCircle className="icon" />
-                Ayuda y soporte
-              </Link>
-            </li>
-            <li className="responsive-header">
-              <Link href="/politicas" className="nav-item">
-                <TfiWorld className="icon" />
-                Términos y condiciónes
-              </Link>
-            </li>
-            <li className="responsive-header">
+            </li> */}
+            {!minimal && (
+              <li className="responsive-header">
+                <Link href="/politicas" className="nav-item">
+                  <FiHelpCircle className="icon" />
+                  Ayuda y soporte
+                </Link>
+              </li>
+            )}
+            {!minimal && (
+              <li className="responsive-header">
+                <Link href="/politicas" className="nav-item">
+                  <TfiWorld className="icon" />
+                  Términos y condiciónes
+                </Link>
+              </li>
+            )}
+            
+            {!minimal && (
+              <li className="responsive-header">
               <Link href="/politicas" className="nav-item">
                 <MdLocalPolice className="icon" />
                 Políticas de privacidad
               </Link>
             </li>
+            )}
+
             {!minimal && (
               <li>
                 <div onClick={() => setShowModal(true)} className="nav-item">

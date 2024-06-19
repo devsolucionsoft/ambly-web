@@ -47,6 +47,7 @@ export const Main = styled.div<{ openNav: boolean }>`
       cursor: pointer;
       background-color: transparent;
       border: none;
+      justify-content: left;
       .icon {
         font-size: 1.5rem;
         color: white !important;

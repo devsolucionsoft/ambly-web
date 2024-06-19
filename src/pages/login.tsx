@@ -1,98 +1,21 @@
-import { useRouter } from "next/router"
 import Head from "next/head"
-import { useState } from "react"
-import { IoMdArrowBack } from "react-icons/io";
 
 // Styled components
 import { Main } from "../styles/login.styled"
+import { IoMdArrowBack } from "react-icons/io";
+import LoginForm from "@/components/Login/loginForm";
 
-// Components
-import {
-  Button,
-  Typography,
-  Input,
-  ForgotPassword,
-  Loader,
-} from "../components"
-// Hooks
-import useValidateForm, {
-  InputValidationI,
-  IErrorInputs,
-} from "../hooks/useValidateForm"
-import axios from "axios"
+//Hooks
 import { withIronSessionSsr } from "iron-session/next"
 import { sessionOptions, sessionVerificationCreated } from "../../lib/session"
-import Swal from "sweetalert2"
-import Link from "next/link"
+import { Typography } from "@/components";
+
 
 const handleGoBack = () => {
   window.history.back()
 }
 
 export default function Login() {
-  const router = useRouter()
-
-  const [loading, setLoading] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-
-  const defaultInputs = {
-    email: "",
-    password: "",
-  }
-  // States inputs
-  const [stateInputs, setStateInputs] = useState(defaultInputs)
-  // Use Hook Validation
-  const defaultValidation: InputValidationI = {
-    email: { required: "email" },
-    password: { required: "text" },
-  }
-  const { validationInputs, getValidation } = useValidateForm({
-    defaultInputs,
-    defaultValidation,
-  })
-  const [errorInputs, setErrorInputs] = useState<IErrorInputs>(validationInputs)
-  // Inputs keyup
-  const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
-
-    setStateInputs({
-      ...stateInputs,
-      [event.target.name]: event.target.value,
-    })
-    setErrorInputs(validationInputs)
-
-  }
-  const handleKeyEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-
-    if (event.key === "Enter") {
-      handleLogin();
-    }
-  }
-
-  const handleLogin = async () => {
-    const { errors, validation } = getValidation(stateInputs)
-
-    if (validation) {
-      setLoading(true)
-      try {
-        await axios.post(`/api/login`, stateInputs)
-        router.replace("/")
-      } catch (error: any) {
-        setLoading(false)
-
-        Swal.fire({
-          title: "Valida tu usuario y contraseña",
-          icon: "error",
-          confirmButtonText: "Aceptar",
-        })
-      }
-    } else {
-      setLoading(false)
-      setErrorInputs({
-        ...errorInputs,
-        ...errors,
-      })
-    }
-  }
 
   return (
     <>
@@ -103,57 +26,8 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <Loader loading={loading} />
-        <ForgotPassword
-          showModal={showModal}
-          closeModal={() => setShowModal(false)}
-        />
-        <div className="contain">
-          <Typography text="Iniciar sesión" variant="H4" />
-          <div className="form-login" onKeyUp={handleKeyEnter}>
-            <Input
-              type="email"
-              label="E-mail"
-              name="email"
-              onChange={handleKeyUp}
-              error={errorInputs.email.error}
-              message={errorInputs.email.message}
-            />
-            <Input
-              type="password"
-              label="Contraseña"
-              name="password"
-              onChange={handleKeyUp}
-              error={errorInputs.password.error}
-              message={errorInputs.password.message}
-              visible = {true}
-            />
-            <div className="forget-password">
-              <p onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña?</p>
-            </div>
-
-            <div className="button-contain">
-              <Button
-                text="INICIAR SESIÓN"
-                bg
-                color="redPrimary"
-                onClick={handleLogin}
-              />
-            </div>
-            <div className="button-contain">
-              <Link href="/registro">
-                <Button
-                    text="REGISTRARSE"
-                    bg
-                    color="dark"
-                  />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <IoMdArrowBack className="iconBack"
-        onClick={handleGoBack}  
-        />
+        <IoMdArrowBack className="iconBack" onClick={handleGoBack} />
+        <LoginForm setShowLogin={false} useLinkForRegisterPage={true}/>
       </Main>
     </>
   )
