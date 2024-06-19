@@ -38,7 +38,7 @@ import Link from "next/link"
 
 export default function CourseDetail(props: any) {
   const router = useRouter()
-  const { course_id }: any = router.query
+  const { course_id, cupon }: any = router.query
 
   const dispatch = useAppDispatch()
   const courseInfo = useAppSelector((store) => store.User.selectCourse)
@@ -197,6 +197,15 @@ export default function CourseDetail(props: any) {
       addCart()
     }
   }
+
+  useEffect(() => {
+    // Aquí puedes verificar si el cupón está presente en la URL
+    if (cupon) {
+      localStorage.setItem("coupon_code", cupon as string);
+    }
+  
+    // ... (código existente)
+  }, [course_id, dispatch, includeMyCourse, myCourses, cupon]); 
 
   return (
     <>

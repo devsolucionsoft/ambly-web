@@ -1,6 +1,6 @@
 import Head from "next/head"
 import Image from "next/image"
-import { useState, useEffect, useId } from "react"
+import { useState, useEffect, useId, useRef } from "react"
 import { useRouter } from "next/router"
 // Assests
 import { FaUserAlt } from "react-icons/fa"
@@ -92,30 +92,33 @@ const [errorInputs, setErrorInputs] = useState<IErrorInputs>(validationInputs)
 if (typeof window !== "undefined") {
 urlsite = window.location.host || ""
 }
+
 //Validación de cupón ingresado por el usuario
-const validateCupon = async (info: any) => {
-  if (usarCupon && codigoCupon.code) {
-    setLoading(true)
-    const response = await PayuApiModel.GetCupon(info);
-    if (response.status === 200) {
-      setCodigoCupon(prevState => ({
-        ...prevState,
-        error: false,
-        message: response.data.message
-      }))
-      setValueCupon(parseInt(response.data.discount_value, 10))
-  
-    } else {
-      setCodigoCupon(prevState => ({
-        ...prevState,
-        error: true,
-        message: response.data.message
-  
-      }));
+  const validateCupon = async (info: any) => {
+    if (usarCupon && codigoCupon.code) {
+      setLoading(true)
+      const response = await PayuApiModel.GetCupon(info);
+      if (response.status === 200) {
+        setCodigoCupon(prevState => ({
+          ...prevState,
+          error: false,
+          message: response.data.message
+        }))
+        setValueCupon(parseInt(response.data.discount_value, 10))
+    
+      } else {
+        setCodigoCupon(prevState => ({
+          ...prevState,
+          error: true,
+          message: response.data.message
+    
+        }));
+      }
     }
-  }
-  setLoading(false)
-};
+    setLoading(false)
+    localStorage.removeItem("coupon_code");
+  };
+
 //Se obtiene la data del carrito de compras
 const getItems = () => {
   const stored = localStorage.getItem("cart_products")
@@ -250,24 +253,38 @@ setLoading(false)
 }
 //LLamado de la función de Registrar transacción y se calcula el valor del curso
 useEffect(() => {
-if (data.value) {
-regitserAndSubmitTransaction()
-}
-setTotal(parseInt(valueCourse))
-setTotalWithDiscount(parseInt(valueCourse))
-if (valueCupon) {
-const nuevoTotal = total - valueCupon
-setTotalWithDiscount(nuevoTotal)
-}
-}, [valueCourse, valueCupon])
+  if (data.value) {
+  regitserAndSubmitTransaction()
+  }
+  setTotal(parseInt(valueCourse))
+  setTotalWithDiscount(parseInt(valueCourse))
+  if (valueCupon) {
+  const nuevoTotal = total - valueCupon
+  setTotalWithDiscount(nuevoTotal)
+  }
+  }, [valueCourse, valueCupon])
 
-const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
-  setStateInputs({
-  ...stateInputs,
-  [event.target.name]: event.target.value,
-  })
-  setErrorInputs(validationInputs)
+  const handleKeyUp = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setStateInputs({
+    ...stateInputs,
+    [event.target.name]: event.target.value,
+    })
+    setErrorInputs(validationInputs)
 }
+
+const botonRef = useRef(null);
+
+useEffect(() => {
+  codigoCupon.code = localStorage.getItem("coupon_code") || '';
+
+  if (codigoCupon.code) {
+    setUsarCupon(true); // Activar el uso del cupón automáticamente
+    setCodigoCupon(prevState => ({
+      ...prevState,
+      code: codigoCupon.code
+    }));
+  }
+}, []);
 
 const handleRegisterandPush = async () => {
   if(!props.user){
@@ -411,7 +428,7 @@ return (
             {courses.length > 0 ?
               <div className="validateCupon">
                 <label>
-                  <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
+                  <input checked={usarCupon} type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
                   Usar cupón de descuento
                 </label>
                 {usarCupon && (
@@ -425,7 +442,7 @@ return (
                     </label>
                     {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
                     {codigoCupon?.code && (
-                      <button onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
+                      <button ref={botonRef} onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
                     )}
                   </section>
 
