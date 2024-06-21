@@ -4,6 +4,44 @@ export const Main = styled.main`
   background-color: ${(props) => props.theme.colors.black};
   color: ${(props) => props.theme.colors.ligth};
   padding: 0% 0;
+  .form-login {
+      width: 30%;
+      margin-top: 3em;
+      align-self: center;
+      @media (max-width: ${(props) => props.theme.sizes.sm}) {
+        width: 80%;
+      }
+      .forget-password {
+        font-size: 1rem;
+        margin: 3em 0 2em 0;
+        p {
+          text-align: center;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+      .politis {
+        width: 80%;
+        font-size: 1rem;
+        margin-left: 10%;
+        p {
+          text-align: center;
+          span {
+            text-align: center;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+      .button-contain {
+        margin-top: 1.6em;
+       @media(max-width : 500px){
+        button {
+          font-size : .9rem;
+        }
+       }
+      }
+    }
   .content-page {
     position: relative;
     z-index: 1;

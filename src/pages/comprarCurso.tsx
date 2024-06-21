@@ -2,6 +2,7 @@ import Head from "next/head"
 import Image from "next/image"
 import { useState, useEffect, useId, useRef } from "react"
 import { useRouter } from "next/router"
+import axios from "axios"
 // Assests
 import { FaUserAlt } from "react-icons/fa"
 import { IoCloseSharp } from "react-icons/io5";
@@ -37,6 +38,7 @@ import useValidateForm, {
   InputValidationI,
   IErrorInputs,
   } from "../hooks/useValidateForm"
+import { redirect } from "next/dist/server/api-utils"
   
 const CourseApiModel = new CourseApi()
 const PayuApiModel = new PayuApi()
@@ -55,6 +57,7 @@ const [valueCupon, setValueCupon] = useState(0)
 const [currentUser, setCurrentUser] = useState({})
 const [total, setTotal] = useState(0)
 const [totalWithDiscount, setTotalWithDiscount] = useState(0)
+const currentPath = router.asPath;
 const [paymentData, setPaymentData] = useState({
 accountId: '',
 confirmationUrl: '',
@@ -286,49 +289,70 @@ useEffect(() => {
   }
 }, []);
 
-const handleRegisterandPush = async () => {
-  if(!props.user){
-    const { errors, validation } = getValidation(stateInputs)
-    console.log(errors);
-    console.log(validation);
+const handleRegistry = async () => {
+  const { errors, validation } = getValidation(stateInputs)
   
-    if (validation) {
-      console.log("validation")
-      setLoading(true)
-      const repsonse = await AuthApiModel.UserRegister(stateInputs)
-      switch (repsonse.status) {
-        case 201:
-          Swal.fire({
-            title: "Registro exitoso.",
-            text: "Ya puedes iniciar sesión",
-            icon: "success",
-            confirmButtonText: "Ir a inicio de sesión",
-          }).then(() => {
-            router.replace("/login")
-          })
-          break
-        default:
-          Swal.fire({
-            title: "No se ha podido realizar el regístro.",
-            text: "Comprueba tu email e intentalo mas tarde",
-            icon: "error",
-            confirmButtonText: "Aceptar",
-          })
-          break
-      }
+  if (validation) {
+    setLoading(true)
+    const repsonse = await AuthApiModel.UserRegister(stateInputs)
+    switch (repsonse.status) {
+      case 201:
+        Swal.fire({
+          title: "Registro exitoso.",
+          text: "Ya puedes iniciar sesión",
+          icon: "success",
+        })
+        break
+      default:
+        Swal.fire({
+          title: "No se ha podido realizar el regístro.",
+          text: "Comprueba tu email e intentalo mas tarde",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        })
+        break
+    }
+    setLoading(false)
+  } else {
+    setErrorInputs({
+      ...errorInputs,
+      ...errors,
+    })
+  }
+};
+
+const handleLogin = async () => {
+  const { errors, validation } = getValidation(stateInputs)
+
+  if (validation) {
+    setLoading(true)
+    try {
+      await axios.post(`/api/login`, stateInputs)
+      const redirectPath = currentPath || "/";
+      router.replace(redirectPath as string);
+    } catch (error: any) {
       setLoading(false)
-    } else {
-      setErrorInputs({
-        ...errorInputs,
-        ...errors,
+      Swal.fire({
+        title: "Valida tu usuario y contraseña",
+        icon: "error",
+        confirmButtonText: "Aceptar",
       })
+    }
+  } else {
+    setLoading(false)
+    setErrorInputs({
+      ...errorInputs,
+      ...errors,
+    })
   }
-
-  }
-  
-
-
 }
+
+  const handleRegistryAndSubmit = async (e) => {
+    e.preventDefault();
+    // Llama a la función de registro
+    await handleRegistry();
+    await handleLogin();
+  }
 
 return (
 <>
@@ -480,6 +504,97 @@ return (
         />
       </div> */}
 
+          {props.user ? (
+            <form
+              method="post"
+              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+            >
+              <div className="divider"></div>
+              <div className="form">
+                <input name="buyerFullName" type="hidden" value={username} />
+                <input name="buyerEmail" type="hidden" value={email} />
+                <input name="mobilePhone" type="hidden" value={phone} />
+                <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
+                <input name="accountId" type="hidden" value={paymentData?.accountId} />
+                <input name="description" type="hidden" value={paymentData?.description} />
+                <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
+                <input name="amount" type="hidden" value={totalWithDiscount} />
+                <input name="tax" type="hidden" value={paymentData?.tax} />
+                <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
+                <input name="currency" type="hidden" value={paymentData?.currency} />
+                <input name="signature" type="hidden" value={paymentData?.signature} />
+                <input name="test" type="hidden" value={paymentData?.test} />
+                <input name="extra1" type="hidden" value={props.user.id} />
+                <input name="extra2" type="hidden" value={cartProducts} />
+                <input
+                  name="responseUrl"
+                  type="hidden"
+                  value={`https://ambly-web.vercel.app/compra-realizada`}
+                />
+                <input
+                  name="confirmationUrl"
+                  type="hidden"
+                  value={paymentData.confirmationUrl}
+                />
+              </div>
+              <div style={{
+                display: "flex", justifyContent
+                  : "center", padding: "10px"
+              }}>
+                <Button style={{ width: "350px" }}
+                  text="Realizar pago"
+                  bg
+                  color="redPrimary"
+                  type="submit"
+                  disabled={!currentCouse}
+                />
+              </div>
+            </form>
+          ) : (
+              <div className="form-login">
+                <Input
+                  type="text"
+                  label="Nombre"
+                  name="username"
+                  onChange={handleKeyUp}
+                  error={errorInputs.username.error}
+                  message={errorInputs.username.message}
+                />
+                <Input
+                  type="text"
+                  label="E-mail"
+                  name="email"
+                  onChange={handleKeyUp}
+                  error={errorInputs.email.error}
+                  message={errorInputs.email.message}
+                />
+                <Input
+                  type="password"
+                  label="Contraseña"
+                  name="password"
+                  onChange={handleKeyUp}
+                  error={errorInputs.password.error}
+                  message={errorInputs.password.message}
+                  visible={true}
+                />
+        
+                <div className="politis">
+                  <p>
+                    Al continuar acepto <span> términos y condiciones</span> y{" "}
+                    <span>políticas de privacidad</span>
+                  </p>
+                </div>
+                <div className="button-contain">
+                      <Button
+                      text="Registrate"
+                      bg
+                      color="redPrimary"
+                      onClick={handleRegistryAndSubmit}
+                      disabled={!currentCouse}
+                      />
+                </div>
+              </div>
+          )}
     </div>
     <Footer />
   </Main>
