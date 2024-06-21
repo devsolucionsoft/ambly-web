@@ -47,7 +47,7 @@ const SideNav = (props: SideNavAttributes) => {
   const handleLogout = async () => {
     try {
       await axios.post(`/api/logout`, {})
-      router.replace("/login")
+      router.replace(router.asPath)
     } catch (error: any) { }
   }
 
