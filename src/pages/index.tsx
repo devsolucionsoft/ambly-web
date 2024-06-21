@@ -157,10 +157,8 @@ export default function Login(props: any) {
                         </article>
                     </div>
                     <Image
-                        className="image"
+                        className="imgBanner"
                         src={manReflexive}
-                        height={400}
-                        width={500}
                         alt="manBlue"
                     />
                     <h2>APRENDE DE LOS MEJORES. <br /> INSPÍRATE POR SU EXPERIENCIA.  <br /> VUELA SIN LÍMITES</h2>

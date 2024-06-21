@@ -11,6 +11,11 @@ export const Main = styled.main`
         width: 100%;
     }
 }
+.imgBanner{
+    max-height: 500px;
+    width: 100%;
+    object-fit: cover;
+}
 .title {
     display : flex;
     align-items : center;
