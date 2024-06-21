@@ -1,6 +1,6 @@
 import Head from "next/head"
 import Image from "next/image"
-import { useState, useEffect, useId, useRef } from "react"
+import { useState, useEffect, useId, useRef, FormEvent } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
 // Assests
@@ -347,7 +347,7 @@ const handleLogin = async () => {
   }
 }
 
-  const handleRegistryAndSubmit = async (e) => {
+  const handleRegistryAndSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Llama a la función de registro
     await handleRegistry();
