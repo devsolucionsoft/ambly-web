@@ -233,26 +233,26 @@ token: props?.user?.token
 }
 //Función para registrar la transacción
 const regitserAndSubmitTransaction = async () => {
-setLoading(true)
-if (data && props.user) {
-const response = await PayuApiModel.RegisterTransaction(data)
-if (response.status === 200) {
-//Si la respuesta es 200 se setea PaymentData con la información obtenida
-setPaymentData({
-...paymentData,
-accountId: response.data.data.accountId,
-confirmationUrl: response.data.data.confirmationUrl,
-currency: response.data.data.currency,
-description: response.data.data.description,
-merchantId: response.data.data.merchantId,
-referenceCode: response.data.data.referenceCode,
-signature: response.data.data.signature,
-tax: response.data.data.tax,
-taxReturnBase: response.data.data.taxReturnBase,
-})
-}
-}
-setLoading(false)
+  setLoading(true)
+  if (data && props.user) {
+  const response = await PayuApiModel.RegisterTransaction(data)
+    if (response.status === 200) {
+    //Si la respuesta es 200 se setea PaymentData con la información obtenida
+      setPaymentData({
+        ...paymentData,
+        accountId: response.data.data.accountId,
+        confirmationUrl: response.data.data.confirmationUrl,
+        currency: response.data.data.currency,
+        description: response.data.data.description,
+        merchantId: response.data.data.merchantId,
+        referenceCode: response.data.data.referenceCode,
+        signature: response.data.data.signature,
+        tax: response.data.data.tax,
+        taxReturnBase: response.data.data.taxReturnBase,
+      })
+    }
+  }
+  setLoading(false)
 }
 //LLamado de la función de Registrar transacción y se calcula el valor del curso
 useEffect(() => {
@@ -299,8 +299,11 @@ const handleRegistry = async () => {
       case 201:
         Swal.fire({
           title: "Registro exitoso.",
-          text: "Ya puedes iniciar sesión",
+          text: "Registrado exitosamente",
           icon: "success",
+          confirmButtonText: "Proceder al pago",
+        }).then(() => {
+          router.replace(currentPath)
         })
         break
       default:
@@ -347,11 +350,10 @@ const handleLogin = async () => {
   }
 }
 
-  const handleRegistryAndSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Llama a la función de registro
+  const handleRegistryAndSubmit = async () => {
     await handleRegistry();
     await handleLogin();
+    await console.log(paymentData);
   }
 
 return (
@@ -505,7 +507,13 @@ return (
       </div> */}
 
           {props.user ? (
-            <form
+            <form style={{
+              display: "flex", 
+              justifyContent: "center", 
+              padding: "10px",
+              alignSelf: "center",
+              flexDirection: "column",
+            }}
               method="post"
               action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
             >
