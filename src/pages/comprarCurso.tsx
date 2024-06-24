@@ -143,23 +143,23 @@ const getItems = () => {
 }
 //Se obtiene la data del carrito de compras al cargar la página
 useEffect(() => {
-const stored = localStorage.getItem("cart_products")
-if (stored) {
-setCartProducts(stored)
-const cart_products: Array<any> = JSON.parse(stored)
-; (async () => {
-setLoading(true)
-const response = await CourseApiModel.GetCourses()
-const filterdata = response.data.filter((item: any) =>
-cart_products.includes(item.id)
-)
-if (response.status === 200) {
-setCourses(filterdata)
-setCurrentCouse(filterdata[0])
-}
-setLoading(false)
-})()
-}
+  const stored = localStorage.getItem("cart_products")
+  if (stored) {
+    setCartProducts(stored)
+    const cart_products: Array<any> = JSON.parse(stored)
+    ; (async () => {
+    setLoading(true)
+    const response = await CourseApiModel.GetCourses()
+    const filterdata = response.data.filter((item: any) =>
+    cart_products.includes(item.id)
+    )
+    if (response.status === 200) {
+      setCourses(filterdata)
+      setCurrentCouse(filterdata[0])
+    }
+    setLoading(false)
+    })()
+  }
 }, [props.user.id])
 
 //Se borra el curso seleccionado
@@ -251,6 +251,7 @@ const regitserAndSubmitTransaction = async () => {
         taxReturnBase: response.data.data.taxReturnBase,
       })
     }
+    return response
   }
   setLoading(false)
 }
@@ -279,15 +280,20 @@ const botonRef = useRef(null);
 
 useEffect(() => {
   codigoCupon.code = localStorage.getItem("coupon_code") || '';
+  let code = localStorage.getItem("coupon_code");
 
   if (codigoCupon.code) {
     setUsarCupon(true); // Activar el uso del cupón automáticamente
     setCodigoCupon(prevState => ({
       ...prevState,
-      code: codigoCupon.code
+      code: codigoCupon.code,
     }));
   }
-}, []);
+  console.log(code)
+  if (code) {
+    console.log("hola")
+  }
+}, [])
 
 const handleRegistry = async () => {
   const { errors, validation } = getValidation(stateInputs)
@@ -303,7 +309,11 @@ const handleRegistry = async () => {
           icon: "success",
           confirmButtonText: "Proceder al pago",
         }).then(() => {
-          router.replace(currentPath)
+          /* router.replace(currentPath) */
+          /* router.push('https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/') */
+         /*  axios.post('https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', paymentData) */
+          const response = axios.post('https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', paymentData);
+          console.log(response)
         })
         break
       default:
@@ -353,7 +363,8 @@ const handleLogin = async () => {
   const handleRegistryAndSubmit = async () => {
     await handleRegistry();
     await handleLogin();
-    await console.log(paymentData);
+    const response = await regitserAndSubmitTransaction();
+    await console.log(response);
   }
 
 return (
@@ -464,7 +475,13 @@ return (
                         value={codigoCupon.code}
                         type="text"
                         placeholder="Ingrese el cupón de descuento"
-                        onChange={(e) => setCodigoCupon(prevState => ({ ...prevState, code: e.target.value }))} />
+                        onChange={(e) => {
+                          setCodigoCupon(prevState => ({
+                            ...prevState,
+                            code: e.target.value
+                          }));
+                        }}
+                      />
                     </label>
                     {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
                     {codigoCupon?.code && (

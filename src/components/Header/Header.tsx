@@ -77,9 +77,9 @@ const Header = (props: HeaderAttributes) => {
           </div> */}
           {!minimal && (
             <Fragment>
-              <div className="link-item">
+              {/* <div className="link-item">
                 <Link href="/mis-cursos">Mis cursos</Link>
-              </div>
+              </div> */}
 
               <div className="link-item">
                 <Link href="/perfil">
