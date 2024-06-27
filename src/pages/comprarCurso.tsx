@@ -58,6 +58,7 @@ export default function Carrito(props: any) {
   const [total, setTotal] = useState(0)
   const [totalWithDiscount, setTotalWithDiscount] = useState(0)
   const formRef = useRef<HTMLFormElement>(null);
+  const formRefLogged = useRef<HTMLFormElement>(null);
   const currentPath = router.asPath;
   const [paymentData, setPaymentData] = useState({
     accountId: '',
@@ -239,20 +240,28 @@ export default function Carrito(props: any) {
       const response = await PayuApiModel.RegisterTransaction(data)
       if (response.status === 200) {
         //Si la respuesta es 200 se setea PaymentData con la información obtenida
-        setPaymentData({
-          ...paymentData,
-          accountId: response.data.data.accountId,
-          confirmationUrl: response.data.data.confirmationUrl,
-          currency: response.data.data.currency,
-          description: response.data.data.description,
-          merchantId: response.data.data.merchantId,
-          referenceCode: response.data.data.referenceCode,
-          signature: response.data.data.signature,
-          tax: response.data.data.tax,
-          taxReturnBase: response.data.data.taxReturnBase,
-        })
+        setPaymentData((prevData) => (
+          {
+            ...prevData,
+            accountId: response.data.data.accountId,
+            confirmationUrl: response.data.data.confirmationUrl,
+            currency: response.data.data.currency,
+            description: response.data.data.description,
+            merchantId: response.data.data.merchantId,
+            referenceCode: response.data.data.referenceCode,
+            signature: response.data.data.signature,
+            tax: response.data.data.tax,
+            taxReturnBase: response.data.data.taxReturnBase,
+          }
+        ))
+        setTimeout(() => {
+          if (formRefLogged.current) {
+            formRefLogged.current.submit();
+          } else {
+            console.error("El formulario no está disponible.");
+          }
+        }, 0);
       }
-      return response
     }
     setLoading(false)
   }
@@ -360,7 +369,7 @@ export default function Carrito(props: any) {
       if (response.status === 201) {
         const responseLogin = await handleLogin();
         console.log(responseLogin);
-  
+
         if (responseLogin?.status === 200) {
           console.log(data);
           const responseTransaction = await PayuApiModel.RegisterTransaction({
@@ -368,7 +377,7 @@ export default function Carrito(props: any) {
             token: responseLogin.data.token,
           });
           console.log(responseTransaction);
-  
+
           if (responseTransaction.status === 200) {
             setPaymentData((prevData) => ({
               ...prevData,
@@ -382,7 +391,7 @@ export default function Carrito(props: any) {
               tax: responseTransaction.data.data.tax,
               taxReturnBase: responseTransaction.data.data.taxReturnBase,
             }));
-  
+
             // Espera a la actualización de paymentData y luego envía el formulario
             setTimeout(() => {
               if (formRef.current) {
@@ -398,7 +407,7 @@ export default function Carrito(props: any) {
       console.error("Error en handleRegistryAndSubmit:", error);
     }
   };
-  
+
 
   return (
     <>
@@ -566,6 +575,8 @@ export default function Carrito(props: any) {
             }}
               method="post"
               action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+              ref={formRefLogged}
+
             >
               <div className="divider"></div>
               <div className="form">
@@ -603,53 +614,53 @@ export default function Carrito(props: any) {
                   text="Realizar pago"
                   bg
                   color="redPrimary"
-                  type="submit"
+                  onClick={regitserAndSubmitTransaction}
                   disabled={!currentCouse}
                 />
               </div>
             </form>
           ) : (
             <div className="form-login">
-                    <form style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "10px",
-              alignSelf: "center",
-              flexDirection: "column",
-            }}
-              method="post"
-              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
-              ref={formRef}
-            >
-              <div className="divider"></div>
-              <div className="form">
-                <input name="buyerFullName" type="hidden" value={username} />
-                <input name="buyerEmail" type="hidden" value={email} />
-                <input name="mobilePhone" type="hidden" value={phone} />
-                <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
-                <input name="accountId" type="hidden" value={paymentData?.accountId} />
-                <input name="description" type="hidden" value={paymentData?.description} />
-                <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
-                <input name="amount" type="hidden" value={totalWithDiscount} />
-                <input name="tax" type="hidden" value={paymentData?.tax} />
-                <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
-                <input name="currency" type="hidden" value={paymentData?.currency} />
-                <input name="signature" type="hidden" value={paymentData?.signature} />
-                <input name="test" type="hidden" value={paymentData?.test} />
-                <input name="extra1" type="hidden" value={props.user.id} />
-                <input name="extra2" type="hidden" value={cartProducts} />
-                <input
-                  name="responseUrl"
-                  type="hidden"
-                  value={`https://ambly-web.vercel.app/compra-realizada`}
-                />
-                <input
-                  name="confirmationUrl"
-                  type="hidden"
-                  value={paymentData.confirmationUrl}
-                />
-              </div>
-            </form>
+              <form style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "10px",
+                alignSelf: "center",
+                flexDirection: "column",
+              }}
+                method="post"
+                action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+                ref={formRef}
+              >
+                <div className="divider"></div>
+                <div className="form">
+                  <input name="buyerFullName" type="hidden" value={username} />
+                  <input name="buyerEmail" type="hidden" value={email} />
+                  <input name="mobilePhone" type="hidden" value={phone} />
+                  <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
+                  <input name="accountId" type="hidden" value={paymentData?.accountId} />
+                  <input name="description" type="hidden" value={paymentData?.description} />
+                  <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
+                  <input name="amount" type="hidden" value={totalWithDiscount} />
+                  <input name="tax" type="hidden" value={paymentData?.tax} />
+                  <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
+                  <input name="currency" type="hidden" value={paymentData?.currency} />
+                  <input name="signature" type="hidden" value={paymentData?.signature} />
+                  <input name="test" type="hidden" value={paymentData?.test} />
+                  <input name="extra1" type="hidden" value={props.user.id} />
+                  <input name="extra2" type="hidden" value={cartProducts} />
+                  <input
+                    name="responseUrl"
+                    type="hidden"
+                    value={`https://ambly-web.vercel.app/compra-realizada`}
+                  />
+                  <input
+                    name="confirmationUrl"
+                    type="hidden"
+                    value={paymentData.confirmationUrl}
+                  />
+                </div>
+              </form>
               <Input
                 type="text"
                 label="Nombre"
