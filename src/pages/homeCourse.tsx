@@ -67,7 +67,7 @@ const homeCourse = (props: any) => {
                             alt=""
                         />
                         <figcaption>
-                            <p>CONOCE LA CLASE <br /> AMBLY <span>00</span>1: <br /> "HACKEA TU CEREBRO"</p>
+                            <p>CONOCE LA CLASE <br /> AMBLY <span>00</span>1: <br /> "HACKEA TU MENTE"</p>
                             <a href='#'>Ingresa</a>
                         </figcaption>
                     </figure>

@@ -186,7 +186,7 @@ export default function Login(props: any) {
                             alt=""
                         />
                         <figcaption>
-                            <p>CONOCE LA CLASE <br /> AMBLY <span>00</span>1: <br /> "HACKEA TU CEREBRO"</p>
+                            <p>CONOCE LA CLASE <br /> AMBLY <span>00</span>1: <br /> "HACKEA TU MENTE"</p>
                             <Link href="/curso/33">Ver más</Link>
                         </figcaption>
                     </figure>

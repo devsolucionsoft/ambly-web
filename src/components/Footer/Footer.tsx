@@ -24,7 +24,7 @@ const Footer = (props: FooterProps) => {
                 </Link>
               </li>
               <li>
-                <Link href="/politicas" className="nav-item">
+                <Link href="/terminos" className="nav-item">
                   {/* <TfiWorld className="icon" /> */}
                   Terminos y condiciones
                 </Link>

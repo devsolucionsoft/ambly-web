@@ -258,11 +258,11 @@ export default function CourseDetail(props: any) {
                   <p>Aprenderás</p>
                   <span>{courseInfo.characteristic2}</span>
                 </div>
-                <div className="caracteristics-item">
+                {/* <div className="caracteristics-item">
                   <Image className="icon" src={Detail3} alt="" />
                   <p>Cantidad de modulos</p>
                   <span>{courseInfo?.modules?.length}</span>
-                </div>
+                </div> */}
                 <div className="caracteristics-item">
                   <Image className="icon" src={Detail4} alt="" />
                   <p>Estructura</p>
