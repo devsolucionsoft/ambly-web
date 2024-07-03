@@ -86,7 +86,7 @@ const Footer = (props: FooterProps) => {
               </li>
               <li>
                 <Link href="https://www.youtube.com/@ambly_co" target="_blank" className="nav-item">
-                  Youtube
+                  YouTube
                 </Link>
               </li>
             </ul>
