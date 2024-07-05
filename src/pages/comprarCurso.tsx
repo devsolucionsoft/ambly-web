@@ -100,7 +100,11 @@ export default function Carrito(props: any) {
 
   //Validación de cupón ingresado por el usuario
   const validateCupon = async (info: any) => {
+    console.log('se llamo');
+    
     if (usarCupon && codigoCupon.code) {
+      console.log('entro');
+      
       setLoading(true)
       const response = await PayuApiModel.GetCupon(info);
       if (response.status === 200) {
@@ -119,9 +123,11 @@ export default function Carrito(props: any) {
 
         }));
       }
+      console.log(response);
     }
+
     setLoading(false)
-    localStorage.removeItem("coupon_code");
+    // localStorage.removeItem("coupon_code");
   };
 
   //Se obtiene la data del carrito de compras
@@ -289,16 +295,26 @@ export default function Carrito(props: any) {
   const botonRef = useRef(null);
 
   useEffect(() => {
-    codigoCupon.code = localStorage.getItem("coupon_code") || '';
-    let code = localStorage.getItem("coupon_code");
+    const getCupon = async () => {
+      let code = localStorage.getItem("coupon_code");
+      if (code) {
+        setUsarCupon(true); // Activar el uso del cupón automáticamente
+        setCodigoCupon(prevState => ({
+          ...prevState,
+          code: code,
+        }));
 
-    if (codigoCupon.code) {
-      setUsarCupon(true); // Activar el uso del cupón automáticamente
-      setCodigoCupon(prevState => ({
-        ...prevState,
-        code: codigoCupon.code,
-      }));
-    }
+        try {
+          await validateCupon({ code: code, course_id: courseId });
+        } catch (error) {
+          console.error("Error al validar el cupón:", error);
+        }
+      }
+      console.log(code);
+    };
+
+    getCupon();
+
   }, [])
 
   const handleRegistry = async () => {
@@ -374,7 +390,7 @@ export default function Carrito(props: any) {
           });
           console.log(responseTransaction);
 
-          if ( responseTransaction && responseTransaction.status === 200) {
+          if (responseTransaction && responseTransaction.status === 200) {
             setPaymentData((prevData) => ({
               ...prevData,
               accountId: responseTransaction.data.data.accountId,
@@ -419,70 +435,6 @@ export default function Carrito(props: any) {
         <Loader loading={loading} />
 
         <div className="content-page" style={{ display: "flex", flexDirection: "column" }}>
-        {props.user ? (
-            <form style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "10px",
-              alignSelf: "center",
-              flexDirection: "column",
-            }}
-              method="post"
-              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
-              ref={formRefLogged}
-            >
-              <div className="divider"></div>
-              <div className="form">
-                <input name="buyerFullName" type="hidden" value={username} />
-                <input name="buyerEmail" type="hidden" value={email} />
-                <input name="mobilePhone" type="hidden" value={phone} />
-                <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
-                <input name="accountId" type="hidden" value={paymentData?.accountId} />
-                <input name="description" type="hidden" value={paymentData?.description} />
-                <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
-                <input name="amount" type="hidden" value={totalWithDiscount} />
-                <input name="tax" type="hidden" value={paymentData?.tax} />
-                <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
-                <input name="currency" type="hidden" value={paymentData?.currency} />
-                <input name="signature" type="hidden" value={paymentData?.signature} />
-                <input name="test" type="hidden" value={paymentData?.test} />
-                <input name="extra1" type="hidden" value={props.user.id} />
-                <input name="extra2" type="hidden" value={cartProducts} />
-                <input
-                  name="responseUrl"
-                  type="hidden"
-                  value={`https://ambly-web.vercel.app/compra-realizada`}
-                />
-                <input
-                  name="confirmationUrl"
-                  type="hidden"
-                  value={paymentData.confirmationUrl}
-                />
-              </div>
-              <div style={{
-                display: "flex", justifyContent
-                  : "center", padding: "10px"
-              }}>
-                <Button style={{ width: "100%" }}
-                  text="Realizar pago"
-                  bg
-                  color="redPrimary"
-                  onClick={regitserAndSubmitTransaction}
-                  disabled={!currentCouse}
-                />
-              </div>
-            </form>
-          ) : (
-            <div className="button-contain">
-                <Link href="/procesoCompra">
-                    <Button
-                    text="Comprar Curso"
-                    bg
-                    color="redPrimary"
-                    />
-                </Link>
-              </div>
-          )}
           <div className="container">
             <Typography
               text="Carrito de compras"
@@ -512,10 +464,6 @@ export default function Carrito(props: any) {
                             variant="H4"
                           />
                         </div>
-                        <div className="description">
-                          <Typography text={item.description} variant="P" style={{ fontSize: "0.9em" }} />
-                        </div>
-                  
                         <Typography
                           style={{ textAlign: "left", marginTop: "1.3em" }}
                           text={`$${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(
@@ -524,10 +472,10 @@ export default function Carrito(props: any) {
                           variant="H6"
                         />
                       </div>
-                      {/* <div className="delete" onClick={() => deleteItem(item.id)}>
+                      <div className="delete" onClick={() => deleteItem(item.id)}>
                         <IoCloseSharp className="icon" />
 
-                      </div> */}
+                      </div>
                     </div>
 
 
@@ -589,7 +537,7 @@ export default function Carrito(props: any) {
                             }}
                           />
                         </label>
-                        {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
+                        {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon?.message}</span> : <span style={{ color: 'green' }}>{codigoCupon?.message}</span>}
                         {codigoCupon?.code && (
                           <button ref={botonRef} onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
                         )}
@@ -614,6 +562,20 @@ export default function Carrito(props: any) {
                 text={`Total: $${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(totalWithDiscount && currentCouse ? totalWithDiscount : 0)} COP`}
                 variant="H4"
               />
+            </div>
+          </div>
+
+          {/* <div style={{ width: "100%" }}>
+        {!props.user && (
+          <Register setShowLogin={false} useLinkForRegisterPage={false}/>
+        )}
+        <Button style={{ width: "350px" }}
+          text="Realizar pago"
+          bg
+          color="redPrimary"
+          onClick={handleRegisterandPush}
+        />
+      </div> */}
 
           {props.user ? (
             <form style={{
@@ -626,6 +588,7 @@ export default function Carrito(props: any) {
               method="post"
               action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
               ref={formRefLogged}
+
             >
               <div className="divider"></div>
               <div className="form">
@@ -659,7 +622,7 @@ export default function Carrito(props: any) {
                 display: "flex", justifyContent
                   : "center", padding: "10px"
               }}>
-                <Button style={{ width: "100%" }}
+                <Button style={{ width: "350px" }}
                   text="Realizar pago"
                   bg
                   color="redPrimary"
@@ -669,31 +632,90 @@ export default function Carrito(props: any) {
               </div>
             </form>
           ) : (
-            <div className="button-contain">
-                <Link href="/procesoCompra">
-                    <Button
-                    text="Comprar Curso"
-                    bg
-                    color="redPrimary"
-                    />
-                </Link>
-              </div>
-          )}
-              
-            </div>
-          </div>
+            <div className="form-login">
+              <form style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "10px",
+                alignSelf: "center",
+                flexDirection: "column",
+              }}
+                method="post"
+                action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+                ref={formRef}
+              >
+                <div className="divider"></div>
+                <div className="form">
+                  <input name="buyerFullName" type="hidden" value={username} />
+                  <input name="buyerEmail" type="hidden" value={email} />
+                  <input name="mobilePhone" type="hidden" value={phone} />
+                  <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
+                  <input name="accountId" type="hidden" value={paymentData?.accountId} />
+                  <input name="description" type="hidden" value={paymentData?.description} />
+                  <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
+                  <input name="amount" type="hidden" value={totalWithDiscount} />
+                  <input name="tax" type="hidden" value={paymentData?.tax} />
+                  <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
+                  <input name="currency" type="hidden" value={paymentData?.currency} />
+                  <input name="signature" type="hidden" value={paymentData?.signature} />
+                  <input name="test" type="hidden" value={paymentData?.test} />
+                  <input name="extra1" type="hidden" value={props.user.id} />
+                  <input name="extra2" type="hidden" value={cartProducts} />
+                  <input
+                    name="responseUrl"
+                    type="hidden"
+                    value={`https://ambly-web.vercel.app/compra-realizada`}
+                  />
+                  <input
+                    name="confirmationUrl"
+                    type="hidden"
+                    value={paymentData.confirmationUrl}
+                  />
+                </div>
+              </form>
+              <Input
+                type="text"
+                label="Nombre"
+                name="username"
+                onChange={handleKeyUp}
+                error={errorInputs.username.error}
+                message={errorInputs.username.message}
+              />
+              <Input
+                type="text"
+                label="E-mail"
+                name="email"
+                onChange={handleKeyUp}
+                error={errorInputs.email.error}
+                message={errorInputs.email.message}
+              />
+              <Input
+                type="password"
+                label="Contraseña"
+                name="password"
+                onChange={handleKeyUp}
+                error={errorInputs.password.error}
+                message={errorInputs.password.message}
+                visible={true}
+              />
 
-          {/* <div style={{ width: "100%" }}>
-        {!props.user && (
-          <Register setShowLogin={false} useLinkForRegisterPage={false}/>
-        )}
-        <Button style={{ width: "350px" }}
-          text="Realizar pago"
-          bg
-          color="redPrimary"
-          onClick={handleRegisterandPush}
-        />
-      </div> */}
+              <div className="politis">
+                <p>
+                  Al continuar acepto <span> términos y condiciones</span> y{" "}
+                  <span>políticas de privacidad</span>
+                </p>
+              </div>
+              <div className="button-contain">
+                <Button
+                  text="Comprar curso"
+                  bg
+                  color="redPrimary"
+                  onClick={handleRegistryAndSubmit}
+                  disabled={!currentCouse}
+                />
+              </div>
+            </div>
+          )}
         </div>
         <Footer />
       </Main>
