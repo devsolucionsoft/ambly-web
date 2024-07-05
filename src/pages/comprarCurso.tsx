@@ -238,7 +238,7 @@ export default function Carrito(props: any) {
     setLoading(true)
     if (data && props.user) {
       const response = await PayuApiModel.RegisterTransaction(data)
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         //Si la respuesta es 200 se setea PaymentData con la información obtenida
         setPaymentData((prevData) => (
           {
@@ -310,7 +310,7 @@ export default function Carrito(props: any) {
     if (validation) {
       setLoading(true)
       const response = await AuthApiModel.UserRegister(stateInputs)
-      if (response.status !== 201) {
+      if (response && response.status !== 201) {
         Swal.fire({
           title: "No se ha podido realizar el regístro.",
           text: "Comprueba tu email e intentalo mas tarde",
@@ -366,11 +366,11 @@ export default function Carrito(props: any) {
   const handleRegistryAndSubmit = async () => {
     try {
       const response = await handleRegistry();
-      if (response.status === 201) {
+      if (response && response.status === 201) {
         const responseLogin = await handleLogin();
         console.log(responseLogin);
 
-        if (responseLogin?.status === 200) {
+        if (responseLogin && responseLogin?.status === 200) {
           console.log(data);
           const responseTransaction = await PayuApiModel.RegisterTransaction({
             ...data,
@@ -378,7 +378,7 @@ export default function Carrito(props: any) {
           });
           console.log(responseTransaction);
 
-          if (responseTransaction.status === 200) {
+          if ( responseTransaction && responseTransaction.status === 200) {
             setPaymentData((prevData) => ({
               ...prevData,
               accountId: responseTransaction.data.data.accountId,
