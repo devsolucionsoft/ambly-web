@@ -295,26 +295,16 @@ export default function Carrito(props: any) {
   const botonRef = useRef(null);
 
   useEffect(() => {
-    const getCupon = async () => {
-      let code = localStorage.getItem("coupon_code");
-      if (code) {
-        setUsarCupon(true); // Activar el uso del cupón automáticamente
-        setCodigoCupon(prevState => ({
-          ...prevState,
-          code: code,
-        }));
+    codigoCupon.code = localStorage.getItem("coupon_code") || '';
+    let code = localStorage.getItem("coupon_code");
 
-        try {
-          await validateCupon({ code: code, course_id: courseId });
-        } catch (error) {
-          console.error("Error al validar el cupón:", error);
-        }
-      }
-      console.log(code);
-    };
-
-    getCupon();
-
+    if (codigoCupon.code) {
+      setUsarCupon(true); // Activar el uso del cupón automáticamente
+      setCodigoCupon(prevState => ({
+        ...prevState,
+        code: codigoCupon.code,
+      }));
+    }
   }, [])
 
   const handleRegistry = async () => {
