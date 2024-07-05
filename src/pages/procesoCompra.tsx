@@ -468,7 +468,7 @@ export default function Carrito(props: any) {
           ) : (
             <div className="form-login">
               <form style={{
-                display: "flex",
+                display: "none",
                 justifyContent: "center",
                 padding: "10px",
                 alignSelf: "center",
@@ -479,7 +479,7 @@ export default function Carrito(props: any) {
                 ref={formRef}
               >
                 <div className="divider"></div>
-                <div className="form" style={{ display: "none"}}>
+                <div className="form" style={{display:'none'}}>
                   <input name="buyerFullName" type="hidden" value={username} />
                   <input name="buyerEmail" type="hidden" value={email} />
                   <input name="mobilePhone" type="hidden" value={phone} />
