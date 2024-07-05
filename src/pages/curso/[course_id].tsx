@@ -226,8 +226,8 @@ export default function CourseDetail(props: any) {
               <Image
                 className="image-course"
                 src={courseInfo?.image_course}
-                height={100}
-                width={1000}
+                height={5000}
+                width={5000}
                 alt=""
               />
               <div className="overlay"></div>
