@@ -435,6 +435,73 @@ export default function Carrito(props: any) {
         <Loader loading={loading} />
 
         <div className="content-page" style={{ display: "flex", flexDirection: "column" }}>
+<<<<<<< HEAD
+=======
+        {props.user ? (
+            <form style={{
+              display: "flex",
+              justifyContent: "center",
+              padding: "10px",
+              alignSelf: "center",
+              flexDirection: "column",
+            }}
+              method="post"
+              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+              ref={formRefLogged}
+            >
+              <div className="divider"></div>
+              <div className="form" style={{ display: "none"}}>
+                <input name="buyerFullName" type="hidden" value={username} />
+                <input name="buyerEmail" type="hidden" value={email} />
+                <input name="mobilePhone" type="hidden" value={phone} />
+                <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
+                <input name="accountId" type="hidden" value={paymentData?.accountId} />
+                <input name="description" type="hidden" value={paymentData?.description} />
+                <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
+                <input name="amount" type="hidden" value={totalWithDiscount} />
+                <input name="tax" type="hidden" value={paymentData?.tax} />
+                <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
+                <input name="currency" type="hidden" value={paymentData?.currency} />
+                <input name="signature" type="hidden" value={paymentData?.signature} />
+                <input name="test" type="hidden" value={paymentData?.test} />
+                <input name="extra1" type="hidden" value={props.user.id} />
+                <input name="extra2" type="hidden" value={cartProducts} />
+                <input
+                  name="responseUrl"
+                  type="hidden"
+                  value={`https://ambly-web.vercel.app/compra-realizada`}
+                />
+                <input
+                  name="confirmationUrl"
+                  type="hidden"
+                  value={paymentData.confirmationUrl}
+                />
+              </div>
+              <div style={{
+                display: "flex", justifyContent
+                  : "center", padding: "10px"
+              }}>
+                <Button style={{ width: "100%" }}
+                  text="Realizar pago"
+                  bg
+                  color="redPrimary"
+                  onClick={regitserAndSubmitTransaction}
+                  disabled={!currentCouse}
+                />
+              </div>
+            </form>
+          ) : (
+            <div className="button-contain">
+                <Link href="/procesoCompra">
+                    <Button
+                    text="Comprar Curso"
+                    bg
+                    color="redPrimary"
+                    />
+                </Link>
+              </div>
+          )}
+>>>>>>> 49286fe
           <div className="container">
             <Typography
               text="Carrito de compras"
@@ -591,7 +658,7 @@ export default function Carrito(props: any) {
 
             >
               <div className="divider"></div>
-              <div className="form">
+              <div className="form" style={{ display: "none"}}>
                 <input name="buyerFullName" type="hidden" value={username} />
                 <input name="buyerEmail" type="hidden" value={email} />
                 <input name="mobilePhone" type="hidden" value={phone} />
