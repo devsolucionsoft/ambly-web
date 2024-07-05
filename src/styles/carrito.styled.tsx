@@ -137,6 +137,7 @@ export const Main = styled.main`
             @media (max-width: ${(props) => props.theme.sizes.md}) {
               font-size: 1.1rem !important;
               font-weight : bold;
+              margin-top: 1rem;
             }
           }
           h4 {
