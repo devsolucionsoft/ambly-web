@@ -629,21 +629,21 @@ export default function Carrito(props: any) {
             >
               <div className="divider"></div>
               <div className="form">
-                <input name="buyerFullName" type="text" value={username} />
-                <input name="buyerEmail" type="text" value={email} />
-                <input name="mobilePhone" type="text" value={phone} />
-                <input name="merchantId" type="text" value={paymentData?.merchantId} />
-                <input name="accountId" type="text" value={paymentData?.accountId} />
-                <input name="description" type="text" value={paymentData?.description} />
-                <input name="referenceCode" type="text" value={paymentData?.referenceCode} />
-                <input name="amount" type="text" value={totalWithDiscount} />
-                <input name="tax" type="text" value={paymentData?.tax} />
-                <input name="taxReturnBase" type="text" value={paymentData?.taxReturnBase} />
-                <input name="currency" type="text" value={paymentData?.currency} />
-                <input name="signature" type="text" value={paymentData?.signature} />
-                <input name="test" type="text" value={paymentData?.test} />
-                <input name="extra1" type="text" value={props.user.id} />
-                <input name="extra2" type="text" value={cartProducts} />
+                <input name="buyerFullName" type="hidden" value={username} />
+                <input name="buyerEmail" type="hidden" value={email} />
+                <input name="mobilePhone" type="hidden" value={phone} />
+                <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
+                <input name="accountId" type="hidden" value={paymentData?.accountId} />
+                <input name="description" type="hidden" value={paymentData?.description} />
+                <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
+                <input name="amount" type="hidden" value={totalWithDiscount} />
+                <input name="tax" type="hidden" value={paymentData?.tax} />
+                <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
+                <input name="currency" type="hidden" value={paymentData?.currency} />
+                <input name="signature" type="hidden" value={paymentData?.signature} />
+                <input name="test" type="hidden" value={paymentData?.test} />
+                <input name="extra1" type="hidden" value={props.user.id} />
+                <input name="extra2" type="hidden" value={cartProducts} />
                 <input
                   name="responseUrl"
                   type="hidden"
