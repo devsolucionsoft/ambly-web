@@ -348,7 +348,7 @@ export default function Carrito(props: any) {
   }
 
   const handleRegistryAndSubmit = async () => {
-    try {
+    /* try {
       const response = await handleRegistry();
       if (response.status === 201) {
         const responseLogin = await handleLogin();
@@ -389,7 +389,9 @@ export default function Carrito(props: any) {
       }
     } catch (error) {
       console.error("Error en handleRegistryAndSubmit:", error);
-    }
+    } */
+
+    console.log(paymentData);
   };
 
 
