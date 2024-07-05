@@ -24,7 +24,7 @@ const Footer = (props: FooterProps) => {
                 </Link>
               </li>
               <li>
-                <Link href="/politicas" className="nav-item">
+                <Link href="/terminos" className="nav-item">
                   {/* <TfiWorld className="icon" /> */}
                   Terminos y condiciones
                 </Link>
@@ -86,7 +86,7 @@ const Footer = (props: FooterProps) => {
               </li>
               <li>
                 <Link href="https://www.youtube.com/@ambly_co" target="_blank" className="nav-item">
-                  Youtube
+                  YouTube
                 </Link>
               </li>
             </ul>

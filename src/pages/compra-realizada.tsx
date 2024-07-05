@@ -62,14 +62,14 @@ export default function Perfil(props: any) {
           }}
         >
           <h1>{message}</h1>
-          {/* <div style={{ marginTop: "3rem" }}>
+          <div style={{ marginTop: "3rem" }}>
             <Button
               text="Ir a mis cursos"
               color="redPrimary"
               bg
               onClick={() => router.push(`/mis-cursos`)}
             />
-          </div> */}
+          </div>
         </div>
         <Footer />
       </Main>

@@ -1,13 +1,7 @@
 import Head from "next/head"
-import Image from "next/image"
 import { useState, useEffect, useId, useRef, FormEvent } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
-// Assests
-import { FaUserAlt } from "react-icons/fa"
-import { IoCloseSharp } from "react-icons/io5";
-import { FaArrowRight } from "react-icons/fa";
-
 // Styled components
 import { Main } from "../styles/carrito.styled"
 // Components
@@ -25,20 +19,14 @@ import {
   sessionOptions,
   getSessionVerificationNotCreated,
 } from "../../lib/session"
-import { MdDelete } from "react-icons/md"
 // API
 import { AuthApi } from "./api"
 import { CourseApi, PayuApi, UserApi } from "./api"
 import Swal from "sweetalert2"
-import Link from "next/link"
-import Login from "."
-import Register from "@/components/Login/register"
-import LoginForm from "@/components/Login/loginForm"
 import useValidateForm, {
   InputValidationI,
   IErrorInputs,
 } from "../hooks/useValidateForm"
-import { redirect } from "next/dist/server/api-utils"
 
 const CourseApiModel = new CourseApi()
 const PayuApiModel = new PayuApi()
@@ -238,7 +226,7 @@ export default function Carrito(props: any) {
     setLoading(true)
     if (data && props.user) {
       const response = await PayuApiModel.RegisterTransaction(data)
-      if (response && response.status === 200) {
+      if (response.status === 200) {
         //Si la respuesta es 200 se setea PaymentData con la información obtenida
         setPaymentData((prevData) => (
           {
@@ -306,7 +294,7 @@ export default function Carrito(props: any) {
     if (validation) {
       setLoading(true)
       const response = await AuthApiModel.UserRegister(stateInputs)
-      if (response && response.status !== 201) {
+      if (response.status !== 201) {
         Swal.fire({
           title: "No se ha podido realizar el regístro.",
           text: "Comprueba tu email e intentalo mas tarde",
@@ -362,11 +350,11 @@ export default function Carrito(props: any) {
   const handleRegistryAndSubmit = async () => {
     try {
       const response = await handleRegistry();
-      if (response && response.status === 201) {
+      if (response.status === 201) {
         const responseLogin = await handleLogin();
         console.log(responseLogin);
 
-        if (responseLogin && responseLogin?.status === 200) {
+        if (responseLogin?.status === 200) {
           console.log(data);
           const responseTransaction = await PayuApiModel.RegisterTransaction({
             ...data,
@@ -374,7 +362,7 @@ export default function Carrito(props: any) {
           });
           console.log(responseTransaction);
 
-          if ( responseTransaction && responseTransaction.status === 200) {
+          if (responseTransaction.status === 200) {
             setPaymentData((prevData) => ({
               ...prevData,
               accountId: responseTransaction.data.data.accountId,
@@ -402,6 +390,7 @@ export default function Carrito(props: any) {
     } catch (error) {
       console.error("Error en handleRegistryAndSubmit:", error);
     }
+    console.log(paymentData);
   };
 
 
@@ -418,10 +407,13 @@ export default function Carrito(props: any) {
         <Header minimal={!props.user} />
         <Loader loading={loading} />
 
-        <div className="content-page" style={{ display: "flex", flexDirection: "column" }}>
+        <div className="content-page form" style={{ display: "flex", flexDirection: "column", alignItems: "center", }}>
+
+        <Typography text="Proceso de compra" variant="H4" />
+
         {props.user ? (
             <form style={{
-              display: "flex",
+              display: "none",
               justifyContent: "center",
               padding: "10px",
               alignSelf: "center",
@@ -430,6 +422,7 @@ export default function Carrito(props: any) {
               method="post"
               action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
               ref={formRefLogged}
+
             >
               <div className="divider"></div>
               <div className="form">
@@ -473,227 +466,90 @@ export default function Carrito(props: any) {
               </div>
             </form>
           ) : (
-            <div className="button-contain">
-                <Link href="/procesoCompra">
-                    <Button
-                    text="Comprar Curso"
-                    bg
-                    color="redPrimary"
-                    />
-                </Link>
-              </div>
-          )}
-          <div className="container">
-            <Typography
-              text="Carrito de compras"
-              variant="H4"
-              style={{ textAlign: "left", width: "100%", fontSize: "1.7rem" }}
-              className="titleCarrito"
-            />
-
-            <div className="items-carrito">
-              {courses.map((item: any, index: number) => {
-                return (
-                  <div className="item-carrito" key={index}>
-                    <div className="flex">
-                      <Image
-                        className="image"
-                        src={item.image_course}
-                        height={500}
-                        width={500}
-                        alt=""
-                      />
-                      <div className="content">
-                        <Typography text={item.name_course} variant="H3" style={{ fontSize: "1.3em" }} />
-                        <div className="autor">
-                          <FaUserAlt className="icon" />
-                          <Typography
-                            text={item.instructor?.name_instructor}
-                            variant="H4"
-                          />
-                        </div>
-                        <div className="description">
-                          <Typography text={item.description} variant="P" style={{ fontSize: "0.9em" }} />
-                        </div>
-                  
-                        <Typography
-                          style={{ textAlign: "left", marginTop: "1.3em" }}
-                          text={`$${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(
-                            item.price_course
-                          )} COP`}
-                          variant="H6"
-                        />
-                      </div>
-                      {/* <div className="delete" onClick={() => deleteItem(item.id)}>
-                        <IoCloseSharp className="icon" />
-
-                      </div> */}
-                    </div>
-
-
-                  </div>
-                )
-              })}
-            </div>
-            {/* <div className="continueBuying">
-          <Link href="/cursos/todos" className="nav-item">
-            Continuar comprando
-          </Link>
-          <FaArrowRight />
-        </div> */}
-            {/* {courses.length > 0 ?
-          <div className="validateCupon">
-            <label>
-              <input type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
-              Usar cupón de descuento
-            </label>
-            {usarCupon && (
-              <section>
-                <label>
+            <div className="form-login">
+              <form style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "10px",
+                alignSelf: "center",
+                flexDirection: "column",
+              }}
+                method="post"
+                action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+                ref={formRef}
+              >
+                <div className="divider"></div>
+                <div className="form">
+                  <input name="buyerFullName" type="hidden" value={username} />
+                  <input name="buyerEmail" type="hidden" value={email} />
+                  <input name="mobilePhone" type="hidden" value={phone} />
+                  <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
+                  <input name="accountId" type="hidden" value={paymentData?.accountId} />
+                  <input name="description" type="hidden" value={paymentData?.description} />
+                  <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
+                  <input name="amount" type="hidden" value={totalWithDiscount} />
+                  <input name="tax" type="hidden" value={paymentData?.tax} />
+                  <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
+                  <input name="currency" type="hidden" value={paymentData?.currency} />
+                  <input name="signature" type="hidden" value={paymentData?.signature} />
+                  <input name="test" type="hidden" value={paymentData?.test} />
+                  <input name="extra1" type="hidden" value={props.user.id} />
+                  <input name="extra2" type="hidden" value={cartProducts} />
                   <input
-                    value={codigoCupon.code}
-                    type="text"
-                    placeholder="Ingrese el cupón de descuento"
-                    onChange={(e) => setCodigoCupon(prevState => ({ ...prevState, code: e.target.value }))} />
-                </label>
-                {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
-                {codigoCupon?.code && (
-                  <button onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
-                )}
-              </section>
-
-            )}
-          </div> : 'Por favor selecciona el curso que deseas comprar'
-        } */}
-
-            <div className="total">
-              <section>
-                {courses.length > 0 ?
-                  <div className="validateCupon">
-                    <label>
-                      <input checked={usarCupon} type="checkbox" onChange={() => setUsarCupon(!usarCupon)} />
-                      Usar cupón de descuento
-                    </label>
-                    {usarCupon && (
-                      <section>
-                        <label>
-                          <input
-                            value={codigoCupon.code}
-                            type="text"
-                            placeholder="Ingrese el cupón de descuento"
-                            onChange={(e) => {
-                              setCodigoCupon(prevState => ({
-                                ...prevState,
-                                code: e.target.value
-                              }));
-                            }}
-                          />
-                        </label>
-                        {codigoCupon?.error ? <span style={{ color: 'red' }}>{codigoCupon.message}</span> : <span style={{ color: 'green' }}>{codigoCupon.message}</span>}
-                        {codigoCupon?.code && (
-                          <button ref={botonRef} onClick={() => validateCupon({ code: codigoCupon.code, course_id: courseId })}>Validar cupón</button>
-                        )}
-                      </section>
-
-                    )}
-                  </div> : 'Por favor selecciona el curso que deseas comprar'
-                }
-                <Typography
-                  text={`Subtotal: $${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(total ? total : 0)} COP`}
-                  variant="H6"
-                />
-
-              </section>
-              <hr />
-              <Typography
-                text={`Descuento: $${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(currentCouse && valueCupon ? valueCupon : 0)} COP`}
-                variant="H6"
+                    name="responseUrl"
+                    type="hidden"
+                    value={`https://ambly-web.vercel.app/compra-realizada`}
+                  />
+                  <input
+                    name="confirmationUrl"
+                    type="hidden"
+                    value={paymentData.confirmationUrl}
+                  />
+                </div>
+              </form>
+              <Input
+                type="text"
+                label="Nombre"
+                name="username"
+                onChange={handleKeyUp}
+                error={errorInputs.username.error}
+                message={errorInputs.username.message}
               />
-              <hr />
-              <Typography
-                text={`Total: $${new Intl.NumberFormat("es-CO", { currency: "COP", minimumFractionDigits: 0 }).format(totalWithDiscount && currentCouse ? totalWithDiscount : 0)} COP`}
-                variant="H4"
+              <Input
+                type="text"
+                label="E-mail"
+                name="email"
+                onChange={handleKeyUp}
+                error={errorInputs.email.error}
+                message={errorInputs.email.message}
+              />
+              <Input
+                type="password"
+                label="Asigna una ctextontraseña"
+                name="password"
+                onChange={handleKeyUp}
+                error={errorInputs.password.error}
+                message={errorInputs.password.message}
+                visible={true}
               />
 
-          {props.user ? (
-            <form style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "10px",
-              alignSelf: "center",
-              flexDirection: "column",
-            }}
-              method="post"
-              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
-              ref={formRefLogged}
-            >
-              <div className="divider"></div>
-              <div className="form">
-                <input name="buyerFullName" type="hidden" value={username} />
-                <input name="buyerEmail" type="hidden" value={email} />
-                <input name="mobilePhone" type="hidden" value={phone} />
-                <input name="merchantId" type="hidden" value={paymentData?.merchantId} />
-                <input name="accountId" type="hidden" value={paymentData?.accountId} />
-                <input name="description" type="hidden" value={paymentData?.description} />
-                <input name="referenceCode" type="hidden" value={paymentData?.referenceCode} />
-                <input name="amount" type="hidden" value={totalWithDiscount} />
-                <input name="tax" type="hidden" value={paymentData?.tax} />
-                <input name="taxReturnBase" type="hidden" value={paymentData?.taxReturnBase} />
-                <input name="currency" type="hidden" value={paymentData?.currency} />
-                <input name="signature" type="hidden" value={paymentData?.signature} />
-                <input name="test" type="hidden" value={paymentData?.test} />
-                <input name="extra1" type="hidden" value={props.user.id} />
-                <input name="extra2" type="hidden" value={cartProducts} />
-                <input
-                  name="responseUrl"
-                  type="hidden"
-                  value={`https://ambly-web.vercel.app/compra-realizada`}
-                />
-                <input
-                  name="confirmationUrl"
-                  type="hidden"
-                  value={paymentData.confirmationUrl}
-                />
+              <div className="politis">
+                <p>
+                  Al continuar acepto <span> términos y condiciones</span> y{" "}
+                  <span>políticas de privacidad</span>
+                </p>
               </div>
-              <div style={{
-                display: "flex", justifyContent
-                  : "center", padding: "10px"
-              }}>
-                <Button style={{ width: "100%" }}
-                  text="Realizar pago"
+              <div className="button-contain continue">
+                <Button
+                  text="Continuar Compra"
                   bg
                   color="redPrimary"
-                  onClick={regitserAndSubmitTransaction}
+                  onClick={handleRegistryAndSubmit}
                   disabled={!currentCouse}
                 />
               </div>
-            </form>
-          ) : (
-            <div className="button-contain">
-                <Link href="/procesoCompra">
-                    <Button
-                    text="Comprar Curso"
-                    bg
-                    color="redPrimary"
-                    />
-                </Link>
-              </div>
-          )}
-              
             </div>
-          </div>
-
-          {/* <div style={{ width: "100%" }}>
-        {!props.user && (
-          <Register setShowLogin={false} useLinkForRegisterPage={false}/>
-        )}
-        <Button style={{ width: "350px" }}
-          text="Realizar pago"
-          bg
-          color="redPrimary"
-          onClick={handleRegisterandPush}
-        />
-      </div> */}
+          )}
         </div>
         <Footer />
       </Main>

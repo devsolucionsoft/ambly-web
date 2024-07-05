@@ -11,8 +11,8 @@ export const Main = styled.main`
       width: 100%;
       height: 65vh;
       object-fit: cover;
+      object-position: center;
 
-      object-position: top;
       @media (max-width: ${(props) => props.theme.sizes.md}) {
         height: 40vh;
         margin-top: 50px;

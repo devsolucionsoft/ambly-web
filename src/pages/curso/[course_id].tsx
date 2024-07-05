@@ -226,8 +226,8 @@ export default function CourseDetail(props: any) {
               <Image
                 className="image-course"
                 src={courseInfo?.image_course}
-                height={100}
-                width={1000}
+                height={5000}
+                width={5000}
                 alt=""
               />
               <div className="overlay"></div>
@@ -258,11 +258,11 @@ export default function CourseDetail(props: any) {
                   <p>Aprenderás</p>
                   <span>{courseInfo.characteristic2}</span>
                 </div>
-                <div className="caracteristics-item">
+                {/* <div className="caracteristics-item">
                   <Image className="icon" src={Detail3} alt="" />
                   <p>Cantidad de modulos</p>
                   <span>{courseInfo?.modules?.length}</span>
-                </div>
+                </div> */}
                 <div className="caracteristics-item">
                   <Image className="icon" src={Detail4} alt="" />
                   <p>Estructura</p>
