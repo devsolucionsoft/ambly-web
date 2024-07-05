@@ -5,8 +5,9 @@ export const Main = styled.main`
   color: ${(props) => props.theme.colors.ligth};
   padding: 0% 0;
   .form-login {
-      width: 30%;
-      margin-top: 3em;
+      max-width: 500px;
+      width: 100%;
+      margin-top: 2em;
       align-self: center;
       @media (max-width: ${(props) => props.theme.sizes.sm}) {
         width: 80%;
@@ -175,6 +176,16 @@ export const Main = styled.main`
               }
             }
           }
+          .description{
+            p{
+              font-size: 1rem;
+              color: ${(props) => props.theme.colors.grayText};
+              font-weight: 400;
+              @media (max-width: ${(props) => props.theme.sizes.md}) {
+                font-size: .9rem;
+              }
+            }
+          }
         }
       }
     }
@@ -295,7 +306,21 @@ export const Main = styled.main`
         }
       }
     }
-
   }
-  
+
+  .button-contain {
+      margin-top: 1.6em;
+      margin-bottom: 1.6em;
+      max-width : 30%;
+      align-self: center;
+      @media(max-width : 500px){
+      button {
+        font-size : .9rem;
+      }
+      max-width: 100%;
+    }
+  }
+  .button-contain.continue{
+    max-width : 100% !important;
+  }
 `
