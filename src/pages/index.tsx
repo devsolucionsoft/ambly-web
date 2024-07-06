@@ -2,13 +2,10 @@ import { useState, useEffect } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
-import {Form} from "../components/Form/formIndex"
+import IconAmbly from "../assets/images/icon-ambly.png"
 
 // Styled components
-import { FaUserAlt } from "react-icons/fa"
-import { Main } from '@/styles/homeCourse.styled'
-import manReflexive from '../assets/images/spaceMan1.webp'
-import manBlue from '../assets/images/spaceMan2.webp'
+import { Main } from '@/styles/countDown.styled'
 // Components
 import {
   Header,
@@ -16,7 +13,6 @@ import {
   HeaderSection,
   Typography,
   SideNav,
-  Modal,
   Loader,
   Footer,
 } from "../components"
@@ -25,79 +21,118 @@ import {
   sessionOptions,
   getSessionVerificationNotCreated,
 } from "../../lib/session"
-import { UserApi, CourseApi, InstructorApi, TrailersApi } from "./api"
-// Store
-import { useAppDispatch } from "../store"
-import { loadCourses } from "../store/User/actions"
-import { useRouter } from "next/router"
 
-const UserApiModel = new UserApi()
-const CourseApiModel = new CourseApi()
-const InstructorApiModel = new InstructorApi()
-const TrailersApiModel = new TrailersApi()
+interface CountdownTimerProps {
+    targetDate: string;
+  }
+  
+interface TimeLeft {
+  dias?: number;
+  horas?: number;
+  minutos?: number;
+  segundos?: number;
+}
 
-export default function Login(props: any) {
-  const dispatch = useAppDispatch()
-  const router = useRouter()
+interface FlipState {
+  dias: boolean;
+  horas: boolean;
+  minutos: boolean;
+  segundos: boolean;
+}
 
-  const [loading, setLoading] = useState(false)
+const calculateTimeLeft = (targetDate: string): TimeLeft => {
+  const difference = +new Date(targetDate) - +new Date();
+  let timeLeft: TimeLeft = {dias: 0, horas: 0, minutos: 0, segundos: 0};
 
-  const [coursesList, setCourseslist] = useState([])
-  const [myCoursesList, setMyCourseslist] = useState([])
-  const [intructorList, setIntructorList] = useState([])
-  const [trailersList, setTrailerList] = useState([])
-  const [topics, setTopics] = useState([])
-  const [showModal, setShowModal] = useState(false)
-  const [trailerPlay, setTrailerPlay] = useState({
-    title: "",
-    video: "",
-  })
-  console.log(props);
-
-
-  const handleTrailerClick = (item: any) => {
-    setTrailerPlay({
-      title: item.title,
-      video: item.video,
-    })
-    setShowModal(true)
+  if (difference > 0) {
+    timeLeft = {
+      dias: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutos: Math.floor((difference / 1000 / 60) % 60),
+      segundos: Math.floor((difference / 1000) % 60)
+    };
   }
 
-  useEffect(() => {
-    setLoading(true)
-      ; (async () => {
-        if (props.user && props.user.id) {
-          const response = await UserApiModel.GetMyCourses(props.user.id)
-          response.status === 200 && setMyCourseslist(response.data.courses)
+  return timeLeft;
+};
+  
+  // Componente de contador de tiempo
+  const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
+  
+    const [timeLeft, setTimeLeft] = useState<TimeLeft>({ dias: 0, horas: 0, minutos: 0, segundos: 0 });
+    const [flipState, setFlipState] = useState<FlipState>({
+      dias: false,
+      horas: false,
+      minutos: false,
+      segundos: false,
+    });
+  
+    useEffect(() => {
+        const ticAudio = new Audio('../assets/audio/second.wav');
+        const timer = setInterval(() => {
+          const newTimeLeft = calculateTimeLeft(targetDate);
+          const updatedFlipState: FlipState = {
+            dias: timeLeft.dias !== newTimeLeft.dias,
+            horas: timeLeft.horas !== newTimeLeft.horas,
+            minutos: timeLeft.minutos !== newTimeLeft.minutos,
+            segundos: timeLeft.segundos !== newTimeLeft.segundos,
+          };
+          setFlipState(updatedFlipState);
+          ticAudio.play();
+
+          const suspensoAudio = new Audio("../assets/audio/bgNoise.wav");
+          suspensoAudio.loop = true;
+          suspensoAudio.play();
+      
+          // Remove flip-animate class after animation duration
+          setTimeout(() => {
+            setTimeLeft(newTimeLeft);   
+            setFlipState({
+              dias: false,
+              horas: false,
+              minutos: false,
+              segundos: false,
+            });
+          }, 100); // Duration of the flip animation
+        }, 1000);
+      
+        // Clean up the interval on component unmount
+        return () => {
+          clearInterval(timer);
         }
-      })()
-      ; (async () => {
-        const response = await CourseApiModel.GetCourses()
-        response.status === 200 && setCourseslist(response.data)
-      })()
-      ; (async () => {
-        const response = await InstructorApiModel.GetInstructors()
-        response.status === 200 && setIntructorList(response.data)
-      })()
-      ; (async () => {
-        const response = await TrailersApiModel.GetTrailers()
-        response.status === 200 && setTrailerList(response.data)
-      })()
-      ; (async () => {
-        const response = await UserApiModel.GetCategories()
-        response.status === 200 && setTopics(response.data)
-      })()
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
-  }, [props.user, dispatch])
+      }, [targetDate, timeLeft]);
+  
+    const formatTime = (time: number) => {
+      return time.toString().padStart(2, '0');
+    };
+  
+    return (
+      <div className="returnTime">
+        {timeLeft.dias !== undefined ? (
+          <div className="timeContainer">
+            {['dias', 'horas', 'minutos', 'segundos'].map((unit) => (
+              <div className="typeTimeContainer" key={unit}>
+                <div className="dateContainer">
+                  <div className={`flip ${flipState[unit as keyof FlipState] ? 'flip-animate' : ''}`}>
+                    <div className="front">{formatTime(timeLeft[unit as keyof TimeLeft]!)}</div>
+                    <div className="back">{formatTime(timeLeft[unit as keyof TimeLeft]!)}</div>
+                  </div>
+                </div>
+                <div className="typeDateContainer">{unit.charAt(0).toUpperCase() + unit.slice(1)}</div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          "¡Tiempo acabado!"
+        )}
+      </div>
+    );
+  };
 
-  const closeModal = (e: any) => {
+export default function CountDown(props: any) {
+  const [loading, setLoading] = useState(false)
+  const targetDate = "2024-07-09T10:59:28";
 
-    if (showModal && !e.target.classList.contains("playing")) {
-      setShowModal(false)
-    }
-  }
 
   return (
     <>
@@ -121,95 +156,18 @@ export default function Login(props: any) {
 
       <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Main onClick={closeModal}>
+      <Main>
         <Loader loading={loading} />
-        <Modal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          title={"playing"}
-        >
-          {showModal && (
-            <video
-              className="page-top-video"
-              controls
-              style={{ width: "100%" }}
-              src={trailerPlay.video}
-              autoPlay
-            ></video>
-          )}
-        </Modal>
         <SideNav minimal={!props.user} />
-        <Header minimal={!props.user} home={true} />
         <article className='container'>
-                    <div className='title'>
-                        <article className='bars left'>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </article>
-                        <h1>APRENDE. <br />INSPÍRATE. <br />VUELA.</h1>
-                        <article className='bars'>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </article>
-                    </div>
-                    <Image
-                        className="imgBanner"
-                        src={manReflexive}
-                        alt="manBlue"
-                    />
-                    <h2>APRENDE DE LOS MEJORES. <br /> INSPÍRATE POR SU EXPERIENCIA.  <br /> VUELA SIN LÍMITES</h2>
-                    <div className='title'>
-                        <article className='bars left'>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </article>
-                        <p>AMBLY HACE HONOR A LA EXPERIENCIA DE LAS GRANDES MENTES LATINAS.</p>
-                        <article className='bars'>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </article>
-                    </div>
-                    <figure className='card'>
-                        <Image
-                            className="image"
-                            src={manBlue}
-                            height={210}
-                            width={500}
-                            alt=""
-                        />
-                        <figcaption>
-                            <p>CONOCE LA CLASE <br /> AMBLY <span>00</span>1: <br /> "HACKEA TU MENTE"</p>
-                            <Link href="/curso/33">Ver más</Link>
-                        </figcaption>
-                    </figure>
-                    <p>SOMOS, PERTENECEMOS Y TENEMOS EL PODER DE ALCANZAR CUALQUIER CIMA.</p>
-                    
-                    <div className="title">
-                        <article className='bars left'>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </article>
-                        <p>¿Quieres ser el primero en saber sobre nuestros próximos lanzamientos?</p>
-                        <article className='bars'>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </article>
-                    </div>
-                    <Form/>
-                </article>
-        <Footer />
+            <div className="contain">
+                <Image className="logo" src={IconAmbly} alt="" />
+            </div>
+            <div className='title'>
+                <Typography text="Corren las horas, los minutos y los segundos, por que la espera está a punto de terminar!" variant="H1"/>
+                <CountdownTimer targetDate={targetDate} />
+            </div>
+        </article>
       </Main>
     </>
   )
