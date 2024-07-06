@@ -58,7 +58,7 @@ const calculateTimeLeft = (targetDate: string): TimeLeft => {
 
 const refreshPageAndClearCache = () => {
   if (typeof window !== "undefined") {
-    window.location.reload(true);
+    window.location.reload();
   }
 };
   
