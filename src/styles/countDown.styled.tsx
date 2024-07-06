@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Main = styled.main`
 .container {
-    padding : 50px;
+    padding : 50px 0;
     display : flex;
     flex-direction : column;
     gap : 10vh;
@@ -23,6 +23,7 @@ export const Main = styled.main`
     color: white;
     h1 {
         text-align: center;
+        padding: 0 50px;
     }
     
 }
@@ -73,13 +74,14 @@ returnTime {
 
 .timeContainer {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 5%;
+  padding: 0 4px;
 }
 
 @media (min-width: 768px) {
   .timeContainer {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -116,6 +118,14 @@ returnTime {
     font-size: 2rem;
     line-height: 2rem;
   }
+  .typeDatteContainer {
+    font-size: 1rem;
+    line-heigth: 1rem;
+  }
+
+  .timeContainer{
+    gap: 10px;
+  }
 }
 
 .typeDateContainer {
@@ -147,7 +157,7 @@ returnTime {
   height: 100%;
   backface-visibility: hidden;
   transition: transform 0.1s cubic-bezier(1, 1, 1, 1);
-  color: red;
+  color: #EC4942;
   display: flex;
   justify-content: center;
 }

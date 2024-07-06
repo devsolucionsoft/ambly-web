@@ -55,6 +55,12 @@ const calculateTimeLeft = (targetDate: string): TimeLeft => {
 
   return timeLeft;
 };
+
+const refreshPageAndClearCache = () => {
+  if (typeof window !== "undefined") {
+    window.location.reload(true);
+  }
+};
   
   // Componente de contador de tiempo
   const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
@@ -93,7 +99,13 @@ const calculateTimeLeft = (targetDate: string): TimeLeft => {
               minutos: false,
               segundos: false,
             });
-          }, 100); // Duration of the flip animation
+          }, 100);
+          
+          if (newTimeLeft.dias === 0 && newTimeLeft.horas === 0 && newTimeLeft.minutos === 0 && newTimeLeft.segundos === 0) {
+            clearInterval(timer);
+            refreshPageAndClearCache();
+          }
+
         }, 1000);
       
         // Clean up the interval on component unmount
@@ -123,7 +135,7 @@ const calculateTimeLeft = (targetDate: string): TimeLeft => {
             ))}
           </div>
         ) : (
-          "¡Tiempo acabado!"
+          "¡La espera ha finalizado!"
         )}
       </div>
     );
@@ -164,7 +176,7 @@ export default function CountDown(props: any) {
                 <Image className="logo" src={IconAmbly} alt="" />
             </div>
             <div className='title'>
-                <Typography text="Corren las horas, los minutos y los segundos, por que la espera está a punto de terminar!" variant="H1"/>
+                <Typography text="Corren las horas, los minutos y los segundos, porque la espera está a punto de terminar!" variant="H1"/>
                 <CountdownTimer targetDate={targetDate} />
             </div>
         </article>
