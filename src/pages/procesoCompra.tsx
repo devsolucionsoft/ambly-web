@@ -419,7 +419,7 @@ export default function Carrito(props: any) {
               flexDirection: "column",
             }}
               method="post"
-              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+              action="https://checkout.payulatam.com/ppp-web-gateway-payu/"
               ref={formRefLogged}
 
             >
@@ -443,7 +443,7 @@ export default function Carrito(props: any) {
                 <input
                   name="responseUrl"
                   type="hidden"
-                  value={`https://ambly-web.vercel.app/compra-realizada`}
+                  value={`https://ambly.co/compra-realizada`}
                 />
                 <input
                   name="confirmationUrl"
@@ -474,7 +474,7 @@ export default function Carrito(props: any) {
                 flexDirection: "column",
               }}
                 method="post"
-                action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+                action="https://checkout.payulatam.com/ppp-web-gateway-payu/"
                 ref={formRef}
               >
                 <div className="divider"></div>
@@ -497,8 +497,8 @@ export default function Carrito(props: any) {
                   <input
                     name="responseUrl"
                     type="hidden"
-                    value={`https://ambly-web.vercel.app/compra-realizada`}
-                  />
+                    value={`https://ambly.co/compra-realizada`}
+                    />
                   <input
                     name="confirmationUrl"
                     type="hidden"
