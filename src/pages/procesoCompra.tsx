@@ -420,7 +420,7 @@ export default function Carrito(props: any) {
               flexDirection: "column",
             }}
               method="post"
-              action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+              action="https://checkout.payulatam.com/ppp-web-gateway-payu"
               ref={formRefLogged}
 
             >
@@ -475,7 +475,7 @@ export default function Carrito(props: any) {
                 flexDirection: "column",
               }}
                 method="post"
-                action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"
+                action="https://checkout.payulatam.com/ppp-web-gateway-payu"
                 ref={formRef}
               >
                 <div className="divider"></div>
