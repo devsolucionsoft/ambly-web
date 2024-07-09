@@ -145,6 +145,18 @@ export class AuthApi {
       return error.response
     }
   }
+
+  async SendEmail(data: any) {
+    try {
+      return await axios.post(`${url}/newsletter`, {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      })
+    } catch (error: any) {
+      return error.response
+    }
+  }
 }
 
 export class UserApi {

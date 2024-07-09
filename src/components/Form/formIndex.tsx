@@ -1,10 +1,14 @@
+import { AuthApi } from '@/pages/api';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import Swal from 'sweetalert2';
 
 export const Form = () => {
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [errors, setErrors] = useState<{ name: string, email: string, phone: string }>({ name: '', email: '', phone: '' });
+    const AuthApiModel = new AuthApi()
+
 
     const validateEmail = (email: string): boolean => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -16,7 +20,7 @@ export const Form = () => {
         return re.test(String(phone));
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let valid = true;
         let errors = { name: '', email: '', phone: '' };
@@ -39,8 +43,27 @@ export const Form = () => {
         setErrors(errors);
 
         if (valid) {
-            // Aquí puedes manejar el envío del formulario
-            console.log('Formulario válido, enviando...');
+            const response = await AuthApiModel.SendEmail({name: name, email: email, phone: phone});
+            if(response && response.status === 200){
+                Swal.fire({
+                    title: "Envio exitoso.",
+                    text: "Pronto nos pondremos en contacto contigo.",
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                  }).then(() => { 
+                    setName('');
+                    setEmail('');
+                    setPhone('');
+                })
+            }
+            else if(response && response.status !== 200){
+                Swal.fire({
+                    title: "No se ha podido realizar el regístro.",
+                    text: "Comprueba tu email e intentalo mas tarde",
+                    icon: "error",
+                    confirmButtonText: "Aceptar",
+                })
+            }
         }
     };
 
