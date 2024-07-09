@@ -244,7 +244,7 @@ export default function Carrito(props: any) {
         ))
         setTimeout(() => {
           if (formRefLogged.current) {
-            formRefLogged.current.submit();
+            // formRefLogged.current.submit();
           } else {
             console.error("El formulario no está disponible.");
           }
@@ -379,7 +379,7 @@ export default function Carrito(props: any) {
             // Espera a la actualización de paymentData y luego envía el formulario
             setTimeout(() => {
               if (formRef.current) {
-                formRef.current.submit();
+                // formRef.current.submit();
               } else {
                 console.error("El formulario no está disponible.");
               }

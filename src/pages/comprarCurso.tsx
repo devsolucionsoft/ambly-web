@@ -262,7 +262,7 @@ export default function Carrito(props: any) {
         ))
         setTimeout(() => {
           if (formRefLogged.current) {
-            formRefLogged.current.submit();
+            // formRefLogged.current.submit();
           } else {
             console.error("El formulario no está disponible.");
           }
