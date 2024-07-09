@@ -52,7 +52,6 @@ export default function Login(props: any) {
     title: "",
     video: "",
   })
-  console.log(props);
 
 
   const handleTrailerClick = (item: any) => {

@@ -38,8 +38,6 @@ export default function Login(props: any) {
   const { filtro } = router.query
   const [loading, setLoading] = useState(false)
 
-  console.log(filtro);
-
 
   useEffect(() => {
     const UserpiModel = new UserApi()

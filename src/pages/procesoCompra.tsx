@@ -301,8 +301,8 @@ export default function Carrito(props: any) {
           icon: "error",
           confirmButtonText: "Aceptar",
         })
+        setLoading(false);
         return;
-
       }
       setCurrentUser({
         username: stateInputs.username,
@@ -352,15 +352,12 @@ export default function Carrito(props: any) {
       const response = await handleRegistry();
       if (response.status === 201) {
         const responseLogin = await handleLogin();
-        console.log(responseLogin);
 
         if (responseLogin?.status === 200) {
-          console.log(data);
           const responseTransaction = await PayuApiModel.RegisterTransaction({
             ...data,
             token: responseLogin.data.token,
           });
-          console.log(responseTransaction);
 
           if (responseTransaction.status === 200) {
             setPaymentData((prevData) => ({

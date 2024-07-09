@@ -40,8 +40,6 @@ export default function Login() {
   useEffect(() => {
     setInfo(intructorList.find((item: any) => item.id == id_maestro))
   }, [intructorList, id_maestro])
-
-  console.log(instructorInfo);
   
 
   return (
